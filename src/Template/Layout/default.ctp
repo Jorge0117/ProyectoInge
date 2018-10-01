@@ -27,8 +27,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->meta('icon')    ?>
 
     <!-- Espacio donde se cargan los archivos pertinentes a bootstrap -->
-    <?= $this->Html->css('bootstrap.min')?>
-    <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min']) ?>
+    <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'])?>
+    <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min','jquery.dataTables.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -38,7 +38,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <!-- Espacio para el nombre del proyecto. Además se definen columnas-->
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ECCI</a>
 
       <!-- Barra de la derecha. Aqui está el sing out-->
       <ul class="navbar-nav px-3">
