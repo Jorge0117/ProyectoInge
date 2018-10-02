@@ -9,26 +9,26 @@ phone varchar(12) null,
 primary key(id) ); 
 
 create table students(
-id_user varchar(10) not null,
+id_users varchar(10) not null,
 carne varchar(6) not null,
-foreign key (id_user) references user(id),
-primary key(id_user)
+foreign key (id_users) references users(id),
+primary key(id_users)
 );
 
 create table administrative_bosses(
-id_user varchar(10) not null,
-primary key(id_user),
-foreign key (id_user) references user(id)
+id_users varchar(10) not null,
+primary key(id_users),
+foreign key (id_users) references users(id)
 );
 
 create table administrative_assistants(
-id_administrative_assistant varchar(10) not null,
-primary key(id_user),
-foreign key (id_user) references user(id)
+id_users varchar(10) not null,
+primary key(id_users),
+foreign key (id_users) references users(id)
 );
 
 create table professors(
-id_professor varchar(10) not null,
-primary key(id_user),
-foreign key (id_user) references user(id)
+id_users varchar(10) not null,
+primary key(id_users),
+foreign key (id_users) references users(id)
 );
