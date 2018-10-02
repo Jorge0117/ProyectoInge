@@ -1,4 +1,4 @@
-CREATE TABLE `Proyecto`.`rounds` (
+CREATE TABLE `rounds` (
   `number` INT NOT NULL,
   `semester` INT NOT NULL,
   `year` INT NOT NULL,
