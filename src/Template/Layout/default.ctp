@@ -33,12 +33,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style type="text/css">
+        *{margin: 0; padding: 0}
+        ul {
+            list-style: none;
+        }
+        ul li {
+            width: 250px;
+            background: dark;
+            padding: 20px;
+            border-top: 5px solid #0d0d0d;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #ffffff;
+            front-size: 1em;
+            text-shadow: 0 0 1px rgba(0,0,0,.1);
+        }
+        ul li a:hover {
+            opacity: .9;
+            margin-left: 7px;
+        }
+    </style>
 </head>
 <body>
 
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <!-- Espacio para el nombre del proyecto. Además se definen columnas-->
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ECCI</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" style="width:200;height:50;"></a>
 
       <!-- Barra de la derecha. Aqui está el sing out-->
       <ul class="navbar-nav px-3">
@@ -57,19 +79,33 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <div class="sidebar-sticky pt-5">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <?= $this->Html->link('Matricula',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+                <?= $this->Html->link('Inicio',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
               </li>
               
               <li class="nav-item">
-                <?= $this->Html->link('Cursos',['controller'=>'Subjects','action'=>'index'],['class'=>'nav-link']) ?>
+                <?= $this->Html->link('Solicitudes',['controller'=>'Subjects','action'=>'index'],['class'=>'nav-link']) ?>
               </li>
 
               <li class="nav-item">
-                <?= $this->Html->link('Estudiantes',['controller'=>'Students','action'=>'index'],['class'=>'nav-link']) ?>
+                <?= $this->Html->link('Curso-grupo',['controller'=>'Students','action'=>'index'],['class'=>'nav-link']) ?>
               </li>
+                
               <li class="nav-item">
-                <?= $this->Html->link('Departamentos',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
+                <?= $this->Html->link('Requisitos',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
               </li>
+                
+              <li class="nav-item">
+                <?= $this->Html->link('Rondas',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
+              </li>
+                
+              <li class="nav-item">
+                <?= $this->Html->link('Usuarios',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
+              </li>
+                
+              <li class="nav-item">
+                <?= $this->Html->link('Roles',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
+              </li>
+                
             </ul>
 
           </div>
