@@ -1,34 +1,34 @@
 create table users ( 
-user_id varchar(10) not null, 
+id varchar(10) not null, 
 name varchar(50) not null, 
 lastname1 varchar(50) not null, 
 lastname2 varchar(50) null, 
 email_ecci varchar(200) not null, 
 email_personal varchar(200) not null,
 phone varchar(12) null, 
-primary key(user_id) ); 
+primary key(id) ); 
 
 create table students(
-id_student varchar(10) not null,
+id_user varchar(10) not null,
 carne varchar(6) not null,
-foreign key (id_student) references user(user_id),
-primary key(id_student)
+foreign key (id_user) references user(id),
+primary key(id_user)
 );
 
 create table administrative_bosses(
-id_administrative_boss varchar(10) not null,
-primary key(id_administrative_boss),
-foreign key (id_administrative_boss) references user(user_id)
+id_user varchar(10) not null,
+primary key(id_user),
+foreign key (id_user) references user(id)
 );
 
 create table administrative_assistants(
 id_administrative_assistant varchar(10) not null,
-primary key(id_administrative_assistant),
-foreign key (id_administrative_assistant) references user(user_id)
+primary key(id_user),
+foreign key (id_user) references user(id)
 );
 
 create table professors(
 id_professor varchar(10) not null,
-primary key(id_professor),
-foreign key (id_professor) references user(user_id)
+primary key(id_user),
+foreign key (id_user) references user(id)
 );
