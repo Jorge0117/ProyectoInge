@@ -118,7 +118,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         height: 50px;
         position: absolute;
         top: -23px;
-        left: -358px;
+        left: -365px;
       }
       #OverviewText3{
         position: relative;
