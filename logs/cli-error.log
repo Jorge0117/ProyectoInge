@@ -156,3 +156,48 @@ Stack Trace:
 #13 {main}
 
 
+2018-10-03 16:24:05 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
+2018-10-03 16:29:53 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
+2018-10-03 16:30:33 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
