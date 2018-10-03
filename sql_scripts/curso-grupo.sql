@@ -7,12 +7,12 @@ create table courses (
 );
 
 create table classes (
-	courses_id		char(7),
-    class_number	tinyint,
+	course_id		char(7),
+    id          	tinyint,
     semester		tinyint,
     year			year,
     state			bool,
     
-    primary key(courses_id),
+    primary key(courses_id,id),
     foreign key(courses_id) references courses(id)
 )
