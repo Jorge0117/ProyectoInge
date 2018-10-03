@@ -1,14 +1,14 @@
 Create Table requirements(
-	id        INT	Primary Key,
-	requirements_description    VARCHAR(250)	Not Null,
-	requirements_type		    Char			Not Null
+	requirement_number	INT	         Primary Key,
+	description         VARCHAR(250) Not Null,
+	type		        ENUM('Obligatorio', 'Opcional')	 Not Null
 );
 
-Create Table states_requirements(
-	requirements_id	INT 	Not Null,
-	request_id		INT	    Not Null,
-	request_state		        Bool	Not Null Default 0,
-	FOREIGN KEY (requirements_id) References requirements(requirements_id),
-	FOREIGN KEY (request_id) References Request(request_id),
-	PRIMARY KEY (requirements_id, request_id)
+Create Table fulfills_requirement (
+	requirement_id	    INT 	Not Null,
+	application_id		INT	    Not Null,
+	is_fulfilled		Bool	Not Null Default false,
+	FOREIGN KEY (requirement_id) References requirements(requirement_number),
+	FOREIGN KEY (application_id) References applications(application_number),
+	PRIMARY KEY (requirement_id, application_id)
 );

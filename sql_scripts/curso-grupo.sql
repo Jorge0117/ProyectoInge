@@ -1,18 +1,17 @@
 create table courses (
-    id				char(7),
-    name			varchar(255),
-    credits			tinyint,
-    
-    primary key(id)
+    code               char(7),
+    name               varchar(255),
+    credits            tinyint,
+    primary key(code)
 );
 
 create table classes (
-	course_id		char(7),
-    id          	tinyint,
-    semester		tinyint,
-    year			year,
-    state			bool,
-    
-    primary key(courses_id,id),
-    foreign key(courses_id) references courses(id)
+    course_id       char(7),
+    class_number    tinyint,
+    semester        tinyint,
+    year            year,
+    state           bool,
+    primary key(course_id, class_number, semester, year),
+    foreign key(course_id) references courses(code)
 )
+
