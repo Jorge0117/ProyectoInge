@@ -195,6 +195,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <?= $this->fetch('content') ?>
                 </div>
             </div>
-        </main>
+    </main>
+    <footer>
+    </footer>
 </body>
 </html>
