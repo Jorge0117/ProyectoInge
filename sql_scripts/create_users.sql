@@ -22,22 +22,20 @@ create table students(
     primary key(user_id)
 );
 
--- FIXME:
--- Corregir el resto
 create table administrative_bosses(
-id_users varchar(10) not null,
-primary key(id_users),
-foreign key (id_users) references users(id)
+    user_id varchar(10) not null,
+    primary key(user_id),
+    foreign key (user_id) references users(identification_number)
 );
 
 create table administrative_assistants(
-id_users varchar(10) not null,
-primary key(id_users),
-foreign key (id_users) references users(id)
+    user_id varchar(10) not null,
+    primary key(user_id),
+    foreign key (user_id) references users(identification_number)
 );
 
 create table professors(
-id_users varchar(10) not null,
-primary key(id_users),
-foreign key (id_users) references users(id)
+    user_id varchar(10) not null,
+    primary key(user_id),
+    foreign key (user_id) references users(identification_number)
 );
