@@ -1005,6 +1005,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-04 16:11:52 Warning: Warning (512): Method BootstrapUI\View\Helper\HtmlHelper::button does not exist in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\Helper.php, line 139]
 Request URL: /courses-classes-vw
 Referer URL: http://localhost/ProyectoInge/courses
@@ -1149,6 +1150,49 @@ Stack Trace:
 
 
 2018-10-04 16:35:26 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Enrollments could not be found.
+=======
+2018-10-04 21:19:34 Error: [ParseError] syntax error, unexpected '<<' (T_SL), expecting end of file
+Request URL: /courses/view/CI-1320
+Referer URL: http://localhost/ProyectoInge/Courses
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(778): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(2938): Cake\ORM\Table->getEntityClass()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(606): Cake\ORM\Table->__debugInfo()
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(530): Cake\Error\Debugger::_object(Object(App\Model\Table\ClassesTable), 1, 2)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(571): Cake\Error\Debugger::_export(Object(App\Model\Table\ClassesTable), 2, 1)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(606): Cake\Error\Debugger::_array(Array, 2, 1)
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(530): Cake\Error\Debugger::_object(Object(Cake\ORM\Query), 3, 1)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(495): Cake\Error\Debugger::_export(Object(Cake\ORM\Query), 4, 0)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Template\Element\exception_stack_trace.ctp(37): Cake\Error\Debugger::exportVar(Object(Cake\ORM\Query), 4)
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1240): include('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1201): Cake\View\View->_evaluate('C:\\xampp\\htdocs...', Array)
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1598): Cake\View\View->_render('C:\\xampp\\htdocs...', Array)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(706): Cake\View\View->_renderElement('C:\\xampp\\htdocs...', Array, Array)
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Template\Layout\dev_error.ctp(220): Cake\View\View->element('exception_stack...')
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1240): include('C:\\xampp\\htdocs...')
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1201): Cake\View\View->_evaluate('C:\\xampp\\htdocs...', Array)
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(850): Cake\View\View->_render('C:\\xampp\\htdocs...')
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(808): Cake\View\View->renderLayout('', 'dev_error')
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(777): Cake\View\View->render('error500', NULL)
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(329): Cake\Controller\Controller->render('error500')
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(338): Cake\Error\ExceptionRenderer->_outputMessage('error500')
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(205): Cake\Error\ExceptionRenderer->_outputMessage('parseError')
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(118): Cake\Error\ExceptionRenderer->render()
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(100): Cake\Error\Middleware\ErrorHandlerMiddleware->handleException(Object(ParseError), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#30 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#31 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#32 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#33 {main}
+
+
+2018-10-04 21:23:57 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Enrollments could not be found.
+>>>>>>> Cambio vista add grupo
 Exception Attributes: array (
   'class' => 'Enrollments',
   'plugin' => false,
@@ -1156,7 +1200,11 @@ Exception Attributes: array (
   '_ext' => false,
 )
 Request URL: /enrollments
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
+=======
+Referer URL: http://localhost/ProyectoInge/Courses
+>>>>>>> Cambio vista add grupo
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
 #1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
@@ -1178,6 +1226,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-04 18:28:05 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -1211,10 +1260,56 @@ Stack Trace:
 2018-10-04 18:28:05 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
+=======
+2018-10-04 21:24:03 Error: [ParseError] syntax error, unexpected '<<' (T_SL), expecting end of file
+Request URL: /courses/view/CI-1320
+Referer URL: http://localhost/ProyectoInge/Courses
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(778): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(2938): Cake\ORM\Table->getEntityClass()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(606): Cake\ORM\Table->__debugInfo()
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(530): Cake\Error\Debugger::_object(Object(App\Model\Table\ClassesTable), 1, 2)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(571): Cake\Error\Debugger::_export(Object(App\Model\Table\ClassesTable), 2, 1)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(606): Cake\Error\Debugger::_array(Array, 2, 1)
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(530): Cake\Error\Debugger::_object(Object(Cake\ORM\Query), 3, 1)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Debugger.php(495): Cake\Error\Debugger::_export(Object(Cake\ORM\Query), 4, 0)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Template\Element\exception_stack_trace.ctp(37): Cake\Error\Debugger::exportVar(Object(Cake\ORM\Query), 4)
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1240): include('C:\\xampp\\htdocs...')
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1201): Cake\View\View->_evaluate('C:\\xampp\\htdocs...', Array)
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1598): Cake\View\View->_render('C:\\xampp\\htdocs...', Array)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(706): Cake\View\View->_renderElement('C:\\xampp\\htdocs...', Array, Array)
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Template\Layout\dev_error.ctp(220): Cake\View\View->element('exception_stack...')
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1240): include('C:\\xampp\\htdocs...')
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(1201): Cake\View\View->_evaluate('C:\\xampp\\htdocs...', Array)
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(850): Cake\View\View->_render('C:\\xampp\\htdocs...')
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\View\View.php(808): Cake\View\View->renderLayout('', 'dev_error')
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(777): Cake\View\View->render('error500', NULL)
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(329): Cake\Controller\Controller->render('error500')
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(338): Cake\Error\ExceptionRenderer->_outputMessage('error500')
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(205): Cake\Error\ExceptionRenderer->_outputMessage('parseError')
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(118): Cake\Error\ExceptionRenderer->render()
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(100): Cake\Error\Middleware\ErrorHandlerMiddleware->handleException(Object(ParseError), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#30 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#31 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#32 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#33 {main}
+
+
+2018-10-04 21:26:46 Error: [Cake\Routing\Exception\MissingControllerException] Controller class CoursesGroupsVw could not be found.
+Exception Attributes: array (
+  'class' => 'CoursesGroupsVw',
+>>>>>>> Cambio vista add grupo
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 Request URL: /images/sort_asc.png
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
@@ -1247,6 +1342,9 @@ Exception Attributes: array (
 )
 Request URL: /enrollments
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
+=======
+Request URL: /CoursesGroupsVw
+>>>>>>> Cambio vista add grupo
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
 #1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
@@ -1268,6 +1366,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-04 18:28:22 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Enrollments could not be found.
 Exception Attributes: array (
   'class' => 'Enrollments',
@@ -1448,6 +1547,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-05 01:21:19 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -17053,3 +17153,7 @@ Stack Trace:
 #17 {main}
 
 
+=======
+=======
+>>>>>>> Cambio vista add grupo
+>>>>>>> Cambio vista add grupo
