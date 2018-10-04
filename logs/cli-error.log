@@ -66,3 +66,22 @@ Stack Trace:
 #18 {main}
 
 
+2018-10-03 16:18:05 Warning: Warning (2): mkdir(): No such file or directory in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\View\BakeView.php, line 108]
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+mkdir - [internal], line ??
+Bake\View\BakeView::initialize() - ROOT\vendor\cakephp\bake\src\View\BakeView.php, line 108
+Cake\View\View::__construct() - CORE\src\View\View.php, line 371
+Bake\Shell\Task\BakeTemplateTask::getView() - ROOT\vendor\cakephp\bake\src\Shell\Task\BakeTemplateTask.php, line 65
+Bake\Shell\Task\BakeTemplateTask::generate() - ROOT\vendor\cakephp\bake\src\Shell\Task\BakeTemplateTask.php, line 88
+Bake\Shell\Task\ModelTask::bakeTable() - ROOT\vendor\cakephp\bake\src\Shell\Task\ModelTask.php, line 971
+Bake\Shell\Task\ModelTask::bake() - ROOT\vendor\cakephp\bake\src\Shell\Task\ModelTask.php, line 115
+Bake\Shell\Task\ModelTask::main() - ROOT\vendor\cakephp\bake\src\Shell\Task\ModelTask.php, line 101
+Cake\Console\Shell::runCommand() - CORE\src\Console\Shell.php, line 532
+Cake\Console\Shell::runCommand() - CORE\src\Console\Shell.php, line 525
+Cake\Console\CommandRunner::runShell() - CORE\src\Console\CommandRunner.php, line 342
+Cake\Console\CommandRunner::run() - CORE\src\Console\CommandRunner.php, line 164
+[main] - ROOT\bin\cake.php, line 12
+
+
+
