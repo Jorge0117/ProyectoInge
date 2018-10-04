@@ -157,7 +157,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?></li>
 					</ul>
 				</li>
-				<li><?= $this->Html->link('Curso-grupo',['controller'=>'Courses','action'=>'index'],['class'=>'nav-link']) ?>
+				<li><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
