@@ -4,9 +4,8 @@
  * @var \App\Model\Entity\Course[]|\Cake\Collection\CollectionInterface $courses
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        
+<nav class="large-8 medium-8 columns" id="actions-sidebar">
+    <ul class="nav">
         <li><?= $this->Html->link(__('Agregar un curso'), ['controller' => 'CoursesClassesVw', 'action' => 'add']) ?></li>
     </ul>
 </nav>
