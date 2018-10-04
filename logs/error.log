@@ -1547,6 +1547,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-05 01:21:19 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -17152,6 +17153,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< joeCursosGrupos
 2018-10-09 15:54:09 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -20697,3 +20699,9 @@ Stack Trace:
 #17 {main}
 
 
+=======
+=======
+=======
+>>>>>>> Cambio vista add grupo
+>>>>>>> Cambio vista add grupo
+>>>>>>> Cambio vista add grupo
