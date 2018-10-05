@@ -34,6 +34,7 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
+        'identification_number' => true,
         'name' => true,
         'lastname1' => true,
         'lastname2' => true,
