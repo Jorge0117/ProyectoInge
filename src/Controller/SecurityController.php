@@ -34,16 +34,15 @@ class SecurityController extends AppController
             if ($ldapconn) {
                 $ldapbind = @ldap_bind($ldapconn, $dn, $password);
                 if ($ldapbind) {
-                    
                     debug("EXITO!");
-                    die();
                 }
                 else {
+                    debug("Datos invalidos");
                     $this->Flash->error('Datos inválidos', ['key' => 'auth']);
-
                 }
             }
             else {
+                debug("No hay conexion");
                 $this->Flash->error('No se pudo conectar con el servidor', ['key' => 'auth']);
             }
 

@@ -33,7 +33,7 @@
                 <legend><?= __('Datos personales') ?></legend>
                 <?php
                     echo $this->Form->control('Usuario');
-                    echo $this->Form->control('Contraseña');
+                    echo $this->Form->control('Contraseña', ['type' => 'password',]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Aceptar')) ?>
