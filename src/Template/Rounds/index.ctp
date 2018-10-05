@@ -7,21 +7,26 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Acciones') ?></li>
-        <li><?= $this->Html->link(__('Nueva Ronda'), ['action' => 'add']) ?></li>
+        
     </ul>
+    
 </nav>
+
 <div class="rounds index large-9 medium-8 columns content">
-    <h3><?= __('Rondas') ?></h3>
+    <h3>
+        <?= __('Rondas') ?>
+        <?= $this->Form->Button('Agregar Ronda',['RoundsController' => 'Rounds', 'action'=> 'add','align'=>'right']) ?>
+    </h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('#') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Fecha Inicial') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Fecha Final') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Fecha Final Aprovación') ?></th>
-                <th scope="col" class="actions"><?= __('Acciones') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('#') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col"><?= $this->Paginator->sort('Semestre') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col"><?= $this->Paginator->sort('Año') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col"><?= $this->Paginator->sort('Fecha Inicial') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col"><?= $this->Paginator->sort('Fecha Final') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col"><?= $this->Paginator->sort('Fecha Final Aprovación') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col" class="actions"><?= __('Acciones') ?>&nbsp;&nbsp;&nbsp;&nbsp;</th>
             </tr>
         </thead>
         <tbody>

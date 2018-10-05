@@ -13,7 +13,7 @@
 <div class="rounds form large-9 medium-8 columns content">
     <?= $this->Form->create($round) ?>
     <fieldset>
-        <legend><?= __('Añadir Ronda') ?></legend>
+        <legend><?= __('Agregar Ronda') ?></legend>
         <?php
             echo $this->Form->control('start_date');
             echo $this->Form->control('end_date');
