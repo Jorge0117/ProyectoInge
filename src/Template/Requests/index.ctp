@@ -25,10 +25,10 @@
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Fecha Solicitud') ?></th>
                <!-- <th scope="col"><?= $this->Paginator->sort('class_year') ?></th> Fecha redundante-->
-                <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
+               <!-- <th scope="col"><?= $this->Paginator->sort('Curso') ?></th> -->
                <!-- <th scope="col"><?= $this->Paginator->sort('class_semester') ?></th> Semestre redundante-->
                <th scope="col"><?= $this->Paginator->sort('Numero Grupo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('id estudiante (*)') ?></th>
+               <!-- <th scope="col"><?= $this->Paginator->sort('id estudiante (*)') ?></th> -->
                 <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
                  <th scope="col"><?= $this->Paginator->sort('Otras Horas Asistente') ?></th>
                <th scope="col"><?= $this->Paginator->sort('Otras Horas Estudiante') ?></th>
@@ -45,9 +45,9 @@
                 <td><?= h($request->reception_date) ?></td>
              <!--   <td><?= h($request->class_year) ?></td> -->
                 <td><?= $request->has('course') ? $this->Html->link($request->course->name, ['controller' => 'Courses', 'action' => 'view', $request->course->code]) : '' ?></td>
-              <td><?= $this->Number->format($request->class_semester) ?></td>
+              <!--<td><?= $this->Number->format($request->class_semester) ?></td> -->
              <!--     <td><?= $this->Number->format($request->class_number) ?></td> -->
-                <td><?= $request->has('student') ? $this->Html->link($request->student->user_id, ['controller' => 'Students', 'action' => 'view', $request->student->user_id]) : '' ?></td>
+             <!--   <td><?= $request->has('student') ? $this->Html->link($request->student->user_id, ['controller' => 'Students', 'action' => 'view', $request->student->user_id]) : '' ?></td> -->
                 <td><?= h($request->status) ?></td>
                 <td><?= $this->Number->format($request->another_assistant_hours) ?></td>
                 <td><?= $this->Number->format($request->another_student_hours) ?></td>

@@ -1,9 +1,4 @@
 drop table approvedrequests;
-drop table rejectedrequests;
-drop table pendingrequests;
-drop table noteligiblerequests;
-drop table eligiblerequests;
-drop table requestsrequirements;
 drop table requests;
 
 
@@ -26,56 +21,30 @@ CREATE TABLE `proyecto_inge`.`requests` (
   FOREIGN KEY(student_id) references students(user_id));
   /*Reservado para FOREIGN KEY de Rondas*/
   
-  
-   ALTER TABLE requests AUTO_INCREMENT = 1;
-  
-  
-  
+CREATE TABLE `proyecto_inge`.`approvedrequests` (
+  `request_id` INT NOT NULL,
+  `assistant_hours` TINYINT NOT NULL,
+  `student_hours` TINYINT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));
+
+CREATE TABLE `proyecto_inge`.`requests_backup` (
+  `student_id` VARCHAR(20) NOT NULL,
+  `course_id` CHAR(7) NULL,
+  `class_id` CHAR(7) NULL,
+  `requests_backupcol` VARCHAR(45) NULL,
+  `another_student_hours` TINYINT NULL,
+  `another_assistant_hours` VARCHAR(45) NULL,
+  PRIMARY KEY (`student_id`));
+
+
+
   CREATE TABLE `proyecto_inge`.`requestsrequirements` (
   `requirement_number` INT NOT NULL,
   `request_id` INT NOT NULL,
   PRIMARY KEY (`requirement_number`, `request_id`),
   FOREIGN KEY(request_id) REFERENCES requests(id),
   FOREIGN KEY(requirement_number) REFERENCES requirements(requirement_number));
-
-  
-  
- 
-CREATE TABLE `proyecto_inge`.`approvedrequests` (
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`request_id`),
-foreign key (request_id) references requests(id));
-
-CREATE TABLE `proyecto_inge`.`rejectedrequests` (
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`request_id`),
-foreign key (request_id) references requests(id));
-
-CREATE TABLE `proyecto_inge`.`pendingrequests` (
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`request_id`),
-foreign key (request_id) references requests(id));
-
-CREATE TABLE `proyecto_inge`.`eligiblerequests` (
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`request_id`),
-foreign key (request_id) references requests(id));
-
-CREATE TABLE `proyecto_inge`.`noteligiblerequests` (
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`request_id`),
-foreign key (request_id) references requests(id));
-
-
-
-CREATE TRIGGER wait_request
-AFTER insert ON requests
-FOR EACH ROW
-insert INTO pendingrequests
-VALUES(NEW.id);
-
-
-/*Reservado para Trigger que inserta requisitos en la solicitud*/
 
 
 
