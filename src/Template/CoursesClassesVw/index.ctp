@@ -11,7 +11,7 @@
 </nav>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Cursos-Grupos') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+    <table cellpadding="0" cellspacing="0" id = 'viewCoursesClassesDatagrid'>
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Sigla') ?></th>
@@ -34,21 +34,36 @@
                 <td><?= h($course->Año) ?></td>
                 
                 <td class="actions">
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $course->code]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $course->code], ['confirm' => __('Are you sure you want to delete # {0}?', $course->code)]) ?>
+                    <?= $this->Html->link(
+                                        __('Editar'), ['action' => 'edit', $course->Sigla]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $course->code], ['confirm' => __('Are you sure you want to delete # {0}?', $course->code)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('anterior')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('siguiente') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Página {{page}} de {{pages}}, se muestran {{current}} curso(s) de {{count}} en total.')]) ?></p>
-    </div>
-</div>
+    
+
+<script type="text/javascript">
+    $(document).ready( function () {
+        $("#viewCoursesClassesDatagrid").DataTable(
+          {
+            /** Configuración del DataTable para cambiar el idioma, se puede personalisar aun más **/
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ filas por página",
+                "zeroRecords": "Sin resultados",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Sin datos disponibles",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+            }
+          }
+        );
+    } );
+</script>
