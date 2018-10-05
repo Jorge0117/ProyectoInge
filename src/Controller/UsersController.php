@@ -54,10 +54,11 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            debug($user);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
-            }
+            } 
             $this->Flash->error(__('No se pudo crear el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);

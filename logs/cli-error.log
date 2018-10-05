@@ -85,3 +85,39 @@ Cake\Console\CommandRunner::run() - CORE\src\Console\CommandRunner.php, line 164
 
 
 
+2018-10-05 20:25:23 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(548): Cake\Database\Schema\CachedCollection->describe('view_rounds')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'professors', 'Professors')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Professors')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Professors')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#12 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#13 {main}
+
+
+2018-10-05 20:48:47 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(548): Cake\Database\Schema\CachedCollection->describe('view_rounds')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'administrative_...', 'AdministrativeB...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('AdministrativeB...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('AdministrativeB...')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#12 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#13 {main}
+
+
