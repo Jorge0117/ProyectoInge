@@ -18,13 +18,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .button {
         background-color: #ceb92bff;
         border: none;
-        color:#fff;
-        padding: 15px 32px;
+        padding: 5px 7px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin: 8px 2px;
         cursor: pointer;
         float: right;
     }
