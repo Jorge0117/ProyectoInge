@@ -14,13 +14,23 @@
  */
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
-<nav class="large-8 medium-8 columns" id="actions-sidebar">
-    <ul class="nav">
-        <li><?= $this->Html->link(__('Agregar un requisito'), ['controller' => 'Requirements', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
+<style>
+    .button {
+        background-color: #ceb92bff;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float: right;
+    }
+</style>
+<button class="button">Agregar</button>
 <div class="courses index large-9 medium-8 columns content">
-    <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
             <tr>
@@ -32,13 +42,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <tbody>
             <?php foreach ($requirements as $requirement): ?>
             <tr>
-                <td><?= h($requirement->requirement_number) ?></td>
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
-                
                 <td class="actions">
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $course->Sigla]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $course->code], ['confirm' => __('Are you sure you want to delete # {0}?', $course->code)]) ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->type]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->type], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->type)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
