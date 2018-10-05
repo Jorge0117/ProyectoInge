@@ -82,15 +82,18 @@ class RoundsTable extends Table
         $connet->execute("call insert_round ('$start_d','$end_d','$approve')");
     }
 
-    public function getLastRound(){
-        $connet = ConnectionManager::get('default');
-        $connet->execute("call select_last_round ()");
-        //return $result;
-    }
+    // public function getLastRound(){
+    //     $connet = ConnectionManager::get('default');
+    //     $connet->execute("call select_last_round ()");
+    // }
 
     public function deleteLastRound(){
         $connet = ConnectionManager::get('default');
         $connet->execute("call delete_last_round ()");
     }
 
+    public function editRound(){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call edit_round ()");
+    }
 }
