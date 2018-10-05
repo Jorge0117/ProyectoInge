@@ -255,8 +255,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '22',
-            'username' => 'estiven',
-            'password' => 'KUEpYQjeOnfVwAXf',
+            'username' => 'nathan',
+            'password' => 'hynp9LJQ0sucAlwm',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
@@ -298,8 +298,8 @@ return [
             'persistent' => false,
             'host' => '172.16.202.55',
             'port' => '22',
-            'username' => 'joe',
-            'password' => 'temp123',
+            'username' => 'nathan',
+            'password' => 'hynp9LJQ0sucAlwm',
             'database' => 'proyecto_inge',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
