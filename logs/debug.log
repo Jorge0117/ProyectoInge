@@ -1,3 +1,4 @@
+<<<<<<< joeCursosGrupos
 2018-10-04 05:13:09 Notice: Notice (8): Undefined variable: coursesClassView in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\index.ctp, line 29]
 Request URL: /courses-classes-vw
 Referer URL: http://localhost/ProyectoInge/courses
@@ -343,6 +344,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 116
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:17:47 Notice: Notice (8): Undefined variable: requests in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 54]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 54
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -364,6 +374,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 18:40:36 Notice: Notice (8): Undefined variable: class_numer in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 119]
 Request URL: /courses-classes-vw/delete/CI-1321
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -373,6 +384,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 119
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:17:47 Notice: Notice (8): Trying to get property 'round_number' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 54]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 54
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -394,6 +414,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 18:41:53 Notice: Notice (8): Undefined variable: class_numer in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 119]
 Request URL: /courses-classes-vw/delete/CI-1321
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -403,6 +424,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 119
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:17:47 Notice: Notice (8): Undefined variable: request in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 59]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 59
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -424,6 +454,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 19:37:42 Notice: Notice (8): Undefined variable: class_numer in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 109]
 Request URL: /courses-classes-vw/delete/CI-1321
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -433,6 +464,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 109
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:18:15 Notice: Notice (8): Undefined variable: request in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 59]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 59
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -454,6 +494,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 22:56:09 Notice: Notice (8): Undefined variable: execute in [C:\xampp\htdocs\ProyectoInge\src\Model\Table\ClassesTable.php, line 95]
 Request URL: /courses-classes-vw/delete/CI-1321
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -464,6 +505,15 @@ Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstr
 App\Model\Table\ClassesTable::deleteClass() - APP/Model\Table\ClassesTable.php, line 95
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 116
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:18:54 Notice: Notice (8): Undefined variable: requests in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 54]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 54
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -485,6 +535,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 22:57:35 Notice: Notice (8): Undefined variable: execute in [C:\xampp\htdocs\ProyectoInge\src\Model\Table\ClassesTable.php, line 95]
 Request URL: /courses-classes-vw/delete/CI-1321
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -495,6 +546,15 @@ Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstr
 App\Model\Table\ClassesTable::deleteClass() - APP/Model\Table\ClassesTable.php, line 95
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 116
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 03:19:22 Notice: Notice (8): Undefined variable: requests in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 56]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 56
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -516,6 +576,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 23:18:04 Notice: Notice (8): Undefined variable: cascade in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 143]
 Request URL: /courses-classes-vw/delete/CI-1321/1/2/2018
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -525,6 +586,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 143
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 04:22:49 Notice: Notice (8): Undefined variable: id in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 57]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 57
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -546,6 +616,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-05 23:20:49 Notice: Notice (8): Undefined variable: cascade in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 143]
 Request URL: /courses-classes-vw/delete/CI-1321/1/2/2018
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -555,6 +626,15 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 App\Controller\ClassesController::delete() - APP/Controller\ClassesController.php, line 143
 App\Controller\CoursesClassesVwController::delete() - APP/Controller\CoursesClassesVwController.php, line 84
+=======
+2018-10-05 04:23:05 Notice: Notice (8): Undefined variable: id in [C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php, line 61]
+Request URL: /requests/add
+Referer URL: http://localhost:81/ProyectoInge/requests/add
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
+App\Controller\RequestsController::add() - APP/Controller\RequestsController.php, line 61
+>>>>>>> Insercion de Solicitudes
 Cake\Controller\Controller::invokeAction() - CORE\src\Controller\Controller.php, line 596
 Cake\Http\ActionDispatcher::_invoke() - CORE\src\Http\ActionDispatcher.php, line 120
 Cake\Http\ActionDispatcher::dispatch() - CORE\src\Http\ActionDispatcher.php, line 94
@@ -576,6 +656,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< joeCursosGrupos
 2018-10-06 20:39:28 Notice: Notice (8): Undefined variable: session in [C:\xampp\htdocs\ProyectoInge\src\Controller\CoursesClassesVwController.php, line 89]
 Request URL: /courses-classes-vw/delete/CI-1321/1/2/2018
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw
@@ -3425,3 +3506,5 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+=======
+>>>>>>> Insercion de Solicitudes
