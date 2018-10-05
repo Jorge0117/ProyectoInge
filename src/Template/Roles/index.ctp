@@ -4,6 +4,58 @@
  * @var \App\Model\Entity\Role[]|\Cake\Collection\CollectionInterface $roles
  */
 ?>
+<div class='row'>
+<h2> Rol:
+</h2>
+    <?php 
+    echo $this->Form->select(
+        'roles',
+        $roles_array,
+        ['empty' => 'Elija un rol...'
+        ,'style' => 'width: 14%']
+    )?>
+    <?php 
+
+    echo $this->Form->checkbox(
+        'Editar'
+    );
+    ?>
+
+</div>
+
+<table style="width:100%">
+<?php 
+echo $this->Html->tableHeaders(['Permiso', 'Solicitudes','Cursos-Grupo',
+ 'Requisitos', 'Ronda', 'Usuarios',  'Roles' ]);
+
+$con_check = $this->Form->checkbox(
+    'Editar',
+    ['checked' => true]
+);
+$sin_check = $this->Form->checkbox(
+    'Editar',
+    ['checked' => false]
+);
+
+foreach ($permissions_matrix as $perm_row){
+    $permission_row[] = $perm_row[0];
+    for($i = 1; $i < 7 ;$i++){
+        $permission_row[] = $perm_row[$i]? $con_check : $sin_check; 
+    }
+    echo $this->Html->tableCells([
+        $permission_row
+    ]);
+    $permission_row = [];
+}
+
+?>
+
+</table>
+<div>
+
+</div>
+
+<!--
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
@@ -45,3 +97,5 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+
+-->

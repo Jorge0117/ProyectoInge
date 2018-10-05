@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+
 use App\Controller\AppController;
 
 /**
@@ -23,6 +24,34 @@ class RolesController extends AppController
         $roles = $this->paginate($this->Roles);
 
         $this->set(compact('roles'));
+
+        $roles_array = $this->Roles->find('list');
+        $this->set(compact('roles_array'));
+
+        $this->loadModel('Permissions');
+
+        $permission_list = ['Agregar','Modificar', 'Eliminar','Consultar'];
+        $this->set(compact('permission_list'));
+
+        $role_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
+            return $q->where(['Roles.role_id' => 'Administrador']);
+        })->toArray();
+        $this->set(compact('role_permissions'));
+        
+        $permissions_id = [['SO-AG', 'CU-AG', 'RE-AG', 'RN-AG', 'US-AG', 'RO-AG'],
+                           ['SO-MO', 'CU-MO', 'RE-MO', 'RN-MO', 'US-MO', 'RO-MO'],
+                           ['SO-EL', 'CU-EL', 'RE-EL', 'RN-EL', 'US-EL', 'RO-EL'],
+                           ['SO-CO', 'CU-CO', 'RE-CO', 'RN-CO', 'US-CO', 'RO-CO']];
+        
+        $permissions_matrix = [];
+        for($i = 0; $i < 4 ; $i++){
+            $permissions_matrix[$i][0] = $permission_list[$i];
+            for($j = 1; $j < 7; $j++){
+                $permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$role_permissions);
+            }
+        }
+        
+        $this->set(compact('permissions_matrix'));
     }
 
     /**
