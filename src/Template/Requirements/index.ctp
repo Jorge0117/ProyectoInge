@@ -33,11 +33,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?php foreach ($requirements as $requirement): ?>
             <tr>
                 <td><?= h($requirement->requirement_number) ?></td>
-                <td><?= h($requirement->Curso) ?></td>
-                <td><?= $this->Number->format($course->Grupo) ?></td>
-                <td><?= h($course->Profesor) ?></td>
-                <td><?= h($course->Semestre) ?></td>
-                <td><?= h($course->Año) ?></td>
+                <td><?= h($requirement->description) ?></td>
+                <td><?= h($requirement->type) ?></td>
                 
                 <td class="actions">
                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $course->Sigla]) ?>
