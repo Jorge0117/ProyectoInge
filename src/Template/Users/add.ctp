@@ -4,8 +4,9 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<h3>Agregar usuario</h3>
 <div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+    <?= $this->Form->create($user, ['novalidate']) ?>
     <fieldset>
         <legend><?= __('Datos personales') ?></legend>
         <?php
