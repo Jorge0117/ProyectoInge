@@ -99,15 +99,15 @@ class ClassesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $class = $this->Classes->get($id);
-        if ($this->Classes->delete($class)) {
-            $this->Flash->success(__('The class has been deleted.'));
-        } else {
-            $this->Flash->error(__('The class could not be deleted. Please, try again.'));
-        }
+        // $this->request->allowMethod(['post', 'delete']);
+        // $class = $this->Classes->get($id);
+        // if ($this->Classes->delete($class)) {
+        //     $this->Flash->success(__('The class has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The class could not be deleted. Please, try again.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }

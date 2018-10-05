@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Controller\ClassesController;
 
 /**
  * CoursesClassesVw Controller
@@ -23,22 +24,6 @@ class CoursesClassesVwController extends AppController
         $coursesClassesVw = $this->paginate($this->CoursesClassesVw);
 
         $this->set(compact('coursesClassesVw'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Courses Classes Vw id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $coursesClassesVw = $this->CoursesClassesVw->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('coursesClassesVw', $coursesClassesVw);
     }
 
     /**
@@ -92,15 +77,18 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $coursesClassesVw = $this->CoursesClassesVw->get($id);
-        if ($this->CoursesClassesVw->delete($coursesClassesVw)) {
-            $this->Flash->success(__('The courses classes vw has been deleted.'));
-        } else {
-            $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
-        }
+        $ClassesController = new ClassesController;
+
+        $ClassesController->delete($code = null, $class_number = null, $semester = null,$year = null);
+        // $this->request->allowMethod(['post', 'delete']);
+        // $coursesClassesVw = $this->CoursesClassesVw->get($id);
+        // if ($this->CoursesClassesVw->delete($coursesClassesVw)) {
+        //     $this->Flash->success(__('The courses classes vw has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }
