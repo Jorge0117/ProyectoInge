@@ -57,6 +57,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 			#header {
 				margin:auto;
 				width:630px;
+        height:70px;
 				font-family:Arial, Helvetica, sans-serif;
         align-items: center; 
 			}
@@ -140,7 +141,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
 </h1>
-    <<div id="header">
+    <div id="header">
 			<ul class="nav">
         <li>
           <?= $this->Html->link('Inicio',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
