@@ -32,7 +32,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         height: 10px;
         width: 10px;
     }
-</style
+</style>
 <button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
 <div class="courses index large-9 medium-8 columns content">
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
