@@ -1,19 +1,3 @@
-<script>
-	function guardar()
-	{		
-		//Recupera los datos:
-		
-		class_number = document.getElementById('class_number').value;
-		Grupo = document.getElementById('Grupo').value;
-		aah = document.getElementById('aah').value;
-		ash = document.getElementById('ash').value;
-	
-		
-		alert("Los datos han sido guardados para la proxima vez que ingrese la solicitud");
-		
-		
-	}
-</script>
 
 
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
@@ -25,7 +9,7 @@
         <li><?= $this->Html->link(__('List Students'), ['controller' => 'Students', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add']) ?></li>
     </ul>
-	<button id="saveRequestbtn" onClick="guardar();"> Dejar Pendiente</button>
+	
 </nav>
 <div class="requests form large-9 medium-8 columns content">
     <?= $this->Form->create($request) ?>
@@ -33,6 +17,9 @@
     <fieldset>
         <legend><?= __('Add Request') ?></legend>
         <?php
+		echo $this->Form->button('button_text', array('onclick' => "alert(xd)", 'id' => 'btnGuardar' ));
+		
+		//echo $this->Form->control('Search', array('action'=>'isFeatured'));
 			
 		//	echo $this->Form->control('id', ['value' =>'2']);
            echo $this->Form->control('round_number',['value' => '1','type' => 'hidden']);
