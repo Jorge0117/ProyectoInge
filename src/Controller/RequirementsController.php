@@ -50,12 +50,11 @@ class RequirementsController extends AppController
     {
         $requirement = $this->Requirements->newEntity();
         if ($this->request->is('post')) {
-            pr($this->request->data);
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
             if ($this->Requirements->save($requirement)) {
                 $this->Flash->success(__('The requirement has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+
             }
             $this->Flash->error(__('The requirement could not be saved. Please, try again.'));
         }
