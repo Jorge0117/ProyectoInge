@@ -52,7 +52,6 @@ class RequirementsController extends AppController
         if ($this->request->is('post')) {
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
             if ($this->Requirements->save($requirement)) {
-                $this->Flash->success(__('The requirement has been saved.'));
 
 
             }

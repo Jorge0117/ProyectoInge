@@ -11,7 +11,7 @@
         <?php
             echo $this->Form->input('description',['label' => 'Descripción del requisito', 'class' => 'form-control']);
             echo $this->Form->label('Tipo del requisito');
-            echo $this->Form->radio('type',['R' => ' Obligatorio ', 'B' => ' Opcional ']);
+            echo $this->Form->radio( 'type' , ['Obligatorio' => 'Obligatorio','Opcional' => 'Opcional']);
         ?>      
     </fieldset>
     <div>
