@@ -144,7 +144,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div id="header">
 			<ul class="nav">
         <li>
-          <?= $this->Html->link('Inicio',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+          <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
 				<li><?= $this->Html->link('Solicitudes',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
