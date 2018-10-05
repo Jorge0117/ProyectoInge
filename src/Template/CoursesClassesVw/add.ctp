@@ -1,14 +1,14 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Course $course
+ * @var \App\Model\Entity\CoursesClassesVw $coursesClassesVw
  */
 ?>
 
-<div class="courses form large-9 medium-8 columns content">
-    <?= $this->Form->create($course) ?>
+<div class="coursesClassesVw form large-9 medium-8 columns content">
+    <?= $this->Form->create($coursesClassesVw) ?>
     <fieldset>
-        <legend><?= __('Añadir grupo') ?></legend>
+        <legend><?= __('Add Course') ?></legend>
         <?php
             echo $this->Form->control('Sigla');
             echo $this->Form->control('Curso');
@@ -16,6 +16,6 @@
             echo $this->Form->control('Profesor');
         ?>
     </fieldset>
-
+    <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
