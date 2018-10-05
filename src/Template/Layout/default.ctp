@@ -33,49 +33,153 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <style type="text/css">
+      h1.text {
+        color: white;
+        text-align: center;
+        height:60px;
+      }
+      .backg {
+        background-color:#015b96ff;
+      }
+      h2.text2 {
+        color: white;
+        text-align: center;
+        height:40px;
+      }
+      .backg2 {
+        background-color:#ceb92bff;
+      }
+      * {
+				margin:0px;
+				padding:0px;
+			}
+			#header {
+				margin:auto;
+				width:630px;
+        height:70px;
+				font-family:Arial, Helvetica, sans-serif;
+        align-items: center; 
+			}
+			
+			ul, ol {
+				list-style:none;
+			}
+			
+			.nav > li {
+				float:left;
+			}
+			
+			.nav li a {
+				background-color:#fff;
+				color:#000;
+				text-decoration:none;
+				padding:10px 12px;
+				display:block;
+			}
+			
+			.nav li a:hover {
+				background-color:#015b96ff;
+        color:#fff;
+			}
+			
+			.nav li ul {
+				display:none;
+				position:absolute;
+				min-width:140px;
+			}
+			
+			.nav li:hover > ul {
+				display:block;
+			}
+			
+			.nav li ul li {
+				position:relative;
+			}
+			
+			.nav li ul li ul {
+				right:-140px;
+				top:0px;
+			}
+      #OverviewText1 img{
+        width: 100px;
+        height: 50px;
+        position: relative;
+        float: left;
+        top: -40px;
+        left: 5px;
+      }
+      #OverviewText2 img{
+        width: 200px;
+        height: 50px;
+        position: relative;
+        float:left;
+        top: 25px;
+        left: -95px;
+      }
+      #OverviewText3 img{
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -30px;
+      }
+      b {
+          border-bottom: 1.5px solid #ceb92bff;
+          padding: 0 0 0px;
+      }
+    </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <!-- Espacio para el nombre del proyecto. Además se definen columnas-->
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">ECCI</a>
-
-      <!-- Barra de la derecha. Aqui está el sing out-->
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+<h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
+    <div id="OverviewText1"> 
+      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
+    </div>
+    <div id="OverviewText2"> 
+      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
+    </div>
+    <div id="OverviewText3"> 
+      <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
+    </div>
+</h1>
+    <div id="header">
+			<ul class="nav">
+        <li>
+          <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
-      </ul>
-    </nav>
-    
-    <!-- Div para el contenido de debajo de la página-->
-    <div class="container-fluid">
-      <div class="row">
-
-        <!-- Barra lateral-->
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky pt-5">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <?= $this->Html->link('Matricula',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
-              </li>
-              
-              <li class="nav-item">
-                <?= $this->Html->link('Cursos',['controller'=>'Subjects','action'=>'index'],['class'=>'nav-link']) ?>
-              </li>
-
-              <li class="nav-item">
-                <?= $this->Html->link('Estudiantes',['controller'=>'Students','action'=>'index'],['class'=>'nav-link']) ?>
-              </li>
-              <li class="nav-item">
-                <?= $this->Html->link('Departamentos',['controller'=>'Departments','action'=>'index'],['class'=>'nav-link']) ?>
-              </li>
-            </ul>
-
-          </div>
-        </nav>
-
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 pt-5">
+				<li><?= $this->Html->link('Solicitudes',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					<ul>
+						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?></li>
+					</ul>
+				</li>
+				<li><?= $this->Html->link('Curso-grupo',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					<ul>
+						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					</ul>
+				</li>
+				<li><?= $this->Html->link('Requisitos',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+          <ul>
+						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					</ul>
+        </li>
+        <li><?= $this->Html->link('Ronda',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+          <ul>
+						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					</ul>
+        </li>
+        <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
+          <ul>
+            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
+					</ul>
+        </li>
+        <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
+          <ul>
+						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+					</ul>
+        </li>
+			</ul>
+		</div>
+  <h2 class="text2 backg2"><font size="6"><?php echo $this->fetch('title'); ?></font></h2>
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
                 <?= $this->Flash->render() ?>
@@ -85,7 +189,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <?= $this->fetch('content') ?>
                 </div>
             </div>
-        </main>
+    </main>
     <footer>
     </footer>
 </body>
