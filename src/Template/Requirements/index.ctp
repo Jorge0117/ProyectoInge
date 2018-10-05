@@ -28,6 +28,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         cursor: pointer;
         float: right;
     }
+    .button a {
+        color:#fff; 
+    }
     #image1 {
         height: 10px;
         width: 10px;
