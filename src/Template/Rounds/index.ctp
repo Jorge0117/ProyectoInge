@@ -7,7 +7,7 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Acciones') ?></li>
-        
+        <?= $this->Html->link('Agregar Ronda',['action'=> 'add']) ?>
     </ul>
     
 </nav>
@@ -15,7 +15,7 @@
 <div class="rounds index large-9 medium-8 columns content">
     <h3>
         <?= __('Rondas') ?>
-        <?= $this->Form->Button('Agregar Ronda',['RoundsController' => 'Rounds', 'action'=> 'add','align'=>'right']) ?>
+        
     </h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -45,5 +45,5 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <?= $this->Form->postButton('Eliminar Última Ronda',['RoundsController' => 'Rounds', 'action'=> 'delete']) ?>
+    <?= $this->Form->postButton('Eliminar Última Ronda',['controller' => 'Rounds', 'action'=> 'delete']) ?>
 </div>
