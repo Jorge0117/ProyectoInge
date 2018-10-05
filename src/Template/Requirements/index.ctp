@@ -32,16 +32,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <tbody>
             <?php foreach ($requirements as $requirement): ?>
             <tr>
-                <td><?= h($course->Sigla) ?></td>
-                <td><?= h($course->Curso) ?></td>
+                <td><?= h($requirement->requirement_number) ?></td>
+                <td><?= h($requirement->Curso) ?></td>
                 <td><?= $this->Number->format($course->Grupo) ?></td>
                 <td><?= h($course->Profesor) ?></td>
                 <td><?= h($course->Semestre) ?></td>
                 <td><?= h($course->Año) ?></td>
                 
                 <td class="actions">
-                    <?= $this->Html->link(
-                                        __('Editar'), ['action' => 'edit', $course->Sigla]) ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $course->Sigla]) ?>
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $course->code], ['confirm' => __('Are you sure you want to delete # {0}?', $course->code)]) ?>
                 </td>
             </tr>
