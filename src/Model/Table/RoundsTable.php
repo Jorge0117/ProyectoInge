@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Rounds Model
@@ -45,48 +46,51 @@ class RoundsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('number')
-            ->allowEmpty('number', 'create');
+            ->scalar('round_number')
+            ->requirePresence('round_number', 'create')
+            ->notEmpty('round_number');
 
         $validator
-            ->integer('semester')
-            ->allowEmpty('semester', 'create');
+            ->scalar('semester')
+            ->requirePresence('semester', 'create')
+            ->notEmpty('semester');
 
         $validator
-            ->integer('year')
-            ->allowEmpty('year', 'create');
+            ->scalar('year')
+            ->requirePresence('year', 'create')
+            ->notEmpty('year');
 
         $validator
-            ->dateTime('start_date')
-            ->requirePresence('start_date', 'create')
-            ->notEmpty('start_date');
+            ->date('start_date')
+            ->allowEmpty('start_date', 'create');
 
         $validator
-            ->dateTime('end_date')
+            ->date('end_date')
             ->requirePresence('end_date', 'create')
             ->notEmpty('end_date');
 
         $validator
-            ->dateTime('approve_limit_date')
+            ->date('approve_limit_date')
             ->requirePresence('approve_limit_date', 'create')
             ->notEmpty('approve_limit_date');
 
         return $validator;
     }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['approve_limit_date']));
-        $rules->add($rules->isUnique(['start_date']));
-        $rules->add($rules->isUnique(['end_date']));
-
-        return $rules;
+    
+    public function insertRound($start_d,$end_d,$approve){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call insert_round ('$start_d','$end_d','$approve')");
     }
+
+    public function getLastRound(){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call select_last_round ()");
+        //return $result;
+    }
+
+    public function deleteLastRound(){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call delete_last_round ()");
+    }
+
 }
