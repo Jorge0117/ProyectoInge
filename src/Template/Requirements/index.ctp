@@ -24,17 +24,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Sigla') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestres') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($coursesClassesVw as $course): ?>
+            <?php foreach ($requirements as $requirement): ?>
             <tr>
                 <td><?= h($course->Sigla) ?></td>
                 <td><?= h($course->Curso) ?></td>
