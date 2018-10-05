@@ -28,6 +28,11 @@ class RequestsController extends AppController
         $this->set(compact('requests'));
     }
 
+	public function backup()
+	{
+	
+	}
+	
     /**
      * View method
      *
@@ -66,7 +71,7 @@ class RequestsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
 			
-				//debug($request);
+				debug($request);
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
 			
         }
