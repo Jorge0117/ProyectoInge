@@ -18,7 +18,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .button {
         background-color: #ceb92bff;
         border: none;
-        color: white;
+        color:#fff;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
@@ -28,8 +28,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         cursor: pointer;
         float: right;
     }
-</style>
-<button class="button">Agregar</button>
+    #image1 {
+        height: 10px;
+        width: 10px;
+    }
+</style
+<button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
 <div class="courses index large-9 medium-8 columns content">
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
