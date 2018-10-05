@@ -13,25 +13,61 @@ class SecurityController extends AppController
 
     public function login()
     {
+        $this->set('Variable1', 'holamundo');
 
-        // debug("holi");
+        
 
         if($this->request->is('post'))
         {
-            $user = $this->Auth->identify();
-            debug($user);
-            if($user)
-            {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
+            
+            debug("hola");
+            $username = $this->request->data['Usuario'];
+            $password = $this->request->data['Contraseña'];
 
+            debug($username);
+            debug($password);
+
+            $ldapconn = ldap_connect("10.1.4.78", 389);
+
+            $dn = $username . "@ecci.ucr.ac.cr";
+
+            if ($ldapconn) {
+                $ldapbind = @ldap_bind($ldapconn, $dn, $password);
+                if ($ldapbind) {
+                    
+                    debug("EXITO!");
+                    die();
+                }
+                else {
+                    $this->Flash->error('Datos inválidos', ['key' => 'auth']);
+
+                }
             }
-            else
-            {
-                $this->Flash->error('Datos inválidos', ['key' => 'auth']);
+            else {
+                $this->Flash->error('No se pudo conectar con el servidor', ['key' => 'auth']);
             }
+
+
+            die();
+
+            // $user = $this->Auth->identify();
+
+            // debug($this->Auth);
+            // die();
+
+            // debug($user);
+            // if($user)
+            // {
+            //     die();
+            //     $this->Auth->setUser($user);
+            //     return $this->redirect($this->Auth->redirectUrl());
+
+            // }
+            // else
+            // {
+                
+            // }
         }
-
     }
 
     public function logout()
