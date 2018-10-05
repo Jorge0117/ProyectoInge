@@ -4,24 +4,6 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
-<link rel="stylesheet" href="style.css">
-<h2 class="titulo">Agregar usuario</h2>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Opciones') ?></li>
-        <li><?= $this->Html->link(__('Listar Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('Listar Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('Agregar Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Administrative Assistants'), ['controller' => 'AdministrativeAssistants', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Administrative Assistant'), ['controller' => 'AdministrativeAssistants', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Administrative Bosses'), ['controller' => 'AdministrativeBosses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Administrative Boss'), ['controller' => 'AdministrativeBosses', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Professors'), ['controller' => 'Professors', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Professor'), ['controller' => 'Professors', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Students'), ['controller' => 'Students', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
