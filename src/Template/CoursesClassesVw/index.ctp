@@ -37,7 +37,13 @@
                     <!--
                         <?= $this->Html->link(__('Editar'), ['action' => 'edit', $course->Sigla]) ?>
                     -->
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $course->Sigla], ['confirm' => __('                            Cursos-Grupo \n\n ¿Está seguro que desea eliminar el curso  {0}?', $course->code)]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), [
+                        'action' => 'delete', 
+                        $course->Sigla,
+                        $this->Number->format($course->Grupo),
+                        $this->Number->format($course->Semestre),
+                        $course->Año
+                    ], ['confirm' => __('                            Cursos-Grupo \n\n ¿Está seguro que desea eliminar el curso  {0}?', $course->code)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

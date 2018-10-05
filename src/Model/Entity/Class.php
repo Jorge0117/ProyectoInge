@@ -16,11 +16,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Course $course
  * @property \App\Model\Entity\Professor $professor
  */
-<<<<<<< HEAD
 class ClassT extends Entity
-=======
-class Class extends Entity
->>>>>>> curso-grupo
 {
 
     /**

@@ -81,7 +81,7 @@ class CoursesClassesVwController extends AppController
     {
         $ClassesController = new ClassesController;
 
-        $ClassesController->delete($code = null, $class_number = null, $semester = null,$year = null);
+        $ClassesController->delete($code, $class_number, $semester,$year);
         // $this->request->allowMethod(['post', 'delete']);
         // $coursesClassesVw = $this->CoursesClassesVw->get($id);
         // if ($this->CoursesClassesVw->delete($coursesClassesVw)) {

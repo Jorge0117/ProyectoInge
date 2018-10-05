@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Classes Model
@@ -85,5 +86,20 @@ class ClassesTable extends Table
         $rules->add($rules->existsIn(['professor_id'], 'Professors'));
 
         return $rules;
+    }
+
+    public function deleteClass($code, $class_number, $semester, $year)
+    {
+        $result = true;
+        $connection = ConnectionManager::get('default');
+        $connection->execute(
+            "DELETE FROM classes 
+            WHERE   course_id      = '$code' 
+                AND class_number    = $class_number
+                AND semester        = $semester
+                AND year            = '$year';
+            "
+        );
+        return $result;
     }
 }
