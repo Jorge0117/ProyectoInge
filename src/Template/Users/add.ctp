@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<link rel="stylesheet" href="style.css">
+<h2 class="titulo">Agregar usuario</h2>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Opciones') ?></li>
@@ -23,7 +25,7 @@
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Agregar usuario') ?></legend>
+        <legend><?= __('Datos personales') ?></legend>
         <?php
             echo $this->Form->control('Cédula');
             echo $this->Form->control('Nombre');
