@@ -4,9 +4,34 @@
  * @var \App\Model\Entity\Course[]|\Cake\Collection\CollectionInterface $courses
  */
 ?>
+<style>
+    .button {
+        background-color: #ceb92bff;
+        border: none;
+        padding: 5px 7px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 8px 2px;
+        cursor: pointer;
+        float: right;
+    }
+    .button a {
+        color:#fff; 
+    }
+    #image1 {
+        height: 10px;
+        width: 10px;
+    }
+</style>
+<button class="button"><?= $this->Html->link('Agregar',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
 <nav class="large-8 medium-8 columns" id="actions-sidebar">
     <ul class="nav">
+        <!--
         <li><?= $this->Html->link(__('Agregar un curso'), ['controller' => 'CoursesClassesVw', 'action' => 'add']) ?></li>
+        <button class="button"><?= $this->Html->link('Agregar',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
+        -->
     </ul>
 </nav>
 <div class="courses index large-9 medium-8 columns content">
