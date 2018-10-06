@@ -27,6 +27,59 @@ class CoursesClassesVwController extends AppController
     }
 
     /**
+     * View method
+     *
+     * @param string|null $id Courses Classes Vw id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null)
+    {
+        $coursesClassesVw = $this->CoursesClassesVw->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('coursesClassesVw', $coursesClassesVw);
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function add()
+    {
+        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+        if ($this->request->is('post')) {
+            $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+
+            $courseTable=$this->loadmodel('Courses');
+            $name=$coursesClassesVw->Curso;
+            $code=$coursesClassesVw->Sigla;
+            $cred=$coursesClassesVw->Creditos;
+
+            debug($name);
+            debug($code);
+            debug($cred);
+            die();
+
+            $courseTable->addCourse($code, $name, $cred);
+
+            $this->Flash->success(__('Se agregó el curso correctamente.'));
+            return $this->redirect(['action' => 'index']);
+
+            /*
+            if ($this->CoursesClassesVw->save($coursesClassesVw)) {
+                $this->Flash->success(__('The courses classes vw has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));*/
+        }
+        $this->set(compact('coursesClassesVw'));
+    }
+
+    /**
      * Edit method
      *
      * @param string|null $id Courses Classes Vw id.

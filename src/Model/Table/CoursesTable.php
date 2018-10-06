@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+//use\ORM\TableRegistry;
 
 /**
  * Courses Model
@@ -44,6 +46,12 @@ class CoursesTable extends Table
         $this->hasMany('Classes', [
             'foreignKey' => 'course_id'
         ]);
+    }
+
+    public function addCourse($courseCode, $courseName, $courseCredits)
+    {
+        $connect = ConnectionManager::get('default');
+        $connect->execute("call addCourse('$courseCode', '$courseName', '$courseCredits')");
     }
 
     /**

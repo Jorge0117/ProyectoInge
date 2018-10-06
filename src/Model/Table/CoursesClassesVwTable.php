@@ -54,6 +54,10 @@ class CoursesClassesVwTable extends Table
             ->allowEmpty('Curso');
 
         $validator
+            ->scalar('Creditos');
+
+
+        $validator
             ->requirePresence('Grupo', 'create')
             ->notEmpty('Grupo');
 
