@@ -29,22 +29,6 @@ class ClassesController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Class id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $class = $this->Classes->get($id, [
-            'contain' => ['Courses', 'Professors']
-        ]);
-
-        $this->set('class', $class);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -101,26 +85,28 @@ class ClassesController extends AppController
      */
     public function delete($code, $class_number, $semester, $year)
     {
+        //------------------------------------------------
+        $result = false;
+        //------------------------------------------------
         $model = $this->Classes->newEntity();
+        //------------------------------------------------
         if ($this->request->is('post')) {
+            //------------------------------------------------
             $model = $this->Classes->patchEntity(
                 $model, 
                 $this->request->getData()
             );
-
+            //------------------------------------------------
             $classesModel = $this->loadmodel('Classes');
-            $confirmation = $classesModel->deleteClass(
+            //------------------------------------------------
+            $result = $classesModel->deleteClass(
                 $code, 
                 $class_number, 
                 $semester,
                 $year
             );
-            if($confirmation){
-                $this->Flash->success(__('Se eliminó el grupo correctamente.'));
-            } else {
-                $this->Flash->error(__('Error: ClassesController.php/121.'));
-            }
         }
-        return $this->redirect(['action' => 'index']);
+        //------------------------------------------------
+        return $result;
     }
 }

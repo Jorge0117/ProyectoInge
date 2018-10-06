@@ -90,9 +90,12 @@ class ClassesTable extends Table
 
     public function deleteClass($code, $class_number, $semester, $year)
     {
+        //------------------------------------------------
         $result = true;
+        //------------------------------------------------
         $connection = ConnectionManager::get('default');
-        $connection->execute(
+        //------------------------------------------------
+        $result = $connection->execute(
             "DELETE FROM classes 
             WHERE   course_id      = '$code' 
                 AND class_number    = $class_number
@@ -100,6 +103,7 @@ class ClassesTable extends Table
                 AND year            = '$year';
             "
         );
+        //------------------------------------------------
         return $result;
     }
 }

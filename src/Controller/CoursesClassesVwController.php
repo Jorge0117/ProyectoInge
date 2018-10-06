@@ -53,21 +53,22 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($code = null, $class_number = null, $semester = null,$year = null)
     {
-        $coursesClassesVw = $this->CoursesClassesVw->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-            if ($this->CoursesClassesVw->save($coursesClassesVw)) {
-                $this->Flash->success(__('The courses classes vw has been saved.'));
+        // $coursesClassesVw = $this->CoursesClassesVw->get($id, [
+        //     'contain' => []
+        // ]);
+        // if ($this->request->is(['patch', 'post', 'put'])) {
+        //     $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+        //     if ($this->CoursesClassesVw->save($coursesClassesVw)) {
+        //         $this->Flash->success(__('The courses classes vw has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
-        }
+        //         return $this->redirect(['action' => 'index']);
+        //     }
+        //     $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
+        // }
         $this->set(compact('coursesClassesVw'));
+        return $this->redirect(['action' => 'index']);
     }
 
     /**
@@ -79,17 +80,22 @@ class CoursesClassesVwController extends AppController
      */
     public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
+        //------------------------------------------------
         $ClassesController = new ClassesController;
-
-        $ClassesController->delete($code, $class_number, $semester,$year);
-        // $this->request->allowMethod(['post', 'delete']);
-        // $coursesClassesVw = $this->CoursesClassesVw->get($id);
-        // if ($this->CoursesClassesVw->delete($coursesClassesVw)) {
-        //     $this->Flash->success(__('The courses classes vw has been deleted.'));
-        // } else {
-        //     $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
-        // }
-
+        //------------------------------------------------
+        $result = $ClassesController->delete(
+            $code, 
+            $class_number, 
+            $semester, 
+            $year
+        );
+        //------------------------------------------------
+        if ($result) {
+            $this->Flash->success(__('The courses classes vw has been deleted.'));
+        } else {
+            $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
+        }
+        //------------------------------------------------
         return $this->redirect(['action' => 'index']);
     }
 }
