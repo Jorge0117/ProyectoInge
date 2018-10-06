@@ -25,7 +25,8 @@
         width: 10px;
     }
 </style>
-<button class="button"><?= $this->Html->link('Agregar',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
+<button class="button"><?= $this->Html->link('Agregar curso',['controller'=>'CoursesClassesVw','action'=>'delete'],['class'=>'nav-link']) ?></button>
+<button class="button"><?= $this->Html->link('Cargar archivo',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
 <nav class="large-8 medium-8 columns" id="actions-sidebar">
     <ul class="nav">
         <!--
