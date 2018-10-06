@@ -53,32 +53,18 @@ class CoursesClassesVwController extends AppController
         if ($this->request->is('post')) {
             $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
 
-
+            $courseTable=$this->loadmodel('Courses');
             $name=$coursesClassesVw->Curso;
             $code=$coursesClassesVw->Sigla;
             $cred=$coursesClassesVw->Creditos;
-            $group=$coursesClassesVw->Grupo;
-            $professor=$coursesClassesVw->Profesor;
-            $semester=$coursesClassesVw->Semestre;
-            $year=$coursesClassesVw->Año;
 
             debug($name);
             debug($code);
             debug($cred);
-            //die();
+            die();
 
-            $courseController = new CoursesController;
-            $courseController->add($code, $name, $cred);
-
-            $classController = new ClassesController;
-            $classController->add($code, $group, $semester, $year, '111111111');
-            /*
-            $courseTable=$this->loadmodel('Courses');
             $courseTable->addCourse($code, $name, $cred);
-            
-            $classTable=$this->loadmodel('Classes');
-            $classTable->addClass($code, $group, $semester, $year, 1, '111111111');
-            */
+
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);
 
