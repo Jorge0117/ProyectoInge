@@ -51,12 +51,29 @@ class CoursesClassesVwController extends AppController
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
             $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+
+            $courseTable=$this->loadmodel('Courses');
+            $name=$coursesClassesVw->Curso;
+            $code=$coursesClassesVw->Sigla;
+            $cred=$coursesClassesVw->Creditos;
+
+            debug($name);
+            debug($code);
+            debug($cred);
+            die();
+
+            $courseTable->addCourse($code, $name, $cred);
+
+            $this->Flash->success(__('Se agregó el curso correctamente.'));
+            return $this->redirect(['action' => 'index']);
+
+            /*
             if ($this->CoursesClassesVw->save($coursesClassesVw)) {
                 $this->Flash->success(__('The courses classes vw has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
+            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));*/
         }
         $this->set(compact('coursesClassesVw'));
     }
