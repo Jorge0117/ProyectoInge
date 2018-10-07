@@ -90,8 +90,16 @@ class ClassesTable extends Table
 
     public function addClass($id, $number, $semester, $year, $state, $profId )
     {
+        $return = false;
         $connect = ConnectionManager::get('default');
-        $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
+
+        $inTable = count($connect->execute("select * from classes where course_id = '$id' and class_number = '$number' and semester = '$semester' and year = '$year'"));
+
+        if ($inTable == 0) {
+            $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
+            $return = true;
+        }
+        return $return;
     }
 
 
