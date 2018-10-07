@@ -30,13 +30,26 @@
 
             <?= $this->Form->create() ?>
             <fieldset>
-                <legend><?= __('Datos personales') ?></legend>
-                <?php
-                    echo $this->Form->control('Usuario');
-                    echo $this->Form->control('Contraseña', ['type' => 'password',]);
-                ?>
+                <legend><?= __('Ingreso al sistema') ?></legend>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span style="width:120px" class="input-group-text">Usuario:</span>
+                    </div>
+                    <?php
+                        echo $this->Form->text('username');
+                    ?>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    <span style="width:120px" class="input-group-text">Contraseña:</span>
+                    </div>
+                    <?php
+                        echo $this->Form->password('password');
+                    ?>
+                </div>
             </fieldset>
-            <?= $this->Form->button(__('Aceptar')) ?>
+            <?= $this->Form->button('Olvidé mis credenciales', ['type' => 'button', 'class' => 'btn btn-secondary float-leftz']) ?>
+            <?= $this->Form->button('Iniciar sesión', ['type' => 'submit', 'class' => 'btn btn-primary float-right']) ?>
             <?= $this->Form->end() ?>
 
             
