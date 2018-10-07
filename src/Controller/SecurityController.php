@@ -26,6 +26,8 @@ class SecurityController extends AppController
             if($user)
             {
                 debug("Se logro autenticar");
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
             } else {
                 debug("No se logro autenticar");
             }
