@@ -50,8 +50,16 @@ class CoursesTable extends Table
 
     public function addCourse($courseCode, $courseName, $courseCredits)
     {
+        $return = false;
         $connect = ConnectionManager::get('default');
-        $connect->execute("call addCourse('$courseCode', '$courseName', '$courseCredits')");
+
+        $inTable = count($connect->execute("select code from courses where code = '$courseCode'"));
+
+        if ($inTable == 0) {
+            $connect->execute("call addCourse('$courseCode', '$courseName', '$courseCredits')");
+            $return = true;
+        }
+        return $return;
     }
 
     /**
