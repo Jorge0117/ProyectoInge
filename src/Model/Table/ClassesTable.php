@@ -88,6 +88,13 @@ class ClassesTable extends Table
         return $rules;
     }
 
+    public function addClass($id, $number, $semester, $year, $state, $profId )
+    {
+        $connect = ConnectionManager::get('default');
+        $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
+    }
+
+
     /**
      * Deletes the row that match with the key given
      * 
