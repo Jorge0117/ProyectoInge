@@ -18,16 +18,26 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .button {
         background-color: #ceb92bff;
         border: none;
+<<<<<<< HEAD
         color:#fff;
         padding: 15px 32px;
+=======
+        padding: 5px 7px;
+>>>>>>> Requisitos
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin: 8px 2px;
         cursor: pointer;
         float: right;
     }
+<<<<<<< HEAD
+=======
+    .button a {
+        color:#fff; 
+    }
+>>>>>>> Requisitos
     #image1 {
         height: 10px;
         width: 10px;
@@ -49,8 +59,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->type]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->type], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->type)]) ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->requirement_number]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->requirement_number], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->description)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
