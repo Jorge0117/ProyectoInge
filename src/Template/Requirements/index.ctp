@@ -52,7 +52,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->requirement_number]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->type], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->type)]) ?>
+                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->requirement_number], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->description)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
