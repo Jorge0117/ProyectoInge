@@ -45,9 +45,17 @@ class CoursesClassesVwController extends AppController
             debug($name);
             debug($code);
             debug($cred);
-            die();
+            //die();
 
             $courseTable->addCourse($code, $name, $cred);
+
+            $classTable=$this->loadmodel('Classes');
+            $group=$coursesClassesVw->Grupo;
+            $professor=$coursesClassesVw->Profesor;
+            $semester=$coursesClassesVw->Semestre;
+            $year=$coursesClassesVw->Año;
+
+            $classTable->addClass($code, $group, $semester, $year, 1, '111111111');
 
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);

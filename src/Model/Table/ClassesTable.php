@@ -88,6 +88,13 @@ class ClassesTable extends Table
         return $rules;
     }
 
+    public function addClass($id, $number, $semester, $year, $state, $profId )
+    {
+        $connect = ConnectionManager::get('default');
+        $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
+    }
+
+
     public function deleteClass($code, $class_number, $semester, $year)
     {
         //------------------------------------------------
