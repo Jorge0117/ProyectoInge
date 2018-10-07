@@ -51,7 +51,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->type]) ?>
+                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->requirement_number]) ?>
                     <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->type], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->type)]) ?>
                 </td>
             </tr>
