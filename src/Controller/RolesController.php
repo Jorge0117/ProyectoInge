@@ -33,10 +33,10 @@ class RolesController extends AppController
         $permission_list = ['Agregar','Modificar', 'Eliminar','Consultar'];
         $this->set(compact('permission_list'));
 
-        $permissions_id = [['SO-AG', 'CU-AG', 'RE-AG', 'RN-AG', 'US-AG', 'RO-AG'],
-                           ['SO-MO', 'CU-MO', 'RE-MO', 'RN-MO', 'US-MO', 'RO-MO'],
-                           ['SO-EL', 'CU-EL', 'RE-EL', 'RN-EL', 'US-EL', 'RO-EL'],
-                           ['SO-CO', 'CU-CO', 'RE-CO', 'RN-CO', 'US-CO', 'RO-CO']];
+        $permissions_id = [['SO-AG', 'CU-AG', 'RE-AG', 'RN-AG', 'US-AG'],// 'RO-AG'],
+                           ['SO-MO', 'CU-MO', 'RE-MO', 'RN-MO', 'US-MO'],// 'RO-MO'],
+                           ['SO-EL', 'CU-EL', 'RE-EL', 'RN-EL', 'US-EL'],// 'RO-EL'],
+                           ['SO-CO', 'CU-CO', 'RE-CO', 'RN-CO', 'US-CO']];//, 'RO-CO']];
 
         //Administrator permissions
         $administrator_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
@@ -47,7 +47,7 @@ class RolesController extends AppController
         $administrator_permissions_matrix = [];
         for($i = 0; $i < 4 ; $i++){
             $administrator_permissions_matrix[$i][0] = $permission_list[$i];
-            for($j = 1; $j < 7; $j++){
+            for($j = 1; $j < 6; $j++){
                 $administrator_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$administrator_permissions);
             }
         }
@@ -63,7 +63,7 @@ class RolesController extends AppController
         $assistant_permissions_matrix = [];
         for($i = 0; $i < 4 ; $i++){
             $assistant_permissions_matrix[$i][0] = $permission_list[$i];
-            for($j = 1; $j < 7; $j++){
+            for($j = 1; $j < 6; $j++){
                 $assistant_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$assistant_permissions);
             }
         }
@@ -79,7 +79,7 @@ class RolesController extends AppController
         $student_permissions_matrix = [];
         for($i = 0; $i < 4 ; $i++){
             $student_permissions_matrix[$i][0] = $permission_list[$i];
-            for($j = 1; $j < 7; $j++){
+            for($j = 1; $j < 6; $j++){
                 $student_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$student_permissions);
             }
         }
@@ -95,7 +95,7 @@ class RolesController extends AppController
         $professor_permissions_matrix = [];
         for($i = 0; $i < 4 ; $i++){
             $professor_permissions_matrix[$i][0] = $permission_list[$i];
-            for($j = 1; $j < 7; $j++){
+            for($j = 1; $j < 6; $j++){
                 $professor_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$professor_permissions);
             }
         }
