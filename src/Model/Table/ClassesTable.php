@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Classes Model
@@ -86,4 +87,11 @@ class ClassesTable extends Table
 
         return $rules;
     }
+
+    public function addClass($id, $number, $semester, $year, $state, $profId )
+    {
+        $connect = ConnectionManager::get('default');
+        $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
+    }
+
 }
