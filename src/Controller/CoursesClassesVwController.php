@@ -55,19 +55,39 @@ class CoursesClassesVwController extends AppController
      */
     public function edit($code = null, $class_number = null, $semester = null,$year = null)
     {
-        // $coursesClassesVw = $this->CoursesClassesVw->get($id, [
-        //     'contain' => []
-        // ]);
-        // if ($this->request->is(['patch', 'post', 'put'])) {
-        //     $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-        //     if ($this->CoursesClassesVw->save($coursesClassesVw)) {
-        //         $this->Flash->success(__('The courses classes vw has been saved.'));
-
-        //         return $this->redirect(['action' => 'index']);
-        //     }
-        //     $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
-        // }
-        $this->set(compact('coursesClassesVw'));
+        //------------------------------------------------
+        $result = false;
+        //------------------------------------------------
+        $model = $this->CoursesClassesVw->newEntity();
+        //------------------------------------------------
+        if ($this->request->is('post')) {
+            //------------------------------------------------
+            $model = $this->CoursesClassesVw->patchEntity(
+                $model, 
+                $this->request->getData()
+            );
+            //------------------------------------------------
+            $coursesClassesModel = $this->loadmodel('Classes');
+            //------------------------------------------------
+            $result = $coursesClassesModel->fetchARow(
+                $code, 
+                $class_number, 
+                $semester,
+                $year
+            );
+            //------------------------------------------------
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+                if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
+                    $this->Flash->success(__('The courses classes vw has been saved.'));
+    
+                    //return $this->redirect(['action' => 'index']);
+                }
+                //$this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
+            }
+            //$this->set(compact('coursesClassesVw'));
+        }
+        //------------------------------------------------
         return $this->redirect(['action' => 'index']);
     }
 

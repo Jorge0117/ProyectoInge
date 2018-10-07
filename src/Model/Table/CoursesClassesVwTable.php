@@ -72,4 +72,16 @@ class CoursesClassesVwTable extends Table
 
         return $validator;
     }
+
+    public function fetchARow($code = null, $class_number = null, $semester = null,$year = null)
+    {
+        return $this->CoursesClassVw->find()->where(
+            [
+                'course_id'     => $code,
+                'class_number'  => $class_number,
+                'semester'      => $semester,
+                'year'          => $year
+            ]
+        );
+    }
 }
