@@ -41,24 +41,11 @@ class CoursesController extends AppController
         $this->set('course', $course);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $course = $this->Courses->newEntity();
-        if ($this->request->is('post')) {
-            $course = $this->Courses->patchEntity($course, $this->request->getData());
-            if ($this->Courses->save($course)) {
-                $this->Flash->success(__('The course has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The course could not be saved. Please, try again.'));
-        }
-        $this->set(compact('course'));
+    public function add($code, $name, $cred)
+    {
+        $courseTable=$this->loadmodel('Courses');
+        return $courseTable->addCourse($code, $name, $cred);
     }
 
     /**
