@@ -47,32 +47,24 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         
         // $this->loadComponent('Security');
-        // $this->loadComponent('Auth',[
-        //     // 'authorize' => ['Controller'],
-        //     'authenticate' => [
-        //         'Form' => [
-        //             'userModel' => 'Users',
-        //             'fields' => [
-        //                 'username' => 'username',
-        //                 'password' => 'identification_number' 
-        //             ]
-        //         ]
-        //     ],
-        //     'loginAction' => [
-        //         'controller' => 'Security',
-        //         'action' => 'login',
-        //     ],
-        //     'authError' => 'Ingrese al sistema',
-        //     'loginRedirect' => [
-        //         'controller' => 'Main',
-        //         'action' => 'index',
-        //     ],
-        //     'logoutRedirect' => [
-        //         'controller' => 'Security',
-        //         'action' => 'login'
-        //     ]
+        $this->loadComponent('Auth',[
+            'authorize' => ['Controller'],
+            'authenticate' => ['MyLdap'],
+            'loginAction' => [
+                'controller' => 'Security',
+                'action' => 'login',
+            ],
+            'authError' => 'Ingrese al sistema',
+            'loginRedirect' => [
+                'controller' => 'Main',
+                'action' => 'index',
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Security',
+                'action' => 'login'
+            ]
 
-        // ]);
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -82,8 +74,8 @@ class AppController extends Controller
 
     }
 
-    // public function isAuthorized()
-    // {
-    //     return true;
-    // }
+    public function isAuthorized()
+    {
+        return true;
+    }
 }

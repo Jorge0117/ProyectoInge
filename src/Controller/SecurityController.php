@@ -21,35 +21,14 @@ class SecurityController extends AppController
         {
             
             debug("hola");
-            $username = $this->request->data['Usuario'];
-            $password = $this->request->data['Contraseña'];
+            $user = $this->Auth->identify();
 
-            debug($username);
-            debug($password);
-
-            $ldapconn = ldap_connect("10.1.4.78", 389);
-
-            $dn = $username . "@ecci.ucr.ac.cr";
-
-            if ($ldapconn) {
-                $ldapbind = @ldap_bind($ldapconn, $dn, $password);
-                if ($ldapbind) {
-                    debug("EXITO!");
-                }
-                else {
-                    debug("Datos invalidos");
-                    $this->Flash->error('Datos inválidos', ['key' => 'auth']);
-                }
+            if($user)
+            {
+                debug("Se logro autenticar");
+            } else {
+                debug("No se logro autenticar");
             }
-            else {
-                debug("No hay conexion");
-                $this->Flash->error('No se pudo conectar con el servidor', ['key' => 'auth']);
-            }
-
-
-            die();
-
-            // $user = $this->Auth->identify();
 
             // debug($this->Auth);
             // die();
