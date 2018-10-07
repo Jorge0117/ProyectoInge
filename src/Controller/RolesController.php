@@ -33,25 +33,75 @@ class RolesController extends AppController
         $permission_list = ['Agregar','Modificar', 'Eliminar','Consultar'];
         $this->set(compact('permission_list'));
 
-        $role_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
-            return $q->where(['Roles.role_id' => 'Administrador']);
-        })->toArray();
-        $this->set(compact('role_permissions'));
-        
         $permissions_id = [['SO-AG', 'CU-AG', 'RE-AG', 'RN-AG', 'US-AG', 'RO-AG'],
                            ['SO-MO', 'CU-MO', 'RE-MO', 'RN-MO', 'US-MO', 'RO-MO'],
                            ['SO-EL', 'CU-EL', 'RE-EL', 'RN-EL', 'US-EL', 'RO-EL'],
                            ['SO-CO', 'CU-CO', 'RE-CO', 'RN-CO', 'US-CO', 'RO-CO']];
+
+        //Administrator permissions
+        $administrator_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
+            return $q->where(['Roles.role_id' => 'Administrador']);
+        })->toArray() ;
+        $this->set(compact('administrator_permissions'));
         
-        $permissions_matrix = [];
+        $administrator_permissions_matrix = [];
         for($i = 0; $i < 4 ; $i++){
-            $permissions_matrix[$i][0] = $permission_list[$i];
+            $administrator_permissions_matrix[$i][0] = $permission_list[$i];
             for($j = 1; $j < 7; $j++){
-                $permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$role_permissions);
+                $administrator_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$administrator_permissions);
             }
         }
         
-        $this->set(compact('permissions_matrix'));
+        $this->set(compact('administrator_permissions_matrix'));
+
+        //Assistant permissions
+        $assistant_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
+            return $q->where(['Roles.role_id' => 'Asistente']);
+        })->toArray();
+        $this->set(compact('assistant_permissions'));
+
+        $assistant_permissions_matrix = [];
+        for($i = 0; $i < 4 ; $i++){
+            $assistant_permissions_matrix[$i][0] = $permission_list[$i];
+            for($j = 1; $j < 7; $j++){
+                $assistant_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$assistant_permissions);
+            }
+        }
+        
+        $this->set(compact('assistant_permissions_matrix'));
+
+        //Student permissions
+        $student_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
+            return $q->where(['Roles.role_id' => 'Estudiante']);
+        })->toArray();
+        $this->set(compact('student_permissions'));
+
+        $student_permissions_matrix = [];
+        for($i = 0; $i < 4 ; $i++){
+            $student_permissions_matrix[$i][0] = $permission_list[$i];
+            for($j = 1; $j < 7; $j++){
+                $student_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$student_permissions);
+            }
+        }
+        
+        $this->set(compact('student_permissions_matrix'));
+
+        //Professor permissions
+        $professor_permissions = $this->Permissions->find('list')->matching('Roles',function ($q) {
+            return $q->where(['Roles.role_id' => 'Profesor']);
+        })->toArray();
+        $this->set(compact('professor_permissions'));
+
+        $professor_permissions_matrix = [];
+        for($i = 0; $i < 4 ; $i++){
+            $professor_permissions_matrix[$i][0] = $permission_list[$i];
+            for($j = 1; $j < 7; $j++){
+                $professor_permissions_matrix[$i][$j] = in_array($permissions_id[$i][$j - 1],$professor_permissions);
+            }
+        }
+        
+        $this->set(compact('professor_permissions_matrix'));
+        
     }
 
     /**
