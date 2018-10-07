@@ -143,7 +143,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div id="header">
 			<ul class="nav">
         <li>
-          <?= $this->Html->link('Inicio',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+          <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
 				<li><?= $this->Html->link('Solicitudes',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
@@ -155,7 +155,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
 				</li>
-				<li><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
+				<li><?= $this->Html->link('Requisitos',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
@@ -170,7 +170,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
 					</ul>
         </li>
-        <li><?= $this->Html->link('Roles',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+        <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>

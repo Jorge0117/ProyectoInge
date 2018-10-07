@@ -10,7 +10,6 @@ return [
      * true: Errors and warnings shown.
      */
     'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
-
     /**
      * Configure basic information about the application.
      *
@@ -59,7 +58,6 @@ return [
             'locales' => [APP . 'Locale' . DS],
         ],
     ],
-
     /**
      * Security and encryption configuration
      *
@@ -70,7 +68,6 @@ return [
     'Security' => [
         'salt' => env('SECURITY_SALT', 'c3eb7f2943f080d422ca773c8c6826d43c9c96b4591eff50d44513e3611b7242'),
     ],
-
     /**
      * Apply timestamps with the last modified time to static assets (js, css, images).
      * Will append a querystring parameter containing the time the file was modified.
@@ -83,7 +80,6 @@ return [
         //'timestamp' => true,
         // 'cacheTime' => '+1 year'
     ],
-
     /**
      * Configure the cache adapters.
      */
@@ -93,7 +89,6 @@ return [
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
         ],
-
         /**
          * Configure the cache used for general framework caching.
          * Translation cache files are stored with this configuration.
@@ -108,7 +103,6 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKECORE_URL', null),
         ],
-
         /**
          * Configure the cache for model and datasource caches. This cache
          * configuration is used to store schema descriptions, and table listings
@@ -123,7 +117,6 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
-
         /**
          * Configure the cache for routes. The cached routes collection is built the
          * first time the routes are processed via `config/routes.php`.
@@ -138,7 +131,6 @@ return [
             'url' => env('CACHE_CAKEROUTES_URL', null),
         ],
     ],
-
     /**
      * Configure the Error and Exception handlers used by your application.
      *
@@ -175,7 +167,6 @@ return [
         'log' => true,
         'trace' => true,
     ],
-
     /**
      * Email configuration.
      *
@@ -211,7 +202,6 @@ return [
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
     ],
-
     /**
      * Email delivery profiles
      *
@@ -229,7 +219,6 @@ return [
             //'headerCharset' => 'utf-8',
         ],
     ],
-
     /**
      * Connection information used by the ORM to connect
      * to your application's datastores.
@@ -255,8 +244,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '22',
-            'username' => 'estiven',
-            'password' => 'KUEpYQjeOnfVwAXf',
+            'username' => 'esteban',
+            'password' => 'm2LijJruLnbbFkk2',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
@@ -266,7 +255,6 @@ return [
             'flags' => [],
             'cacheMetadata' => true,
             'log' => false,
-
             /**
              * Set identifier quoting to true if you are using reserved words or
              * special characters in your table or column names. Enabling this
@@ -276,7 +264,6 @@ return [
              * manipulated before being executed.
              */
             'quoteIdentifiers' => false,
-
             /**
              * During development, if using MySQL < 5.6, uncommenting the
              * following line could boost the speed at which schema metadata is
@@ -285,10 +272,8 @@ return [
              * which is the recommended value in production environments
              */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
-
             'url' => env('DATABASE_URL', null),
         ],
-
         /**
          * The test connection is used during the test suite.
          */
@@ -296,11 +281,11 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => '172.16.202.55',
-            'port' => '22',
-            'username' => 'joe',
-            'password' => 'temp123',
-            'database' => 'proyecto_inge',
+            'host' => 'localhost',
+            //'port' => 'non_standard_port_number',
+            'username' => 'my_app',
+            'password' => 'secret',
+            'database' => 'test_myapp',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
@@ -310,7 +295,6 @@ return [
             'url' => env('DATABASE_TEST_URL', null),
         ],
     ],
-
     /**
      * Configures logging options
      */
@@ -340,7 +324,6 @@ return [
             'scopes' => ['queriesLog'],
         ],
     ],
-
     /**
      * Session configuration.
      *
