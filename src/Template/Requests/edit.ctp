@@ -25,9 +25,7 @@
     <fieldset>
         <legend><?= __('Edit Request') ?></legend>
         <?php
-            echo $this->Form->control('round_number');
-            echo $this->Form->control('round_semester');
-            echo $this->Form->control('round_year');
+            echo $this->Form->control('round_start');
             echo $this->Form->control('reception_date');
             echo $this->Form->control('class_year');
             echo $this->Form->control('course_id', ['options' => $courses]);
@@ -37,6 +35,9 @@
             echo $this->Form->control('status');
             echo $this->Form->control('another_assistant_hours');
             echo $this->Form->control('another_student_hours');
+            echo $this->Form->control('has_another_hours');
+            echo $this->Form->control('first_time');
+            echo $this->Form->control('average');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

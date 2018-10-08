@@ -41,18 +41,6 @@
             <td><?= $this->Number->format($request->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Round Number') ?></th>
-            <td><?= $this->Number->format($request->round_number) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Round Semester') ?></th>
-            <td><?= $this->Number->format($request->round_semester) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Round Year') ?></th>
-            <td><?= $this->Number->format($request->round_year) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Class Semester') ?></th>
             <td><?= $this->Number->format($request->class_semester) ?></td>
         </tr>
@@ -69,8 +57,24 @@
             <td><?= $this->Number->format($request->another_student_hours) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Average') ?></th>
+            <td><?= $this->Number->format($request->average) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Round Start') ?></th>
+            <td><?= h($request->round_start) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Reception Date') ?></th>
             <td><?= h($request->reception_date) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Has Another Hours') ?></th>
+            <td><?= $request->has_another_hours ? __('Yes') : __('No'); ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('First Time') ?></th>
+            <td><?= $request->first_time ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
 </div>

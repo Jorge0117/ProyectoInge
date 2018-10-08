@@ -12,7 +12,7 @@ use App\Controller\AppController;
  */
 class RequestsController extends AppController
 {
-
+	
     /**
      * Index method
      *
@@ -20,7 +20,7 @@ class RequestsController extends AppController
      */
     public function index()
     {
-       /* $this->paginate = [
+        /*$this->paginate = [
             'contain' => ['Courses', 'Students']
         ];*/
         $requests = $this->paginate($this->Requests);
@@ -28,11 +28,6 @@ class RequestsController extends AppController
         $this->set(compact('requests'));
     }
 
-	public function backup()
-	{
-	
-	}
-	
     /**
      * View method
      *
@@ -47,6 +42,7 @@ class RequestsController extends AppController
         ]);
 
         $this->set('request', $request);
+		
     }
 
     /**
@@ -54,33 +50,111 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+   /* public function add()
     {
         $request = $this->Requests->newEntity();
-		
-		//$requests->set('round_number',3);
-
-	
-		
         if ($this->request->is('post')) {
-
             $request = $this->Requests->patchEntity($request, $this->request->getData());
+			
+			$RequestsTable=$this->loadmodel('Requests');
+			//$round almacena datos originales
+			
+			debug($request->status,'char');
+			
             if ($this->Requests->save($request)) {
                 $this->Flash->success(__('The request has been saved.'));
-			
+
                 return $this->redirect(['action' => 'index']);
             }
-			
-				debug($request);
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
-			
         }
         $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
         $students = $this->Requests->Students->find('list', ['limit' => 200]);
         $this->set(compact('request', 'courses', 'students'));
-		
     }
+*/
 
+public function get_round_start_date()
+{
+	$start = date("01/02/03"); //Deberia pedirselo a ronda
+	
+	return $start;
+}
+
+public function get_student_id()
+{
+	$student_id = "B12345";
+	
+	return $student_id;
+}
+
+public function get_semester()
+{
+	$semester = "1";
+	
+	return $semester;
+}
+
+public function add()
+    {
+        $request = $this->Requests->newEntity();
+        if ($this->request->is('post')) {
+            $request = $this->Requests->patchEntity($request, $this->request->getData());
+			
+			$RequestsTable=$this->loadmodel('Requests');
+			//$round almacena datos originales
+			
+			//Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
+			$request->set('status', 'p'); //Toda solicitud esta pendiente 
+			$request->set('round_start',$this->get_round_start_date());//obtiene llave de ronda
+			$request->set('reception_date',date('Y-m-d')); //obtiene fecha actual
+			$request->set('student_id',$this->get_student_id()); //obtiene el id del estudiante logueado
+			$request->set('class_year',date('Y')); //obtiene el año actual de la solicitud
+			$request->set('class_semester',$this->get_semester()); //obtiene el semestre actual de la solicitud
+			
+			debug($request);
+			
+            if ($this->Requests->save($request)) {
+                $this->Flash->success(__('The request has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The request could not be saved. Please, try again.'));
+        }
+        $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
+        $students = $this->Requests->Students->find('list', ['limit' => 200]);
+		$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
+		
+		//Modifica las clases para dejar los datos requeridos de curso y grupo
+		$tuplas = $classes->execute();
+		$class;
+		$course;
+		$teacher;
+		$i = 0;
+		$c2;
+		foreach($tuplas as $t)
+		{
+			$class[$i] = $t[1];
+			$course[$i] = $t[0];
+
+			
+			$i = $i + 1;
+		}		
+		
+		$i = 0;
+		$courses = $courses->execute();
+		$c2[0] = "Seleccione un Curso:";
+		foreach($courses as $c)
+		{
+			$c2[$i+1] = $c[0];
+			$teacher[$i] = $c[1];
+			$i = $i + 1;
+		}
+		
+		
+		
+        $this->set(compact('request', 'c2', 'students','class','course','teacher'));
+    }
     /**
      * Edit method
      *
@@ -102,6 +176,7 @@ class RequestsController extends AppController
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
         }
+		debug($request);
         $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
         $students = $this->Requests->Students->find('list', ['limit' => 200]);
         $this->set(compact('request', 'courses', 'students'));
@@ -125,5 +200,29 @@ class RequestsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+		
     }
+	
+	/*public function save()
+	{
+		//Guarda los datos;
+		$backup = $this->loadModel('RequestsBackup');
+		$request = $this->Requests->newEntity();
+		$request = $this->Requests->patchEntity($request, $this->request->getData()); //Obtiene valores de los campos
+		
+		$st = $this->get_student_id();
+		$ci = null;
+		$cai = null;
+		$ash = null;
+		$aah = null;
+		$ft = null; 
+		$hah = $request->get('has_another_hours');
+		$backup->saveRequest($st,$ci,$cai,$ash,$aah,$ft,$hah);
+		
+		debug($hah);
+		
+		//Redirecciona al index
+		//return $this->redirect(['action' => 'index']);
+	}*/
+
 }

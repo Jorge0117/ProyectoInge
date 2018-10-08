@@ -1,67 +1,85 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Request $request
+ */
+?>
 
-
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Requests'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Courses'), ['controller' => 'Courses', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Course'), ['controller' => 'Courses', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Students'), ['controller' => 'Students', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add']) ?></li>
-    </ul>
-	
-</nav>
-<div class="requests form large-9 medium-8 columns content">
-    <?= $this->Form->create($request) ?>
-				
-    <fieldset>
-        <legend><?= __('Add Request') ?></legend>
-        <?php
-		echo $this->Form->button('button_text', array('onclick' => "alert(xd)", 'id' => 'btnGuardar' ));
+<script>
+	function updateClass() //Se encarga de actualizar dinamicamente el select de clases
+	{
+		selClass = document.getElementById("class-number");
+		selCourse = document.getElementById("course-id");
+		a1 = document.getElementById("a1");
+		a2 = document.getElementById("a2");
 		
-		//echo $this->Form->control('Search', array('action'=>'isFeatured'));
-			
-		//	echo $this->Form->control('id', ['value' =>'2']);
-           echo $this->Form->control('round_number',['value' => '1','type' => 'hidden']);
-            echo $this->Form->control('round_semester',['value' => '1','type' => 'hidden']);
-            echo $this->Form->control('round_year',['value' => '2018','type' => 'hidden','id' => 'round_year']);
-			//PEDIR a controladora RONDa
-			
+		//elimina todas las opciones de clase:
+		var l = selClass.options.length;
+		
+		for(j = 0; j < l; j = j + 1)
+		{
+			selClass.options.remove(0);
+		}
+		
+		actualCourse = selCourse.options[selCourse.selectedIndex].text;
+
+		courses = a2.options;
+		i = 0;
+		for(c = 0;  c < courses.length; c = c + 1) // Recorre los cursos
+		{
+			//Si el curso es el mismo al curso seleccionado, manda el grupo al vector
+			if(actualCourse.localeCompare(courses[c].text) == 0)
+			{
+				var tmp = document.createElement("option");
+				tmp.text = a1.options[c].text;
+				selClass.options.add(tmp,i);
+				i = i + 1;
+			}
+		}
+		
+		selClass.options = [1,2,3];
 	
-			
-            echo $this->Form->control('reception_date',['type' => 'hidden', 'value' => date('Y-m-d H:i:s')]); //INNECESARIA, ya que se puede generar con funcion que obtenga dia de hoy
-			
-           // echo $this->Form->control('Año');  //Preguntarle a la profesora si debo pedirlo. Igual el semestre
-			echo $this->Form->control('class_year');
-            echo $this->Form->control('Curso', ['options' => $courses]); /*Podria ser combo box. En caso de que si, PEDIR*/		
-           // echo $this->Form->control('Semestre');
-			
-			echo $this->Form->control('class_semester');
-            echo $this->Form->control('class_number', ['id' => 'class_number']);
-			
-            echo $this->Form->control('grupo',['id' => 'Grupo']); /*También deberia ser comboBox y debo PEDIRLO*/
-			
-           //echo $this->Form->control('student_id', ['options' => $students]);// PEDIRLO 
-			echo $this->Form->control('student_id', ['options' => ['A12345']]);
-			
-            echo $this->Form->control('status', ['value' => 'p','type' => 'hidden']);  //Jamas deberia salir
-			
-			 echo $this->Form->control('round_year',['value' => '2018']);
+		
 
-			
-            echo $this->Form->control('another_assistant_hours' ,['value' => '1', 'id' => 'aah']);
-            echo $this->Form->control('another_student_hours',['value' => '1', 'id' => 'ash']);
+	}
+</script>
+<nav class="large-3 medium-4 columns" id="actions-sidebar"> 
+    <ul class="side-nav">
+		
+    </ul>
+	<button onClick="update()"> pendiente </button> 
+</nav>
+<div class="requests form large-9 medium-8 columns content" >
+    <?= $this->Form->create($request) ?>
+    <fieldset>
+        <legend><?= __('Añadir Solicitud') ?></legend>
+        <?php
+			//debug(($classes->execute())[1]);
+            echo $this->Form->control('course_id', ['label' => 'Curso:', 'options' => $c2, 'onChange' => 'updateClass()']);
+            echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
+			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
+			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled']);
+            //echo $this->Form->control('student_id', ['options' => $students]);
+			echo $this->Form->control('average', ['label' => 'Promedio Ponderado']);
+			echo $this->Form->control('has_another_hours', ['label' => 'Tengo otras Horas Asignadas']);
+            echo $this->Form->control('another_student_hours', ['label' => 'Cantidad de horas estudiante ya asignadas: ']);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Cantidad de horas asistente ya asignadas: ']);
 
+            echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			
+			$variable = $this->Cell('Requests');
+			
+			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
+			debug($teacher);
         ?>
     </fieldset>
-
-	<BR>
     <?= $this->Form->button(__('Submit')) ?>
-	
-	
-	
-
+	<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>
     <?= $this->Form->end() ?>
 	
+	
+	
+	
 </div>
+updateClass();
