@@ -7,10 +7,8 @@ use Cake\ORM\Entity;
  * Request Entity
  *
  * @property int $id
- * @property int $round_number
- * @property int $round_semester
- * @property int $round_year
- * @property \Cake\I18n\FrozenTime $reception_date
+ * @property \Cake\I18n\FrozenDate $round_start
+ * @property \Cake\I18n\FrozenDate $reception_date
  * @property string $class_year
  * @property string $course_id
  * @property int $class_semester
@@ -19,6 +17,9 @@ use Cake\ORM\Entity;
  * @property string $status
  * @property int $another_assistant_hours
  * @property int $another_student_hours
+ * @property bool $has_another_hours
+ * @property bool $first_time
+ * @property float $average
  *
  * @property \App\Model\Entity\Course $course
  * @property \App\Model\Entity\Student $student
@@ -36,9 +37,7 @@ class Request extends Entity
      * @var array
      */
     protected $_accessible = [
-        'round_number' => true,
-        'round_semester' => true,
-        'round_year' => true,
+        'round_start' => true,
         'reception_date' => true,
         'class_year' => true,
         'course_id' => true,
@@ -48,6 +47,9 @@ class Request extends Entity
         'status' => true,
         'another_assistant_hours' => true,
         'another_student_hours' => true,
+        'has_another_hours' => true,
+        'first_time' => true,
+        'average' => true,
         'course' => true,
         'student' => true
     ];

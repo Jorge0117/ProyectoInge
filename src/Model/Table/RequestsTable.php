@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * Requests Model
@@ -46,6 +48,12 @@ class RequestsTable extends Table
             'foreignKey' => 'student_id',
             'joinType' => 'INNER'
         ]);
+		
+		$this->belongsTo('Classes', [
+            'foreignKey' => 'class_number',
+            'joinType' => 'INNER'
+        ]);
+		
     }
 
     /**
@@ -61,22 +69,12 @@ class RequestsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->integer('round_number')
-            ->requirePresence('round_number', 'create')
-            ->notEmpty('round_number');
+            ->date('round_start')
+            ->requirePresence('round_start', 'create')
+            ->notEmpty('round_start');
 
         $validator
-            ->integer('round_semester')
-            ->requirePresence('round_semester', 'create')
-            ->notEmpty('round_semester');
-
-        $validator
-            ->integer('round_year')
-            ->requirePresence('round_year', 'create')
-            ->notEmpty('round_year');
-
-        $validator
-            ->dateTime('reception_date')
+            ->date('reception_date')
             ->requirePresence('reception_date', 'create')
             ->notEmpty('reception_date');
 
@@ -107,6 +105,21 @@ class RequestsTable extends Table
             ->requirePresence('another_student_hours', 'create')
             ->notEmpty('another_student_hours');
 
+        $validator
+            ->boolean('has_another_hours')
+            ->requirePresence('has_another_hours', 'create')
+            ->notEmpty('has_another_hours');
+
+        $validator
+            ->boolean('first_time')
+            ->requirePresence('first_time', 'create')
+            ->notEmpty('first_time');
+
+        $validator
+            ->decimal('average')
+            ->requirePresence('average', 'create')
+            ->notEmpty('average');
+
         return $validator;
     }
 
@@ -119,9 +132,18 @@ class RequestsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['course_id'], 'Courses'));
-      //  $rules->add($rules->existsIn(['student_id'], 'Students'));
+        //$rules->add($rules->existsIn(['course_id'], 'Courses'));
+        //$rules->add($rules->existsIn(['student_id'], 'Students'));
 
         return $rules;
     }
+	
+	public function getRequests()
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from requests");
+		$result = $result->fetchAll('assoc');
+        return $result;
+    }
+	
 }
