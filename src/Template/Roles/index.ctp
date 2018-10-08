@@ -92,7 +92,7 @@ echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
 
 foreach ($assistant_permissions_matrix as $perm_row) {
     $permission_row[] = $perm_row[0];
-    for ($i = 1; $i < 7; $i++) {
+    for ($i = 1; $i < 6; $i++) {
         $permission_row[] = $perm_row[$i] ? $con_check : $sin_check;
     }
     echo $this->Html->tableCells([
@@ -134,7 +134,7 @@ echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
 
 foreach ($student_permissions_matrix as $perm_row) {
     $permission_row[] = $perm_row[0];
-    for ($i = 1; $i < 7; $i++) {
+    for ($i = 1; $i < 6; $i++) {
         $permission_row[] = $perm_row[$i] ? $con_check : $sin_check;
     }
     echo $this->Html->tableCells([
@@ -155,7 +155,7 @@ echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
 
 foreach ($professor_permissions_matrix as $perm_row) {
     $permission_row[] = $perm_row[0];
-    for ($i = 1; $i < 7; $i++) {
+    for ($i = 1; $i < 6; $i++) {
         $permission_row[] = $perm_row[$i] ? $con_check : $sin_check;
     }
     echo $this->Html->tableCells([
