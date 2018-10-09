@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<!-- <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
@@ -19,21 +19,21 @@
         <li><?= $this->Html->link(__('List Students'), ['controller' => 'Students', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add']) ?></li>
     </ul>
-</nav>
+</nav> -->
 <div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
+    <h3><?= __('Usuarios') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('identification_number') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastname1') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('lastname2') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('username') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email_personal') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('phone') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('role_id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Cédula ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Nombre ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Primer apelido ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Segundo apellido ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Nombre de Usuario ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Correo ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' Teléfono ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort(' rol ') ?></th>
+                <th scope="col" class="actions"><?= __(' ') ?></th>
             </tr>
         </thead>
         <tbody>
