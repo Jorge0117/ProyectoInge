@@ -33,7 +33,23 @@ class ClassesController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add($code, $group, $semester, $year, $profId)
+    public function add()
+    {
+        $class = $this->Classes->newEntity();
+        if ($this->request->is('post')) {
+            $class = $this->Classes->patchEntity($class, $this->request->getData());
+            if ($this->Classes->save($class)) {
+                $this->Flash->success(__('The class has been saved.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The class could not be saved. Please, try again.'));
+        }
+        $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
+        $professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+        $this->set(compact('class', 'courses', 'professors'));
+    }
+
+    public function addClass($code, $group, $semester, $year, $profId)
     {
         $classTable=$this->loadmodel('Classes');
         return $classTable->addClass($code, $group, $semester, $year, 1, $profId);

@@ -29,7 +29,8 @@
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-<button class="button"><?= $this->Html->link('Agregar curso',['controller'=>'CoursesClassesVw','action'=>'delete'],['class'=>'nav-link']) ?></button>
+<button class="button"><?= $this->Html->link('Agregar grupo',['controller'=>'Classes','action'=>'delete'],['class'=>'nav-link']) ?></button>
+<button class="button"><?= $this->Html->link('Agregar curso',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
 <button class="button"><?= $this->Html->link('Cargar archivo',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
 <nav class="large-8 medium-8 columns" id="actions-sidebar">
     <ul class="nav">
