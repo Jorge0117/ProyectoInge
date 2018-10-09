@@ -27,26 +27,6 @@ class CoursesClassesVwController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
-        if ($this->request->is('post')) {
-            $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-            if ($this->CoursesClassesVw->save($coursesClassesVw)) {
-                $this->Flash->success(__('The courses classes vw has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
-        }
-        $this->set(compact('coursesClassesVw'));
-    }
-
-    /**
      * Edit method
      *
      * @param string|null $id Courses Classes Vw id.
@@ -117,5 +97,34 @@ class CoursesClassesVwController extends AppController
         }
         //------------------------------------------------
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * 
+     */
+    public function fetchAllClasses($code = null, $semester = null, $year = null)
+    {
+        //------------------------------------------------
+        $result = -1;
+        //------------------------------------------------
+        $model = $this->CoursesClassesVw->newEntity();
+        //------------------------------------------------
+        if ($this->request->is('post')) {
+            //------------------------------------------------
+            $model = $this->CoursesClassesVw->patchEntity(
+                $model, 
+                $this->request->getData()
+            );
+            //------------------------------------------------
+            $coursesClassesModel = $this->loadmodel('Classes');
+            //------------------------------------------------
+            $result = $coursesClassesModel->fetchAllClasses(
+                $code,
+                $semester,
+                $year
+            );
+            //------------------------------------------------
+        }
+        return $result;
     }
 }
