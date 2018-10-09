@@ -11,6 +11,7 @@
         color: #ffffff;
         border: none;
         text-align: center;
+        float: right;
     }
 
     h3{
@@ -21,11 +22,28 @@
         width: 100%;
         line-height:1.5em;
     }
+    
+    .form-size{
+        width: 50%;
+        min-width: 200px;
+        padding-left: 50px;
+    }
+
+    .btn-cancelar{
+        background-color: #999999;
+        color: #ffffff;
+        border: none;
+        text-align: center;
+        float: right;
+        margin-right: 5px;
+    }
 
 </style>
 
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+<div class="users form large-9 medium-8 columns content form-size">
+    <?= $this->Form->create($user,array(
+                'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
+    
     <fieldset>
         <legend><?= __('Datos personales') ?></legend>
         <?php
@@ -39,6 +57,11 @@
             echo $this->Form->control('Carné');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Aceptar'), ['class'=>'btn-aceptar']) ?>
+    
+    <div class="submit">
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+    </div>
+    
     <?= $this->Form->end() ?>
 </div>

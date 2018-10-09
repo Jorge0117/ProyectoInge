@@ -78,6 +78,10 @@ class UsersController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($this->request->data['cancel'])) {
+                
+                return $this->redirect( array( 'action' => 'index' ));
+            }
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
