@@ -4,6 +4,14 @@ namespace App\Controller;
 use App\Controller\AppController;
 use App\Controller\ClassesController;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Cake\ORM\TableRegistry;
+use Cake\Datasource\ConnectionManager;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Helper;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+//require ROOT.DS.’vendor‘ .DS. ‘phpoffice/phpspreadsheet/src/Bootstrap.php’;
+
 /**
  * CoursesClassesVw Controller
  *
@@ -198,4 +206,15 @@ class CoursesClassesVwController extends AppController
         }
         return $result;
     }
+
+    public function importExcelfile (){
+        $helper = new Helper\Sample();
+        debug($helper);
+        $inputFileName = WWW_ROOT . ‘example1.xls‘;
+        $spreadsheet = IOFactory::load($inputFileName);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        var_dump($sheetData);
+        die(“here”);
+    }
+
 }
