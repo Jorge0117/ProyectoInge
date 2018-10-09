@@ -53,8 +53,8 @@
             echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('Rol', ['options' => $roles]);
-            echo $this->Form->control('Carné');
+            echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+            echo $this->Form->control('carne', ['label'=>['text'=>'Carné']]);
         ?>
     </fieldset>
     
