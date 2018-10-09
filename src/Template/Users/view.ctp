@@ -6,7 +6,7 @@
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+     <!--   <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->identification_number]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->identification_number], ['confirm' => __('Are you sure you want to delete # {0}?', $user->identification_number)]) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
@@ -21,41 +21,41 @@
         <li><?= $this->Html->link(__('New Professor'), ['controller' => 'Professors', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Students'), ['controller' => 'Students', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Student'), ['controller' => 'Students', 'action' => 'add']) ?> </li>
-    </ul>
+    </ul> -->
 </nav>
 <div class="users view large-9 medium-8 columns content">
     <h3><?= h($user->name) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Identification Number') ?></th>
+            <th scope="row"><?= __('Cédula') ?></th>
             <td><?= h($user->identification_number) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Name') ?></th>
+            <th scope="row"><?= __('Nombre') ?></th>
             <td><?= h($user->name) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Lastname1') ?></th>
+            <th scope="row"><?= __('Primer apellido') ?></th>
             <td><?= h($user->lastname1) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Lastname2') ?></th>
+            <th scope="row"><?= __('Segundo apellido') ?></th>
             <td><?= h($user->lastname2) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Username') ?></th>
+            <th scope="row"><?= __('Nombre de usuario') ?></th>
             <td><?= h($user->username) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Email Personal') ?></th>
+            <th scope="row"><?= __('Correo') ?></th>
             <td><?= h($user->email_personal) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Phone') ?></th>
+            <th scope="row"><?= __('Teléfono') ?></th>
             <td><?= h($user->phone) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Role') ?></th>
+            <th scope="row"><?= __('Rol') ?></th>
             <td><?= $user->has('role') ? $this->Html->link($user->role->role_id, ['controller' => 'Roles', 'action' => 'view', $user->role->role_id]) : '' ?></td>
         </tr>
     </table>

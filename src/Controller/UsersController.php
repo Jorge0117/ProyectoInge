@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+
 /**
  * Users Controller
  *
@@ -12,7 +13,7 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
-
+    
     /**
      * Index method
      *
@@ -54,10 +55,11 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            debug($user);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
-            }
+            } 
             $this->Flash->error(__('No se pudo crear el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
@@ -73,14 +75,21 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        $Students = new StudentsController;
+        $Professors = new ProfessorsController;
+        $AdministrativeAssistants = new AdministrativeAssistantsController;
+        $AdministrativeBosses = new AdministrativeBossesController;  
+        
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            if (isset($this->request->data['cancel'])) {
+                return $this->redirect( array( 'action' => 'index' ));
+            }
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('No se pudo modificar el usuario.'));

@@ -39,7 +39,7 @@ class User extends Entity
         'name' => true,
         'lastname1' => true,
         'lastname2' => true,
-        'username' => true,
+        'username' => false,
         'email_personal' => true,
         'phone' => true,
         'role_id' => true,
