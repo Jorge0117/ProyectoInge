@@ -4,98 +4,282 @@
  * @var \App\Model\Entity\Role[]|\Cake\Collection\CollectionInterface $roles
  */
 ?>
-<div class='row'>
-<h2> Rol:
-</h2>
-    <?php 
-    echo $this->Form->select(
-        'roles',
-        $roles_array,
-        ['empty' => 'Elija un rol...'
-        ,'style' => 'width: 14%']
-    )?>
-    <?php 
-
-    echo $this->Form->checkbox(
-        'Editar'
-    );
+<head>
+    <?php  
+        $url = $this->Url->build([
+            "controller" => "Roles",
+            "action" => "updatePermissions"
+        ]);
     ?>
+    <script type="text/javascript">
+        var urlJS=<?php echo json_encode($url); ?>;
+    </script>
 
-</div>
+    <script type="text/javascript">
+       $(document).ready(function(){
+            $("#role_select").change(function(){
+                if(document.getElementById("role_select").value == "Administrador"){
+                    $("#assistant_permission_table").hide();
+                    $("#student_permission_table").hide();
+                    $("#professor_permission_table").hide();
+                    $("#administrator_permission_table").show();
+                    $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
+                }else if(document.getElementById("role_select").value == "Asistente"){
+                    $("#administrator_permission_table").hide();
+                    $("#student_permission_table").hide();
+                    $("#professor_permission_table").hide();
+                    $("#assistant_permission_table").show();
+                    $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
+                }else if(document.getElementById("role_select").value == "Estudiante"){
+                    $("#administrator_permission_table").hide();
+                    $("#professor_permission_table").hide();
+                    $("#assistant_permission_table").hide();
+                    $("#student_permission_table").show();
+                    $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
+                }else if(document.getElementById("role_select").value == "Profesor"){
+                    $("#administrator_permission_table").hide();
+                    $("#assistant_permission_table").hide();
+                    $("#student_permission_table").hide();
+                    $("#professor_permission_table").show();
+                    $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
+                }else{
+                    $("#administrator_permission_table").hide();
+                    $("#student_permission_table").hide();
+                    $("#professor_permission_table").hide();
+                    $("#assistant_permission_table").hide();
+                    $('#AceptarBtn').hide();
+                    $('#edit_checkbox').hide();
+                }
+            });
 
-<table style="width:100%">
-<?php 
-echo $this->Html->tableHeaders(['Permiso', 'Solicitudes','Cursos-Grupo',
- 'Requisitos', 'Ronda', 'Usuarios',  'Roles' ]);
+            $("#edit_checkbox").change(function(){
+                if($("#edit_checkbox").is(":checked")){
+                    $('.checkbox_perm').prop( "disabled", false );
+                    $('#AceptarBtn').prop( "disabled", false );
+                }else{
+                    $('.checkbox_perm').prop( "disabled", true );
+                    $('#AceptarBtn').prop( "disabled", true );
+                    
+                }
+            });
 
-$con_check = $this->Form->checkbox(
-    'Editar',
-    ['checked' => true]
-);
-$sin_check = $this->Form->checkbox(
-    'Editar',
-    ['checked' => false]
-);
+            $('#AceptarBtn').click(function () {
+                let permissions_matrix_request = [];
+                if (document.getElementById("role_select").value == 'Estudiante'){
+                    for (let i = 0; i < 4; i++) {
+                        permissions_matrix_request[i] = [];
+                        for (let j = 1; j < 6; j++) {
+                            permissions_matrix_request[i][j] = $("#student_"+i+""+j).is(":checked");
+                            
+                        }
+                        
+                    }
+                    
+                }else if (document.getElementById("role_select").value == 'Administrador'){
+                    for (let i = 0; i < 4; i++) {
+                        permissions_matrix_request[i] = [];
+                        for (let j = 1; j < 6; j++) {
+                            permissions_matrix_request[i][j] = $("#administrator_"+i+""+j).is(":checked");
+                            
+                        }
+                        
+                    }
+                }else if (document.getElementById("role_select").value == 'Asistente'){
+                    for (let i = 0; i < 4; i++) {
+                        permissions_matrix_request[i] = [];
+                        for (let j = 1; j < 6; j++) {
+                            permissions_matrix_request[i][j] = $("#assistant_"+i+""+j).is(":checked");
+                            
+                        }
+                        
+                    }
+                } else if (document.getElementById("role_select").value == 'Profesor'){
+                    for (let i = 0; i < 4; i++) {
+                        permissions_matrix_request[i] = [];
+                        for (let j = 1; j < 6; j++) {
+                            permissions_matrix_request[i][j] = $("#professor_"+i+""+j).is(":checked");
+                            
+                        }
+                        
+                    }
+                }
+                console.log(permissions_matrix_request);
+            
+                let data = {
+                    id: document.getElementById("role_select").value,
+                    matrix: permissions_matrix_request
+                }
+                $.post(urlJS, data, function (data, status){
+                    console.log('${data} and ${status}');
+                })
+            });
+        });
+    </script>
+</head>
 
-foreach ($permissions_matrix as $perm_row){
-    $permission_row[] = $perm_row[0];
-    for($i = 1; $i < 7 ;$i++){
-        $permission_row[] = $perm_row[$i]? $con_check : $sin_check; 
-    }
-    echo $this->Html->tableCells([
-        $permission_row
-    ]);
-    $permission_row = [];
-}
+<body>
+    <div class='row'>
+        <h2> Rol: </h2>
 
-?>
+        <?php
+            echo $this->Form->select(
+                'role_select',
+                $roles_array,
+                ['id' => 'role_select',
+                'empty' => 'Elija un rol',
+                'style' => 'width: 14%',
+                'class' => "form-control"]
+            ) 
+        ?>
 
-</table>
-<div>
+        <?php
+            echo $this->Form->checkbox(
+                'Editar',
+                ['id' => 'edit_checkbox',
+                 'style' => 'display: none'
+                ]
+            );
+        ?>
 
-</div>
-
-<!--
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Permissions'), ['controller' => 'Permissions', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Permission'), ['controller' => 'Permissions', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="roles index large-9 medium-8 columns content">
-    <h3><?= __('Roles') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('role_id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($roles as $role): ?>
-            <tr>
-                <td><?= h($role->role_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $role->role_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $role->role_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $role->role_id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->role_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+        <?php
+            echo $this->Form->button(
+                'Aceptar',
+                [
+                    'id' => 'AceptarBtn',
+                    'disabled' => true,
+                    'style' => 'display: none',
+                    'type' => 'submit'
+                ]);
+        ?>
     </div>
-</div>
 
--->
+    <div id='assistant_permission_table' class='container' style="display: none;">
+        <table id='assistant_table' class='table'>
+            <?php
+                echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
+                    'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
+
+                    for ($j = 0; $j < 4; $j++) {
+                        $perm_row = $assitant_permissions_matrix[$j];
+                        $permission_row[] = $perm_row[0];
+                        for ($i = 1; $i < 6; $i++) {
+                            $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'assistant_'.$j.$i,
+                                'checked' => true,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox']
+                            ) : $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'assistant_'.$j.$i,
+                                 'checked' => false,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox']
+                            )).'</div>';
+                        }
+                        echo $this->Html->tableCells([$permission_row]);
+                        $permission_row = [];
+                    }
+            ?>
+        </table>
+    </div>
+
+    <div id='administrator_permission_table' class='container' style="display: none;">
+        <table id='administrator_table'  class='table'>
+            <?php
+                echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
+                    'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
+
+                    for ($j = 0; $j < 4; $j++) {
+                        $perm_row = $administrator_permissions_matrix[$j];
+                        $permission_row[] = $perm_row[0];
+                        for ($i = 1; $i < 6; $i++) {
+                            $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'administrator_'.$j.$i,
+                                'checked' => true,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox']
+                            ) : $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'administrator_'.$j.$i,
+                                 'checked' => false,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox']
+                            )).'</div>';
+                        }
+                        echo $this->Html->tableCells([$permission_row]);
+                        $permission_row = [];
+                    }
+            ?>
+        </table>
+    </div>
+
+    <div id='student_permission_table' class='container' style="display: none;">
+        <table id='student_table'  class='table'>
+            <?php
+                echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
+                    'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
+
+                for ($j = 0; $j < 4; $j++) {
+                    $perm_row = $student_permissions_matrix[$j];
+                    $permission_row[] = $perm_row[0];
+                    for ($i = 1; $i < 6; $i++) {
+                        $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'student_'.$j.$i,
+                                'checked' => true,
+                                'disabled' => true,
+                                'class' => 'checkbox_perm checkbox']
+                            ) : $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'student_'.$j.$i,
+                                'checked' => false,
+                                'disabled' => true,
+                                'class' => 'checkbox_perm checkbox']
+                            )).'</div>';
+                    }
+                    echo $this->Html->tableCells([$permission_row]);
+                    $permission_row = [];
+                }
+            ?>
+        </table>
+    </div>
+
+    <div id='professor_permission_table' class='container' style="display: none;">
+        <table id='professor_table'  class='table'>
+            <?php
+                echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
+                    'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
+
+                    for ($j = 0; $j < 4; $j++) {
+                        $perm_row = $professor_permissions_matrix[$j];
+                        $permission_row[] = $perm_row[0];
+                        for ($i = 1; $i < 6; $i++) {
+                            $permission_row[] = '<div class=\'align-middle\'>'.($perm_row[$i] ? $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'professor_'.$j.$i,
+                                'checked' => true,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox align-middle']
+                            ) : $this->Form->checkbox(
+                                'Editar',
+                                ['id' => 'professor_'.$j.$i,
+                                 'checked' => false,
+                                 'disabled' => true,
+                                 'class' => 'checkbox_perm checkbox ']
+                            )).'</div>';
+                            
+                        }
+                        echo $this->Html->tableCells([$permission_row],['class'=>'align-middle']);
+                        $permission_row = [];
+                    }
+
+            ?>
+        </table>
+    </div>
+</body>
