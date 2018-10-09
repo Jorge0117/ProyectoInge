@@ -81,7 +81,7 @@ $sin_check = $this->Form->checkbox(
     'Editar',
     ['checked' => false,
         'disabled' => true,
-        'class' => 'checkbox_perm']
+        'class' => 'checkbox_perm checkbox']
 );
 ?>
 <div id='assistant_permission_table' class='container' style="display: none;">
