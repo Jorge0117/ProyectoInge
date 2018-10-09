@@ -19,6 +19,15 @@
             echo $this->Form->control('Año');
         ?>
     </fieldset>
-
+    <?= $this->Form->button(__('Aceptar'), ['class'=>'btn-aceptar']) ?>
     <?= $this->Form->end() ?>
 </div>
+
+<style>
+.btn-aceptar{
+    background-color: #ceb92bff;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+}
+</style>
