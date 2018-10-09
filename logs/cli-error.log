@@ -78,6 +78,7 @@ Stack Trace:
 #18 {main}
 
 
+<<<<<<< HEAD
 2018-10-03 16:18:05 Warning: Warning (2): mkdir(): No such file or directory in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\View\BakeView.php, line 108]
 Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
@@ -98,6 +99,9 @@ Cake\Console\CommandRunner::run() - CORE\src\Console\CommandRunner.php, line 164
 
 
 2018-10-05 20:25:23 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+=======
+2018-10-03 16:01:11 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+>>>>>>> jorgeCursosGrupos
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
 #1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
@@ -105,9 +109,15 @@ Stack Trace:
 #3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
 #4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
 #5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+<<<<<<< HEAD
 #6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'professors', 'Professors')
 #7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Professors')
 #8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Professors')
+=======
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'courses', 'Courses')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Courses')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Courses')
+>>>>>>> jorgeCursosGrupos
 #9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
 #10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
 #11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
@@ -115,7 +125,11 @@ Stack Trace:
 #13 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 20:48:47 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+=======
+2018-10-03 16:07:17 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+>>>>>>> jorgeCursosGrupos
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
 #1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
@@ -123,9 +137,15 @@ Stack Trace:
 #3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
 #4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
 #5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+<<<<<<< HEAD
 #6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'administrative_...', 'AdministrativeB...')
 #7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('AdministrativeB...')
 #8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('AdministrativeB...')
+=======
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'courses', 'Courses')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Courses')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Courses')
+>>>>>>> jorgeCursosGrupos
 #9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
 #10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
 #11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
@@ -133,6 +153,7 @@ Stack Trace:
 #13 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 21:05:39 Error: [RuntimeException] Unknown command `cake baje`. Run `cake --help` to get the list of valid commands. in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php on line 321
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(159): Cake\Console\CommandRunner->resolveName(Object(Cake\Console\CommandCollection), Object(Cake\Console\ConsoleIo), 'baje')
@@ -173,6 +194,18 @@ Stack Trace:
 #6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'administrative_...', 'AdministrativeA...')
 #7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('AdministrativeA...')
 #8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('AdministrativeA...')
+=======
+2018-10-03 16:11:44 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(548): Cake\Database\Schema\CachedCollection->describe('view_rounds')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'courses', 'Courses')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Courses')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Courses')
 #9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
 #10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
 #11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
@@ -180,3 +213,91 @@ Stack Trace:
 #13 {main}
 
 
+2018-10-03 16:13:05 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(548): Cake\Database\Schema\CachedCollection->describe('view_rounds')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'courses', 'Courses')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Courses')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Courses')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#12 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#13 {main}
+
+
+2018-10-03 16:13:16 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(97): Cake\Database\Schema\Collection->_reflect('Column', 'view_rounds', Array, Object(Cake\Database\Schema\TableSchema))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(63): Cake\Database\Schema\Collection->describe('view_rounds', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(548): Cake\Database\Schema\CachedCollection->describe('view_rounds')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(416): Cake\ORM\Table->getSchema()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(232): Bake\Shell\Task\ModelTask->findHasMany(Object(Cake\ORM\Table), Array)
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(131): Bake\Shell\Task\ModelTask->getAssociations(Object(Cake\ORM\Table))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(114): Bake\Shell\Task\ModelTask->getTableContext(Object(Cake\ORM\Table), 'courses', 'Courses')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(101): Bake\Shell\Task\ModelTask->bake('Courses')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\ModelTask->main('Courses')
+>>>>>>> jorgeCursosGrupos
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#12 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#13 {main}
+
+
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+2018-10-03 16:24:05 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
+2018-10-03 16:29:53 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
+2018-10-03 16:30:33 Error: [ParseError] syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) in C:\xampp\htdocs\ProyectoInge\src\Model\Entity\Class.php on line 19
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Model\\Entit...')
+#2 [internal function]: spl_autoload_call('App\\Model\\Entit...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(298): class_exists('App\\Model\\Entit...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\Shell\Task\TemplateTask.php(142): Bake\Shell\Task\TemplateTask->_loadController()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(532): Bake\Shell\Task\TemplateTask->main('Classes')
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\Shell.php(525): Cake\Console\Shell->runCommand(Array, false, Array)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(342): Cake\Console\Shell->runCommand(Array, true)
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(164): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#9 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#10 {main}
+
+
+=======
+>>>>>>> curso-grupo
+>>>>>>> jorgeCursosGrupos
