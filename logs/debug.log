@@ -954,6 +954,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-05 18:14:40 Notice: Notice (8): Object of class App\Controller\ClassesController could not be converted to int in [C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php, line 116]
 Request URL: /courses-classes-vw/delete/CI-1320
@@ -3119,6 +3120,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:00:51 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3126,7 +3129,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3151,6 +3157,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:28:53 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1
@@ -3160,6 +3167,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:01:38 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3167,7 +3176,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3192,6 +3204,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:28:53 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1
@@ -3201,6 +3214,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:08:02 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3208,7 +3223,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3233,6 +3251,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:28:53 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1
@@ -3242,6 +3261,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:10:34 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3249,7 +3270,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3274,6 +3298,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:28:53 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1
@@ -3283,6 +3308,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:12:35 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3290,7 +3317,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3315,6 +3345,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:29:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3324,6 +3355,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:19:25 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3331,7 +3364,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3356,6 +3392,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:29:18 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3365,6 +3402,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:19:26 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3372,7 +3411,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3397,6 +3439,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:29:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3406,6 +3449,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:19:29 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3413,7 +3458,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3438,6 +3486,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:29:18 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3447,6 +3496,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:19:35 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3454,7 +3505,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3479,6 +3533,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:29:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3488,6 +3543,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:21:14 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3495,7 +3552,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3520,6 +3580,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:31:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3529,6 +3590,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:21:32 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3536,7 +3599,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3561,6 +3627,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:31:18 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3570,6 +3637,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:21:45 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3577,7 +3646,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3602,6 +3674,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:31:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3611,6 +3684,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:22:00 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3618,7 +3693,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3643,6 +3721,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:31:18 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3652,6 +3731,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:23:46 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3659,7 +3740,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3684,6 +3768,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:31:18 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3693,6 +3778,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:25:44 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3700,7 +3787,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3725,6 +3815,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:01 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3734,6 +3825,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:26:29 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3741,7 +3834,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3766,6 +3862,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:01 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3775,6 +3872,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:26:36 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -3782,7 +3881,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3807,6 +3909,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:01 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3816,6 +3919,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:27:09 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -3823,7 +3928,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3848,6 +3956,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:01 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3857,6 +3966,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:27:16 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3864,7 +3975,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3889,6 +4003,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:01 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3898,6 +4013,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:27:19 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3905,7 +4022,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3930,6 +4050,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:21 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3939,6 +4060,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:27:39 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -3946,7 +4069,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -3971,6 +4097,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:21 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -3980,6 +4107,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:28:21 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -3987,7 +4116,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4012,6 +4144,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:21 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4021,6 +4154,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:28:24 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4028,7 +4163,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4053,6 +4191,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:21 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4062,6 +4201,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:28:30 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4069,7 +4210,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4094,6 +4238,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:32:21 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4103,6 +4248,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:28:51 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -4110,7 +4257,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4135,6 +4285,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:34:14 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4144,6 +4295,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:29:51 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4151,7 +4304,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4176,6 +4332,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:34:14 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4185,6 +4342,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:31:33 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4192,7 +4351,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4217,6 +4379,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:34:14 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4226,6 +4389,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:31:36 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -4233,7 +4398,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4258,6 +4426,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:34:14 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4267,6 +4436,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:31:39 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4274,7 +4445,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4299,6 +4473,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-08 01:34:14 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/1/2019
@@ -4308,6 +4483,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:41:44 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4315,7 +4492,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4340,6 +4520,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-09 02:40:05 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/8/2019
@@ -4349,6 +4530,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:47:54 Notice: Notice (8): Undefined variable: courses in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4356,7 +4539,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4381,6 +4567,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-09 02:40:05 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 13]
 Request URL: /courses-classes-vw/edit/CI-1320/1/8/2019
@@ -4390,6 +4577,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 13
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 03:47:58 Notice: Notice (8): Undefined variable: courses in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/CoursesClassesVw
@@ -4397,7 +4586,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4422,6 +4614,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-09 02:40:05 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/8/2019
@@ -4431,6 +4624,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 04:32:38 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 18]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -4438,7 +4633,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 18
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4463,6 +4661,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-09 02:40:05 Notice: Notice (8): Trying to get property 'code' of non-object in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 14]
 Request URL: /courses-classes-vw/edit/CI-1320/1/8/2019
@@ -4472,6 +4671,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 14
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 04:58:19 Notice: Notice (8): Undefined variable: coursesClasses in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -4479,7 +4680,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
@@ -4504,6 +4708,7 @@ Cake\Http\Server::run() - CORE\src\Http\Server.php, line 98
 
 
 
+<<<<<<< HEAD
 <<<<<<< refs/remotes/origin/joeCursosGrupos
 2018-10-09 02:40:05 Notice: Notice (8): Undefined variable: course in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\edit.ctp, line 26]
 Request URL: /courses-classes-vw/edit/CI-1320/1/8/2019
@@ -4513,6 +4718,8 @@ Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\edit.ctp, line 26
 =======
+=======
+>>>>>>> jorgeCursosGrupos
 2018-10-05 04:58:26 Notice: Notice (8): Undefined variable: coursesClasses in [C:\xampp\htdocs\ProyectoInge\src\Template\CoursesClassesVw\add.ctp, line 9]
 Request URL: /courses-classes-vw/add
 Referer URL: http://localhost/ProyectoInge/courses-classes-vw/add
@@ -4520,7 +4727,10 @@ Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
 Cake\Core\BasePlugin::{closure}() - ROOT\vendor\cakephp\debug_kit\config\bootstrap.php, line 41
 include - APP/Template\CoursesClassesVw\add.ctp, line 9
+<<<<<<< HEAD
 >>>>>>> Antes de volarme todo ):
+=======
+>>>>>>> jorgeCursosGrupos
 Cake\View\View::_evaluate() - CORE\src\View\View.php, line 1240
 Cake\View\View::_render() - CORE\src\View\View.php, line 1201
 Cake\View\View::render() - CORE\src\View\View.php, line 803
