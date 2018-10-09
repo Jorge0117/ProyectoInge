@@ -80,10 +80,10 @@ class CoursesClassesVwController extends AppController
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
                 if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
-                    $this->Flash->success(__('The courses classes vw has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    // $this->Flash->success(__('The courses classes vw has been saved.'));
+                    // return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
+                // $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
             }
             // $this->set(compact('coursesClassesVw'));
         }

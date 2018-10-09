@@ -20,11 +20,15 @@
     .button a {
         color:#fff; 
     }
+    /* .actions a {
+        color:#000; 
+    } */
     #image1 {
         height: 10px;
         width: 10px;
     }
 </style>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 <button class="button"><?= $this->Html->link('Agregar curso',['controller'=>'CoursesClassesVw','action'=>'delete'],['class'=>'nav-link']) ?></button>
 <button class="button"><?= $this->Html->link('Cargar archivo',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
 <nav class="large-8 medium-8 columns" id="actions-sidebar">
@@ -61,17 +65,18 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        __('Editar'), 
+                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', //__('Editar'), // 
                         [
                             'action' => 'edit', 
                             $course->Sigla,
                             $this->Number->format($course->Grupo),
                             $this->Number->format($course->Semestre),
                             $course->Año
-                        ]
+                        ],
+                        ['escape' => false]
                     ) ?>
                     <?= $this->Form->postLink(
-                        __('Eliminar'), 
+                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',// __('Eliminar'), // // Eliminar
                         [
                             'action' => 'delete', 
                             $course->Sigla,
@@ -79,7 +84,9 @@
                             $this->Number->format($course->Semestre),
                             $course->Año
                         ], 
-                        ['confirm' => __(
+                        [
+                            'escape' => false,
+                            'confirm' => __(
                             '                            Cursos-Grupo \n\n ¿Está seguro que desea eliminar el curso  {0}?', 
                             $course->code)
                         ]
