@@ -66,6 +66,7 @@ Stack Trace:
 #18 {main}
 
 
+<<<<<<< HEAD
 <<<<<<< joeCursosGrupos
 2018-10-03 16:01:11 Error: [Cake\Database\Exception] SQLSTATE[HY000]: General error: 1356 View 'proyecto_inge.view_rounds' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 131
 Stack Trace:
@@ -206,6 +207,8 @@ Stack Trace:
 =======
 >>>>>>> curso-grupo
 =======
+=======
+>>>>>>> solicitudes
 2018-10-05 01:53:37 Warning: Warning (2): mkdir(): No such file or directory in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\bake\src\View\BakeView.php, line 108]
 Trace:
 Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
@@ -251,4 +254,7 @@ Stack Trace:
 #18 {main}
 
 
+<<<<<<< HEAD
 >>>>>>> Insercion de Solicitudes
+=======
+>>>>>>> solicitudes

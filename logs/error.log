@@ -16372,6 +16372,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-09 18:53:55 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -16552,3 +16553,5 @@ Stack Trace:
 #17 {main}
 
 
+=======
+>>>>>>> solicitudes
