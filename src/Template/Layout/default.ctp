@@ -12,7 +12,6 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
@@ -132,16 +131,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
     <div id="OverviewText1"> 
-      <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
-      <?= $this->Html->image('logoUcr.png') ?>
+      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
     </div>
     <div id="OverviewText2"> 
-      <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
-      <?= $this->Html->image('logoEcci.png') ?>
+      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
     </div>
     <div id="OverviewText3"> 
-      <!-- <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/> -->
-      <?= $this->Html->image('userIcon.png', ['align' => 'right']) ?>
+      <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
 </h1>
     <div id="header">
@@ -181,7 +177,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
 			</ul>
 		</div>
-  <h2 class="text2 backg2"><font size="6"><?php echo $this->fetch('title'); ?></font></h2>
+  <h2 class="text2 backg2"></h2>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
