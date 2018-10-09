@@ -18,12 +18,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .button {
         background-color: #015b96ff;
         border: none;
-<<<<<<< HEAD
         color:#fff;
         padding: 15px 32px;
-=======
         padding: 5px 7px;
->>>>>>> Requisitos
         text-align: center;
         text-decoration: none;
         display: inline-block;
@@ -32,18 +29,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         cursor: pointer;
         float: right;
     }
-<<<<<<< HEAD
-=======
     .button a {
         color:#fff; 
     }
-<<<<<<< HEAD
->>>>>>> Requisitos
-=======
     .actions a {
         color:#000; 
     }
->>>>>>> Requisitos
     #image1 {
         height: 10px;
         width: 10px;
