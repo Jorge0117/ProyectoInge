@@ -24,30 +24,35 @@
                     $("#professor_permission_table").hide();
                     $("#administrator_permission_table").show();
                     $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
                 }else if(document.getElementById("role_select").value == "Asistente"){
                     $("#administrator_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").show();
                     $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
                 }else if(document.getElementById("role_select").value == "Estudiante"){
                     $("#administrator_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $("#student_permission_table").show();
                     $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
                 }else if(document.getElementById("role_select").value == "Profesor"){
                     $("#administrator_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").show();
                     $('#AceptarBtn').show();
+                    $('#edit_checkbox').show();
                 }else{
                     $("#administrator_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $('#AceptarBtn').hide();
+                    $('#edit_checkbox').hide();
                 }
             });
 
@@ -134,7 +139,9 @@
         <?php
             echo $this->Form->checkbox(
                 'Editar',
-                ['id' => 'edit_checkbox']
+                ['id' => 'edit_checkbox',
+                 'style' => 'display: none'
+                ]
             );
         ?>
 
