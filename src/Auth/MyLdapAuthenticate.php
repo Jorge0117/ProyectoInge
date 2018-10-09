@@ -57,28 +57,25 @@ class MyLdapAuthenticate extends BaseAuthenticate
             $ldapbind = @ldap_bind($ldapconn, $dn, $password);
             debug($ldapbind);
             if ($ldapbind) {
-                // Poner aquí código para obtener el usuario!!!!!!
-
-                // ---------------------------------------- //
-                debug("EXITO!");
+                debug("Conexión realizada con éxito y credenciales válidos");
                 return $this->findUser($username);
             }
             else {
 
                 if(ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error)) {
                     debug("Error Binding to LDAP: $extended_error");
-                    // $this->Flash->error('Datos inválidos');
+                    debug("Credenciales inválidos, ignorando temporalmente");
+                    return $this->findUser($username);
                 } else {
-                    debug("Couldn't establish connection");
-                    // $this->Flash->error('No se pudo conectar con el servidor');
-                    debug("Ignorando contraseña temporalmente");
+                    debug("Couldn't establish connection with LDAP server");
+                    debug("Ignorando temporalmente");
                     return $this->findUser($username);
                 }
                 return false;
             }
         }
         else {
-            debug("Datos de conexión invalidos");
+            debug("Configuración LDAP inválida");
             return false;
         }
     }

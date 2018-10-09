@@ -13,14 +13,11 @@ class SecurityController extends AppController
 
     public function login()
     {
-        $this->set('Variable1', 'holamundo');
-
-        
+                
 
         if($this->request->is('post'))
         {
             
-            debug("hola");
             $user = $this->Auth->identify();
 
             if($user)
@@ -32,27 +29,12 @@ class SecurityController extends AppController
                 debug("No se logro autenticar");
             }
 
-            // debug($this->Auth);
-            // die();
-
-            // debug($user);
-            // if($user)
-            // {
-            //     die();
-            //     $this->Auth->setUser($user);
-            //     return $this->redirect($this->Auth->redirectUrl());
-
-            // }
-            // else
-            // {
-                
-            // }
         }
     }
 
     public function logout()
     {
-
+        return $this->redirect($this->Auth->logout());
     }
 
 
