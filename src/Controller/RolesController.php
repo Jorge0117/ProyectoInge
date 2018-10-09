@@ -108,7 +108,9 @@ class RolesController extends AppController
     }
 
     public function updatePermissions(){
-
+        if ( $this->request->is('post') ) {
+            
+        }
     }
 
     /**

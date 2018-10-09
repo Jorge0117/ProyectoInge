@@ -8,7 +8,7 @@
     <?php  
         $url = $this->Url->build([
             "controller" => "Roles",
-            "action" => "index"
+            "action" => "updatePermissions"
         ]);
     ?>
     <script type="text/javascript">
@@ -113,7 +113,7 @@
                     id: document.getElementById("role_select").value,
                     matrix: permissions_matrix_request
                 }
-                $.post(urlJS, data,function (data, status){
+                $.post(urlJS, data, function (data, status){
                     console.log('${data} and ${status}');
                 })
             });
