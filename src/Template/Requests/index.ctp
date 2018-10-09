@@ -7,7 +7,9 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Acciones') ?></li>
+		<?php if ($disponible === true): ?>
         <li><?= $this->Html->link(__('Nueva Solicitud'), ['action' => 'add']) ?></li>
+		<?php endif; ?>
     </ul>
 </nav>
 <div class="requests index large-9 medium-8 columns content">
@@ -34,18 +36,35 @@
             <tr>
                 <td><?= h($request->reception_date) ?></td>
                 <td><?= h($request->class_year) ?></td>
-                <td><?= $request->has('course') ? $this->Html->link($request->course->name, ['controller' => 'Courses', 'action' => 'view', $request->course->code]) : '' ?></td>
-                <td><?= $this->Number->format($request->class_semester) ?></td>
+               <!-- <td><?= $request->has('course') ? $this->Html->link($request->course->name, ['controller' => 'Courses', 'action' => 'view', $request->course->code]) : '' ?></td>-->
+                <td><?= h($request->course_id) ?></td>
+				<td><?= $this->Number->format($request->class_semester) ?></td>
                 <td><?= $this->Number->format($request->class_number) ?></td>
                 <td><?= h($request->status) ?></td>
+				
+				
                 <td><?= $this->Number->format($request->another_assistant_hours) ?></td>
+
+				
                 <td><?= $this->Number->format($request->another_student_hours) ?></td>
-                <td><?= h($request->has_another_hours) ?></td>
-                <td><?= h($request->first_time) ?></td>
+				<?php if ($request->has_another_hours === true): ?>
+					<td> SI </td>
+				<?php else: ?>
+					<td> NO </td>
+				<?php endif; ?>
+				
+				<?php if ($request->first_time === true): ?>
+					<td> SI </td>
+				<?php else: ?>
+					<td> NO </td>
+				<?php endif; ?>
+				
                 <td><?= $this->Number->format($request->average) ?></td>
+				
                 <td class="actions">
                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $request->id]) ?>
                 </td>
+				
             </tr>
             <?php endforeach; ?>
         </tbody>
