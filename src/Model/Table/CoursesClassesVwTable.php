@@ -73,14 +73,34 @@ class CoursesClassesVwTable extends Table
         return $validator;
     }
 
+    /**
+     * 
+     */
     public function fetchARow($code = null, $class_number = null, $semester = null,$year = null)
     {
-        return $this->CoursesClassVw->find()->where(
+        return $this->CoursesClassVw
+            ->find()
+            ->where(
+                [
+                    'course_id'     => $code,
+                    'class_number'  => $class_number,
+                    'semester'      => $semester,
+                    'year'          => $year
+                ]
+            )
+            ->toArray()
+        ;
+    }
+
+    /**
+     * 
+     */
+    public function selectNameAndName($code = null, $class_number = null, $semester = null,$year = null)
+    {
+        return $this->fetchARow($code,$class_number,$semester,$year)->select(
             [
-                'course_id'     => $code,
-                'class_number'  => $class_number,
-                'semester'      => $semester,
-                'year'          => $year
+                'Profesor',
+                'Curso'
             ]
         );
     }

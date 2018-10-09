@@ -130,6 +130,7 @@ class ClassesTable extends Table
                     'year'      => $year
                 ]
             )
+            ->toArray()
         ;
         // $result = $connection->execute(
         //     "SELECT 
