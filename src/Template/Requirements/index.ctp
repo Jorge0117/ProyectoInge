@@ -16,7 +16,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <style>
     .button {
-        background-color: #ceb92bff;
+        background-color: #015b96ff;
         border: none;
         padding: 5px 7px;
         text-align: center;
