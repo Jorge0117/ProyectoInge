@@ -41,6 +41,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
 <div class="courses index large-9 medium-8 columns content">
+    <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
             <tr>
