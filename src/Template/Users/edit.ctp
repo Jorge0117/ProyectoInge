@@ -24,7 +24,7 @@
     }
     
     .form-size{
-        width: 50%;
+        width: 70%;
         min-width: 200px;
         padding-left: 50px;
     }
