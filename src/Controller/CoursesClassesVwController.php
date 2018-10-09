@@ -168,4 +168,33 @@ class CoursesClassesVwController extends AppController
         die(“here”);
     }
 
+
+    /**
+     * 
+     */
+    public function fetchAllClasses($code = null, $semester = null, $year = null)
+    {
+        //------------------------------------------------
+        $result = -1;
+        //------------------------------------------------
+        $model = $this->CoursesClassesVw->newEntity();
+        //------------------------------------------------
+        if ($this->request->is('post')) {
+            //------------------------------------------------
+            $model = $this->CoursesClassesVw->patchEntity(
+                $model, 
+                $this->request->getData()
+            );
+            //------------------------------------------------
+            $coursesClassesModel = $this->loadmodel('Classes');
+            //------------------------------------------------
+            $result = $coursesClassesModel->fetchAllClasses(
+                $code,
+                $semester,
+                $year
+            );
+            //------------------------------------------------
+        }
+        return $result;
+    }
 }

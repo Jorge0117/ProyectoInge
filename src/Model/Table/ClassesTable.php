@@ -103,6 +103,10 @@ class ClassesTable extends Table
     }
 
 
+    /**
+     * Deletes the row that match with the key given
+     * 
+     */
     public function deleteClass($code, $class_number, $semester, $year)
     {
         //------------------------------------------------
@@ -112,12 +116,45 @@ class ClassesTable extends Table
         //------------------------------------------------
         $result = $connection->execute(
             "DELETE FROM classes 
-            WHERE   course_id      = '$code' 
+            WHERE   course_id       = '$code' 
                 AND class_number    = $class_number
                 AND semester        = $semester
                 AND year            = '$year';
             "
         );
+        //------------------------------------------------
+        return $result;
+    }
+
+    /**
+     * Fetch all row that match with the given attributes.
+     */
+    public function fetchAllClasses($code = null, $semester = null, $year = null)
+    {
+        //------------------------------------------------
+        $result = -1;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $this->$classes
+            ->find('all')
+            ->where(
+                [
+                    'course_id' => $code,
+                    'semester'  => $semester,
+                    'year'      => $year
+                ]
+            )
+            ->toArray()
+        ;
+        // $result = $connection->execute(
+        //     "SELECT 
+        //     FROM classes C
+        //     WHERE   C.course_id = '$code'
+        //         AND C.semester  = $semester
+        //         AND C.year      = $year
+        //     "
+        // );
         //------------------------------------------------
         return $result;
     }
