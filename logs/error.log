@@ -473,6 +473,7 @@ Stack Trace:
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 2018-10-05 04:45:08 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Enrollments could not be found.
 =======
 2018-10-05 10:15:23 Error: [PDOException] SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
@@ -585,6 +586,9 @@ Stack Trace:
 
 
 2018-10-05 04:45:52 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:11 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -614,7 +618,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:45:52 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:11 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -644,7 +652,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:49:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:20 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -674,7 +686,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:49:37 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:21 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -704,7 +720,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:49:58 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:28 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -734,7 +754,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:49:58 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:28 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -764,7 +788,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:50:45 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:32 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -794,7 +822,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:50:45 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:32 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -824,7 +856,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:51:14 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:48 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -854,7 +890,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:51:14 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:27:48 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -884,7 +924,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:51:35 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:34:32 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -914,7 +958,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:51:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:34:32 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -944,7 +992,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:53:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:40:40 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -974,7 +1026,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 04:53:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:40:40 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1004,6 +1060,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:03:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -1035,6 +1092,9 @@ Stack Trace:
 
 
 2018-10-05 05:03:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:16 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1064,14 +1124,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:04:51 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:17 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_asc.png
+=======
+Request URL: /images/sort_both.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1094,7 +1162,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:04:51 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:47 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1124,7 +1196,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:07:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:47 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1154,14 +1230,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:07:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:54 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_both.png
+=======
+Request URL: /images/sort_desc.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1184,14 +1268,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:08:16 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:57 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_both.png
+=======
+Request URL: /images/sort_asc.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1214,44 +1306,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:08:17 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:43:58 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_asc.png
-Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
-Stack Trace:
-#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
-#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
-#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
-#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
-#17 {main}
-
-
-2018-10-05 05:09:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
-Exception Attributes: array (
-  'class' => 'Images',
-  'plugin' => false,
-  'prefix' => false,
-  '_ext' => false,
-)
+=======
 Request URL: /images/sort_both.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1274,14 +1344,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:09:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:01 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
-Request URL: /images/sort_asc.png
+<<<<<<< HEAD
+Request URL: /images/sort_both.png
+=======
+Request URL: /images/sort_desc.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1304,7 +1382,49 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
+2018-10-05 05:09:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:02 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+<<<<<<< HEAD
+Request URL: /images/sort_asc.png
+=======
+Request URL: /images/sort_both.png
+>>>>>>> Requisitos
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+<<<<<<< HEAD
 2018-10-05 05:09:44 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:02 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1334,7 +1454,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:09:45 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:06 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1364,7 +1488,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:10:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:06 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1394,14 +1522,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:10:36 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:44:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_both.png
+=======
+Request URL: /images/sort_desc.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -1424,7 +1560,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:10:54 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:47:39 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1454,7 +1594,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:10:54 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:47:39 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1484,7 +1628,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:22 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:01 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1514,7 +1662,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:22 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:01 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1544,7 +1696,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:33 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:15 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1574,7 +1730,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:33 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:15 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1604,7 +1764,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:55 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:34 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1634,7 +1798,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:11:56 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:34 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1664,7 +1832,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:12:14 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:48 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1694,7 +1866,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:12:14 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:48:48 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1724,7 +1900,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:12:56 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:49:17 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1754,7 +1934,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:12:56 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:49:18 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1784,7 +1968,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:14:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:49:58 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1814,7 +2002,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:14:11 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:49:58 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1844,7 +2036,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:03 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:50:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1874,7 +2070,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:03 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:50:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1904,7 +2104,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:33 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:51:07 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1934,7 +2138,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:34 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:51:07 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1964,7 +2172,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:50 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:51:27 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -1994,7 +2206,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:15:50 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:51:27 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2024,6 +2240,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:17:26 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -2055,6 +2272,9 @@ Stack Trace:
 
 
 2018-10-05 05:17:26 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:52:20 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2084,7 +2304,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:18:18 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:52:20 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2114,7 +2338,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:18:18 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:52:53 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2144,7 +2372,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:19:20 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:52:53 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2174,6 +2406,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:19:20 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -2205,6 +2438,9 @@ Stack Trace:
 
 
 2018-10-05 05:19:50 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:56:09 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2234,7 +2470,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:19:50 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:56:10 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2264,7 +2504,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:19 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:56:40 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2294,7 +2538,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:19 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:56:41 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2324,6 +2572,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:30 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -2355,6 +2604,9 @@ Stack Trace:
 
 
 2018-10-05 05:20:30 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:56:59 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2384,14 +2636,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:47 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 03:57:00 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_asc.png
+=======
+Request URL: /images/sort_both.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -2414,7 +2674,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:47 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:16 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2444,7 +2708,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:59 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:16 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2474,6 +2742,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:20:59 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -2505,6 +2774,9 @@ Stack Trace:
 
 
 2018-10-05 05:21:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:23 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2534,7 +2806,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:21:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:24 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2564,6 +2840,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:21:45 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -2595,6 +2872,9 @@ Stack Trace:
 
 
 2018-10-05 05:21:45 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:30 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2624,7 +2904,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:23:39 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:30 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2654,7 +2938,11 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:23:39 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:34 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
@@ -2684,14 +2972,22 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:26:42 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+=======
+2018-10-08 04:00:34 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+>>>>>>> Requisitos
 Exception Attributes: array (
   'class' => 'Images',
   'plugin' => false,
   'prefix' => false,
   '_ext' => false,
 )
+<<<<<<< HEAD
 Request URL: /images/sort_asc.png
+=======
+Request URL: /images/sort_both.png
+>>>>>>> Requisitos
 Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
 Stack Trace:
 #0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
@@ -2714,6 +3010,7 @@ Stack Trace:
 #17 {main}
 
 
+<<<<<<< HEAD
 2018-10-05 05:26:42 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
 Exception Attributes: array (
   'class' => 'Images',
@@ -6953,5 +7250,7 @@ Stack Trace:
 #17 {main}
 
 
+=======
+>>>>>>> Requisitos
 =======
 >>>>>>> Requisitos

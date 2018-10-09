@@ -16,7 +16,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <style>
     .button {
-        background-color: #ceb92bff;
+        background-color: #015b96ff;
         border: none;
 <<<<<<< HEAD
         color:#fff;
@@ -37,14 +37,22 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .button a {
         color:#fff; 
     }
+<<<<<<< HEAD
+>>>>>>> Requisitos
+=======
+    .actions a {
+        color:#000; 
+    }
 >>>>>>> Requisitos
     #image1 {
         height: 10px;
         width: 10px;
     }
 </style>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
 <div class="courses index large-9 medium-8 columns content">
+    <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
             <tr>
@@ -59,13 +67,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $requirement->requirement_number]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $requirement->requirement_number], ['confirm' => __('Are you sure you want to delete # {0}?', $requirement->description)]) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
+                    <?= $this->Form->postLink('<i class="fa fa-trash-o fa_custom fa-2x"></i>',['action' => 'delete', $requirement->requirement_number], ['escape' => false,
+        'confirm' => __('Desea eliminar el requisito: {0}?', $requirement->description)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+ </div>
     
 
 <script type="text/javascript">
