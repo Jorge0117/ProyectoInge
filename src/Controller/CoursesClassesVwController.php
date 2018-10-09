@@ -79,7 +79,7 @@ class CoursesClassesVwController extends AppController
             $courseController->add($code, $name, $cred);
 
             $classController = new ClassesController;
-            $classController->add($code, $group, $semester, $year, '111111111');
+            $classController->addClass($code, $group, $semester, $year, '111111111');
             /*
             $courseTable=$this->loadmodel('Courses');
             $courseTable->addCourse($code, $name, $cred);

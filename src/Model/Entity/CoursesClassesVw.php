@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property float $Profesor
  * @property int $Semestre
  * @property string $Año
+ * @property int $Creditos
  */
 class CoursesClassesVw extends Entity
 {
@@ -31,6 +32,7 @@ class CoursesClassesVw extends Entity
         'Grupo' => true,
         'Profesor' => true,
         'Semestre' => true,
-        'Año' => true
+        'Año' => true,
+        'Creditos' => true
     ];
 }

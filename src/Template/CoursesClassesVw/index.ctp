@@ -35,7 +35,6 @@
         ['controller'=>'CoursesClassesVw','action'=>'delete'],
         ['class'=>'btn btn-primary float-right']
     )?>
-    echo ' '
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'delete'],
