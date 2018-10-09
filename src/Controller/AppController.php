@@ -15,6 +15,8 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Controller\Exception\SecurityException;
+use Cake\Routing\Router;
 use Cake\Event\Event;
 
 /**
@@ -44,6 +46,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+        
         $this->loadComponent('Flash');
         
         // $this->loadComponent('Security');
@@ -70,8 +73,26 @@ class AppController extends Controller
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-        //$this->loadComponent('Security');
+        $this->loadComponent('Security', ['blackHoleCallback' => 'forceSSL']);
 
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Security->requireSecure();
+
+    }
+    public function forceSSL($error = '', SecurityException $exception = null)
+    {
+        // debug($error);
+        // debug($exception);
+        // die();
+        if ($exception instanceof SecurityException && $exception->getType() === 'secure') {
+            return $this->redirect('https://' . env('SERVER_NAME') . Router::url($this->request->getRequestTarget()));
+        }
+
+        throw $exception;
     }
 
     public function isAuthorized()
