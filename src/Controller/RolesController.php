@@ -102,8 +102,12 @@ class RolesController extends AppController
         $this->set(compact('professor_permissions_matrix'));
 
         if ($this->request->is('post')) {
-            debug('Hi');
+            debug('hi2');
         }
+
+    }
+
+    public function updatePermissions(){
 
     }
 

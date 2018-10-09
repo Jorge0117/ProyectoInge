@@ -13,35 +13,47 @@
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#administrator_permission_table").show();
+                    $('#AceptarBtn').show();
                 }else if(document.getElementById("role_select").value == "Asistente"){
                     $("#administrator_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").show();
+                    $('#AceptarBtn').show();
                 }else if(document.getElementById("role_select").value == "Estudiante"){
                     $("#administrator_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $("#student_permission_table").show();
+                    $('#AceptarBtn').show();
                 }else if(document.getElementById("role_select").value == "Profesor"){
                     $("#administrator_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").show();
+                    $('#AceptarBtn').show();
                 }else{
                     $("#administrator_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
+                    $('#AceptarBtn').hide();
                 }
             });
 
             $("#edit_checkbox").change(function(){
                 if($("#edit_checkbox").is(":checked")){
                     $('.checkbox_perm').prop( "disabled", false );
+                    $('#AceptarBtn').prop( "disabled", false );
                 }else{
                     $('.checkbox_perm').prop( "disabled", true );
+                    $('#AceptarBtn').prop( "disabled", true );
+                    
                 }
+            });
+
+            $('#AceptarBtn').click(function () {
+                console.log('hi');
             });
         });
     </script>
@@ -61,12 +73,22 @@
                 'class' => "form-control"]
             ) 
         ?>
-        
+
         <?php
             echo $this->Form->checkbox(
                 'Editar',
                 ['id' => 'edit_checkbox']
             );
+        ?>
+
+        <?php
+            echo $this->Form->button(
+                __('Aceptar'),
+                [
+                    'id' => 'AceptarBtn',
+                    'disabled' => true,
+                    'style' => 'display: none'
+                ]);
         ?>
     </div>
 
