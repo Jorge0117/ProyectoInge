@@ -63,6 +63,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?php endforeach; ?>
         </tbody>
     </table>
+ </div>
     
 
 <script type="text/javascript">
