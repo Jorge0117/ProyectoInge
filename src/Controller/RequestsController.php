@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
 /**
  * Requests Controller
  *
@@ -18,6 +17,19 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+	 
+	public function validarFecha()
+	{
+		$resultado = false;
+		$inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
+		$final = "2019-10-25"; //CAMBIAR POR FUNCION DE RONDA
+		
+		if(strtotime(date("y-m-d")) < strtotime($final) && strtotime(date("y-m-d")) > strtotime($inicio))
+			$resultado = true;
+		return $resultado;
+	
+	}	
+	 
     public function index()
     {
         /*$this->paginate = [
@@ -25,7 +37,9 @@ class RequestsController extends AppController
         ];*/
         $requests = $this->paginate($this->Requests);
 
-        $this->set(compact('requests'));
+		$disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+		
+        $this->set(compact('requests','disponible'));
     }
 
     /**
@@ -100,7 +114,6 @@ public function add()
         $request = $this->Requests->newEntity();
         if ($this->request->is('post')) {
             $request = $this->Requests->patchEntity($request, $this->request->getData());
-			
 			$RequestsTable=$this->loadmodel('Requests');
 			//$round almacena datos originales
 			
@@ -112,11 +125,10 @@ public function add()
 			$request->set('class_year',date('Y')); //obtiene el año actual de la solicitud
 			$request->set('class_semester',$this->get_semester()); //obtiene el semestre actual de la solicitud
 			
-			debug($request);
 			
             if ($this->Requests->save($request)) {
                 $this->Flash->success(__('The request has been saved.'));
-
+				debug($request);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
@@ -150,9 +162,7 @@ public function add()
 			$teacher[$i] = $c[1];
 			$i = $i + 1;
 		}
-		
-		
-		
+
         $this->set(compact('request', 'c2', 'students','class','course','teacher'));
     }
     /**
@@ -202,6 +212,12 @@ public function add()
         return $this->redirect(['action' => 'index']);
 		
     }
+	
+	public function prueba()
+	{
+		debug("xdd");
+		$this->autoRender = false;
+	}
 	
 	/*public function save()
 	{
