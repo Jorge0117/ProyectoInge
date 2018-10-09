@@ -65,9 +65,12 @@
 			}
 		}
 		
-		selClass.options = [1,2,3];
-	
-
+		//selClass.options = [1,2,3];
+		txtNombre = document.getElementById("nc");
+		if(selCourse.selectedIndex != 0)
+			txtNombre.value = document.getElementById("a3").options[selCourse.selectedIndex-1].text;
+		else
+			txtNombre.value = "";
 	}
 </script>
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
@@ -87,7 +90,7 @@
             echo $this->Form->control('course_id', ['label' => 'Curso:', 'options' => $c2, 'onChange' => 'updateClass()']);
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
 			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
-			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled']);
+			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
 			echo $this->Form->control('average', ['label' => 'Promedio Ponderado']);
 		?>
 			¿Qué tipo de horas desea solicitar? <checkbox></checkbox> <input type="checkbox"> Horas Asistente <input type="checkbox"> Horas Estudiante
@@ -101,6 +104,9 @@
 
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $teacher , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden']);
 
 		?>
     </fieldset>

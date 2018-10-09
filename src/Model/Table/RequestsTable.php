@@ -146,4 +146,20 @@ class RequestsTable extends Table
         return $result;
     }
 	
+	public function getID()
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("select professor_id from classes;");
+		$result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	public function getTeachers()
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select CONCAT(name,' ',lastname1) from users where role_id = 'Profesor'");
+		$result = $result->fetchAll('assoc');
+        return $result;
+    }
+	
 }

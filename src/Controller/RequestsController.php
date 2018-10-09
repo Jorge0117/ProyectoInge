@@ -136,10 +136,10 @@ public function add()
         $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
         $students = $this->Requests->Students->find('list', ['limit' => 200]);
 		$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
+		$nombre;
 		
 		//Modifica las clases para dejar los datos requeridos de curso y grupo
 		$tuplas = $classes->execute();
-		$class;
 		$course;
 		$teacher;
 		$i = 0;
@@ -148,22 +148,25 @@ public function add()
 		{
 			$class[$i] = $t[1];
 			$course[$i] = $t[0];
-
+			$teacher[$i] = $t;
 			
 			$i = $i + 1;
 		}		
 		
 		$i = 0;
 		$courses = $courses->execute();
+		
 		$c2[0] = "Seleccione un Curso:";
 		foreach($courses as $c)
 		{
 			$c2[$i+1] = $c[0];
-			$teacher[$i] = $c[1];
+			$nombre[$i+1] = $c[1];
 			$i = $i + 1;
+			
 		}
-
-        $this->set(compact('request', 'c2', 'students','class','course','teacher'));
+		$teacher = $this->Requests->getTeachers();
+		$id = $this->Requests->getID();
+        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id'));
     }
     /**
      * Edit method
