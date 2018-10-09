@@ -160,9 +160,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
         </li>
-        <li><?= $this->Html->link('Ronda',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+        <li><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+						<li><?= $this->Html->link('Agregar Ronda',['controller'=>'Rounds','action'=>'add'],['class'=>'nav-link']) ?>
+            <li><?= $this->Html->link('Eliminar Última Ronda',['controller'=>'Rounds','action'=>'delete'],['class'=>'nav-link']) ?>
 					</ul>
         </li>
         <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>

@@ -21,6 +21,7 @@
     <fieldset>
         <legend><?= __('Edit Round') ?></legend>
         <?php
+            echo $this->Form->control('round_number');
             echo $this->Form->control('start_date');
             echo $this->Form->control('end_date');
             echo $this->Form->control('approve_limit_date');

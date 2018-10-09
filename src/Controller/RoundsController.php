@@ -20,8 +20,13 @@ class RoundsController extends AppController
      */
     public function index()
     {
+        //$RoundTable=$this->loadmodel('Rounds');
+        //$RoundTable->getLastRound();
+        // TODO: aprender a obtener el resultado de un stored procedure y mostrarlo
+        //  o
+        // Crear una vista que contenga únicamente la ultima ronda y redirigir
         $rounds = $this->paginate($this->Rounds);
-
+ 
         $this->set(compact('rounds'));
     }
 
@@ -34,6 +39,7 @@ class RoundsController extends AppController
      */
     public function view($id = null)
     {
+            //todo: obtener la id correcta 
         $round = $this->Rounds->get($id, [
             'contain' => []
         ]);
@@ -51,12 +57,15 @@ class RoundsController extends AppController
         $round = $this->Rounds->newEntity();
         if ($this->request->is('post')) {
             $round = $this->Rounds->patchEntity($round, $this->request->getData());
-            if ($this->Rounds->save($round)) {
-                $this->Flash->success(__('The round has been saved.'));
+            
+            $RoundTable=$this->loadmodel('Rounds');
+            $start=date_format($round->start_date,'Y-m-d');
+            $end=date_format($round->end_date,'Y-m-d');
+            $approve=date_format($round->approve_limit_date,'Y-m-d');
+            $RoundTable->insertRound($start,$end,$approve);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The round could not be saved. Please, try again.'));
+            $this->Flash->success(__('Se agregó la ronda correctamente.'));
+            return $this->redirect(['action' => 'index']);
         }
         $this->set(compact('round'));
     }
@@ -70,6 +79,7 @@ class RoundsController extends AppController
      */
     public function edit($id = null)
     {
+        //Todo: otro stores procedure similar al de crear pero con update
         $round = $this->Rounds->get($id, [
             'contain' => []
         ]);
@@ -94,14 +104,9 @@ class RoundsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $round = $this->Rounds->get($id);
-        if ($this->Rounds->delete($round)) {
-            $this->Flash->success(__('The round has been deleted.'));
-        } else {
-            $this->Flash->error(__('The round could not be deleted. Please, try again.'));
-        }
-
+        $RoundTable=$this->loadmodel('Rounds');
+        $RoundTable->deleteLastRound();
+        $this->Flash->success(__('The round has been deleted.'));
         return $this->redirect(['action' => 'index']);
     }
 }
