@@ -85,7 +85,7 @@ $sin_check = $this->Form->checkbox(
 );
 ?>
 <div id='assistant_permission_table' class='container' style="display: none;">
-    <table id='assistant_table'  style="width:100%">
+    <table id='assistant_table' class='table'>
         <?php
 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
@@ -106,7 +106,7 @@ foreach ($assistant_permissions_matrix as $perm_row) {
     </div>
 
     <div id='administrator_permission_table' class='container' style="display: none;">
-     <table id='administrator_table'  style="width:100%">
+     <table id='administrator_table'  class='table'>
         <?php
 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
@@ -127,10 +127,10 @@ foreach ($administrator_permissions_matrix as $perm_row) {
 </div>
 
 <div id='student_permission_table' class='container' style="display: none;">
-     <table id='student_table'  style="width:100%">
+     <table id='student_table'  class='table'>
         <?php
 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-    'Requisitos', 'Ronda', 'Usuarios', 'Roles']);
+    'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
 
 foreach ($student_permissions_matrix as $perm_row) {
     $permission_row[] = $perm_row[0];
@@ -148,10 +148,10 @@ foreach ($student_permissions_matrix as $perm_row) {
 </div>
 
 <div id='professor_permission_table' class='container' style="display: none;">
-     <table id='professor_table'  style="width:100%">
+     <table id='professor_table'  class='table'>
         <?php
 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-    'Requisitos', 'Ronda', 'Usuarios', 'Roles']);
+    'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
 
 foreach ($professor_permissions_matrix as $perm_row) {
     $permission_row[] = $perm_row[0];
