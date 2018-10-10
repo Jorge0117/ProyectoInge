@@ -32,7 +32,7 @@
 
  <?= $this->Html->link(
         'Agregar grupo',
-        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['controller'=>'CoursesClassesVw','action'=>'importExcelfile'],
         ['class'=>'btn btn-primary float-right']
     )?>
  <?= $this->Html->link(
