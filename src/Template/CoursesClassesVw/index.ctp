@@ -17,6 +17,10 @@
         cursor: pointer;
         float: right;
     }
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
     .button a {
         color:#fff; 
     }
@@ -33,17 +37,17 @@
  <?= $this->Html->link(
         'Agregar grupo',
         ['controller'=>'CoursesClassesVw','action'=>'delete'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'delete'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Cargar archivo',
         ['controller'=>'CoursesClassesVw','action'=>'delete'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
 
 <div class="courses index large-9 medium-8 columns content">
