@@ -25,7 +25,8 @@ class MyLdapAuthenticate extends BaseAuthenticate
         $result = $this->_query($username)->first();
 
         if (empty($result)) {
-            return false;
+            return ['identification_number' => 'NEW_USER', 'username' => $username];
+            // return false;
         }
 
         return $result->toArray();
@@ -58,18 +59,24 @@ class MyLdapAuthenticate extends BaseAuthenticate
             debug($ldapbind);
             if ($ldapbind) {
                 debug("Conexión realizada con éxito y credenciales válidos");
-                return $this->findUser($username);
+                $user = $this->findUser($username);
+    
             }
             else {
 
                 if(ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error)) {
                     debug("Error Binding to LDAP: $extended_error");
+
+                    ///////////////////////////////////
                     debug("Credenciales inválidos, ignorando temporalmente");
                     return $this->findUser($username);
+                    ///////////////////////////////////
                 } else {
                     debug("Couldn't establish connection with LDAP server");
+                    ///////////////////////////////////
                     debug("Ignorando temporalmente");
                     return $this->findUser($username);
+                    ///////////////////////////////////
                 }
                 return false;
             }
