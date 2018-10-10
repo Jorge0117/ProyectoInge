@@ -5,23 +5,6 @@
  */
 ?>
 <style>
-    .button {
-        background-color: #015b96ff;
-        border: none;
-        color:#fff;
-        padding: 15px 32px;
-        padding: 5px 7px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 8px 2px;
-        cursor: pointer;
-        float: right;
-    }
-    .button a {
-        color:#fff; 
-    }
     .btn-revoke{
         background-color: #015b96ff;
         border: none;
