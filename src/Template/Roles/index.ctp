@@ -63,57 +63,6 @@
                     
                 }
             });
-
-            /**$('#AceptarBtn').click(function () {
-                let permissions_matrix_request = [];
-                if (document.getElementById("role_select").value == 'Estudiante'){
-                    for (let i = 0; i < 4; i++) {
-                        permissions_matrix_request[i] = [];
-                        for (let j = 1; j < 6; j++) {
-                            permissions_matrix_request[i][j] = $("#student_"+i+""+j).is(":checked");
-                            
-                        }
-                        
-                    }
-                    
-                }else if (document.getElementById("role_select").value == 'Administrador'){
-                    for (let i = 0; i < 4; i++) {
-                        permissions_matrix_request[i] = [];
-                        for (let j = 1; j < 6; j++) {
-                            permissions_matrix_request[i][j] = $("#administrator_"+i+""+j).is(":checked");
-                            
-                        }
-                        
-                    }
-                }else if (document.getElementById("role_select").value == 'Asistente'){
-                    for (let i = 0; i < 4; i++) {
-                        permissions_matrix_request[i] = [];
-                        for (let j = 1; j < 6; j++) {
-                            permissions_matrix_request[i][j] = $("#assistant_"+i+""+j).is(":checked");
-                            
-                        }
-                        
-                    }
-                } else if (document.getElementById("role_select").value == 'Profesor'){
-                    for (let i = 0; i < 4; i++) {
-                        permissions_matrix_request[i] = [];
-                        for (let j = 1; j < 6; j++) {
-                            permissions_matrix_request[i][j] = $("#professor_"+i+""+j).is(":checked");
-                            
-                        }
-                        
-                    }
-                }
-                console.log(permissions_matrix_request);
-            
-                let data = {
-                    id: document.getElementById("role_select").value,
-                    matrix: permissions_matrix_request
-                }
-                $.post(urlJS, data, function (data, status){
-                    console.log('${data} and ${status}');
-                })
-            });*/
         });
     </script>
 </head>
@@ -121,27 +70,41 @@
 <body>
 <?= $this->Form->create(false,['url' => '/roles/updatePermissions']) ?>
     <div class='row'>
-        <h2> Rol: </h2>
+        <div class='input-group mb-3'>
+            <div class="input-group-prepend">
+                    <span style="width:120px" class="input-group-text">Rol:</span>
+           </div>
+           <div style='width: 14%'>
+                <?php
+                    echo $this->Form->select(
+                        'role_select',
+                        $roles_array,
+                        ['id' => 'role_select',
+                         'empty' => 'Elija un rol',
+                         'class' => "form-control custom-select"]
+                    ) 
+                ?>
+            </div>
+        </div>
+        
+        <div class='input-group mb-3'>
+            <div class="input-group-prepend">
+                    <span style="width:120px" class="input-group-text">Modificar:</span>
+           </div>
+           <div>
+                <?php
+                    echo $this->Form->checkbox(
+                        'Editar',
+                        ['id' => 'edit_checkbox',
+                        'style' => 'display: none',
+                        'class' => 'big'
+                        ]
+                    );
+                ?>
+            </div>
+        </div>
 
-        <?php
-            echo $this->Form->select(
-                'role_select',
-                $roles_array,
-                ['id' => 'role_select',
-                'empty' => 'Elija un rol',
-                'style' => 'width: 14%',
-                'class' => "form-control"]
-            ) 
-        ?>
-
-        <?php
-            echo $this->Form->checkbox(
-                'Editar',
-                ['id' => 'edit_checkbox',
-                 'style' => 'display: none'
-                ]
-            );
-        ?>
+        
 
         <?php
             echo $this->Form->button(
@@ -156,7 +119,7 @@
     </div>
 
     <div id='assistant_permission_table' class='container' style="display: none;">
-        <table id='assistant_table' class='table'>
+        <table id='assistant_table' class='table text-center'>
             <?php
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
@@ -189,7 +152,7 @@
     </div>
 
     <div id='administrator_permission_table' class='container' style="display: none;">
-        <table id='administrator_table'  class='table'>
+        <table id='administrator_table'  class='table text-center'>
             <?php
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
@@ -222,7 +185,7 @@
     </div>
 
     <div id='student_permission_table' class='container' style="display: none;">
-        <table id='student_table'  class='table'>
+        <table id='student_table'  class='table text-center'>
             <?php
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
@@ -255,7 +218,7 @@
     </div>
 
     <div id='professor_permission_table' class='container' style="display: none;">
-        <table id='professor_table'  class='table'>
+        <table id='professor_table'  class='table text-center'>
             <?php
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
