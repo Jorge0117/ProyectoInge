@@ -1,6 +1,6 @@
 # CakePHP specific files #
 ##########################
-
+tmp/*
 
 # OS generated files #
 ######################
@@ -34,3 +34,7 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+
+tmp/
+
+logs/
