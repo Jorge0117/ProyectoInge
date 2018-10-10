@@ -35,6 +35,10 @@ class CoursesClassesVwController extends AppController
      */
     public function edit($code = null, $class_number = null, $semester = null,$year = null)
     {
+        echo $code;
+        echo $class_number;
+        echo $semester;
+        echo $year;
         //------------------------------------------------
         $result = false;
         //------------------------------------------------
@@ -90,11 +94,11 @@ class CoursesClassesVwController extends AppController
             $year
         );
         //------------------------------------------------
-        if ($result) {
-            $this->Flash->success(__('The courses classes vw has been deleted.'));
-        } else {
-            $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
-        }
+        // if ($result) {
+        //     $this->Flash->success(__('The courses classes vw has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
+        // }
         //------------------------------------------------
         return $this->redirect(['action' => 'index']);
     }

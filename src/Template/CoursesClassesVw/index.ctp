@@ -29,16 +29,24 @@
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-<button class="button"><?= $this->Html->link('Agregar curso',['controller'=>'CoursesClassesVw','action'=>'delete'],['class'=>'nav-link']) ?></button>
-<button class="button"><?= $this->Html->link('Cargar archivo',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
-<nav class="large-8 medium-8 columns" id="actions-sidebar">
-    <ul class="nav">
-        <!--
-        <li><?= $this->Html->link(__('Agregar un curso'), ['controller' => 'CoursesClassesVw', 'action' => 'add']) ?></li>
-        <button class="button"><?= $this->Html->link('Agregar',['controller'=>'CoursesClassesVw','action'=>'add'],['class'=>'nav-link']) ?></button>
-        -->
-    </ul>
-</nav>
+
+ <?= $this->Html->link(
+        'Agregar grupo',
+        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['class'=>'btn btn-primary float-right']
+    )?>
+    echo ' '
+ <?= $this->Html->link(
+        'Agregar curso',
+        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['class'=>'btn btn-primary float-right']
+    )?>
+ <?= $this->Html->link(
+        'Cargar archivo',
+        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['class'=>'btn btn-primary float-right']
+    )?>
+
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Cursos-Grupos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewCoursesClassesDatagrid'>
@@ -65,7 +73,7 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', //__('Editar'), // 
+                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', // Editar
                         [
                             'action' => 'edit', 
                             $course->Sigla,
@@ -73,10 +81,12 @@
                             $this->Number->format($course->Semestre),
                             $course->Año
                         ],
-                        ['escape' => false]
+                        [
+                            'escape' => false
+                        ]
                     ) ?>
                     <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',// __('Eliminar'), // // Eliminar
+                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',// Eliminar
                         [
                             'action' => 'delete', 
                             $course->Sigla,

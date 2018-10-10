@@ -35,6 +35,6 @@
             echo $this->Form->control('Año');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Finalizar')) ?>
+    <?= $this->Form->button(__('Aceptar')) ?>
     <?= $this->Form->end() ?>
 </div>
