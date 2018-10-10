@@ -92,16 +92,27 @@ class RequirementsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($requirement_number)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $requirement = $this->Requirements->get($id);
-        if ($this->Requirements->delete($requirement)) {
-            $this->Flash->success(__('The requirement has been deleted.'));
-        } else {
-            $this->Flash->error(__('The requirement could not be deleted. Please, try again.'));
+        //------------------------------------------------
+        $result = false;
+        //------------------------------------------------
+        $model = $this->Requirements->newEntity();
+        //------------------------------------------------
+        if ($this->request->is('post')) {
+            //------------------------------------------------
+            $model = $this->Requirements->patchEntity(
+                $model, 
+                $this->request->getData()
+            );
+            //------------------------------------------------
+            $requirementsModel = $this->loadmodel('Requirements');
+            //------------------------------------------------
+            $result = $requirementsModel->deleteClass(
+                $requirement_number
+            );
         }
-
+        //------------------------------------------------
         return $this->redirect(['action' => 'index']);
     }
 }
