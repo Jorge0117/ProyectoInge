@@ -21,7 +21,6 @@ class RequirementsController extends AppController
     public function index()
     {
         $requirements = $this->paginate($this->Requirements);
-
         $this->set(compact('requirements'));
     }
 
@@ -54,9 +53,10 @@ class RequirementsController extends AppController
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
             if ($this->Requirements->save($requirement)) {
 
-                return $this->redirect(['action' => 'index']);
+                $this->redirect(['action' => 'index']);
+                return $this->Flash->success(__('Se agregó el requisito con exito.'));
             }
-            $this->Flash->error(__('The requirement could not be saved. Please, try again.'));
+            $this->Flash->error(__('No se pudo agregar el requisito con éxito'));
         }
         $this->set(compact('requirement'));
     }
@@ -76,11 +76,11 @@ class RequirementsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
             if ($this->Requirements->save($requirement)) {
-                $this->Flash->success(__('The requirement has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $this->redirect(['action' => 'index']);
+                return $this->Flash->success(__('Se modificó el requisito con exito.'));
             }
-            $this->Flash->error(__('The requirement could not be saved. Please, try again.'));
+            $this->Flash->error(__('No se pudo editar el requisito'));
         }
         $this->set(compact('requirement'));
     }
