@@ -132,13 +132,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
     <div id="OverviewText1"> 
-      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
+      <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
+      <?= $this->Html->image('logoUcr.png') ?>
     </div>
     <div id="OverviewText2"> 
-      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
+      <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
+      <?= $this->Html->image('logoEcci.png') ?>
     </div>
     <div id="OverviewText3"> 
-      <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
+      <!-- <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/> -->
+      <?= $this->Html->image('userIcon.png', ['align' => 'right']) ?>
     </div>
 </h1>
     <div id="header">
