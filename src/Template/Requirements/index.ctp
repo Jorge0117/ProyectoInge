@@ -35,13 +35,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     .actions a {
         color:#000; 
     }
-    #image1 {
-        height: 10px;
-        width: 10px;
+    .btn-revoke{
+        background-color: #999999;
+        border: none;
+        color:#fff;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float: right; 
+        position:absolute; 
+        left: 82%;
+        top: 20%;
+    }
+    .btn-revoke:hover{
+        color: #fff;
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
+<button type="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?></button>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
@@ -59,8 +74,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
-                    <?= $this->Form->postLink('<i class="fa fa-trash-o fa_custom fa-2x"></i>',['action' => 'delete', $requirement->requirement_number], ['escape' => false,
-        'confirm' => __('Desea eliminar el requisito: {0}?', $requirement->description)]) ?>
+                    <?= $this->Form->postLink(
+                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',
+                        [
+                            'action' => 'delete', 
+                            $requirement->requirement_number
+                        ], 
+                        [
+                            'escape' => false,
+                            'confirm' => __('Desea eliminar el requisito: {0}?',
+                            $requirement->description)
+                        ]
+                    ) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
