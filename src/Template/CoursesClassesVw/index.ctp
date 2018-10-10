@@ -32,17 +32,17 @@
 
  <?= $this->Html->link(
         'Agregar grupo',
-        ['controller'=>'CoursesClassesVw','action'=>'importExcelfile'],
+        ['controller'=>'Classes','action'=>'add'],
         ['class'=>'btn btn-primary float-right']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
-        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['controller'=>'CoursesClassesVw','action'=>'add'],
         ['class'=>'btn btn-primary float-right']
     )?>
  <?= $this->Html->link(
         'Cargar archivo',
-        ['controller'=>'CoursesClassesVw','action'=>'delete'],
+        ['controller'=>'CoursesClassesVw','action'=>'importExcelfile'],
         ['class'=>'btn btn-primary float-right']
     )?>
 
@@ -72,7 +72,7 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', // Editar
+                        '<i class="fa fa-eye fa_custom fa-2x"></i>', // Editar
                         [
                             'action' => 'edit', 
                             $course->Sigla,

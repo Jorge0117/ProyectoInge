@@ -45,6 +45,8 @@ class CoursesController extends AppController
     public function add($code, $name, $cred)
     {
         $courseTable=$this->loadmodel('Courses');
+        debug($cred);
+        //die();
         return $courseTable->addCourse($code, $name, $cred);
     }
 

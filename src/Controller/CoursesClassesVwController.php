@@ -169,11 +169,11 @@ class CoursesClassesVwController extends AppController
             $year
         );
         //------------------------------------------------
-        // if ($result) {
-        //     $this->Flash->success(__('The courses classes vw has been deleted.'));
-        // } else {
-        //     $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
-        // }
+        if ($result) {
+            $this->Flash->success(__('The courses classes vw has been deleted.'));
+        } else {
+            $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
+        }
         //------------------------------------------------
         return $this->redirect(['action' => 'index']);
     }

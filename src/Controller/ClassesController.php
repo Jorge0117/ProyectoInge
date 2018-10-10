@@ -38,12 +38,20 @@ class ClassesController extends AppController
         $class = $this->Classes->newEntity();
         if ($this->request->is('post')) {
             $class = $this->Classes->patchEntity($class, $this->request->getData());
-            if ($this->Classes->save($class)) {
-                $this->Flash->success(__('The class has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The class could not be saved. Please, try again.'));
+            
+            $code=$class->course_id;
+            $group=$class->class_number;
+            $semester=$class->semester;
+            $year=$class->year;
+            $prof=$class->professor_id;
+
+            $classController = new ClassesController;
+            $classController->addClass($code, $group, $semester, $year, $prof);
+
+            debug($class);
+            //die();
         }
+
         $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
         $professors = $this->Classes->Professors->find('list', ['limit' => 200]);
         $this->set(compact('class', 'courses', 'professors'));
