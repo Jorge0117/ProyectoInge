@@ -22,9 +22,9 @@ class ClassesFixture extends TestFixture
         'semester' => ['type' => 'tinyinteger', 'length' => 4, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'year' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
         'state' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-        'professor_id' => ['type' => 'string', 'length' => 10, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'professor_id' => ['type' => 'string', 'length' => 20, 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
-            'professor_id' => ['type' => 'index', 'columns' => ['professor_id'], 'length' => []],
+            'classes_ibfk_2' => ['type' => 'index', 'columns' => ['professor_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['course_id', 'class_number', 'semester', 'year'], 'length' => []],
@@ -47,12 +47,12 @@ class ClassesFixture extends TestFixture
     {
         $this->records = [
             [
-                'course_id' => '709df5fa-3f41-4268-a7cd-9fbee0a73121',
+                'course_id' => '6f7cae24-2eb8-4e42-91f2-6381ada1347f',
                 'class_number' => 1,
                 'semester' => 1,
-                'year' => '3cb62e27-6293-4e23-80e3-36bd544da2a8',
+                'year' => '865d7422-26e5-4e4e-8b37-e80165179490',
                 'state' => 1,
-                'professor_id' => 'Lorem ip'
+                'professor_id' => 'Lorem ipsum dolor '
             ],
         ];
         parent::init();

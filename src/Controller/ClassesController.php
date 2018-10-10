@@ -29,6 +29,22 @@ class ClassesController extends AppController
     }
 
     /**
+     * View method
+     *
+     * @param string|null $id Class id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null)
+    {
+        $class = $this->Classes->get($id, [
+            'contain' => ['Courses', 'Professors']
+        ]);
+
+        $this->set('class', $class);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -83,30 +99,16 @@ class ClassesController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($code, $class_number, $semester, $year)
+    public function delete($id = null)
     {
-        //------------------------------------------------
-        $result = false;
-        //------------------------------------------------
-        $model = $this->Classes->newEntity();
-        //------------------------------------------------
-        if ($this->request->is('post')) {
-            //------------------------------------------------
-            $model = $this->Classes->patchEntity(
-                $model, 
-                $this->request->getData()
-            );
-            //------------------------------------------------
-            $classesModel = $this->loadmodel('Classes');
-            //------------------------------------------------
-            $result = $classesModel->deleteClass(
-                $code, 
-                $class_number, 
-                $semester,
-                $year
-            );
+        $this->request->allowMethod(['post', 'delete']);
+        $class = $this->Classes->get($id);
+        if ($this->Classes->delete($class)) {
+            $this->Flash->success(__('The class has been deleted.'));
+        } else {
+            $this->Flash->error(__('The class could not be deleted. Please, try again.'));
         }
-        //------------------------------------------------
-        return $result;
+
+        return $this->redirect(['action' => 'index']);
     }
 }

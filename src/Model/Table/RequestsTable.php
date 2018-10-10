@@ -64,7 +64,7 @@ class RequestsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
-        $validator
+      /*  $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
 
@@ -119,7 +119,7 @@ class RequestsTable extends Table
             ->decimal('average')
             ->requirePresence('average', 'create')
             ->notEmpty('average');
-
+*/
         return $validator;
     }
 

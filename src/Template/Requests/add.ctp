@@ -110,8 +110,8 @@
 
 		?>
     </fieldset>
-   <!-- <?= $this->Form->button(__('Submit')) ?>-->
-   <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button>
+   <?= $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary']) ?>
+   <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
 
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
     <?= $this->Form->end() ?>

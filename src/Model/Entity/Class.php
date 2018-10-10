@@ -16,7 +16,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Course $course
  * @property \App\Model\Entity\Professor $professor
  */
-class ClassT extends Entity
+class Class extends Entity
 {
 
     /**

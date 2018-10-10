@@ -111,9 +111,12 @@ public function get_semester()
 
 public function add()
     {
-        $request = $this->Requests->newEntity();
+        
+		$request = $this->Requests->newEntity();
         if ($this->request->is('post')) {
+			
             $request = $this->Requests->patchEntity($request, $this->request->getData());
+			
 			$RequestsTable=$this->loadmodel('Requests');
 			//$round almacena datos originales
 			
@@ -124,11 +127,10 @@ public function add()
 			$request->set('student_id',$this->get_student_id()); //obtiene el id del estudiante logueado
 			$request->set('class_year',date('Y')); //obtiene el año actual de la solicitud
 			$request->set('class_semester',$this->get_semester()); //obtiene el semestre actual de la solicitud
-			
+			//die();
 			
             if ($this->Requests->save($request)) {
                 $this->Flash->success(__('The request has been saved.'));
-				debug($request);
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));

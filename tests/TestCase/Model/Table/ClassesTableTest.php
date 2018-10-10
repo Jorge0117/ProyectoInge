@@ -82,4 +82,24 @@ class ClassesTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test deleteClass method
+     *
+     * @return void
+     */
+    public function testDeleteClass()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test fetchAllClasses method
+     *
+     * @return void
+     */
+    public function testFetchAllClasses()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }
