@@ -11,10 +11,6 @@
             "action" => "updatePermissions"
         ]);
     ?>
-    <script type="text/javascript">
-        var urlJS=<?php echo json_encode($url); ?>;
-
-    </script>
 
     <script type="text/javascript">
        $(document).ready(function(){
@@ -169,19 +165,21 @@
                         $perm_row = $assistant_permissions_matrix[$j];
                         $permission_row[] = $perm_row[0];
                         for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'assistant_'.$j.$i,
                                 'checked' => true,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox']
+                                 'class' => 'checkbox_perm checkbox',
+                                 'name' => 'assistant['.$j.']['.$i.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'assistant_'.$j.$i,
                                  'checked' => false,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox']
-                            )).'</div>';
+                                 'class' => 'checkbox_perm checkbox',
+                                 'name' => 'assistant['.$j.']['.$i.']']
+                            );
                         }
                         echo $this->Html->tableCells([$permission_row]);
                         $permission_row = [];
@@ -200,19 +198,21 @@
                         $perm_row = $administrator_permissions_matrix[$j];
                         $permission_row[] = $perm_row[0];
                         for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'administrator_'.$j.$i,
                                 'checked' => true,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox']
+                                 'class' => 'checkbox_perm checkbox',
+                                 'name' => 'administrator['.$j.']['.$i.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'administrator_'.$j.$i,
                                  'checked' => false,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox']
-                            )).'</div>';
+                                 'class' => 'checkbox_perm checkbox',
+                                 'name' => 'administrator['.$j.']['.$i.']']
+                            );
                         }
                         echo $this->Html->tableCells([$permission_row]);
                         $permission_row = [];
@@ -231,19 +231,21 @@
                     $perm_row = $student_permissions_matrix[$j];
                     $permission_row[] = $perm_row[0];
                     for ($i = 1; $i < 6; $i++) {
-                        $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
+                        $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'student_'.$j.$i,
                                 'checked' => true,
                                 'disabled' => true,
-                                'class' => 'checkbox_perm checkbox']
+                                'class' => 'checkbox_perm checkbox',
+                                'name' => 'student['.$j.']['.$i.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'student_'.$j.$i,
                                 'checked' => false,
                                 'disabled' => true,
-                                'class' => 'checkbox_perm checkbox']
-                            )).'</div>';
+                                'class' => 'checkbox_perm checkbox',
+                                'name' => 'student['.$j.']['.$i.']']
+                            );
                     }
                     echo $this->Html->tableCells([$permission_row]);
                     $permission_row = [];
@@ -262,19 +264,21 @@
                         $perm_row = $professor_permissions_matrix[$j];
                         $permission_row[] = $perm_row[0];
                         for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = '<div class=\'align-middle\'>'.($perm_row[$i] ? $this->Form->checkbox(
+                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'professor_'.$j.$i,
                                 'checked' => true,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox align-middle']
+                                 'class' => 'checkbox_perm checkbox align-middle',
+                                 'name' => 'professor['.$j.']['.$i.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
                                 ['id' => 'professor_'.$j.$i,
                                  'checked' => false,
                                  'disabled' => true,
-                                 'class' => 'checkbox_perm checkbox ']
-                            )).'</div>';
+                                 'class' => 'checkbox_perm checkbox ',
+                                 'name' => 'professor['.$j.']['.$i.']']
+                            );
                             
                         }
                         echo $this->Html->tableCells([$permission_row],['class'=>'align-middle']);
