@@ -6,13 +6,14 @@
 ?>
 <head>
     <?php  
-        $url = $this->Url->build([
+        $urlUpdate = $this->Url->build([
             "controller" => "Roles",
             "action" => "updatePermissions"
         ]);
     ?>
     <script type="text/javascript">
         var urlJS=<?php echo json_encode($url); ?>;
+
     </script>
 
     <script type="text/javascript">
@@ -67,7 +68,7 @@
                 }
             });
 
-            $('#AceptarBtn').click(function () {
+            /**$('#AceptarBtn').click(function () {
                 let permissions_matrix_request = [];
                 if (document.getElementById("role_select").value == 'Estudiante'){
                     for (let i = 0; i < 4; i++) {
@@ -116,12 +117,13 @@
                 $.post(urlJS, data, function (data, status){
                     console.log('${data} and ${status}');
                 })
-            });
+            });*/
         });
     </script>
 </head>
 
 <body>
+<?= $this->Form->create(false,['url' => '/roles/updatePermissions']) ?>
     <div class='row'>
         <h2> Rol: </h2>
 
@@ -164,7 +166,7 @@
                     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
 
                     for ($j = 0; $j < 4; $j++) {
-                        $perm_row = $assitant_permissions_matrix[$j];
+                        $perm_row = $assistant_permissions_matrix[$j];
                         $permission_row[] = $perm_row[0];
                         for ($i = 1; $i < 6; $i++) {
                             $permission_row[] = '<div>'.($perm_row[$i] ? $this->Form->checkbox(
@@ -282,4 +284,5 @@
             ?>
         </table>
     </div>
+    <?= $this->Form->end() ?>
 </body>

@@ -27,6 +27,8 @@ class RolesController extends AppController
         $roles_array = $this->Roles->find('list');
         $this->set(compact('roles_array'));
 
+
+
         $this->loadModel('Permissions');
 
         $permission_list = ['Agregar', 'Modificar', 'Eliminar', 'Consultar'];
@@ -100,16 +102,18 @@ class RolesController extends AppController
         }
 
         $this->set(compact('professor_permissions_matrix'));
-
-        if ($this->request->is('post')) {
-            debug('hi2');
-        }
-
     }
 
     public function updatePermissions(){
+        $this->render(false);
+        $this->loadModel('PermissionsRoles');
         if ( $this->request->is('post') ) {
-            
+            $permission_role = $this->PermissionsRoles->get(['role_id'=> 'Estudiante', 'permission_id'=>'SO-AG']);
+            if ($this->PermissionsRoles->delete($permission_role)) {
+                $this->Flash->success(__('The role has been saved.'));
+
+            }
+            $this->Flash->error(__('The role could not be saved. Please, try again.'));
         }
     }
 
