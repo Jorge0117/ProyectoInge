@@ -17,6 +17,10 @@
         cursor: pointer;
         float: right;
     }
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
     .button a {
         color:#fff; 
     }

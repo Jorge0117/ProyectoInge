@@ -186,15 +186,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 		</div>
   <h2 class="text2 backg2"><font size="6"><!--Texto de ejemplo--></font></h2>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
+    <?= $this->Flash->render() ?>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
-                <?= $this->Flash->render() ?>
+               
                 <!-- Div que encapsula las vistas de los módulos-->
                 <div class="container clearfix">
                     <?= $this->fetch('content') ?>
                 </div>
             </div>
-    </main>
+  </main>
     <footer>
     </footer>
 

@@ -93,10 +93,15 @@ class CoursesClassesVwController extends AppController
      */
     public function edit($code = null, $class_number = null, $semester = null,$year = null)
     {
+        echo 'THIS IS A TEST |';
         echo $code;
+        echo '|';
         echo $class_number;
+        echo '|';
         echo $semester;
+        echo '|';
         echo $year;
+        echo '|';
         //------------------------------------------------
         $result = false;
         //------------------------------------------------
@@ -104,33 +109,40 @@ class CoursesClassesVwController extends AppController
         //------------------------------------------------
         if ($this->request->is('post')) {
             //------------------------------------------------
-            $model = $this->CoursesClassesVw->patchEntity(
-                $model, 
-                $this->request->getData()
-            );
-            echo 'test014568';
+            // $model = $this->CoursesClassesVw->patchEntity(
+            //     $model, 
+            //     $this->request->getData()
+            // );
             //------------------------------------------------
-            $coursesClassesModel = $this->loadmodel('Classes');
+            // $coursesClassesModel = $this->loadmodel('Classes');
             //------------------------------------------------
-            $result = $coursesClassesModel->fetchARow(
-                $code, 
-                $class_number, 
-                $semester,
-                $year
-            );
+            // $result = $coursesClassesModel->fetchARow(
+            //     $code, 
+            //     $class_number, 
+            //     $semester,
+            //     $year
+            // );
             //------------------------------------------------
             if ($this->request->is(['patch', 'post', 'put'])) {
-                $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-                if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
-                    // $this->Flash->success(__('The courses classes vw has been saved.'));
-                    // return $this->redirect(['action' => 'index']);
-                }
+                // $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+                // if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
+                //     $this->Flash->success(__('The courses classes vw has been saved.'));
+                //     return $this->redirect(['action' => 'index']);
+                // }
                 // $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
+                $model = $this->CoursesClassesVw->patchEntity(
+                    $model, 
+                    $this->request->getData()
+                );
+                echo "END OF THE VIEW|";
+                echo $model->Sigla;
+                // Here we can save the thing in the model!!!!!!
+                echo "|";
+                return $this->redirect(['action' => 'index']);
             }
             // $this->set(compact('coursesClassesVw'));
         }
         //------------------------------------------------
-        //return $this->redirect(['action' => 'index']);
     }
 
     /**
@@ -171,21 +183,23 @@ class CoursesClassesVwController extends AppController
         //------------------------------------------------
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
+        //------------------------------------------------
+        $model = $this->CoursesClassesVw->patchEntity(
+            $model, 
+            $this->request->getData()
+        );
+        //------------------------------------------------
+        $coursesClassesModel = $this->loadmodel('CoursesClassesVw');
+        //------------------------------------------------
+        $result = $coursesClassesModel->fetchAllClasses(
+            $code,
+            $semester,
+            $year
+        );
+        echo $result;
+        //------------------------------------------------
         if ($this->request->is('post')) {
-            //------------------------------------------------
-            $model = $this->CoursesClassesVw->patchEntity(
-                $model, 
-                $this->request->getData()
-            );
-            //------------------------------------------------
-            $coursesClassesModel = $this->loadmodel('Classes');
-            //------------------------------------------------
-            $result = $coursesClassesModel->fetchAllClasses(
-                $code,
-                $semester,
-                $year
-            );
-            //------------------------------------------------
+            echo "Cute new places keep on poping up";
         }
         return $result;
     }
