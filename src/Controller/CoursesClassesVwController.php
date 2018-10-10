@@ -70,33 +70,16 @@ class CoursesClassesVwController extends AppController
             $semester=$coursesClassesVw->Semestre;
             $year=$coursesClassesVw->Año;
 
-            debug($name);
-            debug($code);
-            debug($cred);
-            //die();
-
             $courseController = new CoursesController;
             $courseController->add($code, $name, $cred);
 
             $classController = new ClassesController;
             $classController->addClass($code, $group, $semester, $year, '111111111');
-            /*
-            $courseTable=$this->loadmodel('Courses');
-            $courseTable->addCourse($code, $name, $cred);
+
             
-            $classTable=$this->loadmodel('Classes');
-            $classTable->addClass($code, $group, $semester, $year, 1, '111111111');
-            */
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);
 
-            /*
-            if ($this->CoursesClassesVw->save($coursesClassesVw)) {
-                $this->Flash->success(__('The courses classes vw has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));*/
         }
         $this->set(compact('coursesClassesVw'));
     }

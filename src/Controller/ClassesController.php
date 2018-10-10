@@ -48,8 +48,7 @@ class ClassesController extends AppController
             $classController = new ClassesController;
             $classController->addClass($code, $group, $semester, $year, $prof);
 
-            debug($class);
-            //die();
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
 
         $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
