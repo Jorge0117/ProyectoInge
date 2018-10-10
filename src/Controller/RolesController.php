@@ -149,10 +149,10 @@ class RolesController extends AppController
             
             for ($i = 0; $i < count($this->permissions_id_matrix); $i++) {
                 for ($j = 1; $j < count($this->permissions_id_matrix[$i]) + 1; $j++) {
-                    if (array_key_exists($i, $data[$role_selected]) &&
+                    if (array_key_exists($role_selected, $data)&&
+                        array_key_exists($i, $data[$role_selected]) &&
                         array_key_exists($j, $data[$role_selected][$i])) {
                         if (!$old_permissions_matrix[$i][$j]) {
-                            echo(''.$i.$j);
                             $permission_role = $this->PermissionsRoles->newEntity();
                             $permission_role->role_id = $data['role_select'];
                             $permission_role->permission_id = $this->permissions_id_matrix[$i][$j - 1];
@@ -175,7 +175,7 @@ class RolesController extends AppController
             }
 
         }
-        //return $this->redirect('/roles/index');
+        return $this->redirect('/roles/index');
     }
 
     /**
