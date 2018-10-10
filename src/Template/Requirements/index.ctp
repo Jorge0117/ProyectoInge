@@ -36,7 +36,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         color:#000; 
     }
     .btn-revoke{
-        background-color: #999999;
+        background-color: #015b96ff;
         border: none;
         color:#fff;
         padding: 15px 32px;
@@ -48,8 +48,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         cursor: pointer;
         float: right; 
         position:absolute; 
-        left: 82%;
-        top: 20%;
+        left: 67%;
+        top: 8%;
     }
     .btn-revoke:hover{
         color: #fff;
@@ -91,6 +91,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?php endforeach; ?>
         </tbody>
     </table>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    </div>
  </div>
     
 
