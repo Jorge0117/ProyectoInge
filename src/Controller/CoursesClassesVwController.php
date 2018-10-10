@@ -217,4 +217,15 @@ class CoursesClassesVwController extends AppController
         die(“here”);
     }
 
+
+    public function importExcelfile (){
+        $helper = new Helper\Sample();
+        debug($helper);
+        $inputFileName = WWW_ROOT . ‘example1.xls‘;
+        $spreadsheet = IOFactory::load($inputFileName);
+        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+        var_dump($sheetData);
+        die(“here”);
+    }
+
 }
