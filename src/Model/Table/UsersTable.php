@@ -72,7 +72,7 @@ class UsersTable extends Table
         $validator
             ->scalar('identification_number')
             ->maxLength('identification_number', 20)
-            ->allowEmpty('identification_number', 'create');
+            ->notEmpty('identification_number');
 
         $validator
             ->scalar('name')
@@ -95,7 +95,7 @@ class UsersTable extends Table
             ->scalar('username')
             ->maxLength('username', 100)
             ->requirePresence('username', 'create')
-            ->notEmpty('username')
+            //->notEmpty('username')
             ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator

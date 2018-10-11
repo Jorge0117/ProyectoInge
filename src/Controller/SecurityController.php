@@ -21,7 +21,7 @@ class SecurityController extends AppController
     
     public function login()
     {
-                
+        $Users = new UsersController;       
 
         if($this->request->is('post'))
         {
@@ -34,7 +34,8 @@ class SecurityController extends AppController
                 if ($user['identification_number'] == 'NEW_USER') {
                     // Caso en que los credenciales fueron válidos pero el usuario no existe!
                     // Cambiar la siguiente línea por la accion de agregar usuario
-                    $this->redirect(['controller' => 'Security', 'action' => 'register', $user['username']]);
+                   // $Users->register($user['username']);
+                    $this->redirect(['controller' => 'Users', 'action' => 'register', $user['username']]);
 
                 } else {
                     $this->Auth->setUser($user);
