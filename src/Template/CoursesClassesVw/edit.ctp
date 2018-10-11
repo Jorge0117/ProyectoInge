@@ -23,16 +23,32 @@
     </nav>
 -->
 <div class="courses form large-9 medium-8 columns content">
-    <?= $this->Form->create($course) ?>
+    <!-- <?= $this->Form->create($course) ?> -->
     <fieldset>
         <legend><?= __('Editar Curso') ?></legend>
         <?php
-            echo $this->Form->control('Sigla'); 
-            echo $this->Form->control('Curso');
-            echo $this->Form->control('Grupo');
-            echo $this->Form->control('Profesor');
-            echo $this->Form->control('Semestre');
-            echo $this->Form->control('Año');
+            echo $this->Form->control(
+                'Sigla',
+                ['default' => $code]
+            ); 
+            echo $this->Form->control(
+                'Curso'
+            );
+            echo $this->Form->control(
+                'Grupo',
+                ['default' => $class_number]
+            );
+            echo $this->Form->control(
+                'Semestre',
+                ['default' => $semester]
+            );
+            echo $this->Form->control(
+                'Año',
+                ['default' => $year]
+            );
+            echo $this->Form->control(
+                'Profesor'
+            );
         ?>
     </fieldset>
     <?= $this->Form->button(__('Aceptar')) ?>

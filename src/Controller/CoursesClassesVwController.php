@@ -107,6 +107,11 @@ class CoursesClassesVwController extends AppController
         //------------------------------------------------
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
+        $this->set('code',$code);
+        $this->set('class_number',$class_number);
+        $this->set('semester',$semester);
+        $this->set('year',$year);
+        //$this->set('code',$code);
         if ($this->request->is('post')) {
             //------------------------------------------------
             // $model = $this->CoursesClassesVw->patchEntity(
@@ -123,7 +128,9 @@ class CoursesClassesVwController extends AppController
             //     $year
             // );
             //------------------------------------------------
+
             if ($this->request->is(['patch', 'post', 'put'])) {
+                
                 // $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
                 // if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
                 //     $this->Flash->success(__('The courses classes vw has been saved.'));
@@ -136,11 +143,23 @@ class CoursesClassesVwController extends AppController
                 );
                 echo "END OF THE VIEW|";
                 echo $model->Sigla;
-                // Here we can save the thing in the model!!!!!!
+                //------------------------------------------------
+                $ClassesController = new ClassesController;
+                //------------------------------------------------
+                $result = $ClassesController->update(
+                    $code, 
+                    $class_number,
+                    $semester, 
+                    $year,
+                    $model->Grupo,
+                    $model->Semestre,
+                    $model->year
+                );
+                //------------------------------------------------
                 echo "|";
                 return $this->redirect(['action' => 'index']);
             }
-            // $this->set(compact('coursesClassesVw'));
+            // 
         }
         //------------------------------------------------
     }

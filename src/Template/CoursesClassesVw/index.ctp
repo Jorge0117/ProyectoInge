@@ -76,7 +76,7 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        '<i class="fa fa-eye fa_custom fa-2x"></i>', // Editar
+                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', // Editar
                         [
                             'action' => 'edit', 
                             $course->Sigla,
