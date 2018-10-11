@@ -20,28 +20,28 @@
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#administrator_permission_table").show();
-                    $('#AceptarBtn').show();
                     $('#edit_checkbox').show();
+                    $('#modificar_tag').show();
                 }else if(document.getElementById("role_select").value == "Asistente"){
                     $("#administrator_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
-                    $("#assistant_permission_table").show();
-                    $('#AceptarBtn').show();
+                    $("#assistant_permission_table").show();   
                     $('#edit_checkbox').show();
+                    $('#modificar_tag').show();
                 }else if(document.getElementById("role_select").value == "Estudiante"){
                     $("#administrator_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
-                    $("#student_permission_table").show();
-                    $('#AceptarBtn').show();
+                    $("#student_permission_table").show();  
                     $('#edit_checkbox').show();
+                    $('#modificar_tag').show();
                 }else if(document.getElementById("role_select").value == "Profesor"){
                     $("#administrator_permission_table").hide();
                     $("#assistant_permission_table").hide();
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").show();
-                    $('#AceptarBtn').show();
+                    $('#modificar_tag').show();  
                     $('#edit_checkbox').show();
                 }else{
                     $("#administrator_permission_table").hide();
@@ -50,17 +50,17 @@
                     $("#assistant_permission_table").hide();
                     $('#AceptarBtn').hide();
                     $('#edit_checkbox').hide();
+                    $('#modificar_tag').hide();
                 }
             });
 
             $("#edit_checkbox").change(function(){
                 if($("#edit_checkbox").is(":checked")){
                     $('.checkbox_perm').prop( "disabled", false );
-                    $('#AceptarBtn').prop( "disabled", false );
+                    $('#AceptarBtn').show();
                 }else{
                     $('.checkbox_perm').prop( "disabled", true );
-                    $('#AceptarBtn').prop( "disabled", true );
-                    
+                    $('#AceptarBtn').hide();
                 }
             });
         });
@@ -69,53 +69,53 @@
 
 <body>
 <?= $this->Form->create(false,['url' => '/roles/updatePermissions']) ?>
-    <div class='row'>
-        <div class='input-group mb-3'>
+    <div class='row' >
+        <div class='input-group mb-3 col-md-3' style='width:20%'>
             <div class="input-group-prepend">
-                    <span style="width:120px" class="input-group-text">Rol:</span>
-           </div>
-           <div style='width: 14%'>
-                <?php
-                    echo $this->Form->select(
-                        'role_select',
-                        $roles_array,
-                        ['id' => 'role_select',
-                         'empty' => 'Elija un rol',
-                         'class' => "form-control custom-select"]
-                    ) 
-                ?>
+                    <span style="width:90px" class="input-group-text" >Rol:</span>
             </div>
+           
+            <?php
+                echo $this->Form->select(
+                    'role_select',
+                    $roles_array,
+                     ['id' => 'role_select',
+                     'empty' => 'Elija un rol',
+                     'class' => "form-control custom-select"]
+                ) 
+            ?>
+            
         </div>
         
-        <div class='input-group mb-3'>
-            <div class="input-group-prepend">
-                    <span style="width:120px" class="input-group-text">Modificar:</span>
+        <div class='input-group mb-3 col-md-4' id='modificar_tag' style='display: none'>
+           <span style="width:90px" class="input-group-text" >Modificar</span>     
+           <div class="input-group-append" >
+                <div class="input-group-text bg-light">
+                    <?php
+                        echo $this->Form->checkbox(
+                            'Editar',
+                            ['id' => 'edit_checkbox',
+                            'style' => 'display: none'
+                            ]
+                        );
+                    ?>
+                </div>
            </div>
-           <div>
-                <?php
-                    echo $this->Form->checkbox(
-                        'Editar',
-                        ['id' => 'edit_checkbox',
-                        'style' => 'display: none',
-                        'class' => 'big'
-                        ]
-                    );
-                ?>
-            </div>
         </div>
 
         
-
+        <div class='col-md-5 mb-3' style="text-align:right">
         <?php
             echo $this->Form->button(
                 'Aceptar',
                 [
                     'id' => 'AceptarBtn',
-                    'disabled' => true,
                     'style' => 'display: none',
-                    'type' => 'submit'
+                    'type' => 'submit',
+                    'class' => 'btn-primary'
                 ]);
         ?>
+        </div>
     </div>
 
     <div id='assistant_permission_table' class='container' style="display: none;">

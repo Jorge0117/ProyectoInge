@@ -40,8 +40,6 @@ class RolesController extends AppController
 
         $this->loadModel('Permissions');
 
-       
-
         //Administrator permissions
         $administrator_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
             return $q->where(['Roles.role_id' => 'Administrador']);
@@ -54,7 +52,7 @@ class RolesController extends AppController
                 $administrator_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $administrator_permissions);
             }
         }
-        
+
         $this->set(compact('administrator_permissions_matrix'));
 
         //Assistant permissions
@@ -111,34 +109,31 @@ class RolesController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData();
 
-            if ($data['role_select'] == 'Administrador') {    
+            if ($data['role_select'] == 'Administrador') {
                 $role_selected = 'administrator';
                 $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
                     return $q->where(['Roles.role_id' => 'Administrador']);
                 })->toArray();
 
-            } else if ($data['role_select'] == 'Asistente') {      
+            } else if ($data['role_select'] == 'Asistente') {
                 $role_selected = 'assistant';
                 $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
                     return $q->where(['Roles.role_id' => 'Asistente']);
                 })->toArray();
 
-            } else if ($data['role_select'] == 'Estudiante') {             
+            } else if ($data['role_select'] == 'Estudiante') {
                 $role_selected = 'student';
                 $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
                     return $q->where(['Roles.role_id' => 'Estudiante']);
                 })->toArray();
 
-            } else if ($data['role_select'] == 'Profesor') {               
+            } else if ($data['role_select'] == 'Profesor') {
                 $role_selected = 'professor';
                 $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
                     return $q->where(['Roles.role_id' => 'Profesor']);
                 })->toArray();
 
             }
-            
-
-            
 
             for ($i = 0; $i < 4; $i++) {
                 $old_permissions_matrix[$i][0] = $this->permission_list[$i];
@@ -146,21 +141,21 @@ class RolesController extends AppController
                     $old_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $old_permissions);
                 }
             }
-            
+
             for ($i = 0; $i < count($this->permissions_id_matrix); $i++) {
                 for ($j = 1; $j < count($this->permissions_id_matrix[$i]) + 1; $j++) {
-                    if (array_key_exists($role_selected, $data)&&
+                    if (array_key_exists($role_selected, $data) &&
                         array_key_exists($i, $data[$role_selected]) &&
                         array_key_exists($j, $data[$role_selected][$i])) {
                         if (!$old_permissions_matrix[$i][$j]) {
                             $permission_role = $this->PermissionsRoles->newEntity();
                             $permission_role->role_id = $data['role_select'];
                             $permission_role->permission_id = $this->permissions_id_matrix[$i][$j - 1];
-                            echo(var_dump(''.$permission_role->role_id.$permission_role->permission_id));
-                            if($this->PermissionsRoles->save($permission_role)){
-                                echo(var_dump('yeah'.$permission_role->role_id.$permission_role->permission_id));
-                            }else{
-                                echo(var_dump('nop'.$permission_role->role_id.$permission_role->permission_id));
+                            echo (var_dump('' . $permission_role->role_id . $permission_role->permission_id));
+                            if ($this->PermissionsRoles->save($permission_role)) {
+                                //$this->Flash->success(__('The role has been saved.'));
+                            } else {
+                                //$this->Flash->error(__('The role could not be saved. Please, try again.'));
                             }
                         }
                     } else {
@@ -168,7 +163,11 @@ class RolesController extends AppController
                             $permission_role = $this->PermissionsRoles->get(
                                 ['role_id' => $data['role_select'],
                                     'permission_id' => $this->permissions_id_matrix[$i][$j - 1]]);
-                            $this->PermissionsRoles->delete($permission_role);
+                            if ($this->PermissionsRoles->delete($permission_role)) {
+                                //$this->Flash->success(__('The role has been deleted.'));
+                            } else {
+                                //$this->Flash->error(__('The role could not be saved. Please, try again.'));
+                            }
                         }
                     }
                 }
