@@ -240,7 +240,7 @@ class CoursesClassesVwController extends AppController
         
         $table = [];
         $parameters = [];
-        for ($row = 5; $row <= 103; ++$row) {
+        for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                 //debug($value);
@@ -265,6 +265,15 @@ class CoursesClassesVwController extends AppController
 
     public function addFromFile ($parameters){
         if($parameters[0] != null){
+
+            $profId;
+
+            $courseController = new CoursesController;
+            $courseController->add($parameters[1], $parameters[0], 0);
+
+            $classController = new ClassesController;
+            $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
+
             debug($parameters);
             die();
         }
