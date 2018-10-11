@@ -10,7 +10,7 @@ use Cake\Datasource\ConnectionManager;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-//require ROOT.DS.’vendor‘ .DS. ‘phpoffice/phpspreadsheet/src/Bootstrap.php’;
+require ROOT.DS.'vendor' .DS. 'phpoffice/phpspreadsheet/src/Bootstrap.php';
 
 /**
  * CoursesClassesVw Controller
@@ -204,25 +204,70 @@ class CoursesClassesVwController extends AppController
         return $result;
     }
 
+    
+
     public function importExcelfile (){
+        /*
         $helper = new Helper\Sample();
         debug($helper);
-        $inputFileName = WWW_ROOT . ‘example1.xls‘;
+        //$inputFileName = WWW_ROOT . ‘example1.xls‘;
+        $inputFileName = TESTS. DS. 'archPrueba2.xlsx';
+        ini_set('memory_limit', '-1');
         $spreadsheet = IOFactory::load($inputFileName);
         $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
         var_dump($sheetData);
         die(“here”);
+        */
+
+        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+
+        ini_set('memory_limit', '-1');
+        $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
+
+        $spreadsheet = $reader->load($inputFileName);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow(null);
+        $highestColumn = $worksheet->getHighestDataColumn();
+        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+        debug($highestRow);
+        debug($highestColumn);
+        debug($highestColumnIndex);
+        //die();
+        
+        $table = [];
+        $parameters = [];
+        for ($row = 5; $row <= 103; ++$row) {
+            for ($col = 1; $col <= 4; ++$col) {
+                $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                //debug($value);
+                $parameters[$col -1] = $value;
+            }
+            $table[$row -5] = $parameters;
+            //debug($parameters);
+            unset($parameters);
+        }
+        $this->set('table', $table);
+
+        if ($this->request->is('post')) {
+            for ($row = 0; $row < count($table); ++$row) {
+                $this->addFromFile($table[$row]);
+            }
+        }
+        $this->set(compact('coursesClassesVw'));
+        //debug($table);
+        //die();
+        //return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
 
-
-    // public function importExcelfile (){
-    //     $helper = new Helper\Sample();
-    //     debug($helper);
-    //     $inputFileName = WWW_ROOT . ‘example1.xls‘;
-    //     $spreadsheet = IOFactory::load($inputFileName);
-    //     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-    //     var_dump($sheetData);
-    //     die(“here”);
-    // }
+    public function addFromFile ($parameters){
+        if($parameters[0] != null){
+            debug($parameters);
+            die();
+        }
+    }
 
 }
