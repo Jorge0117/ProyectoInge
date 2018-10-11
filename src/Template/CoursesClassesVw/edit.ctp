@@ -32,7 +32,8 @@
                 ['default' => $code]
             ); 
             echo $this->Form->control(
-                'Curso'
+                'Curso',
+                ['options' => $courses]
             );
             echo $this->Form->control(
                 'Grupo',
@@ -47,7 +48,8 @@
                 ['default' => $year]
             );
             echo $this->Form->control(
-                'Profesor'
+                'Profesor',
+                ['options' => $professors]
             );
         ?>
     </fieldset>

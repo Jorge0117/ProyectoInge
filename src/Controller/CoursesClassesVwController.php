@@ -107,11 +107,25 @@ class CoursesClassesVwController extends AppController
         //------------------------------------------------
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
+        $ClassesController = new ClassesController;
+        //------------------------------------------------
+        $CoursesController = new CoursesController;
+        //------------------------------------------------
+        $courses = $CoursesController->Courses->find('list',['limit' => 200]);
+        //------------------------------------------------
+        $professors = 
+            $ClassesController->
+            Classes->
+            Professors->
+            find('list', ['limit' => 200]);
+        //------------------------------------------------
         $this->set('code',$code);
         $this->set('class_number',$class_number);
         $this->set('semester',$semester);
         $this->set('year',$year);
-        //$this->set('code',$code);
+        $this->set('professors',$professors);
+        $this->set('courses',$courses);
+        //------------------------------------------------
         if ($this->request->is('post')) {
             //------------------------------------------------
             // $model = $this->CoursesClassesVw->patchEntity(
