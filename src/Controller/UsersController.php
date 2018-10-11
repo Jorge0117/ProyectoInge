@@ -52,42 +52,46 @@ class UsersController extends AppController
      * Register of a new user
      */
     public function register(){
-        //usar username del usuario que no ha sido registrado
-        $username = "B37743";
+
         $user = $this->Users->newEntity($this->request->getData());
-        
         //instancias para crear cada tipo de usuario en su respectivo controlador
         $Students = new StudentsController;
-
-        $user->username = $username;
-        $pattern = "/\w\d{5}/";
-        //asigna rol segun el nombre de usuario
-        if(preg_match($pattern, $username)){
-            //es estudiante
-            $user->role_id= 'Estudiante';
-        }else{
-            $user->role_id= 'Profesor';
-        }
+        $SecurityCont = new SecurityController;
 
         if (isset($this->request->data['cancel'])) {
             //Volver a sign in
             //return $this->redirect( array( 'action' => 'index' ));
         }
-        $carne = $this->request->getData('carne');
-        debug($carne);
-        if ($this->request->is('post')) {
-            if ($this->Users->save($user)) { 
-                //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
-                //Guardar en la tabla de tipo de usuario tambien
-                //debug($user);
-                if($user->role === 'Estudiante'){
-                    $Students->newStudent($user, $carne);
-                }
-                //triggers para los demás 
 
-                $this->Flash->success(__('Se agregó el usuario correctamente.'));
-                return $this->redirect(['action' => 'index']);
-            } 
+        $carne = $this->request->getData('carne');
+        if ($this->request->is('post')) {
+            $username = $this->request->getData('username');
+            //if( $SecurityCont->checkUsername($username) ){
+                $pattern = "/\w\d{5}/";
+                //asigna rol segun el nombre de usuario
+                if(preg_match($pattern, $username)){
+                //es estudiante
+                    $user->role_id= 'Estudiante';
+                }else{
+                    $user->role_id= 'Profesor';
+                }
+                debug($user->role_id);
+
+                if ($this->Users->save($user)) { 
+                    //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
+                    //Guardar en la tabla de tipo de usuario tambien
+                    //debug($user);
+                    if($user->role === 'Estudiante'){
+                        $Students->newStudent($user, $carne);
+                    }
+                    //triggers para los demás 
+    
+                    $this->Flash->success(__('Se agregó el usuario correctamente.'));
+                    return $this->redirect(['action' => 'index']);
+                } 
+            //}
+            
+            debug($user);
             $this->Flash->error(__('No se pudo crear el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);

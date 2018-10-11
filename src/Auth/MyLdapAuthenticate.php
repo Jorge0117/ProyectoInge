@@ -20,7 +20,7 @@ class MyLdapAuthenticate extends BaseAuthenticate
         return true;
     }
 
-    protected function findUser($username)
+    public function findUser($username)
     {
         $result = $this->_query($username)->first();
 
