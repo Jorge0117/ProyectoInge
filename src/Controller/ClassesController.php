@@ -45,8 +45,8 @@ class ClassesController extends AppController
             $year=$class->year;
             $prof=$class->professor_id;
 
-            $classController = new ClassesController;
-            $classController->addClass($code, $group, $semester, $year, $prof);
+            //$classController = new ClassesController;
+            $this->addClass($code, $group, $semester, $year, $prof);
 
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
