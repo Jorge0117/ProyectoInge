@@ -121,4 +121,15 @@ class ClassesController extends AppController
         //------------------------------------------------
         return $result;
     }
+
+    public function deleteAll()
+    {
+        //------------------------------------------------
+        $classesModel = $this->loadmodel('Classes');
+        //------------------------------------------------
+        $result = $classesModel->deleteAllClasses();
+        //------------------------------------------------
+        return $result;
+    }
+
 }

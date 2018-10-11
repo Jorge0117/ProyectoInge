@@ -154,4 +154,19 @@ class ClassesTable extends Table
         //------------------------------------------------
         return $result;
     }
+
+    public function deleteAllClasses()
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "DELETE FROM classes"
+        );
+        //------------------------------------------------
+        return $result;
+    }
+
 }

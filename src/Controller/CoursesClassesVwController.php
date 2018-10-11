@@ -253,6 +253,9 @@ class CoursesClassesVwController extends AppController
         $this->set('table', $table);
 
         if ($this->request->is('post')) {
+            $ClassesController = new ClassesController;
+            $result = $ClassesController->deleteAll();
+            
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row]);
             }
@@ -266,7 +269,7 @@ class CoursesClassesVwController extends AppController
     public function addFromFile ($parameters){
         if($parameters[0] != null){
 
-            $profId;
+            $profId = '111111111';
 
             $courseController = new CoursesController;
             $courseController->add($parameters[1], $parameters[0], 0);
@@ -275,8 +278,12 @@ class CoursesClassesVwController extends AppController
             $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
 
             debug($parameters);
-            die();
         }
+    }
+
+    public function deleteAll (){
+        $ClassesController = new ClassesController;
+        $result = $ClassesController->deleteAll();
     }
 
 }
