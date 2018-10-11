@@ -251,5 +251,10 @@
             ?>
         </table>
     </div>
+    <?php $this->Form->unlockField('administrator');
+          $this->Form->unlockField('assistant');
+          $this->Form->unlockField('student');
+          $this->Form->unlockField('professor');
+    ?>
     <?= $this->Form->end() ?>
 </body>
