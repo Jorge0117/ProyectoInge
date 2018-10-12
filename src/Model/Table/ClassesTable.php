@@ -155,7 +155,7 @@ class ClassesTable extends Table
         return $result;
     }
 
-    public function updateClass($code, $class_number, $semester, $year, $new_class_number, $new_semester, $new_year)
+    public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year)
     {
         //------------------------------------------------
         $result = true;
@@ -165,6 +165,7 @@ class ClassesTable extends Table
         $result = $connection->execute(
             "UPDATE classes 
             SET 
+                course_id           = '$new_course_id',
                 class_number        = $new_class_number,
                 semester            = $new_semester,
                 year                = $new_year

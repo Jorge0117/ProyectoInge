@@ -27,10 +27,13 @@
     <fieldset>
         <legend><?= __('Editar Curso') ?></legend>
         <?php
-            echo $this->Form->control(
-                'Sigla',
-                ['default' => $code]
-            ); 
+            // echo $this->Form->control(
+            //     'Sigla',
+            //     [
+            //         'default' => $code,
+            //         'options' => $all_classes_codes
+            //     ]
+            // ); 
             echo $this->Form->control(
                 'Curso',
                 ['options' => $courses]

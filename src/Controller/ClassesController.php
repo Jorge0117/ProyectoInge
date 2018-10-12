@@ -122,7 +122,7 @@ class ClassesController extends AppController
         return $result;
     }
 
-    public function update($code, $class_number, $semester, $year, $new_class_number, $new_semester, $new_year)
+    public function update($code, $class_number, $semester, $year,$new_code, $new_class_number, $new_semester, $new_year)
     {
         $result = false;
 
@@ -133,6 +133,7 @@ class ClassesController extends AppController
             $class_number,
             $semester, 
             $year,
+            $new_code,
             $new_class_number,
             $new_semester,
             $new_year

@@ -93,15 +93,6 @@ class CoursesClassesVwController extends AppController
      */
     public function edit($code = null, $class_number = null, $semester = null,$year = null)
     {
-        echo 'THIS IS A TEST |';
-        echo $code;
-        echo '|';
-        echo $class_number;
-        echo '|';
-        echo $semester;
-        echo '|';
-        echo $year;
-        echo '|';
         //------------------------------------------------
         $result = false;
         //------------------------------------------------
@@ -112,6 +103,7 @@ class CoursesClassesVwController extends AppController
         $CoursesController = new CoursesController;
         //------------------------------------------------
         $courses = $CoursesController->Courses->find('list',['limit' => 200]);
+        $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 200])->select('class_number');
         //------------------------------------------------
         $professors = 
             $ClassesController->
@@ -125,55 +117,31 @@ class CoursesClassesVwController extends AppController
         $this->set('year',$year);
         $this->set('professors',$professors);
         $this->set('courses',$courses);
+        $this->set('all_classes_codes',$all_classes_codes);
         //------------------------------------------------
         if ($this->request->is('post')) {
-            //------------------------------------------------
-            // $model = $this->CoursesClassesVw->patchEntity(
-            //     $model, 
-            //     $this->request->getData()
-            // );
-            //------------------------------------------------
-            // $coursesClassesModel = $this->loadmodel('Classes');
-            //------------------------------------------------
-            // $result = $coursesClassesModel->fetchARow(
-            //     $code, 
-            //     $class_number, 
-            //     $semester,
-            //     $year
-            // );
-            //------------------------------------------------
-
             if ($this->request->is(['patch', 'post', 'put'])) {
-                
-                // $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-                // if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
-                //     $this->Flash->success(__('The courses classes vw has been saved.'));
-                //     return $this->redirect(['action' => 'index']);
-                // }
-                // $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
                 $model = $this->CoursesClassesVw->patchEntity(
                     $model, 
                     $this->request->getData()
                 );
-                echo "END OF THE VIEW|";
-                echo $model->Sigla;
                 //------------------------------------------------
-                $ClassesController = new ClassesController;
+                $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
+                echo $new_course_id;
                 //------------------------------------------------
                 $result = $ClassesController->update(
                     $code, 
                     $class_number,
                     $semester, 
                     $year,
+                    $new_course_id,
                     $model->Grupo,
                     $model->Semestre,
                     $model->Año
                 );
                 //------------------------------------------------
-                echo "|";
                 return $this->redirect(['action' => 'index']);
             }
-            // 
         }
         //------------------------------------------------
     }
