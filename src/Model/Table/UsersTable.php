@@ -54,7 +54,9 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Professors', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'dependent'  => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('Students', [
             'foreignKey' => 'user_id'

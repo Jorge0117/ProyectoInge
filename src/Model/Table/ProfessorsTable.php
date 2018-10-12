@@ -38,8 +38,11 @@ class ProfessorsTable extends Table
         $this->setPrimaryKey('user_id');
 
         $this->hasMany('Classes', [
-            'foreignKey' => 'professor_id'
+            'foreignKey' => 'professor_id',
+            'dependent'  => true,
+            'cascadeCallbacks' => true
         ]);
+
     }
 
     /**

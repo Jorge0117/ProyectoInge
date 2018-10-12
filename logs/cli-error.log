@@ -168,3 +168,10 @@ Stack Trace:
 #13 {main}
 
 
+2018-10-12 17:43:13 Error: [RuntimeException] Unknown command `cake schema`. Run `cake --help` to get the list of valid commands. in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php on line 321
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Console\CommandRunner.php(159): Cake\Console\CommandRunner->resolveName(Object(Cake\Console\CommandCollection), Object(Cake\Console\ConsoleIo), '\xC2\x96\xC2\x96schema')
+#1 C:\xampp\htdocs\ProyectoInge\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#2 {main}
+
+

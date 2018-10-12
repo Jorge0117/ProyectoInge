@@ -28,6 +28,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <!-- Espacio donde se cargan los archivos pertinentes a bootstrap -->
     <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'])?>
+    <link rel="stylesheet" href="plugins/font/typicons.min.css"/></head><body><div class="page-header">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min','jquery.dataTables.min']) ?>
 
     <?= $this->fetch('meta') ?>
@@ -179,7 +181,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 			</ul>
 		</div>
   <h2 class="text2 backg2"><font size="6"><?php echo $this->fetch('title'); ?></font></h2>
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 pt-5">
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
                 <?= $this->Flash->render() ?>
