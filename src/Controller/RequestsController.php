@@ -218,10 +218,25 @@ public function add()
 		
     }
 	
-	public function prueba()
+	public function obtenerProfesor()
 	{
-		debug("xdd");
-		$this->autoRender = false;
+
+		$curso = $_GET['curso'];
+		$grupo = $_GET['grupo'];
+
+		$profesor = $this->Requests->getTeacher($curso,$grupo);
+		
+		foreach($profesor as $p) {
+			print_r($p);
+		}
+		
+	
+		
+
+		
+		 $this->autoRender = false ;
+		 
+
 	}
 	
 	/*public function save()
