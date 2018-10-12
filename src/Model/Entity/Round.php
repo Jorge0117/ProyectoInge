@@ -6,12 +6,11 @@ use Cake\ORM\Entity;
 /**
  * Round Entity
  *
- * @property int $number
- * @property int $semester
- * @property int $year
- * @property \Cake\I18n\FrozenTime $start_date
- * @property \Cake\I18n\FrozenTime $end_date
- * @property \Cake\I18n\FrozenTime $approve_limit_date
+ * @property \Cake\I18n\FrozenDate $start_date
+ * @property string $round_number
+ * @property string $semester
+ * @property string $year
+ * @property \Cake\I18n\FrozenDate $end_date
  */
 class Round extends Entity
 {
@@ -27,7 +26,6 @@ class Round extends Entity
      */
     protected $_accessible = [
         'start_date' => true,
-        'end_date' => true,
-        'approve_limit_date' => true
+        'end_date' => true
     ];
 }

@@ -13,6 +13,7 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+
     public function initialize(){
         parent::initialize();
         $this->Auth->allow('register');
@@ -213,6 +214,16 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function getId ($name, $lastname) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getId($name, $lastname);
+    }
+
+    public function getProfessors() {
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getProfessors();
+    }
 
 
 }
