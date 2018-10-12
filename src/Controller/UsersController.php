@@ -51,50 +51,67 @@ class UsersController extends AppController
     /**
      * Register of a new user
      */
-    public function register(){
+    public function register(string $username){
 
-        $user = $this->Users->newEntity($this->request->getData());
-        //instancias para crear cada tipo de usuario en su respectivo controlador
-        $Students = new StudentsController;
-        $SecurityCont = new SecurityController;
 
-        if (isset($this->request->data['cancel'])) {
-            //Volver a sign in
-            //return $this->redirect( array( 'action' => 'index' ));
+        $session = $this->getRequest()->getSession();
+        $user = $this->Users->newEntity();
+
+        $s_username = $session->read('NEW_USER');
+        debug($s_username);
+        if (!$session->check('NEW_USER') || $s_username != $username) {
+            return $this->redirect('/');
         }
 
-        $carne = $this->request->getData('carne');
-        if ($this->request->is('post')) {
-            $username = $this->request->getData('username');
-            //if( $SecurityCont->checkUsername($username) ){
-                $pattern = "/\w\d{5}/";
-                //asigna rol segun el nombre de usuario
-                if(preg_match($pattern, $username)){
-                //es estudiante
-                    $user->role_id= 'Estudiante';
-                }else{
-                    $user->role_id= 'Profesor';
-                }
-                debug($user->role_id);
+        // Caso en que fue redirigido desde Security
+        if ($this->request->is('get')) {
+            $user['username'] = $username;
 
-                if ($this->Users->save($user)) { 
-                    //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
-                    //Guardar en la tabla de tipo de usuario tambien
-                    //debug($user);
-                    if($user->role === 'Estudiante'){
-                        $Students->newStudent($user, $carne);
-                    }
-                    //triggers para los demás 
-    
-                    $this->Flash->success(__('Se agregó el usuario correctamente.'));
-                    return $this->redirect(['action' => 'index']);
-                } 
-            //}
-            
+        // Caso en que se recibio el form
+        } elseif ($this->request->is('post')) {
+
+            // Obtener los datos del Form y agregar el username
+            $user = $this->Users->newEntity($this->request->getData());
+            $user['username'] = $username;
+
+            //instancias para crear cada tipo de usuario en su respectivo controlador
+            // debug($user);
+            $Students = new StudentsController;
+            $SecurityCont = new SecurityController;
+
+            debug($username);
+
+            //if( $ ->checkUsername($username) ){
+            $pattern = "/\w\d{5}/";
+            //asigna rol segun el nombre de usuario
+            if(preg_match($pattern, $username)){
+            //es estudiante
+                $user->role_id= 'Estudiante';
+            }else{
+                $user->role_id= 'Profesor';
+            }
+            debug($user->role_id);
+
+            if ($this->Users->save($user)) { 
+                //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
+                //Guardar en la tabla de tipo de usuario tambien
+                //debug($user);
+                
+                $session->delete('NEW_USER');
+                if($user->role === 'Estudiante'){
+                    $carne = $this->request->getData('carne');
+                    $Students->newStudent($user, $carne);
+                }
+                //triggers para los demás 
+
+                $this->Flash->success(__('Se agregó el usuario correctamente.'));
+                return $this->redirect(['controller' => 'Security', 'action' => 'login']);
+            } 
             debug($user);
             $this->Flash->error(__('No se pudo crear el usuario.'));
+            return $this->redirect(['controller' => 'Users', 'action' => 'register', $username]);
         }
-        $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+        // $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles'));
         
     }
