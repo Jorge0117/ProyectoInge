@@ -223,17 +223,6 @@ class CoursesClassesVwController extends AppController
     
 
     public function importExcelfile (){
-        /*
-        $helper = new Helper\Sample();
-        debug($helper);
-        //$inputFileName = WWW_ROOT . ‘example1.xls‘;
-        $inputFileName = TESTS. DS. 'archPrueba2.xlsx';
-        ini_set('memory_limit', '-1');
-        $spreadsheet = IOFactory::load($inputFileName);
-        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-        var_dump($sheetData);
-        die(“here”);
-        */
 
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
 
@@ -249,11 +238,7 @@ class CoursesClassesVwController extends AppController
         $highestRow = $worksheet->getHighestRow(null);
         $highestColumn = $worksheet->getHighestDataColumn();
         $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-        //debug($highestRow);
-        //debug($highestColumn);
-        //debug($highestColumnIndex);
-        //die();
-        
+
         $table = [];
         $parameters = [];
         for ($row = 5; $row <= $highestRow; ++$row) {
