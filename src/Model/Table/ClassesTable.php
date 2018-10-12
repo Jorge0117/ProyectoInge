@@ -170,7 +170,7 @@ class ClassesTable extends Table
     }
 
 
-    public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year)
+    public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year,$new_user_id)
     {
         //------------------------------------------------
         $result = true;
@@ -183,7 +183,8 @@ class ClassesTable extends Table
                 course_id           = '$new_course_id',
                 class_number        = $new_class_number,
                 semester            = $new_semester,
-                year                = $new_year
+                year                = $new_year,
+                professor_id        = '$new_user_id'
             WHERE   course_id       = '$code' 
                 AND class_number    = '$class_number'
                 AND semester        = '$semester'

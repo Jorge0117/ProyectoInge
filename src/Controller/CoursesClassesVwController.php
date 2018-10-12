@@ -113,11 +113,8 @@ class CoursesClassesVwController extends AppController
         $courses = $CoursesController->Courses->find('list',['limit' => 200]);
         $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 200])->select('class_number');
         //------------------------------------------------
-        $professors = 
-            $ClassesController->
-            Classes->
-            Professors->
-            find('list', ['limit' => 200]);
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
         //------------------------------------------------
         $this->set('code',$code);
         $this->set('class_number',$class_number);
@@ -137,6 +134,14 @@ class CoursesClassesVwController extends AppController
                 //------------------------------------------------
                 $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
                 echo $new_course_id;
+                $indexProf=$model->Profesor;
+
+                $usersController = new UsersController;
+                $prof = $usersController->getProfessors();
+    
+                $prof = preg_split('/\s+/', $prof[$indexProf]);
+                $prof = $usersController->getId($prof[0], $prof[1]);
+
                 //------------------------------------------------
                 $result = $ClassesController->update(
                     $code, 
@@ -146,7 +151,8 @@ class CoursesClassesVwController extends AppController
                     $new_course_id,
                     $model->Grupo,
                     $model->Semestre,
-                    $model->Año
+                    $model->Año,
+                    $prof
                 );
                 //------------------------------------------------
                 return $this->redirect(['action' => 'index']);
