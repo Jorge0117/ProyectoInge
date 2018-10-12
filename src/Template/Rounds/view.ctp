@@ -17,16 +17,16 @@
     <h3><?= h($round->semester) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Number') ?></th>
-            <td><?= $this->Number->format($round->number) ?></td>
+            <th scope="row"><?= __('Round Number') ?></th>
+            <td><?= h($round->round_number) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Semester') ?></th>
-            <td><?= $this->Number->format($round->semester) ?></td>
+            <td><?= h($round->semester) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Year') ?></th>
-            <td><?= $this->Number->format($round->year) ?></td>
+            <td><?= h($round->year) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Start Date') ?></th>
