@@ -49,10 +49,8 @@
             echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
             echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
             echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
-            echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)'], 'disabled' => 'disabled']);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('carne');
         ?>
     </fieldset>
     <div class="submit">

@@ -52,7 +52,6 @@
             echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)']]);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('carne', ['label'=>['text'=>'Carné']]);
         ?>
     </fieldset>
     <div class="submit">
