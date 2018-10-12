@@ -17,8 +17,8 @@
         margin: 4px 2px;
         cursor: pointer;
         float: right; 
-        position:absolute; 
-        left: 67%;
+        position:absolute;
+        left: 81%;
         top: 8%;
     }
     .btn-revoke:hover{
@@ -26,7 +26,10 @@
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<button type="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?></button>
+<div class="container">
+<button type="buttom">
+    <?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?>
+</button>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
@@ -61,18 +64,8 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
  </div>
-    
+ </div>
 
 <script type="text/javascript">
     $(document).ready( function () {
