@@ -99,56 +99,64 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($code = null, $class_number = null, $semester = null,$year = null)
+    public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
     {
-        echo 'THIS IS A TEST |';
-        echo $code;
-        echo '|';
-        echo $class_number;
-        echo '|';
-        echo $semester;
-        echo '|';
-        echo $year;
-        echo '|';
         //------------------------------------------------
         $result = false;
         //------------------------------------------------
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
+        $ClassesController = new ClassesController;
+        //------------------------------------------------
+        $CoursesController = new CoursesController;
+        //------------------------------------------------
+        $courses = $CoursesController->Courses->find('list',['limit' => 200]);
+        $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 200])->select('class_number');
+        //------------------------------------------------
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+        //------------------------------------------------
+        $this->set('code',$code);
+        $this->set('class_number',$class_number);
+        $this->set('semester',$semester);
+        $this->set('year',$year);
+        $this->set('professors',$professors);
+        $this->set('courses',$courses);
+        $this->set('all_classes_codes',$all_classes_codes);
+        $this->set('course_name',$course_name);
+        //------------------------------------------------
         if ($this->request->is('post')) {
-            //------------------------------------------------
-            // $model = $this->CoursesClassesVw->patchEntity(
-            //     $model, 
-            //     $this->request->getData()
-            // );
-            //------------------------------------------------
-            // $coursesClassesModel = $this->loadmodel('Classes');
-            //------------------------------------------------
-            // $result = $coursesClassesModel->fetchARow(
-            //     $code, 
-            //     $class_number, 
-            //     $semester,
-            //     $year
-            // );
-            //------------------------------------------------
             if ($this->request->is(['patch', 'post', 'put'])) {
-                // $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
-                // if ($this->CoursesClassesLoad->save($coursesClassesVw)) {
-                //     $this->Flash->success(__('The courses classes vw has been saved.'));
-                //     return $this->redirect(['action' => 'index']);
-                // }
-                // $this->Flash->error(__('The courses classes vw could not be saved. Please, try again.'));
                 $model = $this->CoursesClassesVw->patchEntity(
                     $model, 
                     $this->request->getData()
                 );
-                echo "END OF THE VIEW|";
-                echo $model->Sigla;
-                // Here we can save the thing in the model!!!!!!
-                echo "|";
+                //------------------------------------------------
+                $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
+                echo $new_course_id;
+                $indexProf=$model->Profesor;
+
+                $usersController = new UsersController;
+                $prof = $usersController->getProfessors();
+    
+                $prof = preg_split('/\s+/', $prof[$indexProf]);
+                $prof = $usersController->getId($prof[0], $prof[1]);
+
+                //------------------------------------------------
+                $result = $ClassesController->update(
+                    $code, 
+                    $class_number,
+                    $semester, 
+                    $year,
+                    $new_course_id,
+                    $model->Grupo,
+                    $model->Semestre,
+                    $model->Año,
+                    $prof
+                );
+                //------------------------------------------------
                 return $this->redirect(['action' => 'index']);
             }
-            // $this->set(compact('coursesClassesVw'));
         }
         //------------------------------------------------
     }
@@ -173,7 +181,7 @@ class CoursesClassesVwController extends AppController
         );
         //------------------------------------------------
         if ($result) {
-            $this->Flash->success(__('The courses classes vw has been deleted.'));
+            $this->Flash->success(__('Se eliminò el curso correctamente.'));
         } else {
             $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
         }

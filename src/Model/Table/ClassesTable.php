@@ -169,4 +169,29 @@ class ClassesTable extends Table
         return $result;
     }
 
+
+    public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year,$new_user_id)
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "UPDATE classes 
+            SET 
+                course_id           = '$new_course_id',
+                class_number        = $new_class_number,
+                semester            = $new_semester,
+                year                = $new_year,
+                professor_id        = '$new_user_id'
+            WHERE   course_id       = '$code' 
+                AND class_number    = '$class_number'
+                AND semester        = '$semester'
+                AND year            = '$year';
+            "
+        );
+        //------------------------------------------------
+        return $result;
+    }
 }

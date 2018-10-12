@@ -92,5 +92,14 @@ class CoursesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }    
+
+    public function selectACourseCodeFromName($name)
+    {
+        //------------------------------------------------
+        $classesModel = $this->loadmodel('Courses');
+        //------------------------------------------------
+        return $classesModel->selectACourseCodeFromName($name);
+        //------------------------------------------------
     }
 }

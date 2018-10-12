@@ -142,4 +142,23 @@ class ClassesController extends AppController
         return $result;
     }
 
+
+    public function update($code, $class_number, $semester, $year,$new_code, $new_class_number, $new_semester, $new_year, $new_user_id)
+    {
+        $result = false;
+
+        $classesModel = $this->loadmodel('Classes');
+
+        $result = $classesModel->updateClass(
+            $code, 
+            $class_number,
+            $semester, 
+            $year,
+            $new_code,
+            $new_class_number,
+            $new_semester,
+            $new_year,
+            $new_user_id
+        );
+    }
 }
