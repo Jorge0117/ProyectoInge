@@ -233,9 +233,9 @@ class CoursesClassesVwController extends AppController
         $highestRow = $worksheet->getHighestRow(null);
         $highestColumn = $worksheet->getHighestDataColumn();
         $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
-        debug($highestRow);
-        debug($highestColumn);
-        debug($highestColumnIndex);
+        //debug($highestRow);
+        //debug($highestColumn);
+        //debug($highestColumnIndex);
         //die();
         
         $table = [];
@@ -269,8 +269,10 @@ class CoursesClassesVwController extends AppController
     public function addFromFile ($parameters){
         if($parameters[0] != null){
 
-            $profId = '111111111';
-
+            $prof = preg_split('/\s+/', $parameters[3]);
+            $UserController = new UsersController;
+            $profId = $UserController->getId($prof[1], $prof[0]);
+            
             $courseController = new CoursesController;
             $courseController->add($parameters[1], $parameters[0], 0);
 

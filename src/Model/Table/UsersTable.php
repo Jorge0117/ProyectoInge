@@ -126,4 +126,11 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    public function getId ($name, $lastname) {
+        $connect = ConnectionManager::get('default');
+
+        $id = $connect->execute("select identification_number from users where name = '$name' and lastname1 = '$lastname'") ->fetchAll();
+        return $id[0][0];
+    }
 }

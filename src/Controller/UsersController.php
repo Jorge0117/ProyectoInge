@@ -177,5 +177,10 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function getId ($name, $lastname) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getId($name, $lastname);
+    }
 
 }
