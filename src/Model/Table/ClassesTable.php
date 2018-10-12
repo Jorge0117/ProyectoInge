@@ -167,10 +167,10 @@ class ClassesTable extends Table
             SET 
                 class_number        = $new_class_number,
                 semester            = $new_semester,
-                year                = '$new_year'
+                year                = $new_year
             WHERE   course_id       = '$code' 
-                AND class_number    = $class_number
-                AND semester        = $semester
+                AND class_number    = '$class_number'
+                AND semester        = '$semester'
                 AND year            = '$year';
             "
         );

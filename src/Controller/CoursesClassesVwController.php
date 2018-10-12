@@ -167,7 +167,7 @@ class CoursesClassesVwController extends AppController
                     $year,
                     $model->Grupo,
                     $model->Semestre,
-                    $model->year
+                    $model->Año
                 );
                 //------------------------------------------------
                 echo "|";
