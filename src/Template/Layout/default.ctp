@@ -193,7 +193,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 Usuarios
               </a> -->
               <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
-                <?= $this->Html->link('Index',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
+                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
+                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
               <div>
             </h5></li>
 
