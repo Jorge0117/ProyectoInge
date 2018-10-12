@@ -17,19 +17,14 @@
         margin: 4px 2px;
         cursor: pointer;
         float: right; 
-        position:absolute;
-        left: 81%;
-        top: 8%;
+        position:relative;
     }
     .btn-revoke:hover{
         color: #fff;
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<div class="container">
-<button type="buttom">
-    <?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?>
-</button>
+<?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
@@ -64,7 +59,6 @@
             <?php endforeach; ?>
         </tbody>
     </table>
- </div>
  </div>
 
 <script type="text/javascript">
