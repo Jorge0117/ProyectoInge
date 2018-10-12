@@ -23,7 +23,7 @@
     </nav>
 -->
 <div class="courses form large-9 medium-8 columns content">
-    <!-- <?= $this->Form->create($course) ?> -->
+    <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Editar Curso') ?></legend>
         <?php

@@ -27,6 +27,10 @@
     /* .actions a {
         color:#000; 
     } */
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
     #image1 {
         height: 10px;
         width: 10px;
@@ -37,17 +41,17 @@
  <?= $this->Html->link(
         'Agregar grupo',
         ['controller'=>'Classes','action'=>'add'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'add'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Cargar archivo',
         ['controller'=>'CoursesClassesVw','action'=>'importExcelfile'],
-        ['class'=>'btn btn-primary float-right']
+        ['class'=>'btn btn-primary float-right btn-space']
     )?>
 
 <div class="courses index large-9 medium-8 columns content">
