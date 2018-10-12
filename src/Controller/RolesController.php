@@ -13,7 +13,7 @@ use App\Controller\AppController;
 class RolesController extends AppController
 {
 
-    public $permissions_id_matrix = [['Requests-add', 'CU-AG', 'Requirements-add', 'Rounds-add', 'Users-register'], // 'RO-AG'],
+    public $permissions_id_matrix = [['Requests-add', 'CU-AG', 'Requirements-add', 'Rounds-add', 'Users-add'], // 'RO-AG'],
                                      ['Requests-edit', 'CU-MO', 'Requirements-edit', 'Rounds-edit', 'Users-edit'], // 'RO-MO'],
                                      ['Requests-delete', 'CU-EL', 'Requirements-delete', 'Rounds-delete', 'Users-delete'], // 'RO-EL'],
                                      ['Requests-view', 'CU-CO', 'Requirements-view', 'Rounds-view', 'Users-view'], //, 'RO-CO']];
