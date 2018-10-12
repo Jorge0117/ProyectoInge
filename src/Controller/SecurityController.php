@@ -32,6 +32,7 @@ class SecurityController extends AppController
                 if ($user['identification_number'] == 'NEW_USER') {
                     // Caso en que los credenciales fueron válidos pero el usuario no existe!
                     // Cambiar la siguiente línea por la accion de agregar usuario
+                    $this->getRequest()->getSession()->write('NEW_USER', $user['username']);
                     $this->redirect(['controller' => 'Users', 'action' => 'register', $user['username']]);
 
                 } else {
