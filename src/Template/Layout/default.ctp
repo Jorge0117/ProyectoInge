@@ -32,15 +32,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
     <style type="text/css">
+      .bg-ecci-blue {
+        background-color:#015b96ff;
+      }
+      .bg-ecci-green {
+        background-color:#ceb92bff;
+      }
+      .ecci-title {
+        color: white;
+        text-align: center;
+        border-bottom: 2px solid #ceb92bff;
+      }
+    </style>
+
+    <!-- <style type="text/css">
       h1.text {
         color: white;
         text-align: center;
         height:60px;
       }
-      .backg {
-        background-color:#015b96ff;
-      }
+
       h2.text2 {
         color: white;
         text-align: center;
@@ -126,10 +139,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
-    </style>
+    </style> -->
 </head>
 <body>
-<h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
+<!-- <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
     <div id="OverviewText1"> 
       <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
     </div>
@@ -139,8 +152,66 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div id="OverviewText3"> 
       <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
-</h1>
-    <div id="header">
+</h1> -->
+
+    
+    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between bg-ecci-blue">
+      <a class="navbar-brand">
+        <?= $this->Html->image('logoUcr.png', ['style' => 'width:100px'])?>
+      </a>
+      <span class="navbar-text">
+        <h2 class="ecci-title">Sistema de control de asistencias</h2>
+      </span>
+      <div style='width:100px'>
+        <?= $this->Html->image('userIcon.png', ['class' => 'ml-1','style' => 'width:50px'])?>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
+      <a class="navbar-brand">
+        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
+      </a>
+
+      <div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#modulesList" aria-controls="modulesList" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="modulesList">
+          <ul class="nav navbar-nav">
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Requisitos',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+            <li class="nav-item"><h5><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+            <li class="nav-item dropdown"><h5>
+              <?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link dropdown-toggle', 'id'=>'dropdownUsuarios', 'data-toggle' => 'dropdown', 'aria-haspopup'=> 'true', 'aria-expanded'=>'false']) ?>
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Usuarios
+              </a> -->
+              <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
+                <?= $this->Html->link('Index',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
+              <div>
+            </h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <div style="width:200px">
+      </div>
+    </nav>
+
+
+    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
+      <span class="navbar-text"> </span>
+    </nav>
+    <!-- <div id="header">
 			<ul class="nav">
         <li>
           <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
@@ -177,18 +248,23 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 					</ul>
         </li>
 			</ul>
-		</div>
-  <h2 class="text2 backg2"><font size="6"><!--Texto de ejemplo--></font></h2>
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
+		</div> -->
+  <!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <!-- Linea que permite mostrar los msjs generados -->
-                <?= $this->Flash->render() ?>
-                <!-- Div que encapsula las vistas de los módulos-->
+                Linea que permite mostrar los msjs generados
+                <?php //$this->Flash->render() ?>
+                Div que encapsula las vistas de los módulos
                 <div class="container clearfix">
-                    <?= $this->fetch('content') ?>
+                    <?php //$this->fetch('content') ?>
                 </div>
             </div>
-    </main>
+    </main> -->
+
+    <?= $this->Flash->render() ?>
+    <div class="container">
+      <?= $this->fetch('content') ?>
+    </div>
+
     <footer>
     </footer>
 
