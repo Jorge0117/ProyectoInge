@@ -14,7 +14,7 @@
             echo $this->Form->control('Curso');
             echo $this->Form->control('Creditos');
             echo $this->Form->control('Grupo');
-            echo $this->Form->control('Profesor');
+            echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => true]);
             echo $this->Form->control('Semestre');
             echo $this->Form->control('Año');
         ?>

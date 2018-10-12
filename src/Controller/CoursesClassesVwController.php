@@ -66,22 +66,30 @@ class CoursesClassesVwController extends AppController
             $code=$coursesClassesVw->Sigla;
             $cred=$coursesClassesVw->Creditos;
             $group=$coursesClassesVw->Grupo;
-            $professor=$coursesClassesVw->Profesor;
+            $indexProf=$coursesClassesVw->Profesor;
             $semester=$coursesClassesVw->Semestre;
             $year=$coursesClassesVw->Año;
+
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
 
             $courseController = new CoursesController;
             $courseController->add($code, $name, $cred);
 
             $classController = new ClassesController;
-            $classController->addClass($code, $group, $semester, $year, '111111111');
+            $classController->addClass($code, $group, $semester, $year, $prof);
 
             
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);
 
         }
-        $this->set(compact('coursesClassesVw'));
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+        $this->set(compact('coursesClassesVw', 'professors'));
     }
 
     /**
