@@ -27,22 +27,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <!-- Espacio donde se cargan los archivos pertinentes a bootstrap -->
     <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'])?>
-    <link rel="stylesheet" href="plugins/font/typicons.min.css"/></head><body><div class="page-header">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+      <!-- <link rel="stylesheet" href="plugins/font/typicons.min.css"/></head><body><div class="page-header">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
     <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min','jquery.dataTables.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+
     <style type="text/css">
+      .bg-ecci-blue {
+        background-color:#015b96ff;
+      }
+      .bg-ecci-green {
+        background-color:#ceb92bff;
+      }
+      .ecci-title {
+        color: white;
+        border-bottom: 2px solid #ceb92bff;
+      }
+    </style>
+
+    <!-- <style type="text/css">
       h1.text {
         color: white;
         text-align: center;
         height:60px;
       }
-      .backg {
-        background-color:#015b96ff;
-      }
+
       h2.text2 {
         color: white;
         text-align: center;
@@ -128,71 +140,97 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
-      .logo{
-        margin-left: 5%;
-      }
-    </style>
+    </style> -->
 </head>
 <body>
-<h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
-    <div id="OverviewText1" class="logo"> 
-      <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
-      <?= $this->Html->image('logoUcr.png') ?>
+<!-- <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
+    <div id="OverviewText1"> 
+      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
     </div>
-    <div id="OverviewText2" class="logo"> 
-      <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
-      <?= $this->Html->image('logoEcci.png') ?>
+    <div id="OverviewText2"> 
+      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
     </div>
     <div id="OverviewText3"> 
       <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
-</h1>
-    <div id="header">
-			<ul class="nav">
-        <li>
-          <?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?>
-        </li>
-				<!--<li><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?>
-					<ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?></li>
-					</ul>
-				</li>
-        -->
-				<li><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?>
-					<ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
-					</ul>
-				</li>
-				<li><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
-          <ul>
-						<li><?= $this->Html->link('Agregar requisito',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?>
-					</ul>
-        </li>
-        <li><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?>
-        </li>
-        <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
-          <ul>
-            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
-					</ul>
-        </li>
-        <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
-          
-        </li>
-			</ul>
-		</div>
-  <h2 class="text2 backg2"><font size="6"></font></h2>
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <!-- Linea que permite mostrar los msjs generados -->
-               
+</h1> -->
 
-                <!-- Div que encapsula las vistas de los módulos-->
-                <div class="container clearfix">
-                    <?= $this->fetch('content') ?>
-                </div>
-            </div>
-    </main>
+    
+    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between bg-ecci-blue">
+      <a class="navbar-brand">
+        <?= $this->Html->image('logoUcr.png', ['style' => 'width:100px'])?>
+      </a>
+      <span class="navbar-text">
+        <h2 class="ecci-title">Sistema de control de asistencias</h2>
+      </span>
+      <div style='width:100px'>
+        <?= $this->Html->image('userIcon.png', ['class' => 'ml-1','style' => 'width:50px'])?>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
+      <a class="navbar-brand">
+        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
+      </a>
+
+      <div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#modulesList" aria-controls="modulesList" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="modulesList">
+          <ul class="nav navbar-nav">
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+            <li class="nav-item dropdown"><h5>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownReq" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Requisitos
+              </a>
+              <div class="dropdown-menu" aria-labeledby="dropdownReq">
+                <?= $this->Html->link('Listar',['controller'=>'Requirements','action'=>'index'],['class'=>'dropdown-item'] ) ?>
+                <?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'dropdown-item'] ) ?>
+              </div>
+            </h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+            <li class="nav-item dropdown"><h5>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Usuarios
+              </a>
+              <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
+                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
+                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
+              <div>
+            </h5></li>
+
+            <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <div style="width:200px">
+      </div>
+    </nav>
+
+
+    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
+      <span class="navbar-text"> </span>
+    </nav>
+
+    <?= $this->Flash->render() ?>
+
+    <div class="container pt-5">
+      <?= $this->fetch('content') ?>
+    </div>
+
     <footer>
     </footer>
+
 </body>
 </html>
