@@ -52,7 +52,7 @@
             echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)'], 'disabled' => 'disabled']);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('carne');
+            //echo $this->Form->control('carne');
         ?>
     </fieldset>
     <div class="submit">

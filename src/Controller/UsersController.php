@@ -58,7 +58,7 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
 
         $s_username = $session->read('NEW_USER');
-        debug($s_username);
+        // debug($s_username);
         if (!$session->check('NEW_USER') || $s_username != $username) {
             return $this->redirect('/');
         }
@@ -71,8 +71,8 @@ class UsersController extends AppController
         } elseif ($this->request->is('post')) {
             if (isset($this->request->data['cancel'])) {
                 //return $this->redirect( array( 'action' => 'index' ));
-            }
-            // Obtener los datos del Form y agregar el username
+                }
+            // Obtener los datos del Form y agregar el username     
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
 
