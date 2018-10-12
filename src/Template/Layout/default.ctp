@@ -127,15 +127,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
+      .logo{
+        margin-left: 5%;
+      }
     </style>
 </head>
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
-    <div id="OverviewText1"> 
+    <div id="OverviewText1" class="logo"> 
       <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
       <?= $this->Html->image('logoUcr.png') ?>
     </div>
-    <div id="OverviewText2"> 
+    <div id="OverviewText2" class="logo"> 
       <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
       <?= $this->Html->image('logoEcci.png') ?>
     </div>
