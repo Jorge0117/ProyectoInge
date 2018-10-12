@@ -127,15 +127,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
+      .logo{
+        margin-left: 5%;
+      }
     </style>
 </head>
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
-    <div id="OverviewText1"> 
+    <div id="OverviewText1" class="logo"> 
       <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
       <?= $this->Html->image('logoUcr.png') ?>
     </div>
-    <div id="OverviewText2"> 
+    <div id="OverviewText2" class="logo"> 
       <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
       <?= $this->Html->image('logoEcci.png') ?>
     </div>
@@ -171,7 +174,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
         <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
+            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'register'],['class'=>'nav-link']) ?></li>
 					</ul>
         </li>
         <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
@@ -181,7 +184,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
 			</ul>
 		</div>
-  <h2 class="text2 backg2"><font size="6"><?php echo $this->fetch('title'); ?></font></h2>
+  <h2 class="text2 backg2"></h2>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
