@@ -59,8 +59,8 @@
     </fieldset>
     
     <div class="submit">
-        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
     </div>
     
     <?= $this->Form->end() ?>
