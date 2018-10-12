@@ -275,6 +275,7 @@ class CoursesClassesVwController extends AppController
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row]);
             }
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
         $this->set(compact('coursesClassesVw'));
         //debug($table);
@@ -295,7 +296,7 @@ class CoursesClassesVwController extends AppController
             $classController = new ClassesController;
             $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
 
-            debug($parameters);
+            //debug($parameters);
         }
     }
 
