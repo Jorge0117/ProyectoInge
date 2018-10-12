@@ -78,9 +78,6 @@ class UsersController extends AppController
             //instancias para crear cada tipo de usuario en su respectivo controlador
             // debug($user);
             $Students = new StudentsController;
-            $SecurityCont = new SecurityController;
-
-            debug($username);
 
             //if( $ ->checkUsername($username) ){
             $pattern = "/\w\d{5}/";
@@ -91,7 +88,11 @@ class UsersController extends AppController
             }else{
                 $user->role_id= 'Profesor';
             }
-            debug($user->role_id);
+            //agrega a la tabla students
+            if($user->role === 'Estudiante'){
+                $carne = $username;
+                $Students->newStudent($user, $carne);
+            }
 
             if ($this->Users->save($user)) { 
                 //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
@@ -99,16 +100,12 @@ class UsersController extends AppController
                 //debug($user);
                 
                 $session->delete('NEW_USER');
-                if($user->role === 'Estudiante'){
-                    $carne = $this->request->getData('carne');
-                    $Students->newStudent($user, $carne);
-                }
-                //triggers para los demás 
+        
 
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['controller' => 'Security', 'action' => 'login']);
             } 
-            debug($user);
+            
             $this->Flash->error(__('No se pudo crear el usuario.'));
             return $this->redirect(['controller' => 'Users', 'action' => 'register', $username]);
         }
