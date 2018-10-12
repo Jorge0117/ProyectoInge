@@ -133,4 +133,12 @@ class UsersTable extends Table
         $id = $connect->execute("select identification_number from users where name = '$name' and lastname1 = '$lastname'") ->fetchAll();
         return $id[0][0];
     }
+
+    public function getProfessors() {
+        $connect = ConnectionManager::get('default');
+
+        $prof = $connect->execute("select CONCAT(name, \" \", lastname1) from users where role_id = 'Profesor'") ->fetchAll();
+        $prof = array_column($prof, 0);
+        return $prof;
+    }
 }

@@ -43,7 +43,13 @@ class ClassesController extends AppController
             $group=$class->class_number;
             $semester=$class->semester;
             $year=$class->year;
-            $prof=$class->professor_id;
+            $indexProf=$class->professor_id;
+
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
 
             //$classController = new ClassesController;
             $this->addClass($code, $group, $semester, $year, $prof);
@@ -52,7 +58,11 @@ class ClassesController extends AppController
         }
 
         $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
-        $professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+
+        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
         $this->set(compact('class', 'courses', 'professors'));
     }
 
