@@ -86,7 +86,8 @@
                             $course->Sigla,
                             $this->Number->format($course->Grupo),
                             $this->Number->format($course->Semestre),
-                            $course->Año
+                            $course->Año,
+                            $course->Curso,
                         ],
                         [
                             'escape' => false

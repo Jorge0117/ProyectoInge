@@ -91,7 +91,7 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($code = null, $class_number = null, $semester = null,$year = null)
+    public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
     {
         //------------------------------------------------
         $result = false;
@@ -118,6 +118,7 @@ class CoursesClassesVwController extends AppController
         $this->set('professors',$professors);
         $this->set('courses',$courses);
         $this->set('all_classes_codes',$all_classes_codes);
+        $this->set('course_name',$course_name);
         //------------------------------------------------
         if ($this->request->is('post')) {
             if ($this->request->is(['patch', 'post', 'put'])) {

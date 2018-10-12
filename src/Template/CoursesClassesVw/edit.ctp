@@ -36,7 +36,10 @@
             // ); 
             echo $this->Form->control(
                 'Curso',
-                ['options' => $courses]
+                [
+                    'default' => $course_name,
+                    'options' => $courses
+                ]
             );
             echo $this->Form->control(
                 'Grupo',

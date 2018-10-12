@@ -34429,3 +34429,559 @@ Stack Trace:
 #17 {main}
 
 
+2018-10-12 06:04:11 Error: [ArgumentCountError] Too few arguments to function App\Controller\CoursesClassesVwController::edit(), 4 passed in C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php on line 596 and exactly 5 expected
+Request URL: /courses-classes-vw/edit/CI-1717/2/32/2078
+Referer URL: http://localhost/ProyectoInge/courses-classes-vw
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\CoursesClassesVwController->edit('CI-1717', '2', '32', '2078')
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\CoursesClassesVwController))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#17 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#18 {main}
+
+
+2018-10-12 06:06:17 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:06:17 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:06:33 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:06:33 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:07:09 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'CI0101-1-1-2019' for key 'PRIMARY'
+Request URL: /courses-classes-vw/edit/CI0110/1/1/2019/Introducci%C3%B3n%20a%20la%20Computaci%C3%B3n
+Referer URL: http://localhost/ProyectoInge/courses-classes-vw/edit/CI0110/1/1/2019/Introducci%C3%B3n%20a%20la%20Computaci%C3%B3n
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php(39): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\StatementDecorator.php(195): Cake\Database\Statement\MysqlStatement->execute(NULL)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Log\LoggingStatement.php(56): Cake\Database\Statement\StatementDecorator->execute(NULL)
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(350): Cake\Database\Log\LoggingStatement->execute()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(353): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(302): Cake\Database\Connection->query('UPDATE classes ...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(306): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#9 C:\xampp\htdocs\ProyectoInge\src\Model\Table\ClassesTable.php(175): Cake\Database\Connection->execute('UPDATE classes ...')
+#10 C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php(139): App\Model\Table\ClassesTable->updateClass('CI0110', '1', '1', '2019', 'CI0101', 1, 1, '2019')
+#11 C:\xampp\htdocs\ProyectoInge\src\Controller\CoursesClassesVwController.php(141): App\Controller\ClassesController->update('CI0110', '1', '1', '2019', 'CI0101', 1, 1, '2019')
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\CoursesClassesVwController->edit('CI0110', '1', '1', '2019', 'Introducci\xC3\xB3n a...')
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\CoursesClassesVwController))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#30 {main}
+
+
+2018-10-12 06:07:27 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'CI0112-1-1-2019' for key 'PRIMARY'
+Request URL: /courses-classes-vw/edit/CI0110/1/1/2019/Introducci%C3%B3n%20a%20la%20Computaci%C3%B3n
+Referer URL: http://localhost/ProyectoInge/courses-classes-vw/edit/CI0110/1/1/2019/Introducci%C3%B3n%20a%20la%20Computaci%C3%B3n
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php(39): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\StatementDecorator.php(195): Cake\Database\Statement\MysqlStatement->execute(NULL)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Log\LoggingStatement.php(56): Cake\Database\Statement\StatementDecorator->execute(NULL)
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(350): Cake\Database\Log\LoggingStatement->execute()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(353): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(302): Cake\Database\Connection->query('UPDATE classes ...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(306): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#9 C:\xampp\htdocs\ProyectoInge\src\Model\Table\ClassesTable.php(175): Cake\Database\Connection->execute('UPDATE classes ...')
+#10 C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php(139): App\Model\Table\ClassesTable->updateClass('CI0110', '1', '1', '2019', 'CI0112', 1, 1, '2019')
+#11 C:\xampp\htdocs\ProyectoInge\src\Controller\CoursesClassesVwController.php(141): App\Controller\ClassesController->update('CI0110', '1', '1', '2019', 'CI0112', 1, 1, '2019')
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\CoursesClassesVwController->edit('CI0110', '1', '1', '2019', 'Introducci\xC3\xB3n a...')
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\CoursesClassesVwController))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#30 {main}
+
+
+2018-10-12 06:07:38 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:07:39 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 06:08:10 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'CI1310-1-1-2019' for key 'PRIMARY'
+Request URL: /courses-classes-vw/edit/CI-%29%3A/1/1/2019/%29%3A%29%3A
+Referer URL: http://localhost/ProyectoInge/courses-classes-vw/edit/CI-%29%3A/1/1/2019/%29%3A%29%3A
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php(39): PDOStatement->execute(NULL)
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Statement\StatementDecorator.php(195): Cake\Database\Statement\MysqlStatement->execute(NULL)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Log\LoggingStatement.php(56): Cake\Database\Statement\StatementDecorator->execute(NULL)
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(350): Cake\Database\Log\LoggingStatement->execute()
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(353): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(302): Cake\Database\Connection->query('UPDATE classes ...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php(68): Cake\Database\Connection->Cake\Database\{closure}()
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(306): Cake\Core\Retry\CommandRetry->run(Object(Closure))
+#9 C:\xampp\htdocs\ProyectoInge\src\Model\Table\ClassesTable.php(175): Cake\Database\Connection->execute('UPDATE classes ...')
+#10 C:\xampp\htdocs\ProyectoInge\src\Controller\ClassesController.php(139): App\Model\Table\ClassesTable->updateClass('CI-):', '1', '1', '2019', 'CI1310', 1, 1, '2019')
+#11 C:\xampp\htdocs\ProyectoInge\src\Controller\CoursesClassesVwController.php(141): App\Controller\ClassesController->update('CI-):', '1', '1', '2019', 'CI1310', 1, 1, '2019')
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\CoursesClassesVwController->edit('CI-):', '1', '1', '2019', '):):')
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\CoursesClassesVwController))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#29 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#30 {main}
+
+
+2018-10-12 13:54:52 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 13:54:52 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 13:55:25 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 13:55:25 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 13:56:12 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 13:56:13 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 15:09:03 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-12 15:09:03 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: http://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
