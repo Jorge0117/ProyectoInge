@@ -152,7 +152,6 @@ class UsersController extends AppController
 
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 
-                degug($user);
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('Se agregó el usuario correctamente.'));
                     return $this->redirect(['action' => 'index']);
