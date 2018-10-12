@@ -126,15 +126,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
+      .logo{
+        margin-left: 5%;
+      }
     </style>
 </head>
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
-    <div id="OverviewText1"> 
-      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
+    <div id="OverviewText1" class="logo"> 
+      <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
+      <?= $this->Html->image('logoUcr.png') ?>
     </div>
-    <div id="OverviewText2"> 
-      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
+    <div id="OverviewText2" class="logo"> 
+      <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
+      <?= $this->Html->image('logoEcci.png') ?>
     </div>
     <div id="OverviewText3"> 
       <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
@@ -168,7 +173,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
         <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
+            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'register'],['class'=>'nav-link']) ?></li>
 					</ul>
         </li>
         <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
@@ -178,11 +183,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
 			</ul>
 		</div>
-  <h2 class="text2 backg2"><font size="6"><!--Texto de ejemplo--></font></h2>
+  <h2 class="text2 backg2"></h2>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
                 <?= $this->Flash->render() ?>
+
                 <!-- Div que encapsula las vistas de los módulos-->
                 <div class="container clearfix">
                     <?= $this->fetch('content') ?>
@@ -191,6 +197,5 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </main>
     <footer>
     </footer>
-
 </body>
 </html>

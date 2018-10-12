@@ -85,4 +85,13 @@ class CoursesTable extends Table
 
         return $validator;
     }
+    
+    public function selectACourseCodeFromName($name)
+    {
+        $connection = $connection = ConnectionManager::get('default');
+        return $name;
+        // return $connection->execute(
+        //     "SELECT code FROM courses WHERE name = '$name'"
+        // );
+    }
 }
