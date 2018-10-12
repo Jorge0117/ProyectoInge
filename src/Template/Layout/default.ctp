@@ -129,24 +129,30 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           border-bottom: 1.5px solid #ceb92bff;
           padding: 0 0 0px;
       }
+      .logo{
+        margin-left: 5%;
+      }
     </style>
 </head>
 <body>
 <h1 class="text backg"><b><font size="6">Sistema de control de asistencias</font></b>
-    <div id="OverviewText1"> 
-      <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" />
+    <div id="OverviewText1" class="logo"> 
+      <!-- <img src="http://www.lis.ucr.ac.cr/_vista/imagenes/logoUcr.png" /> -->
+      <?= $this->Html->image('logoUcr.png') ?>
     </div>
-    <div id="OverviewText2"> 
-      <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" />
+    <div id="OverviewText2" class="logo"> 
+      <!-- <img src="https://www.ecci.ucr.ac.cr/sites/all/themes/ecci_bootstrap/logo.png" /> -->
+      <?= $this->Html->image('logoEcci.png') ?>
     </div>
     <div id="OverviewText3"> 
-      <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
+      <!-- <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/> -->
+      <?= $this->Html->image('userIcon.png', ['align' => 'right']) ?>
     </div>
 </h1>
     <div id="header">
 			<ul class="nav">
         <li>
-          <?= $this->Html->link('Inicio',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+          <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
 				<li><?= $this->Html->link('Solicitudes',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
@@ -170,10 +176,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </li>
         <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'add'],['class'=>'nav-link']) ?></li>
+            <li><?= $this->Html->link('Agregar usuario',['controller'=>'Users','action'=>'register'],['class'=>'nav-link']) ?></li>
 					</ul>
         </li>
-        <li><?= $this->Html->link('Roles',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+        <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
