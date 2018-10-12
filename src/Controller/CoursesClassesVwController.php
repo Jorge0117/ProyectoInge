@@ -175,7 +175,7 @@ class CoursesClassesVwController extends AppController
         );
         //------------------------------------------------
         if ($result) {
-            $this->Flash->success(__('The courses classes vw has been deleted.'));
+            $this->Flash->success(__('Se eliminò el curso correctamente.'));
         } else {
             $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
         }
