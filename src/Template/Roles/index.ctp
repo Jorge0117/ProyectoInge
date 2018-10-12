@@ -124,24 +124,24 @@
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
 
-                    for ($j = 0; $j < 4; $j++) {
-                        $perm_row = $assistant_permissions_matrix[$j];
+                    for ($i = 0; $i < $n_permission_types; $i++) {
+                        $perm_row = $assistant_permissions_matrix[$i];
                         $permission_row[] = $perm_row[0];
-                        for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
+                        for ($j = 1; $j < count($perm_row); $j++) {
+                            $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'assistant_'.$j.$i,
+                                ['id' => 'assistant_'.$i.$j,
                                 'checked' => true,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox',
-                                 'name' => 'assistant['.$j.']['.$i.']']
+                                 'name' => 'assistant['.$i.']['.$j.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'assistant_'.$j.$i,
+                                ['id' => 'assistant_'.$i.$j,
                                  'checked' => false,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox',
-                                 'name' => 'assistant['.$j.']['.$i.']']
+                                 'name' => 'assistant['.$i.']['.$j.']']
                             );
                         }
                         echo $this->Html->tableCells([$permission_row]);
@@ -157,24 +157,24 @@
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
 
-                    for ($j = 0; $j < 4; $j++) {
-                        $perm_row = $administrator_permissions_matrix[$j];
+                    for ($i = 0; $i < $n_permission_types; $i++) {
+                        $perm_row = $administrator_permissions_matrix[$i];
                         $permission_row[] = $perm_row[0];
-                        for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
+                        for ($j = 1; $j < count($perm_row); $j++) {
+                            $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'administrator_'.$j.$i,
+                                ['id' => 'administrator_'.$i.$j,
                                 'checked' => true,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox',
-                                 'name' => 'administrator['.$j.']['.$i.']']
+                                 'name' => 'administrator['.$i.']['.$j.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'administrator_'.$j.$i,
+                                ['id' => 'administrator_'.$i.$j,
                                  'checked' => false,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox',
-                                 'name' => 'administrator['.$j.']['.$i.']']
+                                 'name' => 'administrator['.$i.']['.$j.']']
                             );
                         }
                         echo $this->Html->tableCells([$permission_row]);
@@ -190,24 +190,24 @@
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
 
-                for ($j = 0; $j < 4; $j++) {
-                    $perm_row = $student_permissions_matrix[$j];
+                for ($i = 0; $i < $n_permission_types; $i++) {
+                    $perm_row = $student_permissions_matrix[$i];
                     $permission_row[] = $perm_row[0];
-                    for ($i = 1; $i < 6; $i++) {
-                        $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
+                    for ($j = 1; $j < count($perm_row); $j++) {
+                        $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'student_'.$j.$i,
+                                ['id' => 'student_'.$i.$j,
                                 'checked' => true,
                                 'disabled' => true,
                                 'class' => 'checkbox_perm checkbox',
-                                'name' => 'student['.$j.']['.$i.']']
+                                'name' => 'student['.$i.']['.$j.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'student_'.$j.$i,
+                                ['id' => 'student_'.$i.$j,
                                 'checked' => false,
                                 'disabled' => true,
                                 'class' => 'checkbox_perm checkbox',
-                                'name' => 'student['.$j.']['.$i.']']
+                                'name' => 'student['.$i.']['.$j.']']
                             );
                     }
                     echo $this->Html->tableCells([$permission_row]);
@@ -223,24 +223,24 @@
                 echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
                     'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
 
-                    for ($j = 0; $j < 4; $j++) {
-                        $perm_row = $professor_permissions_matrix[$j];
+                    for ($i = 0; $i < $n_permission_types; $i++) {
+                        $perm_row = $professor_permissions_matrix[$i];
                         $permission_row[] = $perm_row[0];
-                        for ($i = 1; $i < 6; $i++) {
-                            $permission_row[] = $perm_row[$i] ? $this->Form->checkbox(
+                        for ($j = 1; $j < count($perm_row); $j++) {
+                            $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'professor_'.$j.$i,
+                                ['id' => 'professor_'.$i.$j,
                                 'checked' => true,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox align-middle',
-                                 'name' => 'professor['.$j.']['.$i.']']
+                                 'name' => 'professor['.$i.']['.$j.']']
                             ) : $this->Form->checkbox(
                                 'Editar',
-                                ['id' => 'professor_'.$j.$i,
+                                ['id' => 'professor_'.$i.$j,
                                  'checked' => false,
                                  'disabled' => true,
                                  'class' => 'checkbox_perm checkbox ',
-                                 'name' => 'professor['.$j.']['.$i.']']
+                                 'name' => 'professor['.$i.']['.$j.']']
                             );
                             
                         }
