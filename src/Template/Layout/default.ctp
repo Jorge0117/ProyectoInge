@@ -161,9 +161,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
 				</li>
-				<li><?= $this->Html->link('Requisitos',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+				<li><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+						<li><?= $this->Html->link('Agregar requisito',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?>
 					</ul>
         </li>
         <li><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?>

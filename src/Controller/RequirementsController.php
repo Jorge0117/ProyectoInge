@@ -80,6 +80,7 @@ class RequirementsController extends AppController
                 $this->redirect(['action' => 'index']);
                 return $this->Flash->success(__('Se modificó el requisito con exito.'));
             }
+            $this->redirect(['action' => 'index']);
             $this->Flash->error(__('No se pudo editar el requisito'));
         }
         $this->set(compact('requirement'));
@@ -113,6 +114,11 @@ class RequirementsController extends AppController
             );
         }
         //------------------------------------------------
-        return $this->redirect(['action' => 'index']);
+        if($result){
+            $this->redirect(['action' => 'index']);
+            return $this->Flash->success(__('Se eliminó el requisito con exito.'));
+        }
+        $this->redirect(['action' => 'index']);
+        $this->Flash->error(__('No se pudo eliminar el requisito'));
     }
 }
