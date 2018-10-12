@@ -43,16 +43,26 @@ class ClassesController extends AppController
             $group=$class->class_number;
             $semester=$class->semester;
             $year=$class->year;
-            $prof=$class->professor_id;
+            $indexProf=$class->professor_id;
 
-            $classController = new ClassesController;
-            $classController->addClass($code, $group, $semester, $year, $prof);
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
+
+            //$classController = new ClassesController;
+            $this->addClass($code, $group, $semester, $year, $prof);
 
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
 
         $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
-        $professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+
+        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
         $this->set(compact('class', 'courses', 'professors'));
     }
 
@@ -121,6 +131,17 @@ class ClassesController extends AppController
         //------------------------------------------------
         return $result;
     }
+
+    public function deleteAll()
+    {
+        //------------------------------------------------
+        $classesModel = $this->loadmodel('Classes');
+        //------------------------------------------------
+        $result = $classesModel->deleteAllClasses();
+        //------------------------------------------------
+        return $result;
+    }
+
 
     public function update($code, $class_number, $semester, $year,$new_code, $new_class_number, $new_semester, $new_year)
     {

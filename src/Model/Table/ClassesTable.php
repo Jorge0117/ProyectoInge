@@ -155,6 +155,21 @@ class ClassesTable extends Table
         return $result;
     }
 
+    public function deleteAllClasses()
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "DELETE FROM classes"
+        );
+        //------------------------------------------------
+        return $result;
+    }
+
+
     public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year)
     {
         //------------------------------------------------
