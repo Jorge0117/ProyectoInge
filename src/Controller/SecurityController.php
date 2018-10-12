@@ -59,7 +59,7 @@ class SecurityController extends AppController
     }
 
     public function checkUsername($username){
-        return $this->Auth->findUser($username);
+        return $this->Auth->validateUser($username);
     }
 
 

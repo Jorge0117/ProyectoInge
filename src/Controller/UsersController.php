@@ -15,8 +15,9 @@ class UsersController extends AppController
 {
     public function initialize(){
         parent::initialize();
-        $this->Auth->allow('register', 'index');
+        $this->Auth->allow('register');
     }
+    
     /**
      * Index method
      *
@@ -52,8 +53,6 @@ class UsersController extends AppController
      * Register of a new user
      */
     public function register(string $username){
-
-
         $session = $this->getRequest()->getSession();
         $user = $this->Users->newEntity();
 
@@ -69,7 +68,9 @@ class UsersController extends AppController
 
         // Caso en que se recibio el form
         } elseif ($this->request->is('post')) {
-
+            if (isset($this->request->data['cancel'])) {
+                //return $this->redirect( array( 'action' => 'index' ));
+            }
             // Obtener los datos del Form y agregar el username
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
@@ -123,20 +124,42 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $carne = $this->request->getData('carne');
-        debug($carne);
+        //$carne = $this->request->getData('carne');
+        //debug($carne);
         $user = $this->Users->newEntity();
+        $SecurityCont = new SecurityController;
         if (isset($this->request->data['cancel'])) {
             //Volver a sign in
-            //return $this->redirect( array( 'action' => 'index' ));
+            return $this->redirect(['controller' => 'Security', 'action' => 'login']);
         }
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            debug($user);
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Se agregó el usuario correctamente.'));
-                return $this->redirect(['action' => 'index']);
-            } 
+            $username =  $this->request->getData('username');
+            $user->username= $username;
+            //if( $this->validateUser($username) ){
+                $pattern = "/\w\d{5}/";
+                //asigna rol segun el nombre de usuario
+                if(preg_match($pattern, $username)){
+                //es estudiante
+                    $user->role_id= 'Estudiante';
+                }else{
+                    $user->role_id= 'Profesor';
+                }
+                
+                if($user->role === 'Estudiante'){
+                    $carne = $username;
+                    $Students->newStudent($user, $carne);
+                }
+
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                
+                degug($user);
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Se agregó el usuario correctamente.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+            //}else{
+            //    $this->Flash->error(__('Nombre de usuario no es válido.'));
+            //} 
             $this->Flash->error(__('No se pudo crear el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
@@ -193,6 +216,7 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 
 
 }
