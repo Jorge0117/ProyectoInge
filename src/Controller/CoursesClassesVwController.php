@@ -173,15 +173,15 @@ class CoursesClassesVwController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function importExcelfile (){
-        $helper = new Helper\Sample();
-        debug($helper);
-        $inputFileName = WWW_ROOT . ‘example1.xls‘;
-        $spreadsheet = IOFactory::load($inputFileName);
-        $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-        var_dump($sheetData);
-        die(“here”);
-    }
+    // public function importExcelfile (){
+    //     $helper = new Helper\Sample();
+    //     debug($helper);
+    //     $inputFileName = WWW_ROOT . ‘example1.xls‘;
+    //     $spreadsheet = IOFactory::load($inputFileName);
+    //     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+    //     var_dump($sheetData);
+    //     die(“here”);
+    // }
 
 
     /**
@@ -213,5 +213,73 @@ class CoursesClassesVwController extends AppController
             echo "Cute new places keep on poping up";
         }
         return $result;
+    }
+
+    public function importExcelfile (){
+
+        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+
+        ini_set('memory_limit', '-1');
+        $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        $reader->setReadDataOnly(true);
+
+        $spreadsheet = $reader->load($inputFileName);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow(null);
+        $highestColumn = $worksheet->getHighestDataColumn();
+        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+
+        $table = [];
+        $parameters = [];
+        for ($row = 5; $row <= $highestRow; ++$row) {
+            for ($col = 1; $col <= 4; ++$col) {
+                $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                //debug($value);
+                $parameters[$col -1] = $value;
+            }
+            $table[$row -5] = $parameters;
+            //debug($parameters);
+            unset($parameters);
+        }
+        $this->set('table', $table);
+
+        if ($this->request->is('post')) {
+            $ClassesController = new ClassesController;
+            $result = $ClassesController->deleteAll();
+            
+            for ($row = 0; $row < count($table); ++$row) {
+                $this->addFromFile($table[$row]);
+            }
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+        }
+        $this->set(compact('coursesClassesVw'));
+        //debug($table);
+        //die();
+        //return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+    }
+
+    public function addFromFile ($parameters){
+        if($parameters[0] != null){
+
+            $prof = preg_split('/\s+/', $parameters[3]);
+            $UserController = new UsersController;
+            $profId = $UserController->getId($prof[1], $prof[0]);
+            
+            $courseController = new CoursesController;
+            $courseController->add($parameters[1], $parameters[0], 0);
+
+            $classController = new ClassesController;
+            $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
+
+            //debug($parameters);
+        }
+    }
+
+    public function deleteAll (){
+        $ClassesController = new ClassesController;
+        $result = $ClassesController->deleteAll();
     }
 }
