@@ -60,7 +60,7 @@
 		selClass.options.add(tmp2,0);
 		tmp2 = document.createElement("option");
 		tmp2.text = "BORRAR";
-		selClass.options.add(tmp2,1);//BORRAR
+
 		
 		for(c = 0;  c < courses.length; c = c + 1) // Recorre los cursos
 		{
@@ -100,7 +100,8 @@
     success: function (data) {
        // $('#context').html(data);
 	    p = data.split(" ");
-		alert(p[6] + p[7]);
+		
+		document.getElementById("prof").value = (p[6] + " " + p[7]).split(")")[0];
 	},
 	error: function(jqxhr, status, exception)
 	{
@@ -108,6 +109,9 @@
 
 	}
 		});
+		
+		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
+			selClass.options.remove((selClass.length-1));
 	}
 </script>
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
