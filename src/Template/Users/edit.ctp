@@ -54,7 +54,6 @@
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
             echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
-            echo $this->Form->control('carne', ['label'=>['text'=>'Carné']]);
         ?>
     </fieldset>
     

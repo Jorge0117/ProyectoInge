@@ -173,6 +173,9 @@ class UsersController extends AppController
     public function edit($id = null)
     {   
         $Students = new StudentsController;
+        $AdministrativeBoss = new AdministrativeBossController;
+        $AdministrativeAssistant = new AdministrativeAssistant;
+
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -182,7 +185,10 @@ class UsersController extends AppController
             }
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $Students->edit($user);
+                if($user->isDirty('role_id')){
+                    //modifico el rol
+                    
+                }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -190,8 +196,6 @@ class UsersController extends AppController
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles'));
-
-        //on update cascade en la base de datos para los tipos de usuarios que no son estudiantes
     }
 
     /**
