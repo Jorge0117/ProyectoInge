@@ -54,8 +54,8 @@
         ?>
     </fieldset>
     <div class="submit">
-        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-cancelar']); ?>
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary']); ?>
     </div>
     
     <?= $this->Form->end() ?>
