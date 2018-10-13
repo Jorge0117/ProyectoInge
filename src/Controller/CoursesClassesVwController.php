@@ -66,7 +66,7 @@ class CoursesClassesVwController extends AppController
             $classController = new ClassesController;
             $classController->addClass($code, $group, $semester, $year, $prof);
 
-            
+
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);
 
@@ -77,7 +77,7 @@ class CoursesClassesVwController extends AppController
     }
 
     /**
-     * Edit method
+     * Edit method, edited by Joseph Rementería.
      *
      * @param string|null $id Courses Classes Vw id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -86,20 +86,27 @@ class CoursesClassesVwController extends AppController
     public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
     {
         //------------------------------------------------
+        // To know whether or not the entire process went right.
         $result = false;
         //------------------------------------------------
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
+        // Three controller to comunicate with other models or handle the two relations or tables.
         $ClassesController = new ClassesController;
-        //------------------------------------------------
         $CoursesController = new CoursesController;
-        //------------------------------------------------
-        $courses = $CoursesController->Courses->find('list',['limit' => 200]);
-        $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 200])->select('class_number');
-        //------------------------------------------------
         $usersController = new UsersController;
+        //------------------------------------------------
+        // To fetch the options of the courses and the classes.
+        $courses = $CoursesController->Courses->find('list',['limit' => 1000]);
+        $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 1000])->select('class_number');
+        //------------------------------------------------
+        // This fetch the professors' names.
+        // Actually, this instruction fetches a array of
+        // arrays with the information of the professors
+        // so we use it a little bit weird in a momnent.
         $professors = $usersController->getProfessors();
         //------------------------------------------------
+        // This send the creates the variable and its content.
         $this->set('code',$code);
         $this->set('class_number',$class_number);
         $this->set('semester',$semester);
@@ -109,28 +116,31 @@ class CoursesClassesVwController extends AppController
         $this->set('all_classes_codes',$all_classes_codes);
         $this->set('course_name',$course_name);
         //------------------------------------------------
+        // This is when the user says 'Aceptar'.
         if ($this->request->is('post')) {
             if ($this->request->is(['patch', 'post', 'put'])) {
+                // To prevent SQL injection.
                 $model = $this->CoursesClassesVw->patchEntity(
-                    $model, 
+                    $model,
                     $this->request->getData()
                 );
                 //------------------------------------------------
+                // This is to translate the course's nae to the code.
                 $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
-                echo $new_course_id;
+                //------------------------------------------------
+                // First we fetch the selected index
                 $indexProf=$model->Profesor;
-
-                $usersController = new UsersController;
+                // Then we fetch the professors again.
                 $prof = $usersController->getProfessors();
-    
+                // And finally we "translate" the professors index into the dni
                 $prof = preg_split('/\s+/', $prof[$indexProf]);
                 $prof = $usersController->getId($prof[0], $prof[1]);
-
                 //------------------------------------------------
+                // Finally,we make the update.
                 $result = $ClassesController->update(
-                    $code, 
+                    $code,
                     $class_number,
-                    $semester, 
+                    $semester,
                     $year,
                     $new_course_id,
                     $model->Grupo,
@@ -139,6 +149,14 @@ class CoursesClassesVwController extends AppController
                     $prof
                 );
                 //------------------------------------------------
+                // Thsi shows the message to the user.
+                if (!$result) {
+                    $this->Flash->success(__('Se editó el curso correctamente.'));
+                } else {
+                    $this->Flash->error(__('Error: no se pudo editar el curso.'));
+                }
+                //------------------------------------------------
+                // This redirect the view to the index.
                 return $this->redirect(['action' => 'index']);
             }
         }
@@ -146,7 +164,7 @@ class CoursesClassesVwController extends AppController
     }
 
     /**
-     * Delete method
+     * Delete method, edited by Joseph Rementería.
      *
      * @param string|null $id Courses Classes Vw id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -155,19 +173,23 @@ class CoursesClassesVwController extends AppController
     public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
         //------------------------------------------------
+        // The courses are only deleted when a new
+        // 'Excel' is loaded so this delete method call the
+        // one from the classses/groups controller .
         $ClassesController = new ClassesController;
         //------------------------------------------------
+        // The call itself
         $result = $ClassesController->delete(
-            $code, 
-            $class_number, 
-            $semester, 
+            $code,
+            $class_number,
+            $semester,
             $year
         );
         //------------------------------------------------
         if ($result) {
-            $this->Flash->success(__('Se eliminò el curso correctamente.'));
+            $this->Flash->success(__('Se eliminó el curso correctamente.'));
         } else {
-            $this->Flash->error(__('The courses classes vw could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Error: no se pudo eliminar el curso.'));
         }
         //------------------------------------------------
         return $this->redirect(['action' => 'index']);
@@ -185,20 +207,12 @@ class CoursesClassesVwController extends AppController
 
 
     /**
-     * 
+     * Fetches all the groups numbers thath matches with the given params.
      */
     public function fetchAllClasses($code = null, $semester = null, $year = null)
     {
         //------------------------------------------------
-        $result = -1;
-        //------------------------------------------------
-        $model = $this->CoursesClassesVw->newEntity();
-        //------------------------------------------------
-        //------------------------------------------------
-        $model = $this->CoursesClassesVw->patchEntity(
-            $model, 
-            $this->request->getData()
-        );
+        $result = false;
         //------------------------------------------------
         $coursesClassesModel = $this->loadmodel('CoursesClassesVw');
         //------------------------------------------------
@@ -207,11 +221,7 @@ class CoursesClassesVwController extends AppController
             $semester,
             $year
         );
-        echo $result;
         //------------------------------------------------
-        if ($this->request->is('post')) {
-            echo "Cute new places keep on poping up";
-        }
         return $result;
     }
 
@@ -249,7 +259,7 @@ class CoursesClassesVwController extends AppController
         if ($this->request->is('post')) {
             $ClassesController = new ClassesController;
             $result = $ClassesController->deleteAll();
-            
+
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row]);
             }
@@ -267,7 +277,7 @@ class CoursesClassesVwController extends AppController
             $prof = preg_split('/\s+/', $parameters[3]);
             $UserController = new UsersController;
             $profId = $UserController->getId($prof[1], $prof[0]);
-            
+
             $courseController = new CoursesController;
             $courseController->add($parameters[1], $parameters[0], 0);
 
