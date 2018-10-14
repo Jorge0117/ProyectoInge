@@ -23,7 +23,7 @@ class CoursesClassesVwController extends AppController
 {
 
     /**
-     * Index method
+     * Index method, Joseph Rementería.
      *
      * @return \Cake\Http\Response|void
      */
@@ -79,7 +79,7 @@ class CoursesClassesVwController extends AppController
     /**
      * Edit method, edited by Joseph Rementería.
      *
-     * @param string|null $id Courses Classes Vw id.
+     * params:
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
