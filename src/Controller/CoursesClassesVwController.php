@@ -195,17 +195,6 @@ class CoursesClassesVwController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    // public function importExcelfile (){
-    //     $helper = new Helper\Sample();
-    //     debug($helper);
-    //     $inputFileName = WWW_ROOT . ‘example1.xls‘;
-    //     $spreadsheet = IOFactory::load($inputFileName);
-    //     $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
-    //     var_dump($sheetData);
-    //     die(“here”);
-    // }
-
-
     /**
      * Fetches all the groups numbers thath matches with the given params.
      */
