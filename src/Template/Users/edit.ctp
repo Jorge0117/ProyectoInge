@@ -37,14 +37,16 @@
         margin-right: 5px;
     }
 
+    .form-section{
+        background-color: #e4e4e4;
+        padding: 2%;
+        margin: 2%;
+    }
+
 </style>
 
-<script>
-
-</script>
 
 <div class="users form large-9 medium-8 columns content form-size">
-    echo $rol_usuario['rol_usuario']
     <?= $this->Form->create($user,array(
                 'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
     
@@ -59,17 +61,20 @@
     ?>
 
     <fieldset>
-        <legend><?= __('Datos personales') ?></legend>
-        <?php
-            echo $this->Form->control('identification_number',['type'=>'text']);
-            echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
-            echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
-            echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
-            echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
-            echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);  
-        ?>
+        <div class="form-section">
+            <legend><?= __('Datos personales') ?></legend>
+            <?php
+                echo $this->Form->control('identification_number',['type'=>'text']);
+                echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
+                echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
+                echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
+                echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
+                echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);  
+            ?>
+        </div>
+        
 
-        <div id = "show_rol">
+        <div class="form-section" id = "show_rol">
             <legend><?= __('Datos de seguridad') ?></legend>
             <?php
                 echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
@@ -79,8 +84,8 @@
     </fieldset>
     
     <div class="submit">
-        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
     </div>
     
     <?= $this->Form->end() ?>

@@ -36,7 +36,8 @@
     }
 
     .form-section{
-        border: #999999;
+        background-color: #e4e4e4;
+        padding: 2%;
         margin: 2%;
     }
 
