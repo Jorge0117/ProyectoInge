@@ -6,7 +6,9 @@ use Cake\Event\Event;
 
 /**
  * Security Controller
- *
+ * Este controlador se encarga de autenticar los usuarios del sistema.
+ * Se apoya en el componente MyLdapAuthenticate para manejar la verificación de
+ * credenciales con la red de la ECCI 
  */
 class SecurityController extends AppController
 {
@@ -18,7 +20,11 @@ class SecurityController extends AppController
         $this->Auth->allow('register');
     }
 
-    
+    /**
+     * Pantalla de login que autentica a los usuarios. Si un usuario ingresa
+     * datos válidos perono se encuentra en la Base de Datos se redirige a
+     * la pantalla de registrarse.
+     */
     public function login()
     {
         if($this->request->is('post'))
@@ -46,21 +52,24 @@ class SecurityController extends AppController
         }
     }
 
-    public function register(string $username)
-    {
-        debug('Se ingresaron datos válidos para ' . $username . ' pero el usuario no existe en la BD');
-        debug('Sustituir por llamado a User add');
-        die();
-    }
+    // public function register(string $username)
+    // {
+    //     debug('Se ingresaron datos válidos para ' . $username . ' pero el usuario no existe en la BD');
+    //     debug('Sustituir por llamado a User add');
+    //     die();
+    // }
 
+    /**
+     * Limpia la sesión activa.
+     */
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
     }
 
-    public function checkUsername($username){
-        return $this->Auth->validateUser($username);
-    }
+    // public function checkUsername($username){
+    //     return $this->Auth->validateUser($username);
+    // }
 
 
 }
