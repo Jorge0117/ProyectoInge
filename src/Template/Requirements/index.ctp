@@ -36,7 +36,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
-                <th scope="col" class="actions"><?= __('Opciones') ?></th>
+                <th scope="col" class="actions"><?= __(' ') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -45,9 +45,9 @@
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                     <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',
+                        '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
                         [
                             'action' => 'delete', 
                             $requirement->requirement_number
