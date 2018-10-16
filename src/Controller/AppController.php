@@ -58,6 +58,9 @@ class AppController extends Controller
                 'action' => 'login',
             ],
             'authError' => 'Ingrese al sistema',
+            'flash' => [
+                'element' => 'error'
+            ],
             'loginRedirect' => [
                 'controller' => 'Mainpage',
                 'action' => 'index',

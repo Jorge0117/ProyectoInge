@@ -7,9 +7,9 @@
 <div class="classes form large-9 medium-8 columns content">
     <?= $this->Form->create($class) ?>
     <fieldset>
-        <legend><?= __('Add Class') ?></legend>
+        <h3><?= __('Agregar grupo') ?></h3>
         <div class="form-group text">
-            <label class="control-label" for="course_id"> Nombre del cursos </label>
+            <label class="control-label" for="course_id"> Nombre del curso </label>
             <?= $this->Form->select('course_id',$courses) ?>
         </div>
         <?php
@@ -20,40 +20,19 @@
             echo $this->Form->control('professor_id', ['options' => $professors, 'empty' => true]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Aceptar'), ['class'=>'btn-aceptar']) ?>
+    <button type="submit" class="btn btn-primary float-right">Aceptar</button>
+    <?= $this->Html->link(
+        'Cancelar',
+        ['controller'=>'CoursesClassesVw','action'=>'index'],
+        ['class'=>'btn btn-secondary btn-space']
+    )?>
     <?= $this->Form->end() ?>
 </div>
 
 
-<style type="text/css">
-    .btn-aceptar{
-        background-color: #ceb92bff;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
+<style>
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
     }
-
-    h3{
-        float: center;
-        display: block;
-        width: 100%;
-        line-height:1.5em;
-    }
-    
-    .form-size{
-        width: 70%;
-        min-width: 200px;
-        padding-left: 50px;
-    }
-
-    .btn-cancelar{
-        background-color: #999999;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-        margin-right: 5px;
-    }
-
 </style>

@@ -25,7 +25,7 @@
 <div class="courses form large-9 medium-8 columns content">
     <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Editar Curso') ?></legend>
+        <!--<legend><?= __('Editar Curso') ?></legend>-->
         <?php
             // echo $this->Form->control(
             //     'Sigla',
