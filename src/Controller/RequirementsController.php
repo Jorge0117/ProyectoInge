@@ -22,6 +22,7 @@ class RequirementsController extends AppController
     {
         $requirements = $this->paginate($this->Requirements);
         $this->set(compact('requirements'));
+        $this->checkDate();
     }
 
     /**
@@ -120,5 +121,9 @@ class RequirementsController extends AppController
         }
         $this->redirect(['action' => 'index']);
         $this->Flash->error(__('No se pudo eliminar el requisito'));
+    }
+
+    public function checkDate(){
+        $this->set('show',0); ////llamar a la otra función del controlador
     }
 }
