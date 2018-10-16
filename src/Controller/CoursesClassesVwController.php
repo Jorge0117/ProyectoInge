@@ -43,9 +43,10 @@ class CoursesClassesVwController extends AppController
     {
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
+            //Lee los datos del form
             $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
 
-
+            //Guarda cada dato en una variable. En el caso del profesor guarda el índice que se escogió
             $name=$coursesClassesVw->Curso;
             $code=$coursesClassesVw->Sigla;
             $cred=$coursesClassesVw->Creditos;
@@ -54,15 +55,20 @@ class CoursesClassesVwController extends AppController
             $semester=$coursesClassesVw->Semestre;
             $year=$coursesClassesVw->Año;
 
+            //Obtiene el array de profesores
             $usersController = new UsersController;
             $prof = $usersController->getProfessors();
 
+            //Con el índice de profesor y el método preg_split, so consigue el nombre y el apellido del profesor en un array
             $prof = preg_split('/\s+/', $prof[$indexProf]);
+            //Se consigue el id del profesor con el nombre y apellido
             $prof = $usersController->getId($prof[0], $prof[1]);
 
+            //Agrega el curso a la base
             $courseController = new CoursesController;
             $courseController->add($code, $name, $cred);
 
+            //Agrega el grupo al a base
             $classController = new ClassesController;
             $classController->addClass($code, $group, $semester, $year, $prof);
 
@@ -71,6 +77,7 @@ class CoursesClassesVwController extends AppController
             return $this->redirect(['action' => 'index']);
 
         }
+        //Consigue le array de profesores
         $usersController = new UsersController;
         $professors = $usersController->getProfessors();
         $this->set(compact('coursesClassesVw', 'professors'));
@@ -218,66 +225,82 @@ class CoursesClassesVwController extends AppController
 
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
 
+        //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
+        //Lee el archivo que se va a subir
         $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+        //Identifica el tipo de archivo
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+        //Crea un nuevo reader para el tipo de archivo
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+        //Hace que el reader sólo lea archivos con datos
         $reader->setReadDataOnly(true);
-
+        //Carga el archivo a un spreadsheet
         $spreadsheet = $reader->load($inputFileName);
 
         $worksheet = $spreadsheet->getActiveSheet();
+        //Consigue la posición de la última fila
         $highestRow = $worksheet->getHighestRow(null);
+        //Consigue la posición de la última columna
         $highestColumn = $worksheet->getHighestDataColumn();
+        //Transforma la última fila a un index. Ejemplo C = 3
         $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
 
+        //Contiene una matriz con las filas del archivo
         $table = [];
-        $parameters = [];
+        //Contiene las filas del archivo
+        $rows = [];
+
+        //Se llena la matriz
         for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
-                //debug($value);
-                $parameters[$col -1] = $value;
+                $rows[$col -1] = $value;
             }
-            $table[$row -5] = $parameters;
-            //debug($parameters);
-            unset($parameters);
+            $table[$row -5] = $rows;
+            unset($rows); //resetea el array rows
         }
+        //Hace que table sea visible para el template
         $this->set('table', $table);
 
+        //Cuando se da aceptar
         if ($this->request->is('post')) {
+            //Borra todos los grupos
             $ClassesController = new ClassesController;
             $result = $ClassesController->deleteAll();
-
+            //Llama al método addFromFile con cada fila
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row]);
             }
+            $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
         $this->set(compact('coursesClassesVw'));
-        //debug($table);
-        //die();
-        //return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
 
     public function addFromFile ($parameters){
+        //Si la fila está vacía no hace nada
         if($parameters[0] != null){
 
+            //Divide el profesor en nombre y apellido
             $prof = preg_split('/\s+/', $parameters[3]);
+            //Consigue el id del profesor
             $UserController = new UsersController;
             $profId = $UserController->getId($prof[1], $prof[0]);
 
+            //Agrega el curso
             $courseController = new CoursesController;
             $courseController->add($parameters[1], $parameters[0], 0);
 
+            //Agrega el grupo
             $classController = new ClassesController;
             $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
 
-            //debug($parameters);
         }
     }
 
     public function deleteAll (){
+        //Borra todos los grupos
         $ClassesController = new ClassesController;
         $result = $ClassesController->deleteAll();
     }

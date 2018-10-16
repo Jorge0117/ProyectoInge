@@ -92,7 +92,7 @@ class ClassesTable extends Table
     {
         $return = false;
         $connect = ConnectionManager::get('default');
-
+        //Verifica que no esté en la tabla
         $inTable = count($connect->execute("select * from classes where course_id = '$id' and class_number = '$number' and semester = '$semester' and year = '$year'"));
 
         if ($inTable == 0) {
