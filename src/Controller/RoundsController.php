@@ -20,8 +20,20 @@ class RoundsController extends AppController
      */
     public function index()
     {
-        $rounds = $this->paginate($this->Rounds);
+        $round = $this->Rounds->newEntity();
+        if ($this->request->is('post')) {
+            $round = $this->Rounds->patchEntity($round, $this->request->getData());
+            $RoundTable=$this->loadmodel('Rounds');
+            $start=date_format($round->start_date,'Y-m-d');
+            $end=date_format($round->end_date,'Y-m-d');
+            $RoundTable->insertRound($start,$end);
+            $this->Flash->success(__('Se agregó la ronda correctamente.'));
+            return $this->redirect(['action' => 'index']);
+        }
+        echo $round->fin;
+        $this->set(compact('round'));
 
+        $rounds = $this->paginate($this->Rounds);
         $this->set(compact('rounds'));
     }
 
@@ -51,12 +63,13 @@ class RoundsController extends AppController
         $round = $this->Rounds->newEntity();
         if ($this->request->is('post')) {
             $round = $this->Rounds->patchEntity($round, $this->request->getData());
-            if ($this->Rounds->save($round)) {
-                $this->Flash->success(__('The round has been saved.'));
+            $RoundTable=$this->loadmodel('Rounds');
+            $start=date_format($round->start_date,'Y-m-d');
+            $end=date_format($round->end_date,'Y-m-d');
+            $RoundTable->insertRound($start,$end);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The round could not be saved. Please, try again.'));
+            $this->Flash->success(__('Se agregó la ronda correctamente.'));
+            //return $this->redirect(['action' => 'index']);
         }
         $this->set(compact('round'));
     }
@@ -104,4 +117,6 @@ class RoundsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
 }

@@ -1,0 +1,41 @@
+CREATE TABLE `proyecto_inge`.`requests` (
+  `id` INT NOT NULL,
+  `round_number` INT NOT NULL,
+  `round_semester` INT NOT NULL,
+  `round_year` INT NOT NULL,
+  `reception_date` DATETIME NOT NULL,
+  `group_id` DATETIME NOT NULL,
+  PRIMARY KEY (`request_number`)
+
+
+drop table approvedrequests;
+drop table rejectedrequests;
+drop table pendingrequests;
+drop table noteligiblerequests;
+drop table eligiblerequests;
+
+
+CREATE TABLE `proyecto_inge`.`approvedrequests` (
+  `request_id` INT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));
+
+CREATE TABLE `proyecto_inge`.`rejectedrequests` (
+  `request_id` INT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));
+
+CREATE TABLE `proyecto_inge`.`pendingrequests` (
+  `request_id` INT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));
+
+CREATE TABLE `proyecto_inge`.`eligiblerequests` (
+  `request_id` INT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));
+
+CREATE TABLE `proyecto_inge`.`noteligiblerequests` (
+  `request_id` INT NOT NULL,
+  PRIMARY KEY (`request_id`),
+foreign key (request_id) references requests(id));

@@ -49,15 +49,15 @@
             echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
             echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
             echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
-            echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)']]);
+            echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)'], 'disabled' => 'disabled']);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('carne');
+            //echo $this->Form->control('carne');
         ?>
     </fieldset>
     <div class="submit">
         <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-cancelar']); ?>
     </div>
     
     <?= $this->Form->end() ?>

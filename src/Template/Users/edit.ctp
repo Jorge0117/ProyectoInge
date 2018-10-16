@@ -54,13 +54,12 @@
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
             echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
             echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
-            echo $this->Form->control('carne', ['label'=>['text'=>'Carné']]);
         ?>
     </fieldset>
     
     <div class="submit">
-        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
     </div>
     
     <?= $this->Form->end() ?>

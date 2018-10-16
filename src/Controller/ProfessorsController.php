@@ -96,7 +96,7 @@ class ProfessorsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $professor = $this->Professors->get($id);
-        if ($this->Professors->delete($professor)) {
+        if ($this->Professors->delete($professor, true)) {
             $this->Flash->success(__('The professor has been deleted.'));
         } else {
             $this->Flash->error(__('The professor could not be deleted. Please, try again.'));

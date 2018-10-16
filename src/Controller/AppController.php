@@ -59,7 +59,7 @@ class AppController extends Controller
             ],
             'authError' => 'Ingrese al sistema',
             'loginRedirect' => [
-                'controller' => 'Main',
+                'controller' => 'Mainpage',
                 'action' => 'index',
             ],
             'logoutRedirect' => [
@@ -95,8 +95,11 @@ class AppController extends Controller
         throw $exception;
     }
 
-    public function isAuthorized()
+    public function isAuthorized($user)
     {
-        return true;
+        $role_c = new RolesController;
+        $action =$this->request->getParam('action');
+        $module = $this->request->getParam('controller');
+        return true;//$role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }

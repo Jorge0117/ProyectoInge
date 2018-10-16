@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Usuarios') ?></h3>
@@ -12,8 +13,6 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Cédula ') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Nombre ') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Apellidos') ?></th>
-                <th scope="col"><?= $this->Paginator->sort(' ') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Rol') ?></th>
                 <th scope="col" class="actions"><?= __(' ') ?></th>
             </tr>
@@ -22,23 +21,17 @@
             <?php foreach ($users as $user): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
                 <td><?= h($user->identification_number) ?></td>
-                <td><?= h($user->name)  ?></td>
-                <td><?= h($user->lastname1) ?></td>
-                <td><?= h($user->lastname2) ?></td>
-               <!-- <td><?= h($user->username) ?></td>
-                <td><?= h($user->email_personal) ?></td>
-                <td><?= h($user->phone) ?></td> -->
-                <td><?= $user->has('role') ? $this->Html->link($user->role->role_id, ['controller' => 'Roles', 'action' => 'view', $user->role->role_id]) : '' ?></td>
+                <td><?= h($user->name.' '.$user->lastname1. ' '.$user->lastname2 )  ?></td>
+                <td><?=  h($user->role->role_id) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $user->identification_number]) ?>
-                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->identification_number]) ?>
-                    <?= $this->Form->postLink(__('Eliminar'), ['action' => 'delete', $user->identification_number], ['confirm' => __('Are you sure you want to delete # {0}?', $user->identification_number)]) ?>
+                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['action' => 'view', $user->identification_number], ['escape'=>false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'edit', $user->identification_number], ['escape'=>false]) ?>
+                    <?= $this->Form->postLink('<i class="fa fa-trash-o"></i>', ['action' => 'delete', $user->identification_number], ['escape'=>false, 'confirm' => __('¿Está seguro que desea eliminar el usuario {0}?', $user->name.' '. $user->lastname1 )]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>
 
 <script type="text/javascript">

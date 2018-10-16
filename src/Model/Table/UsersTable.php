@@ -54,7 +54,9 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Professors', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'dependent'  => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('Students', [
             'foreignKey' => 'user_id'
@@ -73,6 +75,15 @@ class UsersTable extends Table
             ->scalar('identification_number')
             ->maxLength('identification_number', 20)
             ->notEmpty('identification_number');
+        
+        $validator->add(
+            'identification_number', 
+                ['unique' => [
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table', 
+                    'message' => 'Not unique']
+                ]
+        );
 
         $validator
             ->scalar('name')

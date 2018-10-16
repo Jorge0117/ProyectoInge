@@ -26,7 +26,7 @@ class CoursesController extends AppController
     }
 
     /**
-     * View method
+     * View method, THIS IS NEVER USED.
      *
      * @param string|null $id Course id.
      * @return \Cake\Http\Response|void
