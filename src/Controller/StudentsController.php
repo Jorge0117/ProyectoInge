@@ -41,6 +41,9 @@ class StudentsController extends AppController
         $this->set('student', $student);
     }
 
+    /**
+     * Add a new student specifying id and carne
+     */
     public function newStudent($id, $carne){
         $student = new Student([
             'user_id' => $id,
