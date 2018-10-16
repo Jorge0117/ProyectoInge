@@ -162,11 +162,11 @@ class UsersController extends AppController
     public function edit($id = null)
     {   
         $Professors = new ProfessorsController;
-        $AdministrativeBoss = new AdministrativeBossController;
-        $AdministrativeAssistant = new AdministrativeAssistant;
+        $AdministrativeBoss = new AdministrativeBossesController;
+        $AdministrativeAssistant = new AdministrativeAssistantsController;
         //guarda el rol del usuario actual para verificar si puede editar el rol
         $rol_usuario = $this->getRequest()->getSession()->read('role_id');
-        
+        debug($rol_usuario);
         $admin = 0;
         if($rol_usuario === 'Administrador'){
             $admin = 1;
@@ -200,6 +200,7 @@ class UsersController extends AppController
                     }else{
                         if($rol_original === 'Administrador'){
                             //rol anterior era jefe administrativo
+                            //se elimina de la tabla administrativebosses y se agrega al nuevo rol
                             if($user->role_id === 'Asistente'){
                                 $AdministrativeAssistant->newAssistant($user);
                             }else{
@@ -210,6 +211,7 @@ class UsersController extends AppController
                         }else{
                             if($rol_original === 'Asistente'){
                                 //roll anterior era asistente administrativo
+                                //se elimina de la tabla administrative_assistants y se agrega al nuevo rol
                                 $AdministrativeAssistant->delete($user);
 
                                 if($user->role_id === 'Administrador'){

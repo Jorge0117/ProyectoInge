@@ -36,7 +36,10 @@
     }
 
     .form-section{
-        border: #999999;
+        border-style: solid;
+        border-width: 1.5%;
+        border-color: #999999;
+        padding: 1%;
         margin: 2%;
     }
 
