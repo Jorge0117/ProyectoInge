@@ -7,7 +7,6 @@
 
 <style type="text/css">
     .btn-aceptar{
-        background-color: #ceb92bff;
         color: #ffffff;
         border: none;
         text-align: center;
@@ -40,10 +39,25 @@
 
 </style>
 
+<script>
+
+</script>
+
 <div class="users form large-9 medium-8 columns content form-size">
+    echo $rol_usuario['rol_usuario']
     <?= $this->Form->create($user,array(
                 'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
     
+    <?php echo $mostrar; 
+        if($mostrar == 0){
+            ?>
+            <style type="text/css">#show_rol{
+            display: none;
+            }</style>
+            <?php
+        }
+    ?>
+
     <fieldset>
         <legend><?= __('Datos personales') ?></legend>
         <?php
@@ -52,9 +66,16 @@
             echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
             echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
             echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
-            echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
-            echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+            echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);  
         ?>
+
+        <div id = "show_rol">
+            <legend><?= __('Datos de seguridad') ?></legend>
+            <?php
+                echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+            ?>
+        </div>
+        
     </fieldset>
     
     <div class="submit">

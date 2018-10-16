@@ -70,17 +70,16 @@ class UsersController extends AppController
         // Caso en que se recibio el form
         } elseif ($this->request->is('post')) {
             if (isset($this->request->data['cancel'])) {
-                //return $this->redirect( array( 'action' => 'index' ));
-                }
+                //regresa a sign in si presiona cancelar
+                return $this->redirect(['controller' => 'Security', 'action' => 'login']);
+            }
             // Obtener los datos del Form y agregar el username     
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
 
             //instancias para crear cada tipo de usuario en su respectivo controlador
-            // debug($user);
             $Students = new StudentsController;
 
-            //if( $ ->checkUsername($username) ){
             $pattern = "/\w\d{5}/";
             //asigna rol segun el nombre de usuario
             if(preg_match($pattern, $username)){
@@ -89,6 +88,7 @@ class UsersController extends AppController
             }else{
                 $user->role_id= 'Profesor';
             }
+
             //agrega a la tabla students
             if($user->role === 'Estudiante'){
                 $carne = $username;
@@ -96,12 +96,7 @@ class UsersController extends AppController
             }
 
             if ($this->Users->save($user)) { 
-                //$user = $this->Users->patchEntity($user, $this->request->getData(), ['username' => $username]);
-                //Guardar en la tabla de tipo de usuario tambien
-                //debug($user);
-                
-                $session->delete('NEW_USER');
-        
+                $session->delete('NEW_USER');        
 
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['controller' => 'Security', 'action' => 'login']);
@@ -122,8 +117,6 @@ class UsersController extends AppController
      */
     public function add()
     {
-        //$carne = $this->request->getData('carne');
-        //debug($carne);
         $user = $this->Users->newEntity();
         $SecurityCont = new SecurityController;
         if (isset($this->request->data['cancel'])) {
@@ -133,11 +126,10 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $username =  $this->request->getData('username');
             $user->username= $username;
-            //if( $this->validateUser($username) ){
                 $pattern = "/\w\d{5}/";
                 //asigna rol segun el nombre de usuario
                 if(preg_match($pattern, $username)){
-                //es estudiante
+                    //es estudiante
                     $user->role_id= 'Estudiante';
                 }else{
                     $user->role_id= 'Profesor';
@@ -154,9 +146,6 @@ class UsersController extends AppController
                     $this->Flash->success(__('Se agregó el usuario correctamente.'));
                     return $this->redirect(['action' => 'index']);
                 }
-            //}else{
-            //    $this->Flash->error(__('Nombre de usuario no es válido.'));
-            //} 
             $this->Flash->error(__('No se pudo crear el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
@@ -172,10 +161,18 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {   
-        $Students = new StudentsController;
+        $Professors = new ProfessorsController;
         $AdministrativeBoss = new AdministrativeBossController;
         $AdministrativeAssistant = new AdministrativeAssistant;
-
+        //guarda el rol del usuario actual para verificar si puede editar el rol
+        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
+        
+        $admin = 0;
+        if($rol_usuario === 'Administrador'){
+            $admin = 1;
+        }
+        $this->set('mostar', $admin);
+        
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -187,7 +184,44 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 if($user->isDirty('role_id')){
                     //modifico el rol
+                    $rol_original = $user->getOriginal('role_id');
                     
+                    if($rol_original === 'Profesor'){
+                        //rol anterior era profesor
+                        //se elimina de la tabla profesores y se agrega al nuevo rol
+                        $Professors->delete($user);
+                        if($user->role_id === 'Administrador'){
+                            $AdministrativeBoss->newAdmin($user);
+                        }else{
+                            if($user->role_id === 'Asistente'){
+                                $AdministrativeAssistant->newAssistant($user);
+                            }
+                        } 
+                    }else{
+                        if($rol_original === 'Administrador'){
+                            //rol anterior era jefe administrativo
+                            if($user->role_id === 'Asistente'){
+                                $AdministrativeAssistant->newAssistant($user);
+                            }else{
+                                if($user->role_id === 'Profesor'){
+                                    $Professors->newProfessor($user);
+                                }
+                            }
+                        }else{
+                            if($rol_original === 'Asistente'){
+                                //roll anterior era asistente administrativo
+                                $AdministrativeAssistant->delete($user);
+
+                                if($user->role_id === 'Administrador'){
+                                    $AdministrativeBoss->newAdmin($user);
+                                }else{
+                                    if($user->role_id === 'Profesor'){
+                                        $Professors->newAssistant($user);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
