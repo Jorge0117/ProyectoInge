@@ -45,6 +45,8 @@ class CoursesController extends AppController
     public function add($code, $name, $cred)
     {
         $courseTable=$this->loadmodel('Courses');
+        //debug($cred);
+        //die();
         return $courseTable->addCourse($code, $name, $cred);
     }
 
@@ -90,5 +92,14 @@ class CoursesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }    
+
+    public function selectACourseCodeFromName($name)
+    {
+        //------------------------------------------------
+        $classesModel = $this->loadmodel('Courses');
+        //------------------------------------------------
+        return $classesModel->selectACourseCodeFromName($name);
+        //------------------------------------------------
     }
 }

@@ -36,9 +36,5 @@
             <th scope="row"><?= __('End Date') ?></th>
             <td><?= h($round->end_date) ?></td>
         </tr>
-        <tr>
-            <th scope="row"><?= __('Approve Limit Date') ?></th>
-            <td><?= h($round->approve_limit_date) ?></td>
-        </tr>
     </table>
 </div>

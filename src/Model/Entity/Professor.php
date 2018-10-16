@@ -25,4 +25,6 @@ class Professor extends Entity
     protected $_accessible = [
         'classes' => true
     ];
+
+    
 }

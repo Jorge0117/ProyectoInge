@@ -33,8 +33,8 @@ class RoundsTable extends Table
         parent::initialize($config);
 
         $this->setTable('rounds');
-        $this->setDisplayField('semester');
-        $this->setPrimaryKey(['semester', 'number', 'year']);
+        $this->setDisplayField('start_date');
+        $this->setPrimaryKey('start_date');
     }
 
     /**
@@ -45,6 +45,10 @@ class RoundsTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        $validator
+            ->date('start_date')
+            ->allowEmpty('start_date', 'create');
+
         $validator
             ->scalar('round_number')
             ->requirePresence('round_number', 'create')
@@ -61,36 +65,27 @@ class RoundsTable extends Table
             ->notEmpty('year');
 
         $validator
-            ->date('start_date')
-            ->allowEmpty('start_date', 'create');
-
-        $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
             ->notEmpty('end_date');
 
-        $validator
-            ->date('approve_limit_date')
-            ->requirePresence('approve_limit_date', 'create')
-            ->notEmpty('approve_limit_date');
-
         return $validator;
     }
+
+    public function insertRound($start_d,$end_d){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call insert_round ('$start_d','$end_d')");
+    }
+
+    public function getLastRow() {
+        $connect = ConnectionManager::get('default');
+        $id = $connect->execute("select * from rounds where start_date = (select MAX(start_date) from rounds)") ->fetchAll();
+        return $id[0];
+    }
     
-    public function insertRound($start_d,$end_d,$approve){
-        $connet = ConnectionManager::get('default');
-        $connet->execute("call insert_round ('$start_d','$end_d','$approve')");
+    public function getLastEndDate() {
+        $connect = ConnectionManager::get('default');
+        $id = $connect->execute("select MAX(end_date) as end_date from rounds") ->fetchAll();
+        return $id[0][0];
     }
-
-    public function getLastRound(){
-        $connet = ConnectionManager::get('default');
-        $connet->execute("call select_last_round ()");
-        //return $result;
-    }
-
-    public function deleteLastRound(){
-        $connet = ConnectionManager::get('default');
-        $connet->execute("call delete_last_round ()");
-    }
-
 }

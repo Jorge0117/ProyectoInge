@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Requirements Model
@@ -40,6 +41,22 @@ class RequirementsTable extends Table
         $this->hasMany('FulfillsRequirement', [
             'foreignKey' => 'requirement_id'
         ]);
+    }
+
+    public function deleteClass($requirement_number)
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "DELETE FROM requirements 
+            WHERE   requirement_number  = '$requirement_number' 
+            "
+        );
+        //------------------------------------------------
+        return $result;
     }
 
     /**

@@ -44,8 +44,8 @@ class MyLdapAuthenticate extends BaseAuthenticate
         $username = $request->data['username'];
         $password = $request->data['password'];
 
-        debug($username);
-        debug(substr($password, 0, 1) . str_repeat('*', strlen($password)-1));
+        //debug($username);
+        //debug(substr($password, 0, 1) . str_repeat('*', strlen($password)-1));
 
         // debug($this->request);
 
@@ -56,22 +56,22 @@ class MyLdapAuthenticate extends BaseAuthenticate
         if ($ldapconn) {
             ldap_set_option($ldapconn, LDAP_OPT_NETWORK_TIMEOUT, 2);
             $ldapbind = @ldap_bind($ldapconn, $dn, $password);
-            debug($ldapbind);
+            //debug($ldapbind);
             if ($ldapbind || $username == 'b00000') {
-                debug("Conexión realizada con éxito y credenciales válidos");
+                //debug("Conexión realizada con éxito y credenciales válidos");
                 return $this->findUser($username);
             }
             else {
 
                 if(ldap_get_option($ldapconn, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error)) {
-                    debug("Error Binding to LDAP: $extended_error");
+                    //debug("Error Binding to LDAP: $extended_error");
 
                     ///////////////////////////////////
                     // debug("Credenciales inválidos, ignorando temporalmente");
                     // return $this->findUser($username);
                     ///////////////////////////////////
                 } else {
-                    debug("Couldn't establish connection with LDAP server");
+                    //debug("Couldn't establish connection with LDAP server");
 
                     ///////////////////////////////////
                     // debug("Ignorando temporalmente");
@@ -82,9 +82,10 @@ class MyLdapAuthenticate extends BaseAuthenticate
             }
         }
         else {
-            debug("Configuración LDAP inválida");
+            //debug("Configuración LDAP inválida");
             return false;
         }
     }
+
 }
 

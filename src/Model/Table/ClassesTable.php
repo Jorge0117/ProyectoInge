@@ -103,10 +103,6 @@ class ClassesTable extends Table
     }
 
 
-    /**
-     * Deletes the row that match with the key given
-     * 
-     */
     public function deleteClass($code, $class_number, $semester, $year)
     {
         //------------------------------------------------
@@ -155,6 +151,46 @@ class ClassesTable extends Table
         //         AND C.year      = $year
         //     "
         // );
+        //------------------------------------------------
+        return $result;
+    }
+
+    public function deleteAllClasses()
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "DELETE FROM classes"
+        );
+        //------------------------------------------------
+        return $result;
+    }
+
+
+    public function updateClass($code, $class_number, $semester, $year, $new_course_id, $new_class_number, $new_semester, $new_year,$new_user_id)
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "UPDATE classes 
+            SET 
+                course_id           = '$new_course_id',
+                class_number        = $new_class_number,
+                semester            = $new_semester,
+                year                = $new_year,
+                professor_id        = '$new_user_id'
+            WHERE   course_id       = '$code' 
+                AND class_number    = '$class_number'
+                AND semester        = '$semester'
+                AND year            = '$year';
+            "
+        );
         //------------------------------------------------
         return $result;
     }

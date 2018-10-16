@@ -4,25 +4,48 @@
  * @var \App\Model\Entity\CoursesClassesVw $coursesClassesVw
  */
 ?>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
 <div class="coursesClassesVw form large-9 medium-8 columns content">
     <?= $this->Form->create($coursesClassesVw) ?>
     <fieldset>
         <legend><?= __('Add Course') ?></legend>
-        <?php
-            echo $this->Form->control('Sigla');
-            echo $this->Form->control('Curso');
-            echo $this->Form->control('Creditos');
-            echo $this->Form->control('Grupo');
-            echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => true]);
-            echo $this->Form->control('Semestre');
-            echo $this->Form->control('Año');
-        ?>
+
+        <table>
+        <thead>
+            <tr>
+            <th><?php echo implode('</th><th>', array_keys(current($table))); ?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($table as $row): array_map('htmlentities', $row); ?>
+            <tr>
+            <td><?php echo implode('</td><td>', $row); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+        </table>
+
     </fieldset>
     <?= $this->Form->button(__('Aceptar'), ['class'=>'btn-aceptar']) ?>
-    <?= $this->Form->button(__('Cancelar'), ['class'=>'btn-cancelar', 'type' => 'button', 'onclick' => 'location.href=\'index\''] ) ?>
     <?= $this->Form->end() ?>
 </div>
+
 
 <style type="text/css">
     .btn-aceptar{
@@ -54,5 +77,3 @@
         float: right;
         margin-right: 5px;
     }
-
-</style>

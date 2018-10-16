@@ -74,7 +74,7 @@
         ?>      
         <br> <br>
         <button type="submit" class="btn btn-acept">
-            Agregar
+            Aceptar
         </button>
         <button type="buttom">
             <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-revoke']) ?>

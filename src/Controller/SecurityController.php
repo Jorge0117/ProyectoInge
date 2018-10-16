@@ -21,20 +21,18 @@ class SecurityController extends AppController
     
     public function login()
     {
-        $Users = new UsersController;       
-
         if($this->request->is('post'))
         {
             
             $user = $this->Auth->identify();
             if($user)
             {
-                debug("Se logro autenticar");
+                // debug("Se logro autenticar");
 
                 if ($user['identification_number'] == 'NEW_USER') {
                     // Caso en que los credenciales fueron válidos pero el usuario no existe!
                     // Cambiar la siguiente línea por la accion de agregar usuario
-                   // $Users->register($user['username']);
+                    $this->getRequest()->getSession()->write('NEW_USER', $user['username']);
                     $this->redirect(['controller' => 'Users', 'action' => 'register', $user['username']]);
 
                 } else {
@@ -42,7 +40,7 @@ class SecurityController extends AppController
                     return $this->redirect($this->Auth->redirectUrl());
                 }
             } else {
-                debug("No se logro autenticar");
+                // debug("No se logro autenticar");
             }
 
         }
@@ -60,6 +58,9 @@ class SecurityController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
+    public function checkUsername($username){
+        return $this->Auth->validateUser($username);
+    }
 
 
 }

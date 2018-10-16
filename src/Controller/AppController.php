@@ -59,7 +59,7 @@ class AppController extends Controller
             ],
             'authError' => 'Ingrese al sistema',
             'loginRedirect' => [
-                'controller' => 'Main',
+                'controller' => 'Mainpage',
                 'action' => 'index',
             ],
             'logoutRedirect' => [

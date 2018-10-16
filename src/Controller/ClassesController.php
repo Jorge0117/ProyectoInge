@@ -38,14 +38,31 @@ class ClassesController extends AppController
         $class = $this->Classes->newEntity();
         if ($this->request->is('post')) {
             $class = $this->Classes->patchEntity($class, $this->request->getData());
-            if ($this->Classes->save($class)) {
-                $this->Flash->success(__('The class has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The class could not be saved. Please, try again.'));
+            
+            $code=$class->course_id;
+            $group=$class->class_number;
+            $semester=$class->semester;
+            $year=$class->year;
+            $indexProf=$class->professor_id;
+
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
+
+            //$classController = new ClassesController;
+            $this->addClass($code, $group, $semester, $year, $prof);
+
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
+
         $courses = $this->Classes->Courses->find('list', ['limit' => 200]);
-        $professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+
+        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
         $this->set(compact('class', 'courses', 'professors'));
     }
 
@@ -113,5 +130,35 @@ class ClassesController extends AppController
         }
         //------------------------------------------------
         return $result;
+    }
+
+    public function deleteAll()
+    {
+        //------------------------------------------------
+        $classesModel = $this->loadmodel('Classes');
+        //------------------------------------------------
+        $result = $classesModel->deleteAllClasses();
+        //------------------------------------------------
+        return $result;
+    }
+
+
+    public function update($code, $class_number, $semester, $year,$new_code, $new_class_number, $new_semester, $new_year, $new_user_id)
+    {
+        $result = false;
+
+        $classesModel = $this->loadmodel('Classes');
+
+        $result = $classesModel->updateClass(
+            $code, 
+            $class_number,
+            $semester, 
+            $year,
+            $new_code,
+            $new_class_number,
+            $new_semester,
+            $new_year,
+            $new_user_id
+        );
     }
 }

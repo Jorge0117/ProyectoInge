@@ -1,47 +1,30 @@
 <?php
 /**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Requirement[]|\Cake\Collection\CollectionInterface $requirements
  */
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <style>
-    .button {
+    .btn-revoke{
         background-color: #015b96ff;
         border: none;
         color:#fff;
         padding: 15px 32px;
-        padding: 5px 7px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 8px 2px;
+        margin: 4px 2px;
         cursor: pointer;
-        float: right;
+        float: right; 
+        position:relative;
     }
-    .button a {
-        color:#fff; 
-    }
-    .actions a {
-        color:#000; 
-    }
-    #image1 {
-        height: 10px;
-        width: 10px;
+    .btn-revoke:hover{
+        color: #fff;
     }
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<button class="button"><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?></button>
+<?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
@@ -59,15 +42,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
-                    <?= $this->Form->postLink('<i class="fa fa-trash-o fa_custom fa-2x"></i>',['action' => 'delete', $requirement->requirement_number], ['escape' => false,
-        'confirm' => __('Desea eliminar el requisito: {0}?', $requirement->description)]) ?>
+                    <?= $this->Form->postLink(
+                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',
+                        [
+                            'action' => 'delete', 
+                            $requirement->requirement_number
+                        ], 
+                        [
+                            'escape' => false,
+                            'confirm' => __('Desea eliminar el requisito: {0}?',
+                            $requirement->description)
+                        ]
+                    ) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
  </div>
-    
 
 <script type="text/javascript">
     $(document).ready( function () {
