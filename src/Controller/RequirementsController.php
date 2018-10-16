@@ -48,17 +48,30 @@ class RequirementsController extends AppController
      */
     public function add()
     {
+        //Crea una nueva entidad de requerimientos.
         $requirement = $this->Requirements->newEntity();
+
+        //Si la nueva entidad de requerimientos fue realizada correctamente, haga
         if ($this->request->is('post')) {
-            pr($this->request->data);
+            
+            //Pasa los datos de la entidad hecha en la vista a la entidad hecha en el controlador.
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
+
+            //Si la entidad fue almacenada en la base de datos, haga
             if ($this->Requirements->save($requirement)) {
 
+                //Redireccione a la vista de index y muestre un mensaje de exito.
                 $this->redirect(['action' => 'index']);
-                return $this->Flash->success(__('Se agregó el requisito correctamente.'));
+                return $this->Flash->success(__('Se agregó el requisito con exito.'));
+
             }
-            $this->Flash->error(__('No se logró agregar el requisito'));
+
+            //Redireccione a la vista de index y muestre un mensaje de error.
+            $this->redirect(['action' => 'index']);
+            $this->Flash->error(__('No se pudo agregar el requisito con éxito'));
         }
+
+        //Recolecte el conjunto de todos los requisitos para ser mostrados por el index.
         $this->set(compact('requirement'));
     }
 
@@ -71,19 +84,32 @@ class RequirementsController extends AppController
      */
     public function edit($id = null)
     {
+        //Recolecte los datos de la tupla que se desea modificar.
         $requirement = $this->Requirements->get($id, [
             'contain' => []
         ]);
+
+        //Si la nueva entidad de requerimientos fue realizada correctamente, haga
         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            //Pasa los datos de la entidad hecha en la vista a la entidad hecha en el controlador.
             $requirement = $this->Requirements->patchEntity($requirement, $this->request->getData());
+            
+            //Si la entidad fue almacenada en la base de datos, haga
             if ($this->Requirements->save($requirement)) {
 
+                //Redireccione a la vista de index y muestre un mensaje de exito.
                 $this->redirect(['action' => 'index']);
-                return $this->Flash->success(__('Se modificó el requisito correctamente.'));
+                return $this->Flash->success(__('Se modificó el requisito con exito.'));
+            
             }
+            
+            //Redireccione a la vista de index y muestre un mensaje de error.
             $this->redirect(['action' => 'index']);
-            $this->Flash->error(__('No se logró editar el requisito'));
+            $this->Flash->error(__('No se pudo editar el requisito'));
         }
+
+        //Recolecte el conjunto de todos los requisitos para ser mostrados por el index.
         $this->set(compact('requirement'));
     }
 
@@ -117,13 +143,41 @@ class RequirementsController extends AppController
         //------------------------------------------------
         if($result){
             $this->redirect(['action' => 'index']);
-            return $this->Flash->success(__('Se eliminó el requisito correctamente.'));
+            return $this->Flash->success(__('Se eliminó el requisito con exito.'));
         }
         $this->redirect(['action' => 'index']);
-        $this->Flash->error(__('No se logró eliminar el requisito'));
+        $this->Flash->error(__('No se pudo eliminar el requisito'));
     }
 
+    //Función que verifica si ya la ronda empezo o no para así bloquear el sistema.
     public function checkDate(){
-        $this->set('show',0); ////llamar a la otra función del controlador
+
+        //Comentado mientras se realiza la función necesaria.
+        //$onDate = $this->requestAction('/rounds/nombredelafuncion/');
+
+        //Temporal para que la función sirva.
+        $onDate = 0;
+
+        /* Guarda en la variable show el valor de el onDate,
+           es decir, nos dirá si ya empezamos la ronda o no. */
+        $this->set('show', $onDate);
+    
+    }
+
+    //Función que relacionará a una solicitud con los requisitos.
+    public function addRequest($requestId){
+
+        //Para cada una de las tuplas en la tabla de requisitos haga lo siguiente.
+        foreach ($requirements as $requirement){
+
+            //Tome el valor de su llave.
+            $requirementNumber = $requirement->get($id);
+            
+            /* Llame al un procedimiento almacenado que relacionará
+               al id de la solicitud con el del requerimiento. */
+            $this->query('CALL requirement_association("'.$requirementNumber.'","'.$requestId.'");');
+        
+        }
+
     }
 }
