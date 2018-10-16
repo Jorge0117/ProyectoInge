@@ -5,26 +5,14 @@
  */
 ?>
 <style>
-    .btn-revoke{
-        background-color: #015b96ff;
-        border: none;
-        color:#fff;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        float: right; 
-        position:relative;
-    }
-    .btn-revoke:hover{
-        color: #fff;
-    }
+
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'btn btn-revoke']) ?>
+<?= $this->Html->link(
+    'Agregar requisito',
+    ['controller'=>'Requirements','action'=>'add'],
+    ['class'=>'btn btn-primary float-right btn-space']
+)?>
 <div class="courses index large-9 medium-8 columns content">
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
@@ -32,7 +20,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
-                <th scope="col" class="actions"><?= __('Opciones') ?></th>
+                <th scope="col" class="actions"><?= __(' ') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -41,16 +29,16 @@
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                     <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',
+                        '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
                         [
                             'action' => 'delete', 
                             $requirement->requirement_number
                         ], 
                         [
                             'escape' => false,
-                            'confirm' => __('Desea eliminar el requisito: {0}?',
+                            'confirm' => __('Está seguro que desea eliminar el requisito: {0}?',
                             $requirement->description)
                         ]
                     ) ?>
