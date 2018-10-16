@@ -153,84 +153,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div id="OverviewText3"> 
       <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
-<<<<<<< Updated upstream
-</h1> -->
-
-    
-    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between bg-ecci-blue">
-      <a class="navbar-brand">
-        <?= $this->Html->image('logoUcr.png', ['style' => 'width:100px'])?>
-      </a>
-      <span class="navbar-text">
-        <h2 class="ecci-title">Sistema de control de asistencias</h2>
-      </span>
-      <div style='width:100px'>
-        <?= $this->Html->image('userIcon.png', ['class' => 'ml-1','style' => 'width:50px'])?>
-      </div>
-    </nav>
-
-    <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
-      <a class="navbar-brand">
-        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
-      </a>
-
-      <div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#modulesList" aria-controls="modulesList" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="modulesList">
-          <ul class="nav navbar-nav">
-            
-            <li class="nav-item"><h5><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
-            
-            <li class="nav-item"><h5><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
-
-            <li class="nav-item"><h5><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
-
-            <li class="nav-item dropdown"><h5>
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownReq" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Requisitos
-              </a>
-              <div class="dropdown-menu" aria-labeledby="dropdownReq">
-                <?= $this->Html->link('Listar',['controller'=>'Requirements','action'=>'index'],['class'=>'dropdown-item'] ) ?>
-                <?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'dropdown-item'] ) ?>
-              </div>
-            </h5></li>
-
-            <li class="nav-item"><h5><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
-
-            <li class="nav-item dropdown"><h5>
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Usuarios
-              </a>
-              <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
-                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
-                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
-              <div>
-            </h5></li>
-
-            <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
-          
-          </ul>
-        </div>
-      </div>
-
-      <div style="width:200px">
-      </div>
-    </nav>
-
-
-    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
-      <span class="navbar-text"> </span>
-    </nav>
-
-    <?= $this->Flash->render() ?>
-
-    <div class="container pt-5">
-      <?= $this->fetch('content') ?>
-    </div>
-
-=======
 </h1>
     <div id="header">
 			<ul class="nav">
@@ -249,7 +171,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 				</li>
 				<li><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
+						<li><?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?>
+            <li><?= $this->Html->link('Indice',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
         </li>
         <li><?= $this->Html->link('Ronda',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
@@ -282,7 +205,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </div>
             </div>
     </main>
->>>>>>> Stashed changes
     <footer>
     </footer>
 
