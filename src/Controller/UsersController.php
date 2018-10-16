@@ -13,6 +13,7 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+
     public function initialize(){
         parent::initialize();
         $this->Auth->allow('register');
@@ -57,7 +58,7 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
 
         $s_username = $session->read('NEW_USER');
-        debug($s_username);
+        // debug($s_username);
         if (!$session->check('NEW_USER') || $s_username != $username) {
             return $this->redirect('/');
         }
@@ -70,8 +71,8 @@ class UsersController extends AppController
         } elseif ($this->request->is('post')) {
             if (isset($this->request->data['cancel'])) {
                 //return $this->redirect( array( 'action' => 'index' ));
-            }
-            // Obtener los datos del Form y agregar el username
+                }
+            // Obtener los datos del Form y agregar el username     
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
 
@@ -172,6 +173,9 @@ class UsersController extends AppController
     public function edit($id = null)
     {   
         $Students = new StudentsController;
+        $AdministrativeBoss = new AdministrativeBossController;
+        $AdministrativeAssistant = new AdministrativeAssistant;
+
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -181,7 +185,10 @@ class UsersController extends AppController
             }
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $Students->edit($user);
+                if($user->isDirty('role_id')){
+                    //modifico el rol
+                    
+                }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -189,8 +196,6 @@ class UsersController extends AppController
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles'));
-
-        //on update cascade en la base de datos para los tipos de usuarios que no son estudiantes
     }
 
     /**
@@ -213,6 +218,16 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    public function getId ($name, $lastname) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getId($name, $lastname);
+    }
+
+    public function getProfessors() {
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getProfessors();
+    }
 
 
 }

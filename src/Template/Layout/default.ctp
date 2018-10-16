@@ -12,7 +12,6 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 <!DOCTYPE html>
@@ -145,34 +144,31 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <?= $this->Html->image('logoEcci.png') ?>
     </div>
     <div id="OverviewText3"> 
-      <!-- <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/> -->
-      <?= $this->Html->image('userIcon.png', ['align' => 'right']) ?>
+      <img src="https://cdn.onlinewebfonts.com/svg/img_264570.png" align="right"/>
     </div>
 </h1>
     <div id="header">
 			<ul class="nav">
         <li>
-          <?= $this->Html->link('Inicio',['controller'=>'Main','action'=>'index'],['class'=>'nav-link']) ?>
+          <?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
-				<li><?= $this->Html->link('Solicitudes',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+				<!--<li><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?></li>
 					</ul>
 				</li>
-				<li><?= $this->Html->link('Curso-grupo',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+        -->
+				<li><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?>
 					<ul>
 						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
 					</ul>
 				</li>
-				<li><?= $this->Html->link('Requisitos',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+				<li><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
+						<li><?= $this->Html->link('Agregar requisito',['controller'=>'Requirements','action'=>'add'],['class'=>'nav-link']) ?>
 					</ul>
         </li>
-        <li><?= $this->Html->link('Ronda',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
-          <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
-					</ul>
+        <li><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?>
         </li>
         <li><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?>
           <ul>
@@ -180,17 +176,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 					</ul>
         </li>
         <li><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?>
-          <ul>
-						<li><?= $this->Html->link('Sub',['controller'=>'Enrollments','action'=>'index'],['class'=>'nav-link']) ?>
-					</ul>
+          
         </li>
 			</ul>
 		</div>
-  <h2 class="text2 backg2"><font size="6"><?php echo $this->fetch('title'); ?></font></h2>
+  <h2 class="text2 backg2"><font size="6"></font></h2>
   <main role="main" class="col-md-9 ml-sm-auto col-lg-12 px-4 pt-5">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <!-- Linea que permite mostrar los msjs generados -->
-                <?= $this->Flash->render() ?>
+               
 
                 <!-- Div que encapsula las vistas de los módulos-->
                 <div class="container clearfix">

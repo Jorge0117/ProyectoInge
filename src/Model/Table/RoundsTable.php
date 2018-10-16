@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Rounds Model
@@ -32,8 +33,8 @@ class RoundsTable extends Table
         parent::initialize($config);
 
         $this->setTable('rounds');
-        $this->setDisplayField('semester');
-        $this->setPrimaryKey(['semester', 'number', 'year']);
+        $this->setDisplayField('start_date');
+        $this->setPrimaryKey('start_date');
     }
 
     /**
@@ -45,48 +46,46 @@ class RoundsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('number')
-            ->allowEmpty('number', 'create');
+            ->date('start_date')
+            ->allowEmpty('start_date', 'create');
 
         $validator
-            ->integer('semester')
-            ->allowEmpty('semester', 'create');
+            ->scalar('round_number')
+            ->requirePresence('round_number', 'create')
+            ->notEmpty('round_number');
 
         $validator
-            ->integer('year')
-            ->allowEmpty('year', 'create');
+            ->scalar('semester')
+            ->requirePresence('semester', 'create')
+            ->notEmpty('semester');
 
         $validator
-            ->dateTime('start_date')
-            ->requirePresence('start_date', 'create')
-            ->notEmpty('start_date');
+            ->scalar('year')
+            ->requirePresence('year', 'create')
+            ->notEmpty('year');
 
         $validator
-            ->dateTime('end_date')
+            ->date('end_date')
             ->requirePresence('end_date', 'create')
             ->notEmpty('end_date');
-
-        $validator
-            ->dateTime('approve_limit_date')
-            ->requirePresence('approve_limit_date', 'create')
-            ->notEmpty('approve_limit_date');
 
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['approve_limit_date']));
-        $rules->add($rules->isUnique(['start_date']));
-        $rules->add($rules->isUnique(['end_date']));
+    public function insertRound($start_d,$end_d){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call insert_round ('$start_d','$end_d')");
+    }
 
-        return $rules;
+    public function getLastRow() {
+        $connect = ConnectionManager::get('default');
+        $id = $connect->execute("select * from rounds where start_date = (select MAX(start_date) from rounds)") ->fetchAll();
+        return $id[0];
+    }
+    
+    public function getLastEndDate() {
+        $connect = ConnectionManager::get('default');
+        $id = $connect->execute("select MAX(end_date) as end_date from rounds") ->fetchAll();
+        return $id[0][0];
     }
 }
