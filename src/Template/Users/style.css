@@ -5,3 +5,10 @@ h2{
     display: block;
     width: 100%;
 }
+
+.btn-aceptar{
+    background-color: #ceb92bff;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+}

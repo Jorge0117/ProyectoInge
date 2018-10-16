@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Rounds Model
@@ -32,8 +33,8 @@ class RoundsTable extends Table
         parent::initialize($config);
 
         $this->setTable('rounds');
-        $this->setDisplayField('semester');
-        $this->setPrimaryKey(['semester', 'number', 'year']);
+        $this->setDisplayField('start_date');
+        $this->setPrimaryKey('start_date');
     }
 
     /**
@@ -45,48 +46,65 @@ class RoundsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('number')
-            ->allowEmpty('number', 'create');
-
-        $validator
-            ->integer('semester')
-            ->allowEmpty('semester', 'create');
-
-        $validator
-            ->integer('year')
-            ->allowEmpty('year', 'create');
-
-        $validator
-            ->dateTime('start_date')
+            ->date('start_date')
             ->requirePresence('start_date', 'create')
             ->notEmpty('start_date');
 
         $validator
-            ->dateTime('end_date')
+            ->scalar('round_number')
+            ->requirePresence('round_number', 'create')
+            ->notEmpty('round_number');
+
+        $validator
+            ->scalar('semester')
+            ->requirePresence('semester', 'create')
+            ->notEmpty('semester');
+
+        $validator
+            ->scalar('year')
+            ->requirePresence('year', 'create')
+            ->notEmpty('year');
+
+        $validator
+            ->date('end_date')
             ->requirePresence('end_date', 'create')
             ->notEmpty('end_date');
 
-        $validator
-            ->dateTime('approve_limit_date')
-            ->requirePresence('approve_limit_date', 'create')
-            ->notEmpty('approve_limit_date');
-
         return $validator;
     }
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['approve_limit_date']));
-        $rules->add($rules->isUnique(['start_date']));
-        $rules->add($rules->isUnique(['end_date']));
-
-        return $rules;
+    // inserta la ronda correspondiente a la tabla ronda.
+    public function insertRound($start_d,$end_d){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call insert_round ('$start_d','$end_d')");
     }
+    // edita la ronda correspondiente.
+    public function editRound($start_d,$end_d,$old_start_d){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call update_round ('$start_d','$end_d', $old_start_d)");
+    }
+    // obtiene la ultima tupla ingresada.
+    public function getLastRow(){
+        $connet = ConnectionManager::get('default');
+        $last = $connet->execute("select * from rounds where start_date = (select MAX(start_date) from rounds)")->fetchAll();
+        if($last != null){
+            return $last[0];
+        }
+        return null;
+    }
+
+    // obtiene el día actial.
+    public function getToday(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select now()")->fetchAll();
+        return $query[0][0];
+    }
+
+    // permite averiguar si el día actual se encuentra entre el periodo de inicio y fin. 
+    public function between(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select now() > (select MAX(start_date) from rounds) AND now() < (select MAX(end_date) from rounds)")->fetchAll();
+        return $query[0][0];
+    }
+
+
 }
