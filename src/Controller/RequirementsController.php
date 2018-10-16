@@ -55,9 +55,9 @@ class RequirementsController extends AppController
             if ($this->Requirements->save($requirement)) {
 
                 $this->redirect(['action' => 'index']);
-                return $this->Flash->success(__('Se agregó el requisito con exito.'));
+                return $this->Flash->success(__('Se agregó el requisito correctamente.'));
             }
-            $this->Flash->error(__('No se pudo agregar el requisito con éxito'));
+            $this->Flash->error(__('No se logró agregar el requisito'));
         }
         $this->set(compact('requirement'));
     }
@@ -79,10 +79,10 @@ class RequirementsController extends AppController
             if ($this->Requirements->save($requirement)) {
 
                 $this->redirect(['action' => 'index']);
-                return $this->Flash->success(__('Se modificó el requisito con exito.'));
+                return $this->Flash->success(__('Se modificó el requisito correctamente.'));
             }
             $this->redirect(['action' => 'index']);
-            $this->Flash->error(__('No se pudo editar el requisito'));
+            $this->Flash->error(__('No se logró editar el requisito'));
         }
         $this->set(compact('requirement'));
     }
@@ -117,10 +117,10 @@ class RequirementsController extends AppController
         //------------------------------------------------
         if($result){
             $this->redirect(['action' => 'index']);
-            return $this->Flash->success(__('Se eliminó el requisito con exito.'));
+            return $this->Flash->success(__('Se eliminó el requisito correctamente.'));
         }
         $this->redirect(['action' => 'index']);
-        $this->Flash->error(__('No se pudo eliminar el requisito'));
+        $this->Flash->error(__('No se logró eliminar el requisito'));
     }
 
     public function checkDate(){
