@@ -85,6 +85,9 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $this->Security->requireSecure();
 
+        $current_user = $this->Auth->user();
+        $this->set('current_user', $current_user);
+
     }
 
     public function forceSSL($error = '', SecurityException $exception = null)

@@ -54,8 +54,8 @@ class MyLdapAuthenticate extends BaseAuthenticate
             return false;
         }
         
-        $username = $request->data['username'];
-        $password = $request->data['password'];
+        $username = $request->getData('username');
+        $password = $request->getData('password');
 
         //debug($username);
         //debug(substr($password, 0, 1) . str_repeat('*', strlen($password)-1));
