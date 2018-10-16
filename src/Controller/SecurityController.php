@@ -46,6 +46,7 @@ class SecurityController extends AppController
                     return $this->redirect($this->Auth->redirectUrl());
                 }
             } else {
+                $this->Flash->error('Credenciales inválidos.');
                 // debug("No se logro autenticar");
             }
 
