@@ -54,7 +54,9 @@ class UsersTable extends Table
             'foreignKey' => 'user_id'
         ]);
         $this->hasMany('Professors', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
+            'dependent'  => true,
+            'cascadeCallbacks' => true
         ]);
         $this->hasMany('Students', [
             'foreignKey' => 'user_id'
@@ -73,6 +75,15 @@ class UsersTable extends Table
             ->scalar('identification_number')
             ->maxLength('identification_number', 20)
             ->notEmpty('identification_number');
+        
+        $validator->add(
+            'identification_number', 
+                ['unique' => [
+                    'rule' => 'validateUnique', 
+                    'provider' => 'table', 
+                    'message' => 'Not unique']
+                ]
+        );
 
         $validator
             ->scalar('name')
@@ -125,5 +136,20 @@ class UsersTable extends Table
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
+    }
+
+    public function getId ($name, $lastname) {
+        $connect = ConnectionManager::get('default');
+
+        $id = $connect->execute("select identification_number from users where name = '$name' and lastname1 = '$lastname'") ->fetchAll();
+        return $id[0][0];
+    }
+
+    public function getProfessors() {
+        $connect = ConnectionManager::get('default');
+
+        $prof = $connect->execute("select CONCAT(name, \" \", lastname1) from users where role_id = 'Profesor'") ->fetchAll();
+        $prof = array_column($prof, 0);
+        return $prof;
     }
 }
