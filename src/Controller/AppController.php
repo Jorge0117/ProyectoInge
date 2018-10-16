@@ -97,10 +97,7 @@ class AppController extends Controller
     }
 
     /**
-     * User´s authorization function
-     * 
-     * Returns true if an user is allowed to do something in the application if they have the permission. 
-     * Otherwise, returns false 
+     *  Retorna true si el usuario esta autrorizado a realizar la $action en $module, si no, retorna falso. 
      *
      * @param array $user Current user logged information
      * @return boolean

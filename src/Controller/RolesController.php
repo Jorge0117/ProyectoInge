@@ -184,9 +184,8 @@ class RolesController extends AppController
     }
 
     /**
-     * Returns true if an user is allowed to do the $action in the application if they have the permission. 
-     * Otherwise, returns false 
-     *
+     * Retorna true si el usuario esta autrorizado a realizar la $action en $module, si no, retorna falso.
+     * 
      * @param String $role Rol que efectuara la acción
      * @param String $module Modulo donde se efectuara la acción
      * @param String $action La acción a efectuarse
