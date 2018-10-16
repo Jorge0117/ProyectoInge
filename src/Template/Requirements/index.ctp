@@ -4,39 +4,28 @@
  * @var \App\Model\Entity\Requirement[]|\Cake\Collection\CollectionInterface $requirements
  */
 ?>
-<style>
-    .btn-revoke{
-        background-color: #015b96ff;
-        border: none;
-        color:#fff;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        float: right; 
-        position:relative;
-    }
-    .btn-revoke:hover{
-        color: #fff;
-    }
-</style>
+
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
-    'Agregar requisito',
-    ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
-    ['class'=>'btn btn-primary float-right btn-space']
-)?>
+
 <div class="courses index large-9 medium-8 columns content">
+    <?php if($show == 0): ?>
+            <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
+            'Agregar requisito',
+            ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
+            ['class'=>'btn btn-primary float-right btn-space']
+        )?>
+    <?php endif; ?>
+    
     <h3><?= __('Requisitos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'>
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
-                <th scope="col" class="actions"><?= __(' ') ?></th>
+                
+                <?php if($show == 0): ?>
+                    <th scope="col" class="actions"><?= __(' ') ?></th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -44,21 +33,25 @@
             <tr>
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
+
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
-                    <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
-                        [
-                            'action' => 'delete', 
-                            $requirement->requirement_number
-                        ], 
-                        [
-                            'escape' => false,
-                            'confirm' => __('Desea eliminar el requisito: {0}?',
-                            $requirement->description)
-                        ]
-                    ) ?>
+                    <?php if($show == 0): ?>
+                        <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
+                        <?= $this->Form->postLink(
+                            '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
+                            [
+                                'action' => 'delete',
+                                $requirement->requirement_number
+                            ], 
+                            [
+                                'escape' => false,
+                                'confirm' => __('Desea eliminar el requisito: {0}?',
+                                $requirement->description)
+                            ]
+                        ) ?>
+                    <?php endif; ?>
                 </td>
+
             </tr>
             <?php endforeach; ?>
         </tbody>

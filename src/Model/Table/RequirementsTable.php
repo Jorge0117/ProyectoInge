@@ -43,7 +43,7 @@ class RequirementsTable extends Table
         ]);
     }
 
-    public function deleteClass($requirement_number)
+    public function deleteRequirement($requirement_number)
     {
         //------------------------------------------------
         $result = true;
