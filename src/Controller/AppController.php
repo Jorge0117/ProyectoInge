@@ -83,6 +83,7 @@ class AppController extends Controller
         $this->Security->requireSecure();
 
     }
+
     public function forceSSL($error = '', SecurityException $exception = null)
     {
         // debug($error);
@@ -95,11 +96,22 @@ class AppController extends Controller
         throw $exception;
     }
 
+    /**
+     * User´s authorization function
+     * 
+     * Returns true if an user is allowed to do something in the application if they have the permission. 
+     * Otherwise, returns false 
+     *
+     * @param array $user Current user logged information
+     * @return boolean
+     */
     public function isAuthorized($user)
     {
         $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
-        return true;//$role_c->is_Authorized($user['role_id'], $module, $action);
+        //echo($action);
+        //echo($module);
+        return $role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }
