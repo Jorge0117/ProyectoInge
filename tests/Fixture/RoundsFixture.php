@@ -17,17 +17,13 @@ class RoundsFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'number' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'semester' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'year' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'start_date' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'end_date' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'approve_limit_date' => ['type' => 'datetime', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'start_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'round_number' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'semester' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'year' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
+        'end_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         '_constraints' => [
-            'primary' => ['type' => 'primary', 'columns' => ['semester', 'number', 'year'], 'length' => []],
-            'approve_limit_date_UNIQUE' => ['type' => 'unique', 'columns' => ['approve_limit_date'], 'length' => []],
-            'start_date_UNIQUE' => ['type' => 'unique', 'columns' => ['start_date'], 'length' => []],
-            'end_date_UNIQUE' => ['type' => 'unique', 'columns' => ['end_date'], 'length' => []],
+            'primary' => ['type' => 'primary', 'columns' => ['start_date'], 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -45,12 +41,11 @@ class RoundsFixture extends TestFixture
     {
         $this->records = [
             [
-                'number' => 1,
-                'semester' => 1,
-                'year' => 1,
-                'start_date' => '2018-10-03 14:55:58',
-                'end_date' => '2018-10-03 14:55:58',
-                'approve_limit_date' => '2018-10-03 14:55:58'
+                'start_date' => '2018-10-09',
+                'round_number' => 'Lorem ipsum dolor sit amet',
+                'semester' => 'Lorem ipsum dolor sit amet',
+                'year' => 'Lorem ipsum dolor sit amet',
+                'end_date' => '2018-10-09'
             ],
         ];
         parent::init();
