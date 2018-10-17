@@ -43,8 +43,8 @@
             echo $this->Form->control(
                 'Curso',
                 [
-                    'default' => $course_name,
-                    'options' => $courses
+                    'options' => $courses,
+                    'default' => $course_name
                 ]
             );
             echo $this->Form->control(
