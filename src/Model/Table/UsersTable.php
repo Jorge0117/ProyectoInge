@@ -118,7 +118,7 @@ class UsersTable extends Table
         $validator
             ->scalar('phone')
             ->maxLength('phone', 12)
-            ->allowEmpty('phone');
+            ->notEmpty('phone');
 
         return $validator;
     }
