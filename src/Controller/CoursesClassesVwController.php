@@ -29,9 +29,9 @@ class CoursesClassesVwController extends AppController
      */
     public function index()
     {
-        $coursesClassesVw = $this->paginate(
-            $this->CoursesClassesVw->find()->toArray
-        );
+        $table = $this->loadmodel('CoursesClassesVw');
+
+        $coursesClassesVw = $table->find();
 
         $this->set(compact('coursesClassesVw'));
     }
