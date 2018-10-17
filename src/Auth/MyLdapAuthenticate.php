@@ -6,9 +6,16 @@ use Cake\Auth\BaseAuthenticate;
 use Cake\Http\ServerRequest;
 use Cake\Http\Response;
 
+
+/**
+ * Esta clase maneja la lógica de la autenticación con
+ * Active Directory por medio de LDAP.
+ */
 class MyLdapAuthenticate extends BaseAuthenticate
 {
-
+    /**
+     * Verifica que se hayan llenado los campos requeridos para la autenticación.
+     */
     protected function _checkFields(ServerRequest $request, array $fields)
     {
         foreach ([$fields['username'], $fields['password']] as $field) {
@@ -20,6 +27,9 @@ class MyLdapAuthenticate extends BaseAuthenticate
         return true;
     }
 
+    /**
+     * Busca un usuario en la tabla users por su nombre de usuario.
+     */
     protected function findUser($username)
     {
         $result = $this->_query($username)->first();
@@ -33,6 +43,9 @@ class MyLdapAuthenticate extends BaseAuthenticate
     }
 
 
+    /**
+     * Determina si los datos suministrados autentican correctamente a un usuario.
+     */
     public function authenticate(ServerRequest $request, Response $response)
     {
 
@@ -41,8 +54,8 @@ class MyLdapAuthenticate extends BaseAuthenticate
             return false;
         }
         
-        $username = $request->data['username'];
-        $password = $request->data['password'];
+        $username = $request->getData('username');
+        $password = $request->getData('password');
 
         //debug($username);
         //debug(substr($password, 0, 1) . str_repeat('*', strlen($password)-1));

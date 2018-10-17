@@ -255,8 +255,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '22',
-            'username' => 'nathan',
-            'password' => 'hynp9LJQ0sucAlwm',
+            'username' => 'valeria',
+            'password' => 'valeria123',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
@@ -382,5 +382,6 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout' => 10
     ],
 ];

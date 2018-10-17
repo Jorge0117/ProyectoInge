@@ -13,16 +13,16 @@ use App\Controller\AppController;
 class RolesController extends AppController
 {
 
-    public $permissions_id_matrix = [['Requests-add', 'CU-AG', 'Requirements-add', 'Rounds-add', 'Users-add'], // 'RO-AG'],
-                                     ['Requests-edit', 'CU-MO', 'Requirements-edit', 'Rounds-edit', 'Users-edit'], // 'RO-MO'],
-                                     ['Requests-delete', 'CU-EL', 'Requirements-delete', 'Rounds-delete', 'Users-delete'], // 'RO-EL'],
-                                     ['Requests-view', 'CU-CO', 'Requirements-view', 'Rounds-view', 'Users-view'], //, 'RO-CO']];
-                                     ['Requests-index','CU-index','Requirements-index','Rounds-index','Users-index']]; 
+    public $permissions_id_matrix = [['Requests-add', 'CoursesClassesVw-add', 'Requirements-add', 'Rounds-add', 'Users-add'], // 'RO-AG'],
+                                     ['Requests-edit', 'CoursesClassesVw-edit', 'Requirements-edit', 'Rounds-edit', 'Users-edit'], // 'RO-MO'],
+                                     ['Requests-delete', 'CoursesClassesVw-delete', 'Requirements-delete', 'Rounds-delete', 'Users-delete'], // 'RO-EL'],
+                                     ['Requests-view', 'CoursesClassesVw-view', 'Requirements-view', 'Rounds-view', 'Users-view'], //, 'RO-CO']];
+                                     ['Requests-index','CoursesClassesVw-index','Requirements-index','Rounds-index','Users-index']]; 
 
     public $permission_types = ['Agregar', 'Modificar', 'Eliminar', 'Consultar', 'Listar'];
 
     /**
-     * Index method
+     * Index method.
      *
      * @return \Cake\Http\Response|void
      */
@@ -101,6 +101,11 @@ class RolesController extends AppController
         $this->set(compact('professor_permissions_matrix'));
     }
 
+    /**
+     * Agrega o borra los permisos seleccionados del rol seleccionado en la vista. 
+     *
+     * @return void
+     */
     public function updatePermissions()
     {
         $n_permission_types = count($this->permission_types);
@@ -178,6 +183,14 @@ class RolesController extends AppController
         return $this->redirect('/roles/index');
     }
 
+    /**
+     * Retorna true si el usuario esta autrorizado a realizar la $action en $module, si no, retorna falso.
+     * 
+     * @param String $role Rol que efectuara la acción
+     * @param String $module Modulo donde se efectuara la acción
+     * @param String $action La acción a efectuarse
+     * @return boolean
+     */
     public function is_Authorized($role, $module, $action){
         $role_permissions = [];
         $this->loadModel('PermissionsRoles');
