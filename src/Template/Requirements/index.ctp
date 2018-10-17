@@ -33,9 +33,8 @@
             <tr>
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
-
-                <td class="actions">
-                    <?php if($show == 0): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
+            <?php if($show == 0): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
+                <td class="actions"> 
                         <!--ícono de lápiz que envía a la vista de editar requisito-->
                         <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                         <?= $this->Form->postLink( //Ícono de basurero que elimina un requisito
@@ -50,9 +49,8 @@
                                 $requirement->description)
                             ]
                         ) ?>
-                    <?php endif; ?>
                 </td>
-
+            <?php endif; ?>
             </tr>
             <?php endforeach; ?>
         </tbody>
