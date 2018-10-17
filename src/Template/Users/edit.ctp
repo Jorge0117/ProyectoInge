@@ -43,10 +43,6 @@
         margin: 2%;
     }
 
-    #show_rol{
-        display: none;
-    }
-
 </style>
 
 
@@ -54,14 +50,14 @@
     <?= $this->Form->create($user,array(
                 'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
     
-    <?php echo $mostrar; 
+    <?php /*echo $mostrar; 
         if($mostrar == 0){
             ?>
             <style type="text/css">#show_rol{
             display: none;
             }</style>
             <?php
-        }
+        }*/
     ?>
 
     <fieldset>
