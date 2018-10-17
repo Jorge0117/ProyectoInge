@@ -43,6 +43,10 @@
         margin: 2%;
     }
 
+    #show_rol{
+        display: none;
+    }
+
 </style>
 
 
@@ -64,6 +68,7 @@
         <div class="form-section">
             <legend><?= __('Datos personales') ?></legend>
             <?php
+                //Espacios para modificar datos personales del usuario
                 echo $this->Form->control('identification_number',['type'=>'text']);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
@@ -77,6 +82,7 @@
         <div class="form-section" id = "show_rol">
             <legend><?= __('Datos de seguridad') ?></legend>
             <?php
+                //espacio para modificar rol del usuario, solamente puede verlo el administrador
                 echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
             ?>
         </div>
