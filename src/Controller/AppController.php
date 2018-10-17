@@ -15,6 +15,8 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Controller\Exception\SecurityException;
+use Cake\Routing\Router;
 use Cake\Event\Event;
 
 /**
@@ -44,12 +46,75 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+        
         $this->loadComponent('Flash');
+        
+        // $this->loadComponent('Security');
+        $this->loadComponent('Auth',[
+            'authorize' => ['Controller'],
+            'authenticate' => ['MyLdap'],
+            'loginAction' => [
+                'controller' => 'Security',
+                'action' => 'login',
+            ],
+            'authError' => 'Ingrese al sistema',
+            'flash' => [
+                'element' => 'error'
+            ],
+            'loginRedirect' => [
+                'controller' => 'Mainpage',
+                'action' => 'index',
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Security',
+                'action' => 'login'
+            ],
+            'storage' => 'Session'
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-        //$this->loadComponent('Security');
+        $this->loadComponent('Security', ['blackHoleCallback' => 'forceSSL']);
+
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Security->requireSecure();
+
+        $current_user = $this->Auth->user();
+        $this->set('current_user', $current_user);
+
+    }
+
+    public function forceSSL($error = '', SecurityException $exception = null)
+    {
+        // debug($error);
+        // debug($exception);
+        // die();
+        if ($exception instanceof SecurityException && $exception->getType() === 'secure') {
+            return $this->redirect('https://' . env('SERVER_NAME') . Router::url($this->request->getRequestTarget()));
+        }
+
+        throw $exception;
+    }
+
+    /**
+     *  Retorna true si el usuario esta autrorizado a realizar la $action en $module, si no, retorna falso. 
+     *
+     * @param array $user Current user logged information
+     * @return boolean
+     */
+    public function isAuthorized($user)
+    {
+        $role_c = new RolesController;
+        $action =$this->request->getParam('action');
+        $module = $this->request->getParam('controller');
+        //echo($action);
+        //echo($module);
+        return $role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }

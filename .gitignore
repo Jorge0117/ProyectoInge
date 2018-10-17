@@ -36,3 +36,7 @@ nbproject/*
 .sass-cache/
 
 tmp/
+
+logs/*
+
+logs/
