@@ -14,7 +14,7 @@ class ClassesController extends AppController
 {
 
     /**
-     * Index method
+     * Index method, THIS IS NEVER USED.
      *
      * @return \Cake\Http\Response|void
      */
@@ -29,7 +29,7 @@ class ClassesController extends AppController
     }
 
     /**
-     * Add method
+     * Add method.
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -73,7 +73,7 @@ class ClassesController extends AppController
     }
 
     /**
-     * Edit method
+     * Edit method, THIS IS NEVER USED.
      *
      * @param string|null $id Class id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -99,7 +99,7 @@ class ClassesController extends AppController
     }
 
     /**
-     * Delete method
+     * Delete method, edited by Joseph Rementería.
      *
      * @param string|null $id Class id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -142,13 +142,39 @@ class ClassesController extends AppController
         return $result;
     }
 
-
-    public function update($code, $class_number, $semester, $year,$new_code, $new_class_number, $new_semester, $new_year, $new_user_id)
+    /**
+     * Update the given key with the given params
+     * params:
+     *      $code               = part of the primary key, 
+     *      $class_number       = part of the primary key, 
+     *      $semester           = part of the primary key, 
+     *      $year               = part of the primary key,
+     * 
+     *      $new_code           = the new value, 
+     *      $new_class_number   = the new value, 
+     *      $new_semester       = the new value, 
+     *      $new_year           = the new value, 
+     *      $new_user_id        = the new value
+     */
+    public function update(
+        $code               = null, 
+        $class_number       = null, 
+        $semester           = null, 
+        $year               = null, 
+        $new_code           = null, 
+        $new_class_number   = null, 
+        $new_semester       = null, 
+        $new_year           = null, 
+        $new_user_id        = null
+    )
     {
+        //------------------------------------------------
+        // Upodate a class with the given params
         $result = false;
-
+        //------------------------------------------------
         $classesModel = $this->loadmodel('Classes');
-
+        debug($new_code);
+        //------------------------------------------------
         $result = $classesModel->updateClass(
             $code, 
             $class_number,
@@ -160,5 +186,6 @@ class ClassesController extends AppController
             $new_year,
             $new_user_id
         );
+        //------------------------------------------------
     }
 }

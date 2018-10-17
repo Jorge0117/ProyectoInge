@@ -69,10 +69,7 @@ class UsersController extends AppController
 
         // Caso en que se recibio el form
         } elseif ($this->request->is('post')) {
-            if (isset($this->request->data['cancel'])) {
-                //regresa a sign in si presiona cancelar
-                return $this->redirect(['controller' => 'Security', 'action' => 'login']);
-            }
+
             // Obtener los datos del Form y agregar el username     
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
