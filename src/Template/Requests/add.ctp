@@ -38,6 +38,7 @@
 <script>
 	function updateClass() //Se encarga de actualizar dinamicamente el select de clases
 	{
+
 		selClass = document.getElementById("class-number");
 		selCourse = document.getElementById("course-id");
 		a1 = document.getElementById("a1");
@@ -60,7 +61,8 @@
 		selClass.options.add(tmp2,0);
 		tmp2 = document.createElement("option");
 		tmp2.text = "BORRAR";
-
+		
+		var course_array = [];
 		
 		for(c = 0;  c < courses.length; c = c + 1) // Recorre los cursos
 		{
@@ -71,7 +73,9 @@
 				tmp.text = a1.options[c+1].text;
 				selClass.options.add(tmp,i);
 				i = i + 1;
+				
 			}
+
 		}
 		
 		//selClass.options = [1,2,3];
@@ -80,6 +84,34 @@
 			txtNombre.value = document.getElementById("a3").options[selCourse.selectedIndex-1].text;
 		else
 			txtNombre.value = "";
+		
+		
+		var x = document.getElementById("course-id").options;
+		l = x.length;
+		s = x.selectedIndex;
+		
+		if(x[0].value == "0") //Realiza el cambio
+		{
+			//selCourse = document.getElementById("course-id");
+			var cursos = [];
+			for(i = 0; i < l; ++i)
+			{
+				cursos.push(selCourse.options[0].text);
+				selCourse.options.remove(0);
+				
+				
+			}
+			
+			for(j = 0; j < l; ++j)
+			{
+				var tmp = document.createElement("option");
+				tmp.value = cursos[j];
+				tmp.text = cursos[j];
+				selCourse.options.add(tmp,j);
+			}
+		}
+
+		selCourse.selectedIndex = s;
 		
 
 	}
@@ -113,6 +145,7 @@
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
 	}
+
 </script>
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
     <ul class="side-nav">

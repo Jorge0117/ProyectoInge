@@ -26859,3 +26859,81 @@ Stack Trace:
 #17 {main}
 
 
+2018-10-17 15:22:32 Error: [PDOException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+Request URL: /requests/add
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Driver.php(92): PDO->__construct('mysql:host=172....', 'esteban', 'm2LijJruLnbbFkk...', Array)
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php(106): Cake\Database\Driver->_connect('mysql:host=172....', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\BaseSchema.php(45): Cake\Database\Driver\Mysql->connect()
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Dialect\MysqlDialectTrait.php(63): Cake\Database\Schema\BaseSchema->__construct(Object(Cake\Database\Driver\Mysql))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(52): Cake\Database\Driver\Mysql->schemaDialect()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(42): Cake\Database\Schema\Collection->__construct(Object(Cake\Database\Connection))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(391): Cake\Database\Schema\CachedCollection->__construct(Object(Cake\Database\Connection), true)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(547): Cake\Database\Connection->getSchemaCollection()
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Query.php(271): Cake\ORM\Table->getSchema()
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Query.php(169): Cake\ORM\Query->addDefaultTypes(Object(App\Model\Table\CoursesTable))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(1758): Cake\ORM\Query->__construct(Object(Cake\Database\Connection), Object(App\Model\Table\CoursesTable))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(1350): Cake\ORM\Table->query()
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Association.php(1079): Cake\ORM\Table->find('list', Array)
+#13 C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php(138): Cake\ORM\Association->find('list', Array)
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\RequestsController->add()
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\RequestsController))
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#29 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#30 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#31 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#32 {main}
+
+
+2018-10-17 15:22:37 Error: [PDOException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+
+Request URL: /requests/add
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Driver.php(92): PDO->__construct('mysql:host=172....', 'esteban', 'm2LijJruLnbbFkk...', Array)
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php(106): Cake\Database\Driver->_connect('mysql:host=172....', Array)
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\BaseSchema.php(45): Cake\Database\Driver\Mysql->connect()
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Dialect\MysqlDialectTrait.php(63): Cake\Database\Schema\BaseSchema->__construct(Object(Cake\Database\Driver\Mysql))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(52): Cake\Database\Driver\Mysql->schemaDialect()
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(42): Cake\Database\Schema\Collection->__construct(Object(Cake\Database\Connection))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Database\Connection.php(391): Cake\Database\Schema\CachedCollection->__construct(Object(Cake\Database\Connection), true)
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(547): Cake\Database\Connection->getSchemaCollection()
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Query.php(271): Cake\ORM\Table->getSchema()
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Query.php(169): Cake\ORM\Query->addDefaultTypes(Object(App\Model\Table\CoursesTable))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(1758): Cake\ORM\Query->__construct(Object(Cake\Database\Connection), Object(App\Model\Table\CoursesTable))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Table.php(1350): Cake\ORM\Table->query()
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\ORM\Association.php(1079): Cake\ORM\Table->find('list', Array)
+#13 C:\xampp\htdocs\ProyectoInge\src\Controller\RequestsController.php(138): Cake\ORM\Association->find('list', Array)
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Controller\Controller.php(596): App\Controller\RequestsController->add()
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(120): Cake\Controller\Controller->invokeAction()
+#16 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(94): Cake\Http\ActionDispatcher->_invoke(Object(App\Controller\RequestsController))
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#21 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#22 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#23 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(88): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#24 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#25 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#26 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#27 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#28 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#29 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#30 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#31 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#32 {main}
+
+
