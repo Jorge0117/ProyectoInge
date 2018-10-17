@@ -189,6 +189,8 @@ class ClassesTable extends Table
     {
         //------------------------------------------------
         $result = true;
+        debug($new_code);
+        //die();
         //------------------------------------------------
         // Creates a new conenction to the DBMS to execute the new query 
         $connection = ConnectionManager::get('default');
@@ -197,7 +199,7 @@ class ClassesTable extends Table
         $result = $connection->execute(
             "UPDATE classes 
             SET 
-                course_id           = '$new_course_id',
+                course_id           = '$new_code',
                 class_number        = $new_class_number,
                 semester            = $new_semester,
                 year                = $new_year,

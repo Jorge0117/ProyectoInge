@@ -29,7 +29,9 @@ class CoursesClassesVwController extends AppController
      */
     public function index()
     {
-        $coursesClassesVw = $this->paginate($this->CoursesClassesVw);
+        $coursesClassesVw = $this->paginate(
+            $this->CoursesClassesVw->find()->toArray
+        );
 
         $this->set(compact('coursesClassesVw'));
     }
@@ -104,8 +106,8 @@ class CoursesClassesVwController extends AppController
         $usersController = new UsersController;
         //------------------------------------------------
         // To fetch the options of the courses and the classes.
-        $courses = $CoursesController->Courses->find('list',['limit' => 1000]);
-        $all_classes_codes = $ClassesController->Classes->find('list',['limit' => 1000])->select('class_number');
+        $courses = $CoursesController->Courses->find('list', ['limit' => 1000]);
+        $all_classes_codes = $ClassesController->Classes->find('list', ['limit' => 1000])->select('class_number');
         //------------------------------------------------
         // This fetch the professors' names.
         // Actually, this instruction fetches a array of
@@ -114,14 +116,14 @@ class CoursesClassesVwController extends AppController
         $professors = $usersController->getProfessors();
         //------------------------------------------------
         // This send the creates the variable and its content.
-        $this->set('code',$code);
-        $this->set('class_number',$class_number);
-        $this->set('semester',$semester);
-        $this->set('year',$year);
-        $this->set('professors',$professors);
-        $this->set('courses',$courses);
-        $this->set('all_classes_codes',$all_classes_codes);
-        $this->set('course_name',$course_name);
+        $this->set('code', $code);
+        $this->set('class_number', $class_number);
+        $this->set('semester', $semester);
+        $this->set('year', $year);
+        $this->set('professors', $professors);
+        $this->set('courses', $courses);
+        $this->set('all_classes_codes', $all_classes_codes);
+        $this->set('course_name', $course_name);
         //------------------------------------------------
         // This is when the user says 'Aceptar'.
         if ($this->request->is('post')) {
@@ -142,6 +144,7 @@ class CoursesClassesVwController extends AppController
                 // And finally we "translate" the professors index into the dni
                 $prof = preg_split('/\s+/', $prof[$indexProf]);
                 $prof = $usersController->getId($prof[0], $prof[1]);
+                debug($new_course_id);
                 //------------------------------------------------
                 // Finally,we make the update.
                 $result = $ClassesController->update(
