@@ -35,4 +35,10 @@
         margin-right: 3px;
         margin-leftt: 3px;
     }
+
+    .form-size{
+        width: 70%;
+        min-width: 200px;
+        padding-left: 50px;
+    }
 </style>
