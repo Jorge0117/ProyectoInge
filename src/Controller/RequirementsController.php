@@ -21,7 +21,8 @@ class RequirementsController extends AppController
     /*Función que redireccina a la vista index*/
     public function index()
     {
-        $requirements = $this->paginate($this->Requirements);
+        $table = $this->loadModel('Requirements');
+        $requirements = $table->find();
         $this->set(compact('requirements'));
         $this->checkDate();
     }
