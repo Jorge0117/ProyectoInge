@@ -105,16 +105,7 @@
 
         
         <div class='col-md-5 mb-3' style="text-align:right">
-        <?php
-            echo $this->Form->button(
-                'Aceptar',
-                [
-                    'id' => 'AceptarBtn',
-                    'style' => 'display: none',
-                    'type' => 'submit',
-                    'class' => 'btn-primary'
-                ]);
-        ?>
+        
         </div>
     </div>
 
@@ -251,6 +242,18 @@
             ?>
         </table>
     </div>
+    <div style="text-align:right">
+        <?php
+            echo $this->Form->button(
+                'Aceptar',
+                [
+                    'id' => 'AceptarBtn',
+                    'style' => 'display: none',
+                    'type' => 'submit',
+                    'class' => 'btn-primary'
+                ]);
+        ?>
+        </div>
     <?php $this->Form->unlockField('administrator');
           $this->Form->unlockField('assistant');
           $this->Form->unlockField('student');
