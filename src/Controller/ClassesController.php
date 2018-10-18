@@ -173,6 +173,7 @@ class ClassesController extends AppController
         $result = false;
         //------------------------------------------------
         $classesModel = $this->loadmodel('Classes');
+        debug($new_code);
         //------------------------------------------------
         $result = $classesModel->updateClass(
             $code, 

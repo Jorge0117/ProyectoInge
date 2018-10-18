@@ -22,6 +22,12 @@
         </ul>
     </nav>
 -->
+<style>
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
+</style>
 <div class="courses form large-9 medium-8 columns content">
     <?= $this->Form->create() ?>
     <fieldset>
@@ -37,8 +43,8 @@
             echo $this->Form->control(
                 'Curso',
                 [
-                    'default' => $course_name,
-                    'options' => $courses
+                    'options' => $courses,
+                    'default' => $course_name
                 ]
             );
             echo $this->Form->control(
@@ -59,6 +65,11 @@
             );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Aceptar')) ?>
+    <?= $this->Html->link(
+        'Cancelar',
+        ['controller'=>'CoursesClassesVw','action'=>'index'],
+        ['class'=>'btn btn-secondary float-right btn-space']
+    )?>
+    <button type="submit" class="btn btn-primary float-right  btn-space">Aceptar</button>
     <?= $this->Form->end() ?>
 </div>

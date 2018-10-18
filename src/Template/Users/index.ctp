@@ -6,6 +6,12 @@
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
+
+ <?= $this->Html->link(
+        'Agregar usuario',
+        ['controller'=>'Users','action'=>'add'],
+        ['class'=>'btn btn-primary float-right btn-space']
+    )?>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Usuarios') ?></h3>
     <table cellpadding="0" cellspacing="0" id= datagridUsers> 

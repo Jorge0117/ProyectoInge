@@ -42,6 +42,16 @@ class AdministrativeBossesController extends AppController
     }
 
     /**
+     * Add a new professor specifying id
+     */
+    public function newAdmin($id){
+        $p = new AdministrativeBoss([
+            'user_id' => $id
+        ]);
+    }
+
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

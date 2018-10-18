@@ -58,8 +58,8 @@ th, td {
             <td><?= h($user->lastname1.''.$user->lastname2) ?></td>
           </tr>
           <tr>
-            <th >Nombre de usuario:</th>
-            <td><?= h($user->username) ?></td>
+            <th>Teléfono:</th>
+            <td><?= h($user->phone) ?></td>
           </tr>
           <tr>
             <th >Correo:</th>
@@ -72,9 +72,9 @@ th, td {
     <div class="col-md-6">
         <h2> Datos de seguridad</h2>
         <table>
-          <tr>
-            <th>Teléfono:</th>
-            <td><?= h($user->phone) ?></td>
+        <tr>
+            <th >Nombre de usuario:</th>
+            <td><?= h($user->username) ?></td>
           </tr>
           <tr>
             <th >Rol:</th>
