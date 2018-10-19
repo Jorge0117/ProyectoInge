@@ -5,6 +5,43 @@
  */
 ?>
 <head>
+<style type="text/css">
+    .btn-aceptar{
+        color: #ffffff;
+        border: none;
+        text-align: center;
+        float: right;
+    }
+
+    h3{
+        float: center;
+        display: block;
+        width: 100%;
+        line-height:1.5em;
+    }
+    
+    .form-size{
+        width: 70%;
+        min-width: 200px;
+        padding-left: 50px;
+    }
+
+    .btn-cancelar{
+        background-color: #999999;
+        color: #ffffff;
+        border: none;
+        text-align: center;
+        float: right;
+        margin-right: 5px;
+    }
+
+    .form-section{
+        background-color: #e4e4e4;
+        padding: 2%;
+        margin: 2%;
+    }
+
+</style>
     <?php  
         $urlUpdate = $this->Url->build([
             "controller" => "Roles",
@@ -14,6 +51,7 @@
 
     <script type="text/javascript">
        $(document).ready(function(){
+            $('#BtnDiv').hide();
             $("#role_select").change(function(){
                 if(document.getElementById("role_select").value == "Administrador"){
                     $("#assistant_permission_table").hide();
@@ -48,19 +86,20 @@
                     $("#student_permission_table").hide();
                     $("#professor_permission_table").hide();
                     $("#assistant_permission_table").hide();
-                    $('#AceptarBtn').hide();
+                    $('#BtnDiv').hide();
                     $('#edit_checkbox').hide();
                     $('#modificar_tag').hide();
+                    $('#edit_checkbox').prop('checked', false);
                 }
             });
 
             $("#edit_checkbox").change(function(){
                 if($("#edit_checkbox").is(":checked")){
                     $('.checkbox_perm').prop( "disabled", false );
-                    $('#AceptarBtn').show();
+                    $('#BtnDiv').show();
                 }else{
                     $('.checkbox_perm').prop( "disabled", true );
-                    $('#AceptarBtn').hide();
+                    $('#BtnDiv').hide();
                 }
             });
         });
@@ -242,18 +281,28 @@
             ?>
         </table>
     </div>
-    <div style="text-align:right">
+    <div class='row container' id='BtnDiv'>
+        <div class='col-md-9' >
+        
+        </div>
+        <div class='col-md-2 row' style="text-align:right">
+        
+        
+        <?php echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
+                                                                                'id' => 'CancelarBtn']); ?>
+        </div>
+        <div class='col-md-1 row submit' style="text-align:right">
         <?php
             echo $this->Form->button(
                 'Aceptar',
                 [
-                    'id' => 'AceptarBtn',
-                    'style' => 'display: none',
+                    'id' => 'AceptarBtn1',
                     'type' => 'submit',
-                    'class' => 'btn-primary'
+                    'class' => 'btn btn-primary btn-aceptar'
                 ]);
         ?>
         </div>
+    </div>
     <?php $this->Form->unlockField('administrator');
           $this->Form->unlockField('assistant');
           $this->Form->unlockField('student');
