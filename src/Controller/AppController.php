@@ -57,7 +57,7 @@ class AppController extends Controller
                 'controller' => 'Security',
                 'action' => 'login',
             ],
-            'authError' => 'Ingrese al sistema',
+            'authError' => 'Usted no tiene permiso de acceder a esa página',
             'flash' => [
                 'element' => 'error'
             ],
