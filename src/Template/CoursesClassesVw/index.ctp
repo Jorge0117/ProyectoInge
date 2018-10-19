@@ -66,7 +66,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Semestres') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col" class="actions"><?= __('Opciones') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -81,7 +81,7 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', // Editar
+                        '<i class="fa fa-pencil fa_custom fa-1x"></i>', // Editar
                         [
                             'action' => 'edit', 
                             $course->Sigla,
@@ -95,7 +95,7 @@
                         ]
                     ) ?>
                     <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',// Eliminar
+                        '<i class="fa fa-trash-o fa_custom fa-1x"></i>',// Eliminar
                         [
                             'action' => 'delete', 
                             $course->Sigla,

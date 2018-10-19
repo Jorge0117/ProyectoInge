@@ -92,7 +92,13 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
+    public function edit(
+        $code = null, 
+        $class_number = null, 
+        $semester = null,
+        $year = null, 
+        $course_name = null
+    )
     {
         //------------------------------------------------
         // To know whether or not the entire process went right.
