@@ -47,7 +47,7 @@
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'add'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary float-right btn-space', 'confirm' => 'Cursos-Grupo \n\n ¿Está seguro que desea eliminar el curso  {0}?']
     )?>
  <?= $this->Html->link(
         'Cargar archivo',
