@@ -254,7 +254,7 @@ return [
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
              * the following line and set the port accordingly
              */
-            'port' => '22',
+            'port' => '3306',
             'username' => 'esteban',
             'password' => 'm2LijJruLnbbFkk2',
             'database' => 'proyecto_inge',
@@ -297,7 +297,7 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => '172.16.202.55',
-            'port' => '22',
+            'port' => '3306',
             'username' => 'jorge',
             'password' => 'nGKlCZGZHn6Osxgs',
             'database' => 'proyecto_inge',

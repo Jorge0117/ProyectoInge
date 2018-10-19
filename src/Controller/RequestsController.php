@@ -166,6 +166,7 @@ public function add()
 			$i = $i + 1;
 			
 		}
+
 		$teacher = $this->Requests->getTeachers();
 		$id = $this->Requests->getID();
         $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id'));

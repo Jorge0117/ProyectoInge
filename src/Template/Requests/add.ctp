@@ -77,16 +77,19 @@
 		tmp2.text = "BORRAR";
 		
 		var course_array = [];
-		
+
 		for(c = 0;  c < courses.length; c = c + 1) // Recorre los cursos
 		{
 			//Si el curso es el mismo al curso seleccionado, manda el grupo al vector
 			if(actualCourse.localeCompare(courses[c].text) == 0)
 			{
 				var tmp = document.createElement("option");
-				tmp.text = a1.options[c+1].text;
+				if(c+1 < a1.options.length)
+				{
+				tmp.text = a1.options[c+1].text; //Prestarle atencion a esta linea
 				selClass.options.add(tmp,i);
 				i = i + 1;
+				}
 				
 			}
 
@@ -94,8 +97,13 @@
 		
 		//selClass.options = [1,2,3];
 		txtNombre = document.getElementById("nc");
+	
 		if(selCourse.selectedIndex != 0)
+		{
+			
 			txtNombre.value = document.getElementById("a3").options[selCourse.selectedIndex-1].text;
+			
+		}
 		else
 			txtNombre.value = "";
 		
