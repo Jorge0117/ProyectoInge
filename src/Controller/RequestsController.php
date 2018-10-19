@@ -169,7 +169,31 @@ public function add()
 
 		$teacher = $this->Requests->getTeachers();
 		$id = $this->Requests->getID();
-        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id'));
+		
+		//Funcionalidad extra: Agregar datos del usuario
+		
+		//Obtiene el carnet del estudiante actual.
+		$estudiante = $this->get_student_id();
+		
+		//En base al carnet del estudiante actual, se trae la tupla de usuario respectiva a ese estudiante
+		$estudiante = $this->Requests->getStudentInfo($estudiante);
+		
+		
+		//debug($estudiante);
+		
+		
+		//Las keys de los arrays deben corresponder al nombre del campo de la tabla que almacene los usuarios
+		$nombreEstudiante = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+		$correo = $estudiante[0]['email_personal'];
+		$telefono = $estudiante[0]['phone'];
+		$carnet = $estudiante[0]['carne'];
+		$cedula = $estudiante[0]['identification_number'];
+		
+		
+		//debug($nombreEstudiante);
+        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula'));
+		
+
     }
     /**
      * Edit method
@@ -232,8 +256,6 @@ public function add()
 		}
 		
 	
-		
-
 		
 		 $this->autoRender = false ;
 		 

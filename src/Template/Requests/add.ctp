@@ -199,6 +199,18 @@
 			//debug(($classes->execute())[1]);
 			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
 
+			//Implementacion del bloque que se trae todos los datos del usuario
+			
+			echo $this->Form->Label("Datos del estudiante: ");
+			
+			
+			echo $this->Form->Control('Nombre del Estudiante: ',['disabled', 'value' => $nombreEstudiante]);
+			echo $this->Form->Control('Carnet del Estudiante: ',['disabled', 'value' => $carnet]);
+			echo $this->Form->Control('Cedula: ',['disabled', 'value' => $cedula]);
+			echo $this->Form->Control('Correo Eléctronico: ',['disabled', 'value' => $correo]);
+			echo $this->Form->Control('Telefono: ',['disabled', 'value' => $telefono]);
+			
+			
             echo $this->Form->control('course_id', ['label' => 'Curso:', 'options' => $c2, 'onChange' => 'updateClass()']);
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
 			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
