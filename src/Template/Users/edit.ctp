@@ -50,15 +50,6 @@
     <?= $this->Form->create($user,array(
                 'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
     
-    <?php /*echo $mostrar; 
-        if($mostrar == 0){
-            ?>
-            <style type="text/css">#show_rol{
-            display: none;
-            }</style>
-            <?php
-        }*/
-    ?>
 
     <fieldset>
         <div class="form-section">
@@ -74,14 +65,19 @@
             ?>
         </div>
         
-
-        <div class="form-section" id = "show_rol">
-            <legend><?= __('Datos de seguridad') ?></legend>
-            <?php
+        <?php
+        if($admin == 1){
+            echo '<div class="form-section" id = "show_rol">';
+            echo '<legend><?= __("Datos de seguridad") ?></legend>';
+           
                 //espacio para modificar rol del usuario, solamente puede verlo el administrador
                 echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
-            ?>
-        </div>
+        
+            echo '</div>';
+        }
+        
+
+        ?>
         
     </fieldset>
     

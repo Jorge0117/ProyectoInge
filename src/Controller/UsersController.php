@@ -168,7 +168,6 @@ class UsersController extends AppController
         if($rol_usuario === 'Administrador'){
             $admin = 1;
         }
-        $this->set('mostar', $admin);
         
         $user = $this->Users->get($id, [
             'contain' => []
@@ -228,7 +227,7 @@ class UsersController extends AppController
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'roles', 'admin'));
     }
 
     /**
