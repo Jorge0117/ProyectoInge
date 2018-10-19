@@ -53,6 +53,7 @@ class CoursesTable extends Table
         $return = false;
         $connect = ConnectionManager::get('default');
 
+        //Verifica que no esté el curso en la tabla
         $inTable = count($connect->execute("select code from courses where code = '$courseCode'"));
 
         if ($inTable == 0) {
@@ -84,5 +85,14 @@ class CoursesTable extends Table
             ->allowEmpty('credits');
 
         return $validator;
+    }
+    
+    public function selectACourseCodeFromName($name)
+    {
+        $connection = $connection = ConnectionManager::get('default');
+        return $name;
+        // return $connection->execute(
+        //     "SELECT code FROM courses WHERE name = '$name'"
+        // );
     }
 }

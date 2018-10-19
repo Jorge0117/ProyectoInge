@@ -32,6 +32,7 @@ class ClassT extends Entity
         'state' => true,
         'professor_id' => true,
         'course' => true,
-        'professor' => true
+        'professor' => true,
+        'class_number' =>true
     ];
 }

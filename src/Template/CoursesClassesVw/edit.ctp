@@ -22,19 +22,61 @@
         </ul>
     </nav>
 -->
+<style>
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
+
+    .form-section{
+        background-color: #e4e4e4;
+        padding: 2%;
+        margin: 2%;
+    }
+</style>
 <div class="courses form large-9 medium-8 columns content">
-    <?= $this->Form->create($course) ?>
+    <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Editar Curso') ?></legend>
-        <?php
-            echo $this->Form->control('Sigla'); 
-            echo $this->Form->control('Curso');
-            echo $this->Form->control('Grupo');
-            echo $this->Form->control('Profesor');
-            echo $this->Form->control('Semestre');
-            echo $this->Form->control('Año');
-        ?>
+        <div class = "form-section">
+            <?php
+                // echo $this->Form->control(
+                //     'Sigla',
+                //     [
+                //         'default' => $code,
+                //         'options' => $all_classes_codes
+                //     ]
+                // ); 
+                echo $this->Form->control(
+                    'Curso',
+                    [
+                        'options' => $courses,
+                        'default' => $course_name
+                    ]
+                );
+                echo $this->Form->control(
+                    'Grupo',
+                    ['default' => $class_number]
+                );
+                echo $this->Form->control(
+                    'Semestre',
+                    ['default' => $semester]
+                );
+                echo $this->Form->control(
+                    'Año',
+                    ['default' => $year]
+                );
+                echo $this->Form->control(
+                    'Profesor',
+                    ['options' => $professors]
+                );
+            ?>
+        </div>
     </fieldset>
-    <?= $this->Form->button(__('Finalizar')) ?>
+    <?= $this->Html->link(
+        'Cancelar',
+        ['controller'=>'CoursesClassesVw','action'=>'index'],
+        ['class'=>'btn btn-secondary float-right btn-space']
+    )?>
+    <button type="submit" class="btn btn-primary float-right  btn-space">Aceptar</button>
     <?= $this->Form->end() ?>
 </div>

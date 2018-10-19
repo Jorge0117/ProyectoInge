@@ -92,7 +92,7 @@ class ClassesTable extends Table
     {
         $return = false;
         $connect = ConnectionManager::get('default');
-
+        //Verifica que no esté en la tabla
         $inTable = count($connect->execute("select * from classes where course_id = '$id' and class_number = '$number' and semester = '$semester' and year = '$year'"));
 
         if ($inTable == 0) {
@@ -103,10 +103,6 @@ class ClassesTable extends Table
     }
 
 
-    /**
-     * Deletes the row that match with the key given
-     * 
-     */
     public function deleteClass($code, $class_number, $semester, $year)
     {
         //------------------------------------------------
@@ -147,14 +143,73 @@ class ClassesTable extends Table
             )
             ->toArray()
         ;
-        // $result = $connection->execute(
-        //     "SELECT 
-        //     FROM classes C
-        //     WHERE   C.course_id = '$code'
-        //         AND C.semester  = $semester
-        //         AND C.year      = $year
-        //     "
-        // );
+        //------------------------------------------------
+        return $result;
+    }
+
+    public function deleteAllClasses()
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        $result = $connection->execute(
+            "DELETE FROM classes"
+        );
+        //------------------------------------------------
+        return $result;
+    }
+
+    /**
+     * Update the given key with the given params
+     * params:
+     *      $code               = part of the primary key, 
+     *      $class_number       = part of the primary key, 
+     *      $semester           = part of the primary key, 
+     *      $year               = part of the primary key,
+     * 
+     *      $new_code           = the new value, 
+     *      $new_class_number   = the new value, 
+     *      $new_semester       = the new value, 
+     *      $new_year           = the new value, 
+     *      $new_user_id        = the new value
+     */
+    public function updateClass(
+        $code               = null, 
+        $class_number       = null, 
+        $semester           = null, 
+        $year               = null, 
+        $new_code           = null, 
+        $new_class_number   = null, 
+        $new_semester       = null, 
+        $new_year           = null, 
+        $new_user_id        = null
+    )
+    {
+        //------------------------------------------------
+        $result = true;
+        debug($new_code);
+        //die();
+        //------------------------------------------------
+        // Creates a new conenction to the DBMS to execute the new query 
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        // Executing the new query
+        $result = $connection->execute(
+            "UPDATE classes 
+            SET 
+                course_id           = '$new_code',
+                class_number        = $new_class_number,
+                semester            = $new_semester,
+                year                = $new_year,
+                professor_id        = '$new_user_id'
+            WHERE   course_id       = '$code' 
+                AND class_number    = '$class_number'
+                AND semester        = '$semester'
+                AND year            = '$year';
+            "
+        );
         //------------------------------------------------
         return $result;
     }

@@ -42,6 +42,15 @@ class ProfessorsController extends AppController
     }
 
     /**
+     * Add a new professor specifying id
+     */
+    public function newProfessor($id){
+        $p = new Professor([
+            'user_id' => $id
+        ]);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
@@ -96,7 +105,7 @@ class ProfessorsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $professor = $this->Professors->get($id);
-        if ($this->Professors->delete($professor)) {
+        if ($this->Professors->delete($professor, true)) {
             $this->Flash->success(__('The professor has been deleted.'));
         } else {
             $this->Flash->error(__('The professor could not be deleted. Please, try again.'));

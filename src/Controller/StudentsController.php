@@ -42,6 +42,16 @@ class StudentsController extends AppController
     }
 
     /**
+     * Add a new student specifying id and carne
+     */
+    public function newStudent($id, $carne){
+        $student = new Student([
+            'user_id' => $id,
+            'carne' => $carne
+        ]);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

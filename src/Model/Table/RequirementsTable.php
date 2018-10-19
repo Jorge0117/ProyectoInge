@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Requirements Model
@@ -29,6 +30,7 @@ class RequirementsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
+    //Se inicializa la tabla
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -41,6 +43,25 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_id'
         ]);
     }
+    //Función para eliminar un requisito, llamada por el controlador
+    public function deleteRequirement($requirement_number)
+    {
+        //------------------------------------------------
+        $result = true;
+        //------------------------------------------------
+        $connection = ConnectionManager::get('default');
+        //------------------------------------------------
+        //Ejecuta el código SQL en la base de datos directamente, para eliminar el requisito con la
+        //llave primaria que se mandó como parámetro
+        $result = $connection->execute(
+            "DELETE FROM requirements 
+            WHERE   requirement_number  = '$requirement_number' 
+            "
+        );
+        //------------------------------------------------
+        //Se envía el resultado de la operación
+        return $result;
+    }
 
     /**
      * Default validation rules.
@@ -48,6 +69,7 @@ class RequirementsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
+    //Se realizan las validaciones
     public function validationDefault(Validator $validator)
     {
         $validator

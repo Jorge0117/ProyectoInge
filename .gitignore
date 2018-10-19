@@ -37,4 +37,8 @@ nbproject/*
 
 tmp/
 
+logs/*
+
 logs/
+
+*.log

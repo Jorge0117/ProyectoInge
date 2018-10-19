@@ -14,9 +14,7 @@
     }
 
     h3{
-        background-color: #ceb92bff;
-        color: #ffffff;
-        text-align: center;
+        float: center;
         display: block;
         width: 100%;
         line-height:1.5em;
@@ -45,21 +43,10 @@
 
 </style>
 
-
-<div class="users form large-9 medium-8 columns content form-size">
-    <?= $this->Form->create($user,array(
-                'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
-    
-    <?php echo $mostrar; 
-        if($mostrar == 0){
-            ?>
-            <style type="text/css">#show_rol{
-            display: none;
-            }</style>
-            <?php
-        }
-    ?>
-
+<link rel="stylesheet" href="style.css">
+<h3>Agregar usuario</h3>
+<div class="form-size users form large-9 medium-8 columns content">
+    <?= $this->Form->create($user, ['novalidate']) ?>
     <fieldset>
         <div class="form-section">
             <legend><?= __('Datos personales') ?></legend>
@@ -69,23 +56,22 @@
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
                 echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
                 echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
-                echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);  
+                echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
             ?>
         </div>
         
 
-        <div class="form-section" id = "show_rol">
+        <div class="form-section">
             <legend><?= __('Datos de seguridad') ?></legend>
             <?php
-                echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+                echo $this->Form->control('username',['label'=>['text'=>'Nombre de usuario (ecci)'], 'disabled' => 'disabled']);
             ?>
         </div>
         
     </fieldset>
-    
     <div class="submit">
         <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
     </div>
     
     <?= $this->Form->end() ?>
