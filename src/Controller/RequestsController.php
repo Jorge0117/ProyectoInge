@@ -111,22 +111,24 @@ public function get_semester()
 
 public function add()
     {
-        
+
 		$request = $this->Requests->newEntity();
+
         if ($this->request->is('post')) {
 			
             $request = $this->Requests->patchEntity($request, $this->request->getData());
-			
+
 			$RequestsTable=$this->loadmodel('Requests');
 			//$round almacena datos originales
 			
 			//Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
 			$request->set('status', 'p'); //Toda solicitud esta pendiente 
 			$request->set('round_start',$this->get_round_start_date());//obtiene llave de ronda
-			$request->set('reception_date',date('Y-m-d')); //obtiene fecha actual
+
 			$request->set('student_id',$this->get_student_id()); //obtiene el id del estudiante logueado
 			$request->set('class_year',date('Y')); //obtiene el año actual de la solicitud
 			$request->set('class_semester',$this->get_semester()); //obtiene el semestre actual de la solicitud
+			$request->set('reception_date',date('Y-m-d')); //obtiene fecha actual
 			//die();
 			
             if ($this->Requests->save($request)) {
@@ -158,7 +160,7 @@ public function add()
 		$i = 0;
 		$courses = $courses->execute();
 		
-		$c2[0] = "Seleccione un Curso:";
+		$c2[0] = "Seleccione un Curso";
 		foreach($courses as $c)
 		{
 			$c2[$i+1] = $c[0];
@@ -189,9 +191,11 @@ public function add()
 		$carnet = $estudiante[0]['carne'];
 		$cedula = $estudiante[0]['identification_number'];
 		
+		$año = date('Y'); //obtiene el año actual de la solicitud
+		$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 		
 		//debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula'));
+        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre'));
 		
 
     }

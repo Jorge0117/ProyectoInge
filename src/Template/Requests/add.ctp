@@ -2,14 +2,9 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Request $request
-
- 
-	PENDIENTE: Agregar campos bloqueados con la informacion del usuario
  */
  use Cake\Routing\Router;
 ?>
-
-
 
 
 
@@ -71,7 +66,7 @@
 		courses = a2.options;
 		i = 0;
 		var tmp2 = document.createElement("option");
-		tmp2.text = "Seleccione un Curso"
+		tmp2.text = "Seleccione un Grupo"
 		selClass.options.add(tmp2,0);
 		tmp2 = document.createElement("option");
 		tmp2.text = "BORRAR";
@@ -84,12 +79,12 @@
 			if(actualCourse.localeCompare(courses[c].text) == 0)
 			{
 				var tmp = document.createElement("option");
-				if(c+1 < a1.options.length)
-				{
-				tmp.text = a1.options[c+1].text; //Prestarle atencion a esta linea
+				//if(c+1 < a1.options.length)
+				//{
+				tmp.text = a1.options[c].text; //Prestarle atencion a esta linea
 				selClass.options.add(tmp,i);
 				i = i + 1;
-				}
+				//}
 				
 			}
 
@@ -183,6 +178,11 @@
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
 	}
+	
+	function hidePersonalInfo()
+	{
+		alert(":v");
+	}
 
 </script>
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
@@ -203,7 +203,7 @@
 			
 			echo $this->Form->Label("Datos del estudiante: ");
 			
-			
+		
 			echo $this->Form->Control('Nombre del Estudiante: ',['disabled', 'value' => $nombreEstudiante]);
 			echo $this->Form->Control('Carnet del Estudiante: ',['disabled', 'value' => $carnet]);
 			echo $this->Form->Control('Cedula: ',['disabled', 'value' => $cedula]);
@@ -215,7 +215,7 @@
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
 			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
 			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
-			echo $this->Form->control('average', ['label' => 'Promedio Ponderado']);
+			echo $this->Form->control('average', ['label' => 'Promedio Ponderado', 'type' => 'text']);
 		?>
 			¿Qué tipo de horas desea solicitar? <checkbox></checkbox> <input type="checkbox"> Horas Asistente <input type="checkbox"> Horas Estudiante
 		<?php
@@ -227,14 +227,23 @@
             echo $this->Form->control('another_assistant_hours', ['label' => 'Cantidad de horas asistente ya asignadas: ']);
 
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+			
+			echo $this->Form->Label("Datos adicionales Solicitud: ");
+			
+			echo $this->Form->input('class_semester',['disabled', 'label' => 'Semestre:', 'type' => 'text' , 'value' => $semestre]);
+			echo $this->Form->Control('class_year',['disabled', 'label' => 'Año:','value' => $año]);
+
+			
+			/*
+				Estos campos solamente sirven para almacenar vectores, dado que esta es la única forma eficiente que conozco de compartir variables
+				entre php y javascript. Si conocen una mejor me avisan :)
+			*/
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $teacher , 'style' => 'visibility:hidden']);
-			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden']);
-			//$urlControlador = \Cake\Routing\Router::url(array('controller'=>'Requests','action'=>'add'));
-			//echo $urlControlador;
+			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1']);
 
-			
+
 
 		?>
     </fieldset>
