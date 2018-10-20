@@ -51,7 +51,7 @@
     )?>
  <?= $this->Html->link(
         'Cargar archivo',
-        ['controller'=>'CoursesClassesVw','action'=>'importExcelfile'],
+        ['controller'=>'Files','action'=>'add'],
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
 

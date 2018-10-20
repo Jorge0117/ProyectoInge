@@ -22,6 +22,7 @@ class ComposerStaticInitb0c03040b0f343245d5fc8a2a9e6e637
         'ede59e3a405fb689cd1cebb7bb1db3fb' => __DIR__ . '/..' . '/cakephp/cakephp/src/Collection/functions.php',
         '90236b492da7ca2983a2ad6e33e4152e' => __DIR__ . '/..' . '/cakephp/cakephp/src/I18n/functions.php',
         'b1fc73705e1bec51cd2b20a32cf1c60a' => __DIR__ . '/..' . '/cakephp/cakephp/src/Utility/bootstrap.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'abede361264e2ae69ec1eee813a101af' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/abs.php',
         '21a5860fbef5be28db5ddfbc3cca67c4' => __DIR__ . '/..' . '/markbaker/complex/classes/src/functions/acos.php',
@@ -107,6 +108,7 @@ class ComposerStaticInitb0c03040b0f343245d5fc8a2a9e6e637
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+            'Proffer\\' => 8,
             'PhpParser\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
@@ -120,6 +122,14 @@ class ComposerStaticInitb0c03040b0f343245d5fc8a2a9e6e637
         array (
             'JsonSchema\\' => 11,
             'Jasny\\Twig\\' => 11,
+        ),
+        'I' => 
+        array (
+            'Intervention\\Image\\' => 19,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
         ),
         'D' => 
         array (
@@ -235,6 +245,10 @@ class ComposerStaticInitb0c03040b0f343245d5fc8a2a9e6e637
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Proffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/davidyell/proffer/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -262,6 +276,14 @@ class ComposerStaticInitb0c03040b0f343245d5fc8a2a9e6e637
         'Jasny\\Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/jasny/twig-extensions/src',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'DebugKit\\Test\\Fixture\\' => 
         array (
