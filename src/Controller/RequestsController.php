@@ -90,7 +90,7 @@ class RequestsController extends AppController
 
 public function get_round_start_date()
 {
-	$start = date("01/02/03"); //Deberia pedirselo a ronda
+	$start = date('2018-10-18'); //Deberia pedirselo a ronda
 	
 	return $start;
 }
@@ -142,6 +142,8 @@ public function add()
 		$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
 		$nombre;
 		
+
+		
 		//Modifica las clases para dejar los datos requeridos de curso y grupo
 		$tuplas = $classes->execute();
 		$course;
@@ -155,7 +157,7 @@ public function add()
 			$teacher[$i] = $t;
 			
 			$i = $i + 1;
-		}		
+		}			
 		
 		$i = 0;
 		$courses = $courses->execute();
