@@ -49,22 +49,6 @@ class RoundsTable extends Table
             ->date('start_date')
             ->requirePresence('start_date', 'create')
             ->notEmpty('start_date');
-
-        $validator
-            ->scalar('round_number')
-            ->requirePresence('round_number', 'create')
-            ->notEmpty('round_number');
-
-        $validator
-            ->scalar('semester')
-            ->requirePresence('semester', 'create')
-            ->notEmpty('semester');
-
-        $validator
-            ->scalar('year')
-            ->requirePresence('year', 'create')
-            ->notEmpty('year');
-
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
@@ -92,7 +76,7 @@ class RoundsTable extends Table
         return null;
     }
 
-    // obtiene el día actial.
+    // obtiene el día actual.
     public function getToday(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("select now()")->fetchAll();
