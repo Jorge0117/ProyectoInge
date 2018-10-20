@@ -231,13 +231,19 @@ class CoursesClassesVwController extends AppController
     }
 
     public function importExcelfile (){
-
+        $this->loadModel('CoursesClassesVw');
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         $UserController = new UsersController;
+        $fileController = new FilesController;
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
+
         //Lee el archivo que se va a subir
-        $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+
+        $fileDir = $fileController->getDir();
+        $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
+
+        //$inputFileName = TESTS. DS. 'archPrueba.xlsx';
         //Identifica el tipo de archivo
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
         //Crea un nuevo reader para el tipo de archivo

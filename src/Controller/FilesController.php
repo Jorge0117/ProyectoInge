@@ -39,4 +39,9 @@ class FilesController extends AppController
         }
         $this->set(compact('file'));
     }
+
+    public function getDir(){
+        $fileTable = $this->loadmodel('Files');
+        return $fileTable->getDir();
+    }
 }

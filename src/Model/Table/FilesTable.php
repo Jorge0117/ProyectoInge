@@ -78,4 +78,10 @@ class FilesTable extends Table
         $connection = ConnectionManager::get('default');
         $connection->execute("DELETE FROM files");
     }
+
+    public function getDir(){
+        $connection = ConnectionManager::get('default');
+        $data = $connection->execute("select * from files") ->fetchAll();
+        return[$data[0][1], $data[0][2]];
+    }
 }
