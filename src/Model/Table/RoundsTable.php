@@ -21,7 +21,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class RoundsTable extends Table
 {
-
     /**
      * Initialize method
      *
@@ -59,12 +58,12 @@ class RoundsTable extends Table
     // inserta la ronda correspondiente a la tabla ronda.
     public function insertRound($start_d,$end_d){
         $connet = ConnectionManager::get('default');
-        $connet->execute("call insert_round ('$start_d','$end_d')");
+        $connet->execute("call insert_round('$start_d','$end_d')");
     }
     // edita la ronda correspondiente.
     public function editRound($start_d,$end_d,$old_start_d){
         $connet = ConnectionManager::get('default');
-        $connet->execute("call update_round ('$start_d','$end_d', $old_start_d)");
+        $connet->execute("call update_round('$start_d','$end_d', '$old_start_d')");
     }
     // obtiene la ultima tupla ingresada.
     public function getLastRow(){
@@ -88,7 +87,5 @@ class RoundsTable extends Table
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("select now() > (select MAX(start_date) from rounds) AND now() < (select MAX(end_date) from rounds)")->fetchAll();
         return $query[0][0];
-    }
-
-
+    } 
 }

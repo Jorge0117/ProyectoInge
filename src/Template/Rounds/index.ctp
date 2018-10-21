@@ -54,6 +54,8 @@ dhtmlXCalendarObject.prototype.lang = "es";
 <?php if($e_date==null){
     $e_date = $this->Rounds->getToday();
 }?>
+
+
 <div class="rounds index large-9 medium-8 columns content">
     <h3><?= __('Rondas') ?></h3>
     <table class="table">
@@ -69,58 +71,55 @@ dhtmlXCalendarObject.prototype.lang = "es";
         </thead>
         <tbody>
             <tr>
-                
-                <div class="rounds form large-9 medium-8 columns content">
-                    <?php if($last != null){ ?>
+                <?php if($last != null){ ?>
                     <td id= 'numData'><?= $last[1] ?></td>
-                    <?php } ?>
-                    <?= $this->Form->create($round,['novalidate']) ?>
+                <?php } ?>
+                <div class="rounds form large-9 medium-8 columns content">
+                    <?= $this->Form->create($round) ?>
                     <fieldset>
-                        <td><?= $this->Form->control('start_date',[
-                                                     'type'=>'calendar',
-                                                     'value'=>$s_date,
-                                                     'label' => false,
-                                                     'readonly'=>true,
-                                                     'disabled',
-                                                     'onclick'=>"sensitiveRange('max')"]);?></td>
-                        <td><?= $this->Form->control('end_date',[
-                                                     'type'=>'calendar',
-                                                     'value'=>$e_date,
-                                                     'label' => false,
-                                                     'readonly'=>true,
-                                                     'disabled',
-                                                     'onclick'=>"sensitiveRange('min')"]);?></td>
+                            <td><?= $this->Form->control('start_date',[
+                                'type'=>'calendar',
+                                'value'=>$s_date,
+                                'label' => false,
+                                'readonly'=>true,
+                                'onclick'=>"sensitiveRange('max')"]);?></td>
+                            <td><?= $this->Form->control('end_date',[
+                                'type'=>'calendar',
+                                'value'=>$e_date,
+                                'label' => false,
+                                'readonly'=>true,
+                                'onclick'=>"sensitiveRange('min')"]);?></td>
+                                <input type="hidden" id="flag" name='flag' value="0">
+                                <?php $this->Form->unlockField('flag')?>
                     </fieldset>
-                    <?= $this->Form->button(__('Submit')) ?>
-                    <?= $this->Form->end() ?>   
-                    <!-- Botones de accion -->
-                        <?php if($last != null){ ?>
-                        <td><?= $this->Form->button(
-                            '<i class="fa fa-pencil"></i>',[
-                            'onclick' => "startEdit()",
-                            'class' => 'btn-x',
-                            'type'=>'button',
-                            'id'=>'edit'])?></td>
-                        <?php } ?>
-                        <?php if($last[0] != null){ ?>
-                        <td><?= $this->Form->postbutton(
-                            '<i class="fa fa-trash-o"></i>',
-                            ['action' => 'delete', $s_date],[
-                            'class'=>'btn-x',
-                            'id' => 'trash',
-                            'confirm' => __('¿Está seguro de que ' .
-                                            'desea borrar la ronda ' . 
-                                            'de solicitudes #{0} del ' .
-                                            '{1} ciclo {2}?', $last[1],
-                                            $last[2],$last[3])]) ?></td>
-                        <?php } ?>
-                        <td><?= $this->Form->button(
-                            '<i class="fa fa-calendar-plus-o"></i>', 
-                            ['onclick' => "startAdd()",
-                             'class' => 'btn-x',
-                             'id' => 'caladd',
-                             'type'=>'button']) ?></td>
                     
+                    <?= $this->Form->button('Aceptar',['onclick' => "end()",'id'=>'aceptar','type' => 'submit', 'class' => 'btn btn-primary float-right','style' => "display:none"]) ?>
+                    <?= $this->Form->end() ?>
+                    <!-- Botones de accion -->
+                    <?php if($last != null){ ?>
+                    <td><?= $this->Form->button(
+                        '<i class="fa fa-pencil"></i>',[
+                        'onclick' => "startEdit()",
+                        'class'=>'btn-x',
+                        'id' => 'edit']) ?></td>
+                    <?php } ?>
+                    <?php if($last[0] != null){ ?>
+                    <td><?= $this->Form->postbutton(
+                        '<i class="fa fa-trash-o"></i>',
+                        ['action' => 'delete', $s_date],[
+                        'class'=>'btn-x',
+                        'id' => 'trash',
+                        'confirm' => __('¿Está seguro de que ' .
+                                        'desea borrar la ronda ' . 
+                                        'de solicitudes #{0} del ' .
+                                        '{1} ciclo {2}?', $last[1],
+                                        $last[2],$last[3])]) ?></td>
+                    <?php } ?>
+                    <td><?= $this->Form->button(
+                        '<i class="fa fa-calendar-plus-o"></i>',[ 
+                        'onclick' => "startAdd()",
+                        'class' => 'btn-x',
+                        'id' => 'caladd']) ?></td>
                 </div>
                 
             </tr>
@@ -129,18 +128,17 @@ dhtmlXCalendarObject.prototype.lang = "es";
 
 </div>
 <div class="submit">
-    <?= $this->Form->button('Cancelar', ['onclick' => "disable()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-leftz','style' => "display :none"]) ?>
-    <?= $this->Form->button('Aceptar', ['onclick' => "disable()",'id'=>'aceptar1','type' => 'submit', 'class' => 'btn btn-primary float-right','style' => "display:none"]) ?>
-    <?= $this->Form->button('Aceptar', ['action'=>'add','onclick' => "disable()",'id'=>'aceptar2','type' => 'submit', 'class' => 'btn btn-primary float-right','style' => "display:none"]) ?>
+    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-leftz','style' => "display :none"]) ?>
     <?= $this->Form->end() ?>
 </div>
-
+<?php $this->requestAction('/rounds/add'); ?>
 <script>
 // Muestra, esconde y deshabilita los botones y campos requeridos 
 
 calendar = new dhtmlXCalendarObject(["start-date", "end-date"]);
 calendar.setDateFormat("%d-%m-%Y");
 calendar.hideTime();
+
 
 function sensitiveRange(k){
     if(k == 'min'){
@@ -149,9 +147,14 @@ function sensitiveRange(k){
     }else{
         var yesterday = getYesterday();
         var min = yesterday;
-        if(compareDates('<?= $last[4]; ?>',yesterday)>=0){
-            var min = '<?= $last[4]; ?>';
+        if(byId('flag').value == '1'){
+            if(compareDates('<?= $last[4]; ?>',yesterday) >= 0){
+                var min = '<?= $last[4]; ?>';
+            }
+        }else{
+
         }
+        
         calendar.setSensitiveRange(min,null);
     }
 }    
@@ -161,6 +164,7 @@ function getYesterday(){
     yesterday.setMilliseconds(Date.now()-86400000);
     return getStringFormat(yesterday);
 }
+
 
 function getDateFormat(date){
     var day = date.substr(0,2);
@@ -225,26 +229,29 @@ calendar.attachEvent("onClick", function(date){
 
 function startEdit(){
     byId('cancelar').style.display = "inline";
-    byId('aceptar2').style.display = "none";
-    byId('aceptar1').style.display = "inline";
-    byId('end-date').disabled = false;
+    byId('aceptar').style.display = "inline";
+    byId('aceptar').style
     byId('trash').style.display = "none";
     byId('caladd').style.display = "none";    
     var yesterday = getYesterday();
-    if(compareDates(yesterday,byId('start-date').value)>1){
-        byId('start-date').disabled = false;
+    byId('flag').value = "2"; 
+    if(compareDates(yesterday,byId('start-date').value)>0){
+        byId('start-date').disabled = true;
     }
 
 }
 // Muestra, esconde y deshabilita los botones y campos requeridos 
 function startAdd(){
     byId('cancelar').style.display = "inline";
-    byId('aceptar1').style.display = "none";
-    byId('aceptar2').style.display = "inline";
-    byId('start-date').disabled = false;
-    byId('end-date').disabled = false;
-    byId('start-date').value = '<?= $last[4]; ?>';
-    byId('end-date').value = alterDate('<?= $last[4]; ?>',1);
+    byId('aceptar').style.display = "inline";
+    if(compareDates(byId('start-date').value,'<?= $last[4]; ?>')<=0){
+        byId('start-date').value = '<?= $last[4]; ?>';
+    }
+    var next = alterDate('<?= $last[4]; ?>',1);
+    if(compareDates(byId('end-date').value,next)<=0){
+        byId('end-date').value = next;
+    }   
+    byId('flag').value = "1"; 
     byId('trash').style.display = "none";
     byId('edit').style.display = "none";
     byId('num').style.display = "none";
@@ -252,18 +259,26 @@ function startAdd(){
 }
 
 // esconde y deshabilita los botones y campos requeridos 
-function disable() {
+function end() {
+    byId('cancelar').style.display = "none";
+    byId('aceptar').style.display = "none";
+    byId('trash').style.display = "table-cell";
+    byId('edit').style.display = "table-cell";
+    byId('caladd').style.display = "table-cell";
+    byId('num').style.display = "table-cell";
+    byId('numData').style.display = "table-cell";
+}
+function cancel() {
 byId('cancelar').style.display = "none";
-byId('aceptar2').style.display = "none";
-byId('aceptar1').style.display = "none";
-byId('start-date').disabled = true;
-byId('end-date').disabled = true;
+byId('aceptar').style.display = "none";
 byId('trash').style.display = "table-cell";
 byId('edit').style.display = "table-cell";
 byId('caladd').style.display = "table-cell";
 byId('num').style.display = "table-cell";
 byId('numData').style.display = "table-cell";
-
+byId('start-date').disabled = false;
+byId('start-date').value = '<?= $this->Rounds->getLastRow()[0]?>'
+byId('end-date').value = '<?= $this->Rounds->getLastRow()[4]?>'
 }
 </script>
 

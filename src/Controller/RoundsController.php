@@ -13,27 +13,22 @@ use Cake\I18n\Time;
  */
 class RoundsController extends AppController
 {
-    public $add = true;
     /**
      * Index method
      */
     public function index()
     {   
+        $this->set('arr', 'asd');
         $round = $this->Rounds->newEntity();
         $last = $this->Rounds->getLastRow();
         if ($this->request->is('post') || $this->request->is(['patch', 'post', 'put'])) {
-            debug($data);
-            die;
-            $data = $this->request->getData();
             
+            $data = $this->request->getData();        
+            $flag = $data['flag'];
             $start = $this->dmYtoYmd($data['start_date']);
             $end = $this->dmYtoYmd($data['end_date']);
             $RoundTable = $this->loadmodel('Rounds');
-            
-            if($this->add){
-                //debug('add');
-                //die;
-                
+            if($flag == '1'){
                 $sameYear = substr($last[3],-2) === substr($start,2,2);
                 $old_month = substr($last[0],5,2);
                 $new_month = substr($start,5,2);
@@ -47,30 +42,26 @@ class RoundsController extends AppController
                     $RoundTable->insertRound($start,$end);
                     $this->Flash->success(__('Se agregó la ronda correctamente.'));
                 }
-            }else{
-            //    debug('edit');
-            //    die;
-            //    $RoundTable->editRound($this->mdYtoYmd($round->start_date),$this->mdYtoYmd($round->end_date),$last[0]);
-            //    $this->Flash->success(__('Se editó la ronda correctamente.'));
+            }else if($flag == '2'){
+               
+                debug($RoundTable->editRound($start,$end,$last[0]));
+                debug($start.' * '.$end.' * '.$last[0]);
+                $this->Flash->success(__('Se editó la ronda correctamente.'));
             }
         }
         $this->set(compact('round'));
     }
-
-    /**
+    
+    /** 
      * Add method
      */
     public function add(){
-        $this->add=true;
     }
 
     /**
      * Edit method
      */
     public function edit(){
-        debug("magia");
-        die;
-        $this->add=false;
     }
 
     /**
@@ -90,7 +81,7 @@ class RoundsController extends AppController
         if(!$less){
             $less = $now->month > $s_date->month;
             if(!$less){
-                $less = $now->day > $s_date->day;
+                $less = $now->day-1 > $s_date->day;
             }
         } 
         if (!$less) {
