@@ -8,6 +8,8 @@ use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
 
+
+
 /**
  * Requests Model
  *
@@ -25,7 +27,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class RequestsTable extends Table
 {
-
     /**
      * Initialize method
      *
@@ -78,21 +79,20 @@ class RequestsTable extends Table
 		return ($check != "Seleccione un Grupo");
 	}
 	
-	public function validarSolicitudRepetida($check,  $datos)
+	/*public function validarSolicitudRepetida($check,  $datos)
 	{
 		$curso = debug($datos['data']['course_id']);
 		$grupo = debug($datos['data']['class_number']);
 		
 		//Si encuentro una sola tupla de solicitudes pendientes con el mismo curso y grupo, entonces de una vez indico que 
 		//la solicitud ya existe
-		
+		//$estudiante = $this->get_student_id();
 		$tuplas = $this->getSameRequests($curso,$grupo);
+		debug($datos);
 		
-		debug($tuplas);
-		
-
-		return (count($tuplas) == 0);
-	}
+		return true;
+		//return (count($tuplas) == 0);
+	}*/
 	 
     public function validationDefault(Validator $validator)
     {
@@ -138,17 +138,17 @@ class RequestsTable extends Table
         ]);
 		
 		//Valida que no se ingrese una solicitud repetida
-		$validator->add('class_number',[
+		/*$validator->add('class_number',[
         'validarSolicitudRepetida'=>[
         'rule'=>'validarSolicitudRepetida', ["contexto"],
         'provider'=>'table',
         'message'=>'La solicitud a este curso/grupo ya existe'
          ]
-        ]);
+        ]);*/
 		
 		//Los demas elementos no es necesario validarlos, ya que los checkboxs pueden guardarse como nulos en la DB
 		
-
+		//debug($validator);
 
         return $validator;
     }
@@ -217,6 +217,11 @@ class RequestsTable extends Table
 
 	}
 	
+	//Obtiene todas las solicitudes pendientes que coincidan con el curso y grupo actual.
+	/*
+		Nota: No es necesario enviar el semestre y año, ya que todas las solicitudes que no sean de este semestre y año
+		van a estar aprobadas o rechazadas.
+	*/
 	public function getSameRequests($course, $class)
 	{
 		$connet = ConnectionManager::get('default');
@@ -224,6 +229,30 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result;
 
+	}
+	
+	//Obtiene los codigos y nombres de los cursos que tengan al menos un grupo que requierade un asistente
+	public function getCourses()
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select c.code, c.name from courses c where c.code in (Select course_id from classes where state = 1)");
+		$result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	//Obtiene los codigos de curso y codigo nombre de las grupo de este semestre y año cuyo estado sea 1
+	public function getGroups($id_estudiante, $semestre, $year)
+	{
+		$connet = ConnectionManager::get('default');
+		
+		$result = $connet->execute("select c.course_id,c.class_number, co.name from classes c, courses co
+		where c.year = '$year' and c.semester = '$semestre' and co.code = c.course_id AND c.state = 1 AND 
+		concat(c.course_id,c.class_number)  NOT IN(
+		select concat(c.course_id,c.class_number) from classes c, requests r 
+		where c.course_id = r.course_id and r.class_number = c.class_number and r.status = 'p' and r.student_id = '$id_estudiante')");
+		
+		$result = $result->fetchAll('assoc');
+        return $result;
 	}
 	
 	

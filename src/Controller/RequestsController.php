@@ -109,6 +109,13 @@ public function get_semester()
 	return $semester;
 }
 
+public function get_year()
+{
+	$year = 2019;
+	
+	return $year;
+}
+
 public function add()
     {
 
@@ -137,54 +144,92 @@ public function add()
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
         }
-        $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
+		//I
+		$request->set('student_id',$this->get_student_id()); //obtiene el id del estudiante logueado
+		/*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud
+		Por lo tanto, lo que se hara aqui es traerse toda la información útil de la base de datos:
+		Todos los nombres y codigos de los cursos que tengan al menos un curso disponible para asistencias
+		Todos los 
+		*/
         $students = $this->Requests->Students->find('list', ['limit' => 200]);
-		$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
+		//$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
 		$nombre;
 		
 
 		
 		//Modifica las clases para dejar los datos requeridos de curso y grupo
-		$tuplas = $classes->execute();
-		$course;
+		//$tuplas = $classes->execute();
+		$course = array();
 		$teacher;
+		
+		$classes;
+		$grupos = $this->Requests->getGroups($this->get_student_id(),$this->get_semester(),$this->get_year());
+	
+		$aux;
+		//$aux[0] = "Seleccione un Curso"; 
+		//Se trae todos los grupos de la base de datos y los almacena en un vector
 		$i = 0;
-		$c2;
-		foreach($tuplas as $t)
+		$course_counter = 0; 
+		foreach($grupos as $g)
 		{
-			$class[$i] = $t[1];
-			$course[$i] = $t[0];
-			$teacher[$i] = $t;
+			$class[$i] = $g['class_number']; //Se trae el número de clase
+			$course[$i] = $g['course_id']; //Se trae el nombre de curso. Esto es para que cuando se seleccione un grupo se pueda encontrar
+											//sus grupos sin necesidad de realizar un acceso adicional a la base de datos. Recomendado por Diego
+											
+			//Busca los cursos y los coloca solo 1 vez en el vector de cursos.
+			//Realiza la busqueda en base al codigo de curso, ya que al ser más corto entonces la busqueda será más eficiente
+			$encontrado = 0;
+			for($j = 0; $j < $course_counter && $encontrado == 0; $j = $j+1)
+			{
+				if(strcmp($aux[$j]['code'],$g['course_id']) == 0)
+					$encontrado = 1;
+			}
+
+
 			
+			if($encontrado == 0)
+			{
+				$aux[$course_counter] = array();
+				$aux[$course_counter]['code'] = $g['course_id'];
+				$aux[$course_counter]['name'] = $g['name'];
+				$course_counter = $course_counter + 1;
+			}
+								
 			$i = $i + 1;
-		}			
+		}	
 		
+
+			
+		
+		//Poner esta etiqueta en el primer campo es obligatorio, para asi obligar al usuario a seleccionar un grupo y asi se pueda
+		//activar el evento onChange del select de grupos
+
 		$i = 0;
-		$courses = $courses->execute();
+		//Esta parte se encarga de controlar los codigos y nombres de cursos
+		//$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
 		
-		$c2[0] = "Seleccione un Curso";
-		foreach($courses as $c)
+		
+		$c2[0] = "Seleccione un Curso"; 
+		//foreach($aux as $c) //Recorre cada tupla de curso
+		foreach($aux as $c) //Recorre cada tupla de curso
 		{
-			$c2[$i+1] = $c[0];
-			$nombre[$i+1] = $c[1];
+			//Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i	
+			$c2[$i+1] = $c['code']; //Almacena el codigo de curso
+			$nombre[$i+1] = $c['name']; //Almacena el nombre del curso
 			$i = $i + 1;
 			
 		}
-
+		
 		$teacher = $this->Requests->getTeachers();
 		$id = $this->Requests->getID();
 		
-		//Funcionalidad extra: Agregar datos del usuario
+		//Funcionalidad Solicitada: Agregar datos del usuario
 		
 		//Obtiene el carnet del estudiante actual.
 		$estudiante = $this->get_student_id();
 		
 		//En base al carnet del estudiante actual, se trae la tupla de usuario respectiva a ese estudiante
 		$estudiante = $this->Requests->getStudentInfo($estudiante);
-		
-		
-		//debug($estudiante);
-		
 		
 		//Las keys de los arrays deben corresponder al nombre del campo de la tabla que almacene los usuarios
 		$nombreEstudiante = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
