@@ -18,17 +18,16 @@ class RoundsController extends AppController
      */
     public function index()
     {   
-        
-        debug($this->between());
         $round = $this->Rounds->newEntity();
         $last = $this->Rounds->getLastRow();
         if ($this->request->is('post') || $this->request->is(['patch', 'post', 'put'])) {
             
             $data = $this->request->getData();        
             $flag = $data['flag'];
-            $start = $this->dmYtoYmd($data['start_date']);
-            $end = $this->dmYtoYmd($data['end_date']);
+            $start = $this->mirrorDate($data['start_date']);
+            $end = $this->mirrorDate($data['end_date']);
             $RoundsTable = $this->loadmodel('Rounds');
+           
             if($flag == '1'){
                 $sameYear = substr($last[3],-2) === substr($start,2,2);
                 $old_month = substr($last[0],5,2);
@@ -51,12 +50,6 @@ class RoundsController extends AppController
         $this->set(compact('round'));
     }
     
-    /** 
-     * Add method
-     */
-    public function add(){
-    }
-
     /**
      * Delete method
      *
@@ -65,19 +58,20 @@ class RoundsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null){   
-        $date = $this->dmYtoYmd($id);
+        $date = $this->mirrorDate($id);
         $this->request->allowMethod(['post', 'delete']);
         $round = $this->Rounds->get($date);
-        $now = Time::now();
+        $RoundsTable = $this->loadmodel('Rounds');
+        $now = $RoundsTable->getToday();
         $s_date = $round->start_date;
-        $less = $now->year > $s_date->year;
+        $less = substr($now,0,4) < $s_date->year;
         if(!$less){
-            $less = $now->month > $s_date->month;
+            $less = substr($now,5,2) < $s_date->month;
             if(!$less){
-                $less = $now->day-1 > $s_date->day;
+                $less = substr($now,8,2)-1 < $s_date->day;
             }
         } 
-        if (!$less) {
+        if ($less) {
             if($this->Rounds->delete($round)){
                 $this->Flash->success(__('Se borró la ronda correctamente.'));
             }
@@ -87,21 +81,21 @@ class RoundsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function dmYtoYmd($date){
+    public function mirrorDate($date){
         $j = $i = 0;
         while($date[$i] != '/' && $date[$i] != '-'){
             $i++;
         }
-        $day = substr($date,$j,$i++);
+        $first = substr($date,$j,$i++);
         $j = $i;
         $i = 0;
         while($date[$j+$i] != '/' && $date[$j+$i] != '-'){
             $i++;
         }
-        $month = substr($date,$j,$i++);
+        $second = substr($date,$j,$i++);
         
-        $year = substr($date,$j+$i);
-        return $year . "-" . $month . "-" . $day;
+        $third = substr($date,$j+$i);
+        return $third . "-" . $second . "-" . $first;
     }
 
     public function between(){

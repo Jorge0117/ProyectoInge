@@ -226,7 +226,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
       </div>
 
-      <div style="width:200px">
+      <div style="height:69px">
+      <?php $round = $this->Rounds->getLastRound() ?>
+      <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
       </div>
     </nav>
 
