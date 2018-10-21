@@ -18,7 +18,8 @@ class RoundsController extends AppController
      */
     public function index()
     {   
-        $this->set('arr', 'asd');
+        
+        debug($this->between());
         $round = $this->Rounds->newEntity();
         $last = $this->Rounds->getLastRow();
         if ($this->request->is('post') || $this->request->is(['patch', 'post', 'put'])) {
@@ -27,7 +28,7 @@ class RoundsController extends AppController
             $flag = $data['flag'];
             $start = $this->dmYtoYmd($data['start_date']);
             $end = $this->dmYtoYmd($data['end_date']);
-            $RoundTable = $this->loadmodel('Rounds');
+            $RoundsTable = $this->loadmodel('Rounds');
             if($flag == '1'){
                 $sameYear = substr($last[3],-2) === substr($start,2,2);
                 $old_month = substr($last[0],5,2);
@@ -39,13 +40,11 @@ class RoundsController extends AppController
                 }else if($start == $last[0]){
                     $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
                 }else{
-                    $RoundTable->insertRound($start,$end);
+                    $RoundsTable->insertRound($start,$end);
                     $this->Flash->success(__('Se agregó la ronda correctamente.'));
                 }
             }else if($flag == '2'){
-               
-                debug($RoundTable->editRound($start,$end,$last[0]));
-                debug($start.' * '.$end.' * '.$last[0]);
+                $RoundsTable->editRound($start,$end,$last[0]);
                 $this->Flash->success(__('Se editó la ronda correctamente.'));
             }
         }
@@ -56,12 +55,6 @@ class RoundsController extends AppController
      * Add method
      */
     public function add(){
-    }
-
-    /**
-     * Edit method
-     */
-    public function edit(){
     }
 
     /**
@@ -109,5 +102,10 @@ class RoundsController extends AppController
         
         $year = substr($date,$j+$i);
         return $year . "-" . $month . "-" . $day;
+    }
+
+    public function between(){
+        $RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->between();
     }
 }
