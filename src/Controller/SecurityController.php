@@ -17,7 +17,7 @@ class SecurityController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('register');
+        $this->Auth->allow('logout');
     }
 
     /**
@@ -46,6 +46,7 @@ class SecurityController extends AppController
                     return $this->redirect($this->Auth->redirectUrl());
                 }
             } else {
+                $this->Flash->error('Credenciales inválidos.');
                 // debug("No se logro autenticar");
             }
 
