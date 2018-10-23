@@ -75,4 +75,8 @@ class RoundsHelper extends Helper
     public function between(){
         return (new RoundsTable)->between();
     }
+
+    public function active(){
+        return (new RoundsTable)->active();
+    }
 }

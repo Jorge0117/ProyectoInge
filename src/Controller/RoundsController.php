@@ -68,7 +68,7 @@ class RoundsController extends AppController
         if(!$less){
             $less = substr($now,5,2) < $s_date->month;
             if(!$less){
-                $less = substr($now,8,2)-1 < $s_date->day;
+                $less = substr($now,8,2)-2 < $s_date->day;
             }
         } 
         if ($less) {

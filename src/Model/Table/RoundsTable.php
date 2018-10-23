@@ -113,9 +113,18 @@ class RoundsTable extends Table
     public function between(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
-           "SELECT NOW() > (SELECT MAX(start_date) 
+           "SELECT DATE(NOW()) >= (SELECT MAX(start_date) 
                             FROM rounds) AND 
-                   NOW() < (SELECT MAX(end_date) 
+                   DATE(NOW()) <= (SELECT MAX(end_date) 
+                            FROM rounds)"
+        )->fetchAll();
+        return $query[0][0];
+    } 
+
+    public function active(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+           "SELECT DATE(NOW()) <= (SELECT MAX(end_date) 
                             FROM rounds)"
         )->fetchAll();
         return $query[0][0];
