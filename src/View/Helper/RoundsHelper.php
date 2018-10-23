@@ -68,7 +68,7 @@ class RoundsHelper extends Helper
         if($last!= null){
             return ["Ronda #" . $last[1] .' '. $last[2] . ' ciclo ' . $last[3], "Inicio: " . $last[0], "Fin: " . $last[4]]; 
         }
-        return "";
+        return null;
     }
 
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
