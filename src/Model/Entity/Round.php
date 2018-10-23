@@ -6,11 +6,11 @@ use Cake\ORM\Entity;
 /**
  * Round Entity
  *
- * @property \Cake\I18n\FrozenDate $start_date
+ * @property string $start_date
  * @property string $round_number
  * @property string $semester
  * @property string $year
- * @property \Cake\I18n\FrozenDate $end_date
+ * @property string $end_date
  */
 class Round extends Entity
 {
