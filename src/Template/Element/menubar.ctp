@@ -78,7 +78,7 @@
         <?php else: ?>
 
             <span class="navbar-text">
-                <h4>Título</h4>
+                <h4></h4>
             </span>
         <?php endif ?>
 
