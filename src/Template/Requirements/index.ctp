@@ -22,6 +22,7 @@
             <tr> <!--Nombre de las columnas en el grid-->
                 <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Horas') ?></th>
                 
                 <?php if($show == 0): ?> 
                     <th scope="col" class="actions"><?= __(' ') ?></th>
