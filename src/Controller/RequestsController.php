@@ -100,25 +100,17 @@ public function get_student_id()
 	$student_id = "B12345";
 	
 	return $student_id;
+	
+	//return 	$this->Auth->user('username'); //Este es el que en realidad hay que devolver
 }
 
-public function get_semester()
+public function get_round()
 {
-	$semester = "1";
-	
-	return $semester;
-}
-
-public function get_year()
-{
-	$year = 2019;
-	
-	return $year;
+	return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
 }
 
 public function add()
     {
-
 		$request = $this->Requests->newEntity();
 
         if ($this->request->is('post')) {
@@ -137,14 +129,13 @@ public function add()
 			$request->set('class_semester',$this->get_semester()); //obtiene el semestre actual de la solicitud
 			$request->set('reception_date',date('Y-m-d')); //obtiene fecha actual
 			//die();
-			
+			//debug($request);
             if ($this->Requests->save($request)) {
-                $this->Flash->success(__('The request has been saved.'));
+                $this->Flash->success(__('La Solicitud de Asistencia ha sido ingresada exitosamente'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The request could not be saved. Please, try again.'));
         }
-		//I
 		$request->set('student_id',$this->get_student_id()); //obtiene el id del estudiante logueado
 		/*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud
 		Por lo tanto, lo que se hara aqui es traerse toda la información útil de la base de datos:
@@ -155,7 +146,12 @@ public function add()
 		//$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
 		$nombre;
 		
-
+		$semestre = "1";
+		$año = 2019;
+		
+		//Se trae la ronda actusl
+		$ronda = $this->get_round();
+		//debug($ronda);
 		
 		//Modifica las clases para dejar los datos requeridos de curso y grupo
 		//$tuplas = $classes->execute();
@@ -163,7 +159,7 @@ public function add()
 		$teacher;
 		
 		$classes;
-		$grupos = $this->Requests->getGroups($this->get_student_id(),$this->get_semester(),$this->get_year());
+		$grupos = $this->Requests->getGroups($this->get_student_id(),$semestre,$año);
 	
 		$aux;
 		//$aux[0] = "Seleccione un Curso"; 
@@ -238,8 +234,8 @@ public function add()
 		$carnet = $estudiante[0]['carne'];
 		$cedula = $estudiante[0]['identification_number'];
 		
-		$año = date('Y'); //obtiene el año actual de la solicitud
-		$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
+		//$año = date('Y'); //obtiene el año actual de la solicitud
+		//$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 		
 		//debug($nombreEstudiante);
         $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre'));

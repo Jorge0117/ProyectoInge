@@ -255,6 +255,15 @@ class RequestsTable extends Table
         return $result;
 	}
 	
+	//Obtiene la ronda actual: año, semestre, fecha de inicio y fecha final
+	public function getActualRound($fechaActual)
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select * from rounds where start_date <= '$fechaActual' AND '$fechaActual'  <= end_date");
+		$result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
 	
 	
 }
