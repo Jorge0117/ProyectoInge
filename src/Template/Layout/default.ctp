@@ -12,7 +12,7 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'ECCI - Sistema de Control de Asistencias';
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,8 +163,20 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
       <span class="navbar-text">
         <h2 class="ecci-title">Sistema de control de asistencias</h2>
       </span>
-      <div style='width:100px'>
-        <?= $this->Html->image('userIcon.png', ['class' => 'ml-1','style' => 'width:50px'])?>
+      <div class='dropdown' style='width:100px'>
+        <?php if ( $current_user ): ?>
+          <div>
+            <?= $this->Html->image('userIcon.png', ['class' => 'ml-1','style' => 'width:50px'])?>
+          </div>
+          <div>
+            <a class='dropdown-toggle text-black' id="dropdownLogout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $current_user['name'] ?></a>
+            <div class='dropdown-menu dropdown-menu-right' aria-labeledby="dropdownLogout">
+              <?= $this->Html->link('Perfil', ['controller' => 'Users', 'action' => 'view', $current_user['identification_number'] ], ['class' => 'dropdown-item']) ?>
+              <div class="dropdown-divider"></div>
+              <?= $this->Html->link('Cerrar Sesión', ['controller' => 'Security', 'action' => 'logout'], ['class' => 'dropdown-item']) ?>
+            </div>
+          </div>
+        <?php endif ?>
       </div>
     </nav>
 

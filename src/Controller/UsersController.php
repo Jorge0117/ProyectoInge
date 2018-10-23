@@ -69,10 +69,7 @@ class UsersController extends AppController
 
         // Caso en que se recibio el form
         } elseif ($this->request->is('post')) {
-            if (isset($this->request->data['cancel'])) {
-                //regresa a sign in si presiona cancelar
-                return $this->redirect(['controller' => 'Security', 'action' => 'login']);
-            }
+
             // Obtener los datos del Form y agregar el username     
             $user = $this->Users->newEntity($this->request->getData());
             $user['username'] = $username;
@@ -171,7 +168,6 @@ class UsersController extends AppController
         if($rol_usuario === 'Administrador'){
             $admin = 1;
         }
-        $this->set('mostar', $admin);
         
         $user = $this->Users->get($id, [
             'contain' => []
@@ -231,7 +227,7 @@ class UsersController extends AppController
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'roles', 'admin'));
     }
 
     /**

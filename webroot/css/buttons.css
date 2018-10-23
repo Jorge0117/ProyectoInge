@@ -1,0 +1,17 @@
+.btn-azul{
+    background-color: #015b96ff; 
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+}
+
+.btn-cancelar{
+    background-color: #999999;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+    margin-right: 5px;
+}
+

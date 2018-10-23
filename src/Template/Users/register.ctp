@@ -3,45 +3,11 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
+echo $this->Html->css('buttons');
+echo $this->Html->css('forms');
+echo $this->Html->css('titles');
 ?>
 
-<style type="text/css">
-    .btn-aceptar{
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-    }
-
-    h3{
-        float: center;
-        display: block;
-        width: 100%;
-        line-height:1.5em;
-    }
-    
-    .form-size{
-        width: 70%;
-        min-width: 200px;
-        padding-left: 50px;
-    }
-
-    .btn-cancelar{
-        background-color: #999999;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-        margin-right: 5px;
-    }
-
-    .form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
-
-</style>
 
 <link rel="stylesheet" href="style.css">
 <h3>Agregar usuario</h3>
@@ -70,7 +36,7 @@
         
     </fieldset>
     <div class="submit">
-        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
+        <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-azul'], array('name' => 'ok', 'div' => FALSE)); ?>
         <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
     </div>
     
