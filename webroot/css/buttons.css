@@ -1,4 +1,4 @@
-.btn-azul{
+.btn-aceptar{
     background-color: #015b96ff; 
     color: #ffffff;
     border: none;
@@ -16,3 +16,10 @@
     margin-right: 5px;
 }
 
+.btn-agregar-index{
+    background-color: #015b96ff; 
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+}

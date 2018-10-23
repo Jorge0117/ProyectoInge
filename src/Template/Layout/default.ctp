@@ -210,14 +210,10 @@ $cakeDescription = 'ECCI - Sistema de Control de Asistencias';
 
             <li class="nav-item"><h5><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
 
-            <li class="nav-item dropdown"><h5>
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Usuarios
-              </a>
-              <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
-                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
-                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
-              <div>
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+              
             </h5></li>
 
             <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
