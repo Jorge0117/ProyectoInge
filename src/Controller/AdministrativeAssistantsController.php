@@ -42,6 +42,15 @@ class AdministrativeAssistantsController extends AppController
     }
 
     /**
+     * Add a new professor specifying id
+     */
+    public function newAssistant($id){
+        $p = new AdministrativeAssistant([
+            'user_id' => $id
+        ]);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.

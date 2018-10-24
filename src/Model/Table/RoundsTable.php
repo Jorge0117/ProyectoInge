@@ -47,23 +47,8 @@ class RoundsTable extends Table
     {
         $validator
             ->date('start_date')
-            ->allowEmpty('start_date', 'create');
-
-        $validator
-            ->scalar('round_number')
-            ->requirePresence('round_number', 'create')
-            ->notEmpty('round_number');
-
-        $validator
-            ->scalar('semester')
-            ->requirePresence('semester', 'create')
-            ->notEmpty('semester');
-
-        $validator
-            ->scalar('year')
-            ->requirePresence('year', 'create')
-            ->notEmpty('year');
-
+            ->requirePresence('start_date', 'create')
+            ->notEmpty('start_date');
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
@@ -71,21 +56,39 @@ class RoundsTable extends Table
 
         return $validator;
     }
-
+    // inserta la ronda correspondiente a la tabla ronda.
     public function insertRound($start_d,$end_d){
         $connet = ConnectionManager::get('default');
         $connet->execute("call insert_round ('$start_d','$end_d')");
     }
+    // edita la ronda correspondiente.
+    public function editRound($start_d,$end_d,$old_start_d){
+        $connet = ConnectionManager::get('default');
+        $connet->execute("call update_round ('$start_d','$end_d', $old_start_d)");
+    }
+    // obtiene la ultima tupla ingresada.
+    public function getLastRow(){
+        $connet = ConnectionManager::get('default');
+        $last = $connet->execute("select * from rounds where start_date = (select MAX(start_date) from rounds)")->fetchAll();
+        if($last != null){
+            return $last[0];
+        }
+        return null;
+    }
 
-    public function getLastRow() {
-        $connect = ConnectionManager::get('default');
-        $id = $connect->execute("select * from rounds where start_date = (select MAX(start_date) from rounds)") ->fetchAll();
-        return $id[0];
+    // obtiene el día actual.
+    public function getToday(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select now()")->fetchAll();
+        return $query[0][0];
     }
-    
-    public function getLastEndDate() {
-        $connect = ConnectionManager::get('default');
-        $id = $connect->execute("select MAX(end_date) as end_date from rounds") ->fetchAll();
-        return $id[0][0];
+
+    // permite averiguar si el día actual se encuentra entre el periodo de inicio y fin. 
+    public function between(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select now() > (select MAX(start_date) from rounds) AND now() < (select MAX(end_date) from rounds)")->fetchAll();
+        return $query[0][0];
     }
+
+
 }

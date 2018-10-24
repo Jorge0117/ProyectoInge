@@ -42,6 +42,15 @@ class ProfessorsController extends AppController
     }
 
     /**
+     * Add a new professor specifying id
+     */
+    public function newProfessor($id){
+        $p = new Professor([
+            'user_id' => $id
+        ]);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
