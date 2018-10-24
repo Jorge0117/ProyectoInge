@@ -298,16 +298,18 @@ class CoursesClassesVwController extends AppController
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
         }
-        //Se cambia el nombre de las llaves del array
-        $table = array_map(function($tag) {
-            return array(
-                'Curso' => $tag['0'],
-                'Sigla' => $tag['1'],
-                'Grupo' => $tag['2'],
-                'Profesor' => $tag['3']
-            );
-        }, $table);
-
+        //Se cambia el nombre de las llaves del array si no es post
+        if(!$this->request->is('post')){
+            $table = array_map(function($tag) {
+                return array(
+                    'Curso' => $tag['0'],
+                    'Sigla' => $tag['1'],
+                    'Grupo' => $tag['2'],
+                    'Profesor' => $tag['3']
+                );
+            }, $table);
+    
+        }
         //Hace que table sea visible para el template
         $this->set('table', $table);
 
@@ -321,6 +323,10 @@ class CoursesClassesVwController extends AppController
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row], $profIds[$row]);
             }
+
+            //Se borra el archivo
+            $fileController->deleteFiles();
+
             $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }

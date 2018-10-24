@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 /**
  * Files Controller
@@ -27,9 +29,6 @@ class FilesController extends AppController
         if ($this->request->is('post')) {
             $file = $this->Files->patchEntity($file, $this->request->getData());
 
-            $fileTable = $this->loadmodel('Files');
-            $fileTable->deleteFiles();
-
             if ($this->Files->save($file)) {
                 //$this->Flash->success(__('The file has been saved.'));
                 return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'importExcelfile']);
@@ -43,5 +42,15 @@ class FilesController extends AppController
         $fileTable = $this->loadmodel('Files');
         return $fileTable->getDir();
     }
-    
+
+    public function deleteFiles(){
+        //Obtiene las direcciones
+        $fileDir = $this->getDir();
+        //Borra el folder
+        $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
+        $folder = new Folder($path);
+        $folder->delete();
+        $fileTable = $this->loadmodel('Files');
+        $fileTable->deleteFiles();
+    }
 }
