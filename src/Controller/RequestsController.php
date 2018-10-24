@@ -310,7 +310,30 @@ public function add()
 	}
 	
 	public function review(){
+		$role_c = new RolesController;
+        $action =$this->request->getParam('action');
+		$module = $this->request->getParam('controller');
 		
+		//Datos de la solicitud
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
+
+		}
+
+		//Revision de requisitos
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
+
+		}
+		
+		//Revisión preliminar
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
+
+		}
+
+		//Revisión final
+		
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
+
+		}
 	}
 	/*public function save()
 	{
