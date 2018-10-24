@@ -318,8 +318,9 @@ public function add()
 	
 	public function review(){
 		$role_c = new RolesController;
-        $action =$this->request->getParam('action');
-		$module = $this->request->getParam('controller');
+        $action = 'review';
+		$module = 'Request';
+		$user = $this->Auth->user();
 		
 		//Datos de la solicitud
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
