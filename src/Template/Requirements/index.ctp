@@ -34,6 +34,7 @@
             <tr>
                 <td><?= h($requirement->description) ?></td>
                 <td><?= h($requirement->type) ?></td>
+                <td><?= h($requirement->hour_type) ?></td>
 
                 <td class="actions">
                     <?php if($show == 0): ?>

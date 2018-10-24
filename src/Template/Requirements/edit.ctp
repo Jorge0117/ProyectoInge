@@ -46,19 +46,36 @@
                     ]
                 );
 
+                echo '<br>';
+
+                //Entrada para ingresar el tipo de horas (radio box).
+                echo $this->Form->label('Tipo de horas');
+                echo '<br>';
+                echo $this->Form->radio(
+                    'hour_type',
+                    [
+                        ['value' => 'Estudiante', 'text' => '<span style="padding:0 10px 0 10px;">Horas Estudiante</span>'],
+                    
+                        ['value' => 'Asistente', 'text' => '<span style="padding:0 10px 0 10px;">Horas Asistente</span>'],
+                    ],
+                    [ 
+                        'div' => false,
+                        'class' => 'col-md-15', 
+                        'escape' => false,
+                    ]
+                );
             ?>
+            <br> <br>
             <br> <br>
             <br> <br>
 
             <!-- Botón de modificar, cuando es presionado se ingresa la modificación de la tupla a la base de datos. -->
-            <button type="submit" class="btn btn-primary" style='position:absolute; left: 86.3%; top: 77.8%;'>
+            <button type="submit" class="btn btn-primary" style='position:absolute; left: 72.5%; top: 77.8%;'>
                 Modificar
             </button>
 
             <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
-            <button type="buttom">
-                <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn', 'style'=>'position:absolute; left: 1.5%; top: 77.8%;']) ?>
-            </button>
+            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-secondary', 'style'=>'position:absolute; left: 86.3%; top: 77.8%;']) ?>
 
         </fieldset>
 
