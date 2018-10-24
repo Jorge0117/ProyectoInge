@@ -109,6 +109,13 @@ public function get_round()
 	return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
 }
 
+public function get_semester()
+{
+	//Pedir get_round y luego sacar el atributo 
+	
+	return "1";
+}
+
 public function add()
     {
 		$request = $this->Requests->newEntity();
@@ -310,7 +317,30 @@ public function add()
 	}
 	
 	public function review(){
+		$role_c = new RolesController;
+        $action =$this->request->getParam('action');
+		$module = $this->request->getParam('controller');
 		
+		//Datos de la solicitud
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
+
+		}
+
+		//Revision de requisitos
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
+
+		}
+		
+		//Revisión preliminar
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
+
+		}
+
+		//Revisión final
+		
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
+
+		}
 	}
 	/*public function save()
 	{
