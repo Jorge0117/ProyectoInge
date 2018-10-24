@@ -298,6 +298,16 @@ class CoursesClassesVwController extends AppController
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
         }
+        //Se cambia el nombre de las llaves del array
+        $table = array_map(function($tag) {
+            return array(
+                'Curso' => $tag['0'],
+                'Sigla' => $tag['1'],
+                'Grupo' => $tag['2'],
+                'Profesor' => $tag['3']
+            );
+        }, $table);
+
         //Hace que table sea visible para el template
         $this->set('table', $table);
 
