@@ -18343,3 +18343,411 @@ Stack Trace:
 #17 {main}
 
 
+2018-10-24 02:43:45 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:43:46 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:43:47 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:43:50 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:43:51 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:43:52 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:17 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:17 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:18 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:20 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:21 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:22 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:24 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:24 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:25 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:29 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\PHP7ErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\PHP7ErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#14 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#15 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:30 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(124): Cake\Core\App::className('Error', 'Controller', 'Controller')
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ExceptionRenderer.php(91): Cake\Error\ExceptionRenderer->_getController()
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(136): Cake\Error\ExceptionRenderer->__construct(Object(Cake\Error\FatalErrorException))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(Cake\Error\FatalErrorException))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(231): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\FatalErrorException))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(139): Cake\Error\BaseErrorHandler->handleFatalError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180)
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\config\bootstrap.php(41): Cake\Error\BaseErrorHandler->handleError(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#16 [internal function]: Cake\Core\BasePlugin->{closure}(256, '[ParseError] sy...', 'C:\\xampp\\htdocs...', 180, Array)
+#17 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(180): trigger_error('[ParseError] sy...', 256)
+#18 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php(141): Cake\Error\ErrorHandler->_logInternalError(Object(ParseError))
+#19 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(193): Cake\Error\ErrorHandler->_displayException(Object(ParseError))
+#20 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(177): Cake\Error\BaseErrorHandler->handleException(Object(Cake\Error\PHP7ErrorException))
+#21 [internal function]: Cake\Error\BaseErrorHandler->wrapAndHandleException(Object(Cake\Error\PHP7ErrorException))
+#22 {main} in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:44:31 Error: Fatal Error (256): [ParseError] syntax error, unexpected end of file
+#0 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#1 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#2 C:\xampp\htdocs\ProyectoInge\src\Controller\ErrorController.php(24): spl_autoload_call('App\\Controller\\...')
+#3 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(444): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\ProyectoInge\vendor\composer\ClassLoader.php(322): Composer\Autoload\includeFile('C:\\xampp\\htdocs...')
+#5 [internal function]: Composer\Autoload\ClassLoader->loadClass('App\\Controller\\...')
+#6 [internal function]: spl_autoload_call('App\\Controller\\...')
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(152): class_exists('App\\Controller\\...')
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Core\App.php(64): Cake\Core\App::_classExistsInBase('\\Controller\\Err...', 'App')
+#9 C:\xam in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\ErrorHandler.php, line 180]
+
+
+2018-10-24 02:45:13 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: https://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-10-24 02:45:15 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: https://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
