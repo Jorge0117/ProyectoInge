@@ -46,7 +46,7 @@ tr:nth-child(even) {
     <?= $this->Html->link(
         'Cancelar',
         ['controller'=>'CoursesClassesVw','action'=>'index'],
-        ['class'=>'btn btn-secondary btn-space']
+        ['class'=>'btn btn-secondary float-right btn-space']
     )?>
     <?= $this->Form->end() ?>
 </div>

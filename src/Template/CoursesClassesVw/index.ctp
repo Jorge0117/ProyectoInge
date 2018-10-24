@@ -151,7 +151,7 @@
                 ?>
             </fieldset>
             <button type="submit" class="btn btn-primary float-right">Aceptar</button>
-            <button id="butCanc" type="button" class="btn btn-secondary float-right btn-space">Cancelar</button>
+            <button id="butCanc" type="reset" class="btn btn-secondary float-right btn-space">Cancelar</button>
         
             <?= $this->Form->end() ?>
         </div>
