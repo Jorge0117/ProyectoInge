@@ -163,12 +163,11 @@ class UsersController extends AppController
         $AdministrativeAssistant = new AdministrativeAssistantsController;
         //guarda el rol del usuario actual para verificar si puede editar el rol
         $rol_usuario = $this->getRequest()->getSession()->read('role_id');
-        debug($rol_usuario);
+        //debug($rol_usuario);
         $admin = 0;
         if($rol_usuario === 'Administrador'){
             $admin = 1;
         }
-        $this->set('mostar', $admin);
         
         $user = $this->Users->get($id, [
             'contain' => []
@@ -228,7 +227,7 @@ class UsersController extends AppController
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'roles', 'admin'));
     }
 
     /**
