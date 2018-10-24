@@ -31,11 +31,10 @@ class FilesController extends AppController
             $fileTable->deleteFiles();
 
             if ($this->Files->save($file)) {
-                $this->Flash->success(__('The file has been saved.'));
-
+                //$this->Flash->success(__('The file has been saved.'));
                 return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'importExcelfile']);
             }
-            $this->Flash->error(__('The file could not be saved. Please, try again.'));
+            $this->Flash->error(__('Error subiendo el archivo'));
         }
         $this->set(compact('file'));
     }
@@ -44,4 +43,5 @@ class FilesController extends AppController
         $fileTable = $this->loadmodel('Files');
         return $fileTable->getDir();
     }
+    
 }
