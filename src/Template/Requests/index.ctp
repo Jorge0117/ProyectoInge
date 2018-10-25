@@ -58,6 +58,10 @@ echo $this->Html->css('buttons');
                 
                 <td class="actions">
                     <?= $this->Html->link(__('Ver'), ['action' => 'view', $request->id]) ?>
+					
+					<!--Aqui deberia ir un IF para que la opcion solo le salga a los administradores-->
+					
+					<?= $this->Html->link(__('Revisar'), ['action' => 'review', $request->id]) ?>
                 </td>
 				
             </tr>

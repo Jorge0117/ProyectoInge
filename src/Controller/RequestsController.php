@@ -97,7 +97,7 @@ public function get_round_start_date()
 
 public function get_student_id()
 {
-	$student_id = "B12345";
+	$student_id = "z12345";
 	
 	return $student_id;
 	
@@ -316,7 +316,7 @@ public function add()
 
 	}
 	
-	public function review(){
+	public function review($id = null){
 		$role_c = new RolesController;
         $action = 'review';
 		$module = 'Request';
@@ -342,6 +342,20 @@ public function add()
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
 
 		}
+		
+		//Se trae los datos de la solicitud
+	    $request = $this->Requests->get($id);
+		
+		$user = $this->Requests->getStudent($request['student_id']);
+		$user = $user[0]; //Agarra la unica tupla
+		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
+		$class = $class[0];
+		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
+		$professor = $professor[0];
+		//Manda los parametros a la revision
+        $this->set(compact('request','user','class','professor'));	
+		
+		
 	}
 	/*public function save()
 	{

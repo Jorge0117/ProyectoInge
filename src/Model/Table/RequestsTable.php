@@ -264,6 +264,37 @@ class RequestsTable extends Table
         return $result;
 	}
 	
+	//Obtiene toda la información de un usuario según su carnet
+	public function getStudent($carnet)
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select * from students s, users u  where s.carne = '$carnet' AND s.user_id = u.identification_number");
+		$result = $result->fetchAll('assoc');
+        return $result;		
+	}
+	
+	//Obtiene informacion del curso y grupo según el numero de grupo y la sigla del curso
+	public function getClass($curso,$grupo)
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select * from courses c, classes g where c.code = '$curso' and g.class_number = '$grupo' and 
+		c.code = g.course_id");
+		$result = $result->fetchAll('assoc');
+        return $result;	
+	}
+	
+	//Devuelve el profesor que imparte un grupo en un semestre y año determinado
+	public function getProfessor($curso,$grupo, $semestre, $año)
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select CONCAT(name,' ',lastname1) from users u, class c where u.identification_number = c.professor_id
+		and class_semester = '$semestre' and class_year = '$year' and course_id = '$curso'");
+		$result = $result->fetchAll('assoc');
+        return $result;
+    }
+	
+
+	
 	
 	
 }
