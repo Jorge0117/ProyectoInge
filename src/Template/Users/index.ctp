@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
+echo $this->Html->css('buttons');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
@@ -10,7 +11,7 @@
  <?= $this->Html->link(
         'Agregar usuario',
         ['controller'=>'Users','action'=>'add'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary btn-agregar-index']
     )?>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Usuarios') ?></h3>

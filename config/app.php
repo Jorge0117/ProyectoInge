@@ -255,8 +255,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '3306',
-            'username' => 'admin',
-            'password' => 'temp123',
+            'username' => 'valeria',
+            'password' => 'valeria123',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
@@ -297,9 +297,9 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => '172.16.202.55',
-            'port' => '3306',
-            'username' => 'admin',
-            'password' => 'temp123',
+            'port' => '22',
+            'username' => 'jorge',
+            'password' => 'nGKlCZGZHn6Osxgs',
             'database' => 'proyecto_inge',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',

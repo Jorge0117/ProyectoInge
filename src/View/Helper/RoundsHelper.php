@@ -21,62 +21,35 @@ class RoundsHelper extends Helper
     public function getLastRow() {
         $last = (new RoundsTable)->getLastRow();
         if($last != null){
-            $last[0] = $this->YmdtodmY($last[0]);
-            $last[4] = $this->YmdtodmY($last[4]);
+            $s_year = substr($last[0],0,4);
+            $s_month = substr($last[0],5,2);
+            $s_day = substr($last[0],8,2);
+            $last[0] = $s_day . "-" . $s_month . "-" . $s_year;
+            $e_year = substr($last[4],0,4);
+            $e_month = substr($last[4],5,2);
+            $e_day = substr($last[4],8,2);
+            $last[4] = $e_day . "-" . $e_month . "-" . $e_year;
             return $last;
         }
         return null;
-    }
-
-    public function getPenultimateRow(){
-        $penultimate = (new RoundsTable)->getPenultimateRow();
-        if($penultimate != null){
-            $penultimate[0] = $this->YmdtodmY($penultimate[0]);
-            $penultimate[4] = $this->YmdtodmY($penultimate[4]);
-            return $penultimate;
-        }
-        return null;
         
     }
-
-    public function YmdtodmY($date){
-        $j = $i = 0;
-        while($date[$i] != '/' && $date[$i] != '-'){
-            $i++;
-        }
-        $first = substr($date,$j,$i++);
-        $j = $i;
-        $i = 0;
-        while($date[$j+$i] != '/' && $date[$j+$i] != '-'){
-            $i++;
-        }
-        $second = substr($date,$j,$i++);
-        
-        $third = substr($date,$j+$i);
-        return $third . "-" . $second . "-" . $first;
-    }
-
     //devuelve el día actual.
     public function getToday() {
-        $today = (new RoundsTable)->getToday();
-        return $this->YmdtodmY($today);
+        return (new RoundsTable)->getToday();
     }
 
     //obtiene la ultima ronda creada.
     public function getLastRound() {
         $last = $this->getLastRow();
         if($last!= null){
-            return ["Ronda #" . $last[1] .' '. $last[2] . ' ciclo ' . $last[3], "Inicio: " . $last[0], "Fin: " . $last[4]]; 
+            return ["Ronda #" . $last[1], "Inicio:" . $last[0], "Fin:" . $last[4]]; 
         }
-        return null;
+        return "";
     }
 
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
     public function between(){
         return (new RoundsTable)->between();
-    }
-
-    public function active(){
-        return (new RoundsTable)->active();
     }
 }

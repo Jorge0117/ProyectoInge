@@ -54,7 +54,7 @@ class MyLdapAuthenticate extends BaseAuthenticate
             return false;
         }
         
-        $username = strtolower($request->getData('username'));
+        $username = $request->getData('username');
         $password = $request->getData('password');
 
         //debug($username);
@@ -70,7 +70,7 @@ class MyLdapAuthenticate extends BaseAuthenticate
             ldap_set_option($ldapconn, LDAP_OPT_NETWORK_TIMEOUT, 2);
             $ldapbind = @ldap_bind($ldapconn, $dn, $password);
             //debug($ldapbind);
-            if ($ldapbind || $username === 'b00000') {
+            if ($ldapbind || $username == 'b00000') {
                 //debug("Conexión realizada con éxito y credenciales válidos");
                 return $this->findUser($username);
             }
@@ -87,8 +87,7 @@ class MyLdapAuthenticate extends BaseAuthenticate
                     //debug("Couldn't establish connection with LDAP server");
 
                     ///////////////////////////////////
-                    debug("No se pudo establecer la conexión con el servidor LDAP");
-                    die();
+                    // debug("Ignorando temporalmente");
                     // return $this->findUser($username);
                     ///////////////////////////////////
                 }
