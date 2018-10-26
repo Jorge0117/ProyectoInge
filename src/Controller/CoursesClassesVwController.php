@@ -355,4 +355,10 @@ class CoursesClassesVwController extends AppController
         $ClassesController = new ClassesController;
         $result = $ClassesController->deleteAll();
     }
+
+    public function cancelExcel(){
+        $fileController = new FilesController;
+        $fileController->deleteFiles();
+        return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+    }
 }
