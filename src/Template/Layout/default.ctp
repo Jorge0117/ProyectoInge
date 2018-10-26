@@ -12,7 +12,7 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'ECCI - Sistema de Control de Asistencias';
 ?>
 <!DOCTYPE html>
 <html>
@@ -210,14 +210,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
             <li class="nav-item"><h5><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
 
-            <li class="nav-item dropdown"><h5>
-              <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Usuarios
-              </a>
-              <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
-                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
-                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
-              <div>
+            
+            <li class="nav-item"><h5><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+              
             </h5></li>
 
             <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
@@ -226,9 +222,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
       </div>
 
-      <div style="height:69px">
-      <?php $round = $this->Rounds->getLastRound() ?>
-      <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
+      <div style="width:200px">
       </div>
     </nav>
 

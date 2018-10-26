@@ -118,7 +118,7 @@ class UsersTable extends Table
         $validator
             ->scalar('phone')
             ->maxLength('phone', 12)
-            ->allowEmpty('phone');
+            ->notEmpty('phone');
 
         return $validator;
     }
@@ -142,12 +142,7 @@ class UsersTable extends Table
         $connect = ConnectionManager::get('default');
 
         $id = $connect->execute("select identification_number from users where name = '$name' and lastname1 = '$lastname'") ->fetchAll();
-        if($id != null){
-            return $id[0][0];
-        }else{
-            return null;
-        }
-        
+        return $id[0][0];
     }
 
     public function getProfessors() {

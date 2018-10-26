@@ -109,6 +109,13 @@ public function get_semester()
 	return $semester;
 }
 
+public function get_semester()
+{
+	//Pedir get_round y luego sacar el atributo 
+	
+	return "1";
+}
+
 public function add()
     {
         $request = $this->Requests->newEntity();
