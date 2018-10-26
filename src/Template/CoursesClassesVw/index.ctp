@@ -89,6 +89,7 @@
                             $this->Number->format($course->Semestre),
                             $course->Año,
                             $course->Curso,
+                            $course->Profesor
                         ],
                         [
                             'escape' => false

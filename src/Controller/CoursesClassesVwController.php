@@ -97,7 +97,8 @@ class CoursesClassesVwController extends AppController
         $class_number = null, 
         $semester = null,
         $year = null, 
-        $course_name = null
+        $course_name = null,
+        $old_professor = null
     )
     {
         //------------------------------------------------
@@ -130,6 +131,7 @@ class CoursesClassesVwController extends AppController
         $this->set('courses', $courses);
         $this->set('all_classes_codes', $all_classes_codes);
         $this->set('course_name', $course_name);
+        $this->set('old_professor', $old_professor);
         //------------------------------------------------
         // This is when the user says 'Aceptar'.
         if ($this->request->is('post')) {
