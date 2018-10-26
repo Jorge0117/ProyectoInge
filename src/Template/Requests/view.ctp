@@ -59,15 +59,15 @@
         </tbody>    
     </table>
 
-    <div class="row mb-3"><h5> ¿Tiene o va a solicitar asistencia en otra Unidad Académica u oficina de la Universidad? </h5></div>
+    <div class="row mb-3"><h5><strong> ¿Tiene o va a solicitar asistencia en otra Unidad Académica u oficina de la Universidad? </strong></h5></div>
     
     <div class="row mb-4">
         <?php if($request->has_another_hours): ?>
-            <div class="col-2"><strong>Sí</strong></div>
-            <div class="col-2"><strong>HA</strong>: <?= $request->another_assistant_hours ?></div>
-            <div class="col-2"><strong>HE</strong>: <?= $request->another_student_hours ?></div>
+            <div class="col-md-1 offset-md-1"><strong>Sí</strong></div>
+            <div class="col-md-1"><strong>HA</strong>: <?= $request->another_assistant_hours ?></div>
+            <div class="col-md-1"><strong>HE</strong>: <?= $request->another_student_hours ?></div>
         <?php else:?>
-            <div class="col-2"><strong>No</strong></div>
+            <div class="col-md-1 offset-md-1"><strong>No</strong></div>
         <?php endif?>
     </div>
 
