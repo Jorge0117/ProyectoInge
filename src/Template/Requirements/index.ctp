@@ -38,9 +38,9 @@
 
                 <td class="actions">
                     <?php if($show == 0): ?>
-                        <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-2x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
+                        <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                         <?= $this->Form->postLink(
-                            '<i class="fa fa-trash-o fa_custom fa-2x"></i>',
+                            '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
                             [
                                 'action' => 'delete',
                                 $requirement->requirement_number
