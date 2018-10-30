@@ -1,4 +1,9 @@
 <style>
+	.btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
+
 	.form-section{
         background-color: #e4e4e4;
         padding: 2%;
@@ -45,4 +50,26 @@
 		}
 	?>	
 	</div>
+
+	<div id="divSolicitud" class="form-section">
+		<!-- I know this should be invisible but wait -->
+		<legend>
+			Revisión preliminar
+		</legend>
+		<?php
+			echo $this->Form->control(
+				'Archivar en ',
+				[
+					'options' => ['-No Clasificado-', 'Elegible', 'No Elegible'],
+					'default' => 0
+				]
+			);
+		?>
+	</div>
+    <button type="submit" class="btn btn-primary float-right  btn-space">Aceptar</button>
+	<?= $this->Html->link(
+        'Cancelar',
+        ['controller'=>'requests','action'=>'index'],
+        ['class'=>'btn btn-secondary float-right btn-space']
+    )?>
 </div>
