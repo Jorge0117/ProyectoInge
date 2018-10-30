@@ -8,6 +8,8 @@ use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
 
+
+
 /**
  * Requests Model
  *
@@ -25,7 +27,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class RequestsTable extends Table
 {
-
     /**
      * Initialize method
      *
@@ -55,6 +56,9 @@ class RequestsTable extends Table
         ]);
 		
     }
+	
+	//Funciones auxiliares encargadas de ayudar a los validadores
+	
 
     /**
      * Default validation rules.
@@ -62,66 +66,97 @@ class RequestsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
+	 
+	//Valida que se seleccione un curso valido
+	public function validarCurso($check)
+	{
+		return ($check != "Seleccione un Curso" && $check != "0");
+	}
+	
+	//Valida que se seleccione un grupo valido
+	public function validarGrupo($check)
+	{
+		return ($check != "Seleccione un Grupo");
+	}
+	
+	/*public function validarSolicitudRepetida($check,  $datos)
+	{
+		$curso = debug($datos['data']['course_id']);
+		$grupo = debug($datos['data']['class_number']);
+		
+		//Si encuentro una sola tupla de solicitudes pendientes con el mismo curso y grupo, entonces de una vez indico que 
+		//la solicitud ya existe
+		//$estudiante = $this->get_student_id();
+		$tuplas = $this->getSameRequests($curso,$grupo);
+		debug($datos);
+		
+		return true;
+		//return (count($tuplas) == 0);
+	}*/
+	 
     public function validationDefault(Validator $validator)
     {
-        $validator
-            ->integer('id')
-            ->allowEmpty('id', 'create');
+		
+		//Valida que el promedio ponderado se encuentre entre 0 y 10
+		$validator	
+			->notEmpty('average')
+			->lessThanOrEqual('average',10,'* El valor máximo del promedio ponderado es 10')
+			->GreaterThanOrEqual('average',0,'* El valor minimo del promedio ponderado es 0');
+			
+		//Valida que la cantidad de horas asistente se encuentre entre 0 y 20
+		$validator
+			->integer('another_student_hours')
+			->allowEmpty('another_student_hours')
+			->lessThanOrEqual('another_student_hours',20,'* La cantidad maxima de horas ya asignadas es 20')
+			->GreaterThanOrEqual('another_student_hours',0,'La cantidad minima de horas ya asignadas es 0');
+			
+		//Valida que la cantidad de horas estudiante se encuentre entre 0 y 20
+		$validator
+			->integer('another_assistant_hours')
+			->allowEmpty('another_assistant_hours')
+			->lessThanOrEqual('another_assistant_hours',20,'* La cantidad maxima de horas ya asignadas es 20')
+			->GreaterThanOrEqual('another_assistant_hours',0,'La cantidad minima de horas ya asignadas es 0');
+			
 
-        $validator
-            ->date('round_start')
-            ->requirePresence('round_start', 'create')
-            ->notEmpty('round_start');
+		//Valida que se seleccione un curso valido
+        $validator->add('course_id',[
+        'validarCurso'=>[
+        'rule'=>'validarCurso',
+        'provider'=>'table',
+        'message'=>'Seleccione un curso'
+         ]
+        ]);
 
-        $validator
-            ->date('reception_date')
-            ->requirePresence('reception_date', 'create')
-            ->notEmpty('reception_date');
-
-        $validator
-            ->scalar('class_year')
-            ->requirePresence('class_year', 'create')
-            ->notEmpty('class_year');
-
-        $validator
-            ->requirePresence('class_semester', 'create')
-            ->notEmpty('class_semester');
-
-        $validator
-            ->requirePresence('class_number', 'create')
-            ->notEmpty('class_number');
-
-        $validator
-            ->scalar('status')
-            ->maxLength('status', 1)
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
-        $validator
-            ->requirePresence('another_assistant_hours', 'create')
-            ->notEmpty('another_assistant_hours');
-
-        $validator
-            ->requirePresence('another_student_hours', 'create')
-            ->notEmpty('another_student_hours');
-
-        $validator
-            ->boolean('has_another_hours')
-            ->requirePresence('has_another_hours', 'create')
-            ->notEmpty('has_another_hours');
-
-        $validator
-            ->boolean('first_time')
-            ->requirePresence('first_time', 'create')
-            ->notEmpty('first_time');
-
-        $validator
-            ->decimal('average')
-            ->requirePresence('average', 'create')
-            ->notEmpty('average');
+		
+		//Valida que se seleccione un grupo valido
+		$validator->add('class_number',[
+        'validarGrupo'=>[
+        'rule'=>'validarGrupo',
+        'provider'=>'table',
+        'message'=>'Seleccione un Grupo'
+         ]
+        ]);
+		
+		//Valida que no se ingrese una solicitud repetida
+		/*$validator->add('class_number',[
+        'validarSolicitudRepetida'=>[
+        'rule'=>'validarSolicitudRepetida', ["contexto"],
+        'provider'=>'table',
+        'message'=>'La solicitud a este curso/grupo ya existe'
+         ]
+        ]);*/
+		
+		//Los demas elementos no es necesario validarlos, ya que los checkboxs pueden guardarse como nulos en la DB
+		
+		//debug($validator);
 
         return $validator;
     }
+	
+
+
+	
+
 
     /**
      * Returns a rules checker object that will be used for validating
