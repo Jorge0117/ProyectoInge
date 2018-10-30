@@ -149,9 +149,11 @@ public function get_round_start_date()
 
 public function get_student_id()
 {
-	$student_id = "B12345";
+	$student_id = "402220000";
 	
-	return $student_id;
+    return $student_id;
+    
+    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_semester()
