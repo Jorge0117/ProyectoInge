@@ -321,20 +321,22 @@ public function add()
         $action = 'review';
 		$module = 'Request';
 		$user = $this->Auth->user();
+
+		$load_preliminar_review = false;
 		
 		//Datos de la solicitud
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
-
+			
 		}
 
 		//Revision de requisitos
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
-
+			
 		}
 		
 		//Revisión preliminar
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
-
+			// $load_preliminar_review = $load_review_requirements;
 		}
 
 		//Revisión final
@@ -353,6 +355,9 @@ public function add()
 		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
 		$professor = $professor[0];
 		//Manda los parametros a la revision
+
+		$this->set('load_preliminar_review',$load_preliminar_review);
+
         $this->set(compact('request','user','class','professor'));	
 		
 		
