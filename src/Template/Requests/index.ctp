@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Request[]|\Cake\Collection\CollectionInterface $requests
  */
 echo $this->Html->css('buttons');
-
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     
@@ -29,14 +28,13 @@ echo $this->Html->css('buttons');
                 <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Tiene otras horas') ?></th>
-                <th scope="col" class="actions"><?= __('Acciones') ?></th>
+                <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($requests as $request): ?>
+            <?php foreach ($query as $request): ?>
             <tr>
                 <td><?= h($request->reception_date) ?></td>
-                
                 
                 <td><?= $this->Number->format($request->average) ?></td>
                 <td><?= h($request->class_year) ?></td>
@@ -99,4 +97,3 @@ echo $this->Html->css('buttons');
         );
     } );
 </script>
-

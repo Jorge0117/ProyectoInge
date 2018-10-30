@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+
 /**
  * Requests Controller
  *
@@ -32,14 +33,65 @@ class RequestsController extends AppController
 	 
     public function index()
     {
-        /*$this->paginate = [
-            'contain' => ['Courses', 'Students']
-        ];*/
-        $requests = $this->paginate($this->Requests);
+        $table = $this->loadModel('InfoRequests');
+    
+        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
+        $id_usuario = $this->getRequest()->getSession()->read('identification_number');
 
-		$disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+        //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
+        //if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+            
+            $query = $table->find();
+            //$data = $query->toArray();
+            
+            //$requests = $this->paginate('InfoRequests');
+
+            $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
 		
-        $this->set(compact('requests','disponible'));
+            $this->set(compact('query','disponible'));
+        /*}else{
+
+            //ESTUDIANTE
+            //Si es estudiante solamente muestra sus solicitudes.
+            if($rol_usuario === 'Estudiante'){
+                $query = $this->Requests->find('all', [
+                    'conditions' => ['Requests.student_id >' => $id_usuario],
+                    'contain' => ['Users', 'Students', 'Rounds'],
+                ]);
+
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+		
+                $this->set(compact('query','disponible'));
+
+                //$requests = $query->toArray();
+                
+                /*
+                $queryCarne = $this->Students->find()->select('carne');
+            
+                $queryRound = $this->Rounds->find()->select('round_number');
+            
+                $requests = $this->paginate($this->Requests);
+                
+            }else{
+
+                //PROFESOR
+                //Si es profesor solamente muestra las solicitudes de sus grupos.
+                $query = $this->Requests->find('all', [
+                    'contain' => ['Students', 'Rounds', 'Class'],
+                ]);
+
+                $query->matching('Class', function ($q) {
+                    return $q->where(['Class.professor_id' => $id_usuario]);
+                });
+
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+		
+                $this->set(compact('query','disponible'));
+
+            }
+        }
+        */
+
     }
 
     /**
