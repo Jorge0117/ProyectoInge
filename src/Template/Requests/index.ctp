@@ -5,6 +5,9 @@
  */
 echo $this->Html->css('buttons');
 ?>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     
     	<?php if ($disponible === true): ?>
@@ -34,44 +37,35 @@ echo $this->Html->css('buttons');
         <tbody>
             <?php foreach ($query as $request): ?>
             <tr>
-                <td><?= h($request->reception_date) ?></td>
+                <td><?= h($request->fecha) ?></td>
                 
-                <td><?= $this->Number->format($request->average) ?></td>
-                <td><?= h($request->class_year) ?></td>
-                <td><?= $this->Number->format($request->class_semester) ?></td>
-                <!-- <td><?= $request->has('course') ? $this->Html->link($request->course->name, ['controller' => 'Courses', 'action' => 'view', $request->course->code]) : '' ?></td>-->
-                <td><?= h($request->course_id) ?></td>
-                <td><?= $this->Number->format($request->class_number) ?></td>
-                <td><?= $request->round_start ?></td>
+                <td><?= h($request->carne) ?></td>
+                <td><?= h($request->nombre) ?></td>
 
-                <td><?= h($request->status) ?></td>
+                <td><?= $this->Number->format($request->promedio) ?></td>
+                <td><?= h($request->anoo) ?></td>
+                <td><?= $this->Number->format($request->semestre) ?></td>
+                <td><?= h($request->curso) ?></td>
+                <td><?= $this->Number->format($request->grupo) ?></td>
+                <td><?= $this->Number->format($request->ronda) ?></td>
 				
-                <?php if ($request->has_another_hours === true): ?>
+                <td><?= h($request->estado) ?></td>
+
+                <?php if ($request->otras_horas === true): ?>
 					<td> SI </td>
 				<?php else: ?>
 					<td> NO </td>
 				<?php endif; ?>
 				
-				
                 
                 <td class="actions">
-                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $request->id]) ?>
+                    <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
                 </td>
 				
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <!--<?= $this->Paginator->numbers() ?>-->
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Pagina {{page}} de {{pages}}, mostrando {{current}} solicitudes de {{count}}')]) ?></p>
-    </div>
 </div>
 
 <script type="text/javascript">
