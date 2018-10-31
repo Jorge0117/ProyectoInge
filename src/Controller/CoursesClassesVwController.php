@@ -92,7 +92,13 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
+    public function edit(
+        $code = null, 
+        $class_number = null, 
+        $semester = null,
+        $year = null, 
+        $course_name = null
+    )
     {
         //------------------------------------------------
         // To know whether or not the entire process went right.
@@ -227,7 +233,7 @@ class CoursesClassesVwController extends AppController
     public function importExcelfile (){
 
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
-
+        $UserController = new UsersController;
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
         //Lee el archivo que se va a subir
@@ -254,11 +260,34 @@ class CoursesClassesVwController extends AppController
         //Contiene las filas del archivo
         $rows = [];
 
+        $profIds = [];
         //Se llena la matriz
         for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                 $rows[$col -1] = $value;
+
+                //Revisa si el profe existe
+                if($col == 4){
+                    if($value != null){
+                        //Divide el profesor en nombre y apellido
+                        $prof = preg_split('/\s+/', $value);
+                        //Consigue el id del profesor
+                        $id = $UserController->getId($prof[1], $prof[0]);
+                        if($id == null){
+                            debug($value);
+                            //die();
+                            $this->Flash->error('El profesor '. $value .' no se encuentra en la tabla');
+                            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+                        }else{
+                            array_push($profIds, $id);
+                        }
+                    }else{
+                        array_push($profIds, null);
+                    }
+                    
+                }
+
             }
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
@@ -271,9 +300,10 @@ class CoursesClassesVwController extends AppController
             //Borra todos los grupos
             $ClassesController = new ClassesController;
             $result = $ClassesController->deleteAll();
+
             //Llama al método addFromFile con cada fila
             for ($row = 0; $row < count($table); ++$row) {
-                $this->addFromFile($table[$row]);
+                $this->addFromFile($table[$row], $profIds[$row]);
             }
             $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
@@ -281,15 +311,15 @@ class CoursesClassesVwController extends AppController
         $this->set(compact('coursesClassesVw'));
     }
 
-    public function addFromFile ($parameters){
+    public function addFromFile ($parameters, $profId){
         //Si la fila está vacía no hace nada
         if($parameters[0] != null){
 
             //Divide el profesor en nombre y apellido
-            $prof = preg_split('/\s+/', $parameters[3]);
+            //$prof = preg_split('/\s+/', $parameters[3]);
             //Consigue el id del profesor
-            $UserController = new UsersController;
-            $profId = $UserController->getId($prof[1], $prof[0]);
+            //$UserController = new UsersController;
+            //$profId = $UserController->getId($prof[1], $prof[0]);
 
             //Agrega el curso
             $courseController = new CoursesController;
