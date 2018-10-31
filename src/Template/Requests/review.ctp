@@ -64,7 +64,7 @@
 					echo $this->Form->control(
 						'status',
 						[
-							'options' => ['-No Clasificado-', 'Elegible', 'No Elegible'],
+							'options' => ['-No Clasificado-', 'Elegible', 'No Elegible','Elegible por Inopia'],
 							'default' => 0
 						]
 					);

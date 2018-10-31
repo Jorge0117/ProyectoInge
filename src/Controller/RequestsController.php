@@ -319,7 +319,7 @@ public function add()
 	public function review($id = null){
 		$role_c = new RolesController;
         $action = 'review';
-		$module = 'Request';
+		$module = 'Requests';
 		$user = $this->Auth->user();
 
 		//--------------------------------------------------------------------------
@@ -341,7 +341,7 @@ public function add()
 		//Revisión preliminar
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
 			// $load_preliminar_review = $load_review_requirements;
-			$predetermined_state = $this->Classes->newEntity()->fetchState($id);
+			// $predetermined_state = $this->Classes->newEntity()->fetchState($id);
 		}
 		
 		//Revisión final
@@ -352,7 +352,6 @@ public function add()
 		
 		//Se trae los datos de la solicitud
 		$request = $this->Requests->get($id);
-		
 		$user = $this->Requests->getStudent($request['student_id']);
 		$user = $user[0]; //Agarra la unica tupla
 		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
@@ -363,21 +362,28 @@ public function add()
 		
 		$this->set('load_preliminar_review',$load_preliminar_review);
 		
-        $this->set(compact('request','user','class','professor'));	
-		
-		debug('DEBUG:01');
-		if ($this->request->is('post')) {
-			debug('DEBUG:02');
-			die();
-			if ($this->request->is(['patch', 'post', 'put'])) {
-				$model = $this->Requets->patchEntity(
-                    $model,
-                    $this->request->getData()
-                );
+		$this->set(compact('request','user','class','professor'));
+		if ($this->request->is(['patch', 'post', 'put'])) {
+			//--------------------------------------------------------------------------
+			$data = $this->request->getData();
+			$status_index = $data['status'];
+			switch($status_index){
+				case 1:
+					$status_new_val = 'e';
+					break;
+				case 2:
+					$status_new_val = 'n';
+					break;
+				case 3:
+					$status_new_val = 'i';
+					break;
 			}
+			debug($status_new_val);
+			die();
+			//--------------------------------------------------------------------------
+
+
 		}
-		debug('DEBUG:03');
-		
 	}
 	/*public function save()
 	{
