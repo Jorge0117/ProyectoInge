@@ -322,13 +322,17 @@ public function add()
 		$module = 'Request';
 		$user = $this->Auth->user();
 
+		//--------------------------------------------------------------------------
+		// All of the variables added in this section are ment to be for 
+		// the preliminar review of each requests.
 		$load_preliminar_review = false;
-		
+		$predetermined_state = null;
+		//--------------------------------------------------------------------------
 		//Datos de la solicitud
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
 			
 		}
-
+		
 		//Revision de requisitos
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
 			
@@ -337,29 +341,42 @@ public function add()
 		//Revisión preliminar
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
 			// $load_preliminar_review = $load_review_requirements;
+			$predetermined_state = $this->Classes->newEntity()->fetchState($id);
 		}
-
+		
 		//Revisión final
 		
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
-
+			
 		}
 		
 		//Se trae los datos de la solicitud
-	    $request = $this->Requests->get($id);
+		$request = $this->Requests->get($id);
 		
 		$user = $this->Requests->getStudent($request['student_id']);
 		$user = $user[0]; //Agarra la unica tupla
 		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
-		$class = $class[0];
+		$class = $class[0]; 
 		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
 		$professor = $professor[0];
 		//Manda los parametros a la revision
-
+		
 		$this->set('load_preliminar_review',$load_preliminar_review);
-
+		
         $this->set(compact('request','user','class','professor'));	
 		
+		debug('DEBUG:01');
+		if ($this->request->is('post')) {
+			debug('DEBUG:02');
+			die();
+			if ($this->request->is(['patch', 'post', 'put'])) {
+				$model = $this->Requets->patchEntity(
+                    $model,
+                    $this->request->getData()
+                );
+			}
+		}
+		debug('DEBUG:03');
 		
 	}
 	/*public function save()

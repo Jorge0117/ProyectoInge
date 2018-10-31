@@ -294,7 +294,18 @@ class RequestsTable extends Table
     }
 	
 
-	
-	
-	
+	/**
+	 * This method was added by Joseph Rementería
+	 * 
+	 * Fetches the state of the given id request.
+	 */
+	public function fetchState($id = null)
+	{
+		$connect = ConnectionManager::get('default');
+		$result = $connect->execute("SELECT status FROM request WHERE id = '$id'");
+		debug($result);
+		die();
+		return $result;
+	}
+
 }
