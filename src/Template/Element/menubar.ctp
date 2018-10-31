@@ -84,6 +84,13 @@
 
     </div>
 
-    <div style="width:200px">
-    </div>
+    <?php $round = $this->Rounds->getLastRound() ?>
+    <?php if($round == null): ?>
+        <div style="width:200px">
+        </div>
+    <?php else: ?>
+        <div style="height:69px">  
+            <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
+        </div>
+    <?php endif; ?>
 </nav>
