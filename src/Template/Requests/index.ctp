@@ -9,10 +9,10 @@ echo $this->Html->css('buttons');
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-    
-    	<?php if ($disponible === true): ?>
+
+    <?php if ($disponible === true): ?>
     <?= $this->Html->link(__('Agregar solicitud'), ['action' => 'add'], ['class'=>'btn btn-primary btn-agregar-index']) ?>
-		<?php endif; ?>
+	<?php endif; ?>
     
 </nav>
 <div class="requests index large-9 medium-8 columns content">
@@ -59,6 +59,7 @@ echo $this->Html->css('buttons');
 				
                 
                 <td class="actions">
+                    <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
                     <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
                 </td>
 				

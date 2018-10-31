@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property \Cake\I18n\FrozenDate $fecha
+ * @property string $cedula
  * @property string $carne
  * @property float $nombre
  * @property float $promedio
@@ -35,6 +36,7 @@ class InfoRequest extends Entity
     protected $_accessible = [
         'id' => true,
         'fecha' => true,
+        'cedula' => true,
         'carne' => true,
         'nombre' => true,
         'promedio' => true,

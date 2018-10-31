@@ -53,6 +53,12 @@ class InfoRequestsTable extends Table
             ->notEmpty('fecha');
 
         $validator
+            ->scalar('cedula')
+            ->maxLength('cedula', 20)
+            ->requirePresence('cedula', 'create')
+            ->notEmpty('cedula');
+
+        $validator
             ->scalar('carne')
             ->maxLength('carne', 6)
             ->requirePresence('carne', 'create')
