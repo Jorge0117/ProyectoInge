@@ -56,6 +56,8 @@
                         ['value' => 'Estudiante', 'text' => '<span style="padding:0 10px 0 10px;">Horas Estudiante</span>'],
                     
                         ['value' => 'Asistente', 'text' => '<span style="padding:0 10px 0 10px;">Horas Asistente</span>'],
+
+                        ['value' => 'Ambos', 'text' => '<span style="padding:0 10px 0 10px;">Ambas</span>'],
                     ],
                     [ 
                         'div' => false,
