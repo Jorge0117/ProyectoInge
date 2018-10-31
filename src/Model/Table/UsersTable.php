@@ -145,6 +145,13 @@ class UsersTable extends Table
         return $id[0][0];
     }
 
+    public function getNameUser ($id) {
+        $connect = ConnectionManager::get('default');
+
+        $name = $connect->execute("select CONCAT(name, \" \", lastname1) from users where identification_number ='$id'") ->fetchAll();
+        return $name[0][0];
+    }
+
     public function getProfessors() {
         $connect = ConnectionManager::get('default');
 

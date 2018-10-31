@@ -261,5 +261,10 @@ class UsersController extends AppController
         return $userTable->getProfessors();
     }
 
+    public function getNameUser ($id) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getNameUser($id);
+    }
 
 }

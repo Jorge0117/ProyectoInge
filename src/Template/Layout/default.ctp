@@ -217,6 +217,8 @@ $cakeDescription = 'ECCI - Sistema de Control de Asistencias';
             </h5></li>
 
             <li class="nav-item"><h5><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h5></li>
+
+             <li class="nav-item"><h5><?= $this->Html->link('Reportes',['controller'=>'Reports','action'=>'approved_Report'],['class'=>'nav-link']) ?></h5></li>
           
           </ul>
         </div>
