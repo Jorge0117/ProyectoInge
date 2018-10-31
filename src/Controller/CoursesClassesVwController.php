@@ -260,6 +260,7 @@ class CoursesClassesVwController extends AppController
         //Contiene las filas del archivo
         $rows = [];
 
+        $profIds = [];
         //Se llena la matriz
         for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
@@ -311,9 +312,10 @@ class CoursesClassesVwController extends AppController
             //Borra todos los grupos
             $ClassesController = new ClassesController;
             $result = $ClassesController->deleteAll();
+
             //Llama al método addFromFile con cada fila
             for ($row = 0; $row < count($table); ++$row) {
-                $this->addFromFile($table[$row]);
+                $this->addFromFile($table[$row], $profIds[$row]);
             }
 
             //Se borra el archivo
@@ -325,15 +327,15 @@ class CoursesClassesVwController extends AppController
         $this->set(compact('coursesClassesVw'));
     }
 
-    public function addFromFile ($parameters){
+    public function addFromFile ($parameters, $profId){
         //Si la fila está vacía no hace nada
         if($parameters[0] != null){
 
             //Divide el profesor en nombre y apellido
-            $prof = preg_split('/\s+/', $parameters[3]);
+            //$prof = preg_split('/\s+/', $parameters[3]);
             //Consigue el id del profesor
-            $UserController = new UsersController;
-            $profId = $UserController->getId($prof[1], $prof[0]);
+            //$UserController = new UsersController;
+            //$profId = $UserController->getId($prof[1], $prof[0]);
 
             //Agrega el curso
             $courseController = new CoursesController;
