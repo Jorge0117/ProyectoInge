@@ -225,13 +225,19 @@ class CoursesClassesVwController extends AppController
     }
 
     public function importExcelfile (){
-
+        $this->loadModel('CoursesClassesVw');
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
-
+        $UserController = new UsersController;
+        $fileController = new FilesController;
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
+
         //Lee el archivo que se va a subir
-        $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+
+        $fileDir = $fileController->getDir();
+        $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
+
+        //$inputFileName = TESTS. DS. 'archPrueba.xlsx';
         //Identifica el tipo de archivo
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
         //Crea un nuevo reader para el tipo de archivo
@@ -259,9 +265,43 @@ class CoursesClassesVwController extends AppController
             for ($col = 1; $col <= 4; ++$col) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                 $rows[$col -1] = $value;
+
+                //Revisa si el profe existe
+                if($col == 4){
+                    if($value != null){
+                        //Divide el profesor en nombre y apellido
+                        $prof = preg_split('/\s+/', $value);
+                        //Consigue el id del profesor
+                        $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
+                        if($id == null){
+                            //Se borra el archivo
+                            $fileController->deleteFiles();
+                            $this->Flash->error('El profesor '. $value .' no se encuentra en la tabla');
+                            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+                        }else{
+                            array_push($profIds, $id);
+                        }
+                    }else{
+                        array_push($profIds, null);
+                    }
+                    
+                }
+
             }
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
+        }
+        //Se cambia el nombre de las llaves del array si no es post
+        if(!$this->request->is('post')){
+            $table = array_map(function($tag) {
+                return array(
+                    'Curso' => $tag['0'],
+                    'Sigla' => $tag['1'],
+                    'Grupo' => $tag['2'],
+                    'Profesor' => $tag['3']
+                );
+            }, $table);
+    
         }
         //Hace que table sea visible para el template
         $this->set('table', $table);
@@ -275,6 +315,10 @@ class CoursesClassesVwController extends AppController
             for ($row = 0; $row < count($table); ++$row) {
                 $this->addFromFile($table[$row]);
             }
+
+            //Se borra el archivo
+            $fileController->deleteFiles();
+
             $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
@@ -306,5 +350,11 @@ class CoursesClassesVwController extends AppController
         //Borra todos los grupos
         $ClassesController = new ClassesController;
         $result = $ClassesController->deleteAll();
+    }
+
+    public function cancelExcel(){
+        $fileController = new FilesController;
+        $fileController->deleteFiles();
+        return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
 }
