@@ -78,10 +78,10 @@ class RoundsTable extends Table
     );
 }
 // edita la ronda correspondiente.
-public function editRound($start_d,$end_d,$old_start_d){
+public function editRound($start_d,$end_d,$old_start_d,$tsh,$tah){
     $connet = ConnectionManager::get('default');
     $connet->execute(
-        "CALL update_round('$start_d','$end_d', '$old_start_d')"
+        "CALL update_round('$start_d','$end_d', '$old_start_d', '$tsh', '$tah')"
     );
 }
 // obtiene la ultima tupla ingresada.
