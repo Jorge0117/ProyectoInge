@@ -12,6 +12,16 @@ use Cake\Event\Event;
  */
 class RequestsController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+		/**
+		 * FIXME
+		 * Arreglar permisos en la bd.
+		 */
+        parent::beforeFilter($event);
+        $this->Auth->allow('print');
+    }
 	
     /**
      * Index method
@@ -51,6 +61,36 @@ class RequestsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
+    {
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
+
+        $request = $this->Requests->get($id, [
+			'contain' => ['Courses', 'Students']
+		]);
+		
+		$user = $this->Users->get($request->student->user_id);
+
+		$query = $this->Classes
+				->find()
+				->select('professor_id')
+				->where(['course_id' => $request->course_id,
+					'class_number' => $request->class_number,
+					'semester' => $request->class_semester,
+					'year' => $request->class_year]);
+
+		$profesor = $query->first();
+
+		if ($profesor) {
+			$request['docente'] = $this->Users->get($profesor['professor_id']);
+		}
+		$this->set('profesor', $profesor);
+		// $docente = $this->Users->get($query);
+		$request['user'] = $user;
+		$this->set('request', $request);		
+	}
+	
+	public function print($id = null)
     {
 		$this->loadModel('Users');
 		$this->loadModel('Classes');
