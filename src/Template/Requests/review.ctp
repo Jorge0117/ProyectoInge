@@ -72,4 +72,12 @@
         ['controller'=>'requests','action'=>'index'],
         ['class'=>'btn btn-secondary float-right btn-space']
     )?>
+	<?php
+	
+	?>
+	<?= $this->Html->link(
+        'Enviar Correo',
+        array('controller'=>'requests','action'=>'sendMail',$cedula),
+        ['class'=>'btn btn-primary float-right btn-space']
+    )?>
 </div>

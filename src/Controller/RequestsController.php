@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Network\Email\Email;
 /**
  * Requests Controller
  *
@@ -378,5 +379,31 @@ public function add()
 		//Redirecciona al index
 		//return $this->redirect(['action' => 'index']);
 	}*/
+
+	public function reprovedMessage()
+	{
+		
+	}
+
+	public function sendMail($cedula)
+    {
+		$estudiante = $this->Requests->getStudentInfo($cedula);
+		$mail = $estudiante[0]['email_personal'];
+    	$email = new Email();
+        $email->transport('mailjet');
+
+        try {
+            $res = $email->from(['estivenalg@gmail.com' => 'Emisor'])
+                  ->to([$mail => 'Receptor'])
+                  ->subject('Subject')                  
+                  ->send('Texto de ejemplo');
+
+        } catch (Exception $e) {
+
+            echo 'Exception : ',  $e->getMessage(), "\n";
+
+         }
+         $this->redirect(['action' => 'index']);
+    }
 
 }
