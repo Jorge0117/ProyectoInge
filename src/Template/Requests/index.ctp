@@ -59,7 +59,7 @@ echo $this->Html->css('buttons');
 				
                 
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
+					<?= $this->Html->link(__('Revisar'), ['action' => 'review', $request->id]) ?>
                     <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
                 </td>
 				

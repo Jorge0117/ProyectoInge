@@ -57,7 +57,7 @@ class AppController extends Controller
                 'controller' => 'Security',
                 'action' => 'login',
             ],
-            'authError' => 'Usted no tiene permiso de acceder a esa página',
+            'authError' => 'Ingrese al sistema',
             'flash' => [
                 'element' => 'error'
             ],
@@ -115,6 +115,7 @@ class AppController extends Controller
         $module = $this->request->getParam('controller');
         //echo($action);
         //echo($module);
+		return true;
         return $role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }

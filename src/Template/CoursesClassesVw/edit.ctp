@@ -27,50 +27,43 @@
         margin-right: 3px;
         margin-leftt: 3px;
     }
-
-    .form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
 </style>
 <div class="courses form large-9 medium-8 columns content">
     <?= $this->Form->create() ?>
     <fieldset>
-        <div class = "form-section">
-            <?php
-                // echo $this->Form->control(
-                //     'Sigla',
-                //     [
-                //         'default' => $code,
-                //         'options' => $all_classes_codes
-                //     ]
-                // ); 
-                echo $this->Form->control(
-                    'Curso',
-                    [
-                        'options' => $courses,
-                        'default' => $course_name
-                    ]
-                );
-                echo $this->Form->control(
-                    'Grupo',
-                    ['default' => $class_number]
-                );
-                echo $this->Form->control(
-                    'Semestre',
-                    ['default' => $semester]
-                );
-                echo $this->Form->control(
-                    'Año',
-                    ['default' => $year]
-                );
-                echo $this->Form->control(
-                    'Profesor',
-                    ['options' => $professors]
-                );
-            ?>
-        </div>
+        <!--<legend><?= __('Editar Curso') ?></legend>-->
+        <?php
+            // echo $this->Form->control(
+            //     'Sigla',
+            //     [
+            //         'default' => $code,
+            //         'options' => $all_classes_codes
+            //     ]
+            // ); 
+            echo $this->Form->control(
+                'Curso',
+                [
+                    'options' => $courses,
+                    'default' => $course_name
+                ]
+            );
+            echo $this->Form->control(
+                'Grupo',
+                ['default' => $class_number]
+            );
+            echo $this->Form->control(
+                'Semestre',
+                ['default' => $semester]
+            );
+            echo $this->Form->control(
+                'Año',
+                ['default' => $year]
+            );
+            echo $this->Form->control(
+                'Profesor',
+                ['options' => $professors]
+            );
+        ?>
     </fieldset>
     <?= $this->Html->link(
         'Cancelar',

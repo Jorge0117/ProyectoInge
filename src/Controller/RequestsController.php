@@ -127,14 +127,21 @@ public function get_student_id()
 {
 	$student_id = "402220000";
 	
-    return $student_id;
-    
-    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
+	return $student_id;
+	
+	//return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()
 {
 	return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
+}
+
+public function get_semester()
+{
+	//Pedir get_round y luego sacar el atributo 
+	
+	return "1";
 }
 
 public function add()
@@ -337,6 +344,47 @@ public function add()
 
 	}
 	
+	public function review($id = null){
+		$role_c = new RolesController;
+        $action = 'review';
+		$module = 'Request';
+		$user = $this->Auth->user();
+		
+		//Datos de la solicitud
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
+
+		}
+
+		//Revision de requisitos
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
+
+		}
+		
+		//Revisión preliminar
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
+
+		}
+
+		//Revisión final
+		
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
+
+		}
+		
+		//Se trae los datos de la solicitud
+	    $request = $this->Requests->get($id);
+		
+		$user = $this->Requests->getStudent($request['student_id']);
+		$user = $user[0]; //Agarra la unica tupla
+		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
+		$class = $class[0];
+		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
+		$professor = $professor[0];
+		//Manda los parametros a la revision
+        $this->set(compact('request','user','class','professor'));	
+		
+		
+	}
 	/*public function save()
 	{
 		//Guarda los datos;
