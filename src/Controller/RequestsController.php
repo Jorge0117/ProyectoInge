@@ -33,14 +33,41 @@ class RequestsController extends AppController
 	 
     public function index()
     {
-        /*$this->paginate = [
-            'contain' => ['Courses', 'Students']
-        ];*/
-        $requests = $this->paginate($this->Requests);
+        $table = $this->loadModel('InfoRequests');
+    
+        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
+        $id_usuario = $this->getRequest()->getSession()->read('identification_number');
 
-		$disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+        //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
+        if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+            $query = $table->find();
+            $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
 		
-        $this->set(compact('requests','disponible'));
+            $this->set(compact('query','disponible'));
+        }else{
+
+            //ESTUDIANTE
+            //Si es estudiante solamente muestra sus solicitudes.
+            if($rol_usuario === 'Estudiante'){
+                $query = $table->find('all', [
+                    'conditions' => ['cedula' => $id_usuario]]);
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+		
+                $this->set(compact('query','disponible'));                
+                
+            }else{
+                //PROFESOR
+                //Si es profesor solamente muestra las solicitudes de sus grupos.
+                $query = $table->find('all', [
+                    'conditions' => ['id_prof' => $id_usuario]]);
+                $disponible = false; 
+				
+                $this->set(compact('query','disponible'));
+
+            }
+        }
+        
+
     }
 
     /**
@@ -118,11 +145,11 @@ public function get_round_start_date()
 
 public function get_student_id()
 {
-	$student_id = "B12345";
+	$student_id = "402220000";
 	
-	return $student_id;
-	
-	//return 	$this->Auth->user('username'); //Este es el que en realidad hay que devolver
+    return $student_id;
+    
+    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()

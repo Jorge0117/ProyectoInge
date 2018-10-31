@@ -86,6 +86,12 @@ class UsersTable extends Table
         );
 
         $validator
+        ->scalar('identification_type')
+        ->maxLength('identification_type', 20)
+        ->requirePresence('identification_type', 'create')
+        ->notEmpty('identification_type');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 50)
             ->requirePresence('name', 'create')
