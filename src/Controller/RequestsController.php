@@ -385,9 +385,9 @@ public function add()
 		
 	}
 
-	public function sendMail($cedula)
+	public function sendMail($carne)
     {
-		$estudiante = $this->Requests->getStudentInfo($cedula);
+		$estudiante = $this->Requests->getStudentInfo($carne);
 		$mail = $estudiante[0]['email_personal'];
     	$email = new Email();
         $email->transport('mailjet');

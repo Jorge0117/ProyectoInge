@@ -73,11 +73,12 @@
         ['class'=>'btn btn-secondary float-right btn-space']
     )?>
 	<?php
-	
+	$carne = $user['carne'];
+	$estado = $request['status'];
 	?>
 	<?= $this->Html->link(
         'Enviar Correo',
-        array('controller'=>'requests','action'=>'sendMail',$cedula),
+        array('controller'=>'requests','action'=>'sendMail',$carne,$estado),
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
 </div>
