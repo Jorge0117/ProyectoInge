@@ -45,8 +45,8 @@ tr:nth-child(even) {
     <button type="submit" class="btn btn-primary float-right">Aceptar</button>
     <?= $this->Html->link(
         'Cancelar',
-        ['controller'=>'CoursesClassesVw','action'=>'index'],
-        ['class'=>'btn btn-secondary btn-space']
+        ['controller'=>'CoursesClassesVw','action'=>'cancelExcel'],
+        ['class'=>'btn btn-secondary float-right btn-space']
     )?>
     <?= $this->Form->end() ?>
 </div>
