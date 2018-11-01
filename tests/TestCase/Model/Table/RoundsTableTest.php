@@ -82,21 +82,61 @@ class RoundsTableTest extends TestCase
     }
 
     /**
-     * Test deleteLastRound method
-     *
-     * @return void
-     */
-    public function testDeleteLastRound()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
      * Test editRound method
      *
      * @return void
      */
     public function testEditRound()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getLastRow method
+     *
+     * @return void
+     */
+    public function testGetLastRow()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getPenultimateRow method
+     *
+     * @return void
+     */
+    public function testGetPenultimateRow()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getToday method
+     *
+     * @return void
+     */
+    public function testGetToday()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test between method
+     *
+     * @return void
+     */
+    public function testBetween()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test active method
+     *
+     * @return void
+     */
+    public function testActive()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
