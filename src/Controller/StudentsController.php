@@ -45,10 +45,25 @@ class StudentsController extends AppController
      * Add a new student specifying id and carne
      */
     public function newStudent($id, $carne){
+        /*
+        $articles = TableRegistry::get('Students');
+        $article = $articles->newEntity();
+        $article->user_id = $id;
+        $article->carne = $carne;
+
+        if ($articles->save($article)) {
+            $this->Flash->success(__('Se agregó el estudiante correctamente.'));        
+        }
+        */
+        
         $student = new Student([
             'user_id' => $id,
             'carne' => $carne
         ]);
+        
+        if ($articles->save($student)) {
+            $this->Flash->success(__('Se agregó el estudiante correctamente.'));        
+        }
     }
 
     /**
