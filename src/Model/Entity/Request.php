@@ -51,6 +51,11 @@ class Request extends Entity
         'first_time' => true,
         'average' => true,
         'course' => true,
-        'student' => true
+		'student' => true,
+		'wants_student_hours' => true,
+		'wants_assistant_hours' => true
     ];
+	
+
+	 
 }

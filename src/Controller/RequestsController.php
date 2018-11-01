@@ -43,14 +43,38 @@ class RequestsController extends AppController
 	 
     public function index()
     {
-        /*$this->paginate = [
-            'contain' => ['Courses', 'Students']
-        ];*/
-        $requests = $this->paginate($this->Requests);
-
-		$disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+        $table = $this->loadModel('InfoRequests');
+        $rol_usuario = $this->Auth->user('role_id');
+		$id_usuario = $this->Auth->user('identification_number');
 		
-        $this->set(compact('requests','disponible'));
+        //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
+        if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+			$query = $table->find('all');
+            $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+			$admin = true;
+			$this->set(compact('query','disponible', 'admin'));
+		}else{
+			
+            //ESTUDIANTE
+            //Si es estudiante solamente muestra sus solicitudes.
+            if($rol_usuario === 'Estudiante'){
+                $query = $table->find('all', [
+                    'conditions' => ['cedula' => $id_usuario]]);
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+				$admin = false;
+                $this->set(compact('query','disponible', 'admin'));                
+                
+            }else{
+                //PROFESOR
+                //Si es profesor solamente muestra las solicitudes de sus grupos.
+                $query = $table->find('all', [
+                    'conditions' => ['id_prof' => $id_usuario]]);
+                $disponible = false; 
+				$admin = false;
+                $this->set(compact('query','disponible', 'admin'));
+			}	
+		}
+		
     }
 
     /**
@@ -158,11 +182,11 @@ public function get_round_start_date()
 
 public function get_student_id()
 {
-	$student_id = "B12345";
+	$student_id = "402220000";
 	
-	return $student_id;
-	
-	//return 	$this->Auth->user('username'); //Este es el que en realidad hay que devolver
+    return $student_id;
+    
+    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()
@@ -370,6 +394,47 @@ public function add()
 
 	}
 	
+	public function review($id = null){
+		$role_c = new RolesController;
+        $action = 'review';
+		$module = 'Request';
+		$user = $this->Auth->user();
+		
+		//Datos de la solicitud
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
+
+		}
+
+		//Revision de requisitos
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
+
+		}
+		
+		//Revisión preliminar
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
+
+		}
+
+		//Revisión final
+		
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
+
+		}
+		
+		//Se trae los datos de la solicitud
+	    $request = $this->Requests->get($id);
+		
+		$user = $this->Requests->getStudent($request['student_id']);
+		$user = $user[0]; //Agarra la unica tupla
+		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
+		$class = $class[0];
+		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
+		$professor = $professor[0];
+		//Manda los parametros a la revision
+        $this->set(compact('request','user','class','professor'));	
+		
+		
+	}
 	/*public function save()
 	{
 		//Guarda los datos;
