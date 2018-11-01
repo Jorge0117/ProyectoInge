@@ -6,28 +6,8 @@
 ?>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css"> 
-<script src="http://cdn.dhtmlx.com/edge/dhtmlx.js" type="text/javascript"></script>
-
-<script>
-    // configuración para un nuevo lenguaje del calendario (Español)
-dhtmlXCalendarObject.prototype.langData["es"] = {
-    dateformat: "%d.%m.%Y",
-    hdrformat: "%F %Y",
-    monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
-    monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
-                    "Jul","Ago","Sep","Oct","Nov","Dic"],
-    daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
-                    "Viernes","Sábado"],
-    daysSNames: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
-    weekstart: 1,
-    weekname: "Sem",
-    today: "Hoy",
-    clear: "Borrar"
-};
-dhtmlXCalendarObject.prototype.lang = "es";
-</script>
+<link rel="stylesheet" href="https://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css"> 
+<script src="https://cdn.dhtmlx.com/edge/dhtmlx.js" type="text/javascript"></script>
 
 <style>
 .btn-x{
@@ -45,114 +25,393 @@ dhtmlXCalendarObject.prototype.lang = "es";
 </style>
 
 <!--Variables utilizadas para el primer display-->
-<?php $last = $this->Rounds->getLastRow()?>
-<?php $s_date = $last[0]?>
+<?php $last = $this->Rounds->getLastRow() ?>
+<?php $s_date = $last[0];?>
 <?php if($s_date==null){
     $s_date = $this->Rounds->getToday();
 }?>
-<?php $e_date = $last[4] ?>
+<?php $e_date = $last[1];?>
 <?php if($e_date==null){
     $e_date = $this->Rounds->getToday();
 }?>
 
+<div class='rounds index large-9 menium-8 columns content'>
+    <h3><?= 'Rondas' ?></h3>
+</div>
+<div>
+    <table cellspacing="0" cellpadding="0" class="table">
+        <thead>
+            <tr>
+                <th id='RoundnumberHeader'><?= '#' ?></th>
+                <th><?= 'Fecha Inicio' ?></th>    
+                <th><?= 'Fecha Fin' ?></th>
+                <th id = 'tshHeader' style = 'width:110px; display:none'><?= 'Total de Horas Asistente' ?></th>
+                <th id = 'tahHeader' style = 'width:110px; display:none'><?= 'Total de Horas Estudiante' ?></th>
+                <th style = 'width:80px;'> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><div class='rounds form large-9 medium-8 columns content'>
+                <td id= 'RoundnumberData'><p style = 'padding:6px 0px'><?= $last[2] ?></p></td>
+                    <?= $this->Form->create($round ,['id'=>'mainRoundsIndexform']) ?>
+                    <fieldset>
+                        <div>
+                            <td>
+                                <?= $this->Form->control('start_date',[
+                                    'type'=>'calendar',
+                                    'value'=>$s_date,
+                                    'label' => false,
+                                    'readonly'=>true,
+                                    'onclick'=>"sensitiveRange(0)"
+                                ]);?></td>
+                            <td>
+                                <?= $this->Form->control('end_date',[
+                                    'type'=>'calendar',
+                                    'value'=>$e_date,
+                                    'label' => false,
+                                    'readonly'=>true,
+                                    'onclick'=>"sensitiveRange(1)"
+                                ]);?></td>
+                            <td id = 'tshData' style = 'display:none'>
+                                <?= $this->Form->control('total_student_hours',[
+                                    'type'=>'number',
+                                    'value'=> '0',
+                                    'label' => false,
+                                    'min' => '0',
+                                    'max' => '99999',
+                                ]);?></td>
+                            <td id = 'tahData' style = 'display:none'>
+                                <?= $this->Form->control('total_assistant_hours',[
+                                    'type'=>'number',
+                                    'value'=> '0',
+                                    'label' => false,
+                                    'min' => '0',
+                                    'max' => '99999',
+                                ]);?></td>
+                            </div>
+                            <input type="hidden" id="flag" name='flag' value="0">
+                            <?php $this->Form->unlockField('flag')?>
+                        </div>
+                    </fieldset>
+                    <?= $this->Form->end() ?>
+                <!-- Botones de accion -->                
+                <td style = 'width:79px' ><div>
+                    <button id='add' class='btn-x float-left' style='padding:0px 2px' onclick='startAdd()' >
+                        <i class="fa fa-calendar-plus-o"></i>
+                    </button>
+                    <button id='edit' class='btn-x float-left' style='padding:0px 2px' onclick='startEdit()' >
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <?= $this->Form->postbutton('<i class="fa fa-trash-o"></i>',[ 'action' => 'delete', $s_date],['style' => 'padding:0px 2px','class'=>'btn-x float-left','id' => 'trash','confirm' =>__('¿Está seguro de que desea borrar la ronda de solicitudes #{0} del {1} ciclo {2}?', $last[2],$last[3],$last[4])]);?>
+                </div></td>
+            </div></tr>
+        </tbody>
+    </table>
+</div>
 
-<div class="rounds index large-9 medium-8 columns content">
-    <h3><?= __('Rondas') ?></h3>
-    <div class="rounds form large-9 medium-8 columns content">
-<table>
-    <thead>
-        <tr>
-            <?php if($last != null){ ?>
-                <th scope="col">Ronda</th>
-            <?php } ?>
-            <th scope="col">Inicio</th>
-            <th scope="col">Fin</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <?php if($last != null){ ?>
-                <td scope="row"> <?=$last[1]?></td>
-            <?php } ?>
-            <form name="form" action="" method="post">
-            <td><div class = "form-group text"><input name="start_date" type="calendar" value =<?=$s_date?> id="start_date" class="form-control"/></div></td>
-            <td><div class = "form-group text"><input name="end_date" type="calendar" value = <?=$e_date?> id="end_date" class="form-control" /></div></td>
-            </form>
-            <?php  debug($_POST); ?>
-            <td>
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                        <!-- Botones de accion -->
-                        <td><?= $this->Form->button(
-                            '<i class="fa fa-pencil"></i>',
-                            ['onclick' => "startEdit()",
-                            'class' => 'btn-x',
-                            'type'=>'button'])?></td>
-                        <?php if($last[0] != null){ ?>
-                        <td><?= $this->Form->postbutton(
-                            '<i class="fa fa-trash-o"></i>',
-                            ['action' => 'delete', $s_date],
-                            ['class'=>'btn-x',
-                            'confirm' => __('¿Está seguro de que ' .
-                                            'desea borrar la ronda ' . 
-                                            'de solicitudes #{0} del ' .
-                                            '{1} ciclo {2}?', $last[1],
-                                            $last[2],$last[3])]) ?></td>
-                        <?php } ?>
-                        <td><?= $this->Form->button(
-                            '<i class="fa fa-plus-circle"></i>', 
-                            ['onclick' => "startAdd()",
-                             'class' => 'btn-x',
-                             'type'=>'button']) ?></td>
-                    </tr>
-                </table>
-            </td>         
-        </tr>          
-    </tbody>
-</table>
-<!--Botones para enviar datos-->
 <div class="submit">
-    <?= $this->Form->button('Cancelar', ['onclick' => "disable()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-leftz','style' => "display :none"]) ?>
-    <?= $this->Form->button('Aceptar', [['action'=>'edit',$s_date,],'onclick' => "disable()",'id'=>'aceptar1','type' => 'submit', 'class' => 'btn btn-primary float-right','style' => "display:none"]) ?>
-    <?= $this->Form->button('Aceptar', ['action'=>'add','onclick' => "disable()",'id'=>'aceptar2','type' => 'submit', 'class' => 'btn btn-primary float-right','style' => "display:none"]) ?>
+    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
+    <?= $this->Form->button('Aceptar',['onclick' => "end()",'id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
+    
     <?= $this->Form->end() ?>
 </div>
-</div>
-</div>
-
-
 
 <script>
-// Muestra, esconde y deshabilita los botones y campos requeridos 
-function startEdit(){
-    document.getElementById("start_date").disabled = false;
-    document.getElementById("end_date").disabled = false;
-    document.getElementById("cancelar").style.display = "inline";
-    document.getElementById("aceptar2").style.display = "none";
-    document.getElementById("aceptar1").style.display = "inline";
+calendar = new dhtmlXCalendarObject(["start-date", "end-date"]);
+calendar.setDateFormat("%d-%m-%Y");
+calendar.hideTime();
+var last = getLast();
+
+// función inicial altera campos visibles si
+$(document).ready( function () {
+    if(!last){                
+        startAdd();
+        byId('tshHeader').style.display = "table-cell";
+        byId('tshData').style.display = "table-cell";
+        byId('tahHeader').style.display = "table-cell";
+        byId('tahData').style.display = "table-cell";
+    }
+});
+
+function sensitiveRange(field){
+    if(field){//end date
+        var min = alterDate(byId('start-date').value,1)// día siguiente de la fecha inicio
+        var yesterday = getYesterday();
+        if(compareDates(min,yesterday) < 0) min = alterDate(yesterday,1);
+        var max = null;
+        if(byId('flag').value != '1' && last){//editar
+            if(last[3] == 'I') max = '30-06-';//primer semestre
+            else max = '30-11-';//segundo semestre
+            max = max.concat(last[4]);// agrega el año
+        }
+        calendar.setSensitiveRange(min,max);
+    }else{// start date
+        var yesterday = getYesterday();
+        var min = yesterday;
+        var max = null;
+        if(byId('flag').value == '1' && last){// añadir
+            var lastEnd = last[1];
+            if(compareDates(lastEnd,yesterday) > 0){
+                min = lastEnd;
+            }
+        }else{ // editar
+            var penultimate = '<?= $this->Rounds->getPenultimateRow()[1]?>';
+            var sem1ds = '01-12-';
+            sem1ds = sem1ds.concat(last[4]-1);
+            var sem2ds = '01-07-'
+            sem2ds = sem2ds.concat(last[4]);
+            if(last[3] == 'I' && (compareDates(sem1ds,yesterday) > 0)){
+                min = sem1ds;
+            }else if(last[3] == 'II' && (compareDates(sem2ds,yesterday) > 0)){
+                min = sem2ds;
+            }
+            if(compareDates(penultimate,min) > 0){
+                min = penultimate;
+            }
+            if(last){
+                var lastStart = last[0];
+                if(compareDates(lastStart,alterDate(yesterday,1)) < 0){
+                    max = lastStart;
+                }
+            }
+
+        }
+        calendar.setSensitiveRange(min,max);
+    }
+    /*if(onSameSemester('<?= $last[1]; ?>','<?= $last[1]; ?>', byId('start-date').value) || '<?= $last == null ?>' ){
+        byId('tshHeader').style.display = "table-cell";
+        byId('tshData').style.display = "table-cell";
+        byId('tahHeader').style.display = "table-cell";
+        byId('tahData').style.display = "table-cell";
+    }*/
+    compareDates('01-01-2018','01-01-2018');
+    compareDates('01-01-2018','21-01-2018');
+    compareDates('30-01-2018','21-01-2018');
+}    
+
+// Retorna un booleano indicando si se ha cambiado de semestre al seleccionar la fecha
+function onSameSemester(lastYear,lastSemester,date){
+    console.log(date);
+    console.log(date.substr(6));
+    console.log(date.substr(3,2));
+    return false;
 }
-// Muestra, esconde y deshabilita los botones y campos requeridos 
+
+// cambia el estado
+calendar.attachEvent("onClick", function(date){
+    var start = byId('start-date').value;
+    var end = byId('end-date').value;
+    if(compareDates(start,end)>=0){
+        byId('end-date').value = alterDate(start,1);
+    }
+    if(last){
+        if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0)&&byId('flag').value != '1'){
+            startEdit();
+        }
+    }
+});
+
+/**  
+  * EFE: calcula el día anterior
+  * RET: string con el valor del dia anterior
+  **/
+function getYesterday(){
+    var yesterday  = new Date(1970,0,1,0,0,0,0);
+    yesterday.setMilliseconds(Date.now());
+    return getStringFormat(yesterday);
+}
+
+/**  
+  * EFE: Obtiene el formato de objeto fecha del string dado.
+  * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
+  * RET: objeto fecha.
+  **/
+function getDateFormat(date){
+    var day = date.substr(0,2);
+    var month = date.substr(3,2);
+    var year = date.substr(6,4);    
+    return new Date(month.concat('-',day,'-',year));
+}
+
+/**  
+  * EFE: Obtiene el formato string del objeto fecha date.
+  * REQ: date: objeto fecha.
+  * RET: string con formato de fecha 'dd-mm-yyyy'
+  **/
+function getStringFormat(date){
+    var result = '';
+    if(date.getDate() < 10)result = '0';
+    var d = date.getDate().toString();
+    var mc = '';
+    if(date.getMonth() < 9)mc = '0';
+    var m = (date.getMonth()+1).toString();
+    var y = date.getFullYear().toString();
+    return result.concat(d,'-',mc,m,'-',y);
+}
+
+/**  
+  * EFE: Cambia el día de la fecha dada según al valor alt.
+  * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
+  *      alt: entero con cualquier valor.
+  * RET: string de la fecha alterada.
+  **/
+function alterDate(date,alt){
+    var d = getDateFormat(date);
+    d.setDate(d.getDate()+alt);
+    return getStringFormat(d);
+}
+
+/**  
+  * EFE: Compara cual de las dos fechas dadas es mayor o menor o si son iguales.
+  * REQ: dos strings con formato de fecha 'dd-mm-yyyy'.
+  * RET: < 0: si date1 < date2 
+  *      = 0: si date1 = date2
+  *      > 0: si date1 > date2
+  **/
+function compareDates(date1,date2){
+    var d1 = splitDate(date1);
+    var d2 = splitDate(date2);
+    var result = d1['y'] - d2['y'];
+    if(!result) result = d1['m'] - d2['m'];
+    if(!result) result = d1['d'] - d2['d'];
+    return result;    
+}
+
+/** Función splitDate
+  * EFE: Divide un string con formato de fecha 'dd-mm-yyyy' y lo transforma en un array.
+  * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
+  * RET: Array con los tres valores correspondientes para las llaves 'd', 'm', 'y'
+  **/
+function splitDate(date){
+    return {'d':date.substr(0,2),'m':date.substr(3,2),'y':date.substr(6,4)};
+}
+
+/** Función startEdit
+  * EFE: Habilita los campos de hora y les asigna el valor actual.
+  **/
+function startEdit(){ 
+    start('2');
+    if(last){
+        byId('total-student-hours').value = last[5];
+        byId('total-assistant-hours').value = last[6];
+    }
+    byId('tshHeader').style.display = "table-cell";
+    byId('tshData').style.display = "table-cell";
+    byId('tahHeader').style.display = "table-cell";
+    byId('tahData').style.display = "table-cell";
+}
+
+/** Función startAdd
+  * EFE: Altera los valores de las entradas de fecha degún a los datos anteriores,
+  *      además habilita los campos de hora si llega a ser necesario al agregar 
+  *      una ronda.
+  **/
 function startAdd(){
-    document.getElementById("start_date").disabled = false;
-    document.getElementById("end_date").disabled = false;
-    document.getElementById("cancelar").style.display = "inline";
-    document.getElementById("aceptar1").style.display = "none";
-    document.getElementById("aceptar2").style.display = "inline";
+    start('1');
+    if(last){
+        if(last[2] == 3){
+            var newRoundStart = '';
+            if(last[3] == 'I')newRoundStart = newRoundStart.concat('01-07-', last[4]);
+            else newRoundStart = newRoundStart.concat('01-12-', last[4]);
+            byId('start-date').value = newRoundStart;            
+            byId('tshHeader').style.display = "table-cell";
+            byId('tshData').style.display = "table-cell";
+            byId('tahHeader').style.display = "table-cell";
+            byId('tahData').style.display = "table-cell";
+        }else if(compareDates(byId('start-date').value,last[1])<0){
+            byId('start-date').value = last[1];
+        }
+        var next = alterDate(byId('start-date').value,1);
+        if(compareDates(byId('end-date').value,next)<0){
+            byId('end-date').value = next;
+        }   
+    }
 }
 
-// esconde y deshabilita los botones y campos requeridos 
-function disable() {
-
-document.getElementById("start_date").disabled = true;
-document.getElementById("end_date").disabled = true;
-document.getElementById("cancelar").style.display = "none";
-document.getElementById("aceptar1").style.display = "none";
-document.getElementById("aceptar2").style.display = "none";
-
+/** Función start
+  * EFE: Inicia la acción requerida por el usuario entre añadir y editar.
+  * REQ: flag: bandera que indica la acción requerida.
+  **/
+function start(flag){
+    byId('trash').style.display = "none";
+    if(flag == '1'){
+        byId('RoundnumberHeader').style.display = "none";
+        byId('RoundnumberData').style.display = "none";
+        byId('edit').style.display = "none";
+    }else if(flag == '2') byId('add').style.display = "none";
+    byId('cancelar').style.display = "inline";
+    byId('aceptar').style.display = "inline";
+    byId('flag').value = flag; 
 }
-// Calendario
-var calendar1 = new dhtmlXCalendarObject(["start_date","end_date"]);
-calendar1.hideTime();
-calendar1.setDateFormat("%d-%m-%Y");
+
+/** Función cancel
+  * EFE: Vuelve a colocar los datos iniciales en lo campos del form
+  **/
+function cancel() {
+    if(last){
+        byId('start-date').value = last[0];
+        byId('end-date').value = last[1];
+    }
+    byId('flag').value = "0"; 
+    end();
+}
+
+/** Función end
+  * EFE: Reinicia el estado de la vista al estado anterior del cambio por hacer.
+  **/
+function end() {
+    // Campos del número de ronda
+    byId('RoundnumberHeader').style.display = "table-cell";
+    byId('RoundnumberData').style.display = "table-cell";
+    // Horas por asignar
+    byId('tshHeader').style.display = "none";
+    byId('tahData').style.display = "none";
+    byId('tahHeader').style.display = "none";
+    byId('tshData').style.display = "none";
+    //Botones
+    byId('trash').style.display = "table-cell";
+    byId('edit').style.display = "table-cell";
+    byId('add').style.display = "table-cell";
+    byId('cancelar').style.display = "none";
+    byId('aceptar').style.display = "none";
+}
+
+/** Función getLast
+  * EFE: avoid the use of php tags inside js scritps when the $last var is required
+  * RET: Array conatining all the elements of $last, or null if it is null.
+  **/
+function getLast(){
+    if('<?= $last != null ?>')
+        return {0:"<?= $last[0]; ?>", 1:"<?= $last[1]; ?>", 2:"<?= $last[2]; ?>", 3:"<?= $last[3]; ?>", 4:"<?= $last[4]; ?>",
+                5:"<?= $last[5]; ?>", 6:"<?= $last[6]; ?>", 7:"<?= $last[7]; ?>", 8:"<?= $last[8]; ?>"};
+    return null;
+}
+
+/** Función byId
+  * EFE: Función wrapper de getElementById
+  * REQ: Id del elemento a obtener.
+  * RET: Elemento requerido.
+  **/
+function byId(id) {
+	return document.getElementById(id);
+}
+
+// configuración para un nuevo lenguaje del calendario (Español)
+dhtmlXCalendarObject.prototype.langData["es"] = {
+    dateformat: "%d.%m.%Y",
+    hdrformat: "%F %Y",
+    monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
+    monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
+                    "Jul","Ago","Sep","Oct","Nov","Dic"],
+    daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
+                    "Viernes","Sábado"],
+    daysSNames: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+    weekstart: 1,
+    weekname: "Sem",
+    today: "Hoy",
+    clear: "Borrar"
+};
+dhtmlXCalendarObject.prototype.lang = "es";
+
 </script>
