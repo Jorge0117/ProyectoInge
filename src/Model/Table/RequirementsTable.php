@@ -42,6 +42,11 @@ class RequirementsTable extends Table
         $this->hasMany('FulfillsRequirement', [
             'foreignKey' => 'requirement_id'
         ]);
+
+        $this->belongsToMany('Requests', [
+            'foreignKey' => 'requirement_number',
+            'joinType' => 'INNER'
+        ]);
     }
     //Función para eliminar un requisito, llamada por el controlador
     public function deleteRequirement($requirement_number)
@@ -88,5 +93,27 @@ class RequirementsTable extends Table
             ->notEmpty('type');
 
         return $validator;
+    }
+
+    public function getRequestRequirements($id){
+
+        //$request_id = intval($request_id);
+        $optional_requirements = $this->find('all')->join([
+            'rr' => [
+                'table' => 'requests_requirements',
+                'conditions' => 'rr.requirement_number = Requirements.requirement_number and rr.request_id = '.$id.' and Requirements.type = \'Opcional\''
+            ]
+        ])->toArray();
+
+        $compulsory_requirements = $this->find('all')->join([
+            'rr' => [
+                'table' => 'requests_requirements',
+                'conditions' => 'rr.requirement_number = Requirements.requirement_number and rr.request_id = '.$id.' and Requirements.type = \'Obligatorio\''
+            ]
+        ])->toArray();
+		
+        
+        $requirements = ['Obligatorio' => $compulsory_requirements, 'Opcional' => $optional_requirements];
+		return $requirements;
     }
 }

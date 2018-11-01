@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 /**
  * Requests Controller
  *
@@ -317,21 +318,26 @@ public function add()
 	}
 	
 	public function review($id = null){
+		$this->loadModel('Requirements');
 		$role_c = new RolesController;
         $action = 'review';
-		$module = 'Request';
+		$module = 'Requests';
 		$user = $this->Auth->user();
-		
+		//debug($user);
+		$request = $this->Requests->get($id);
+		$data_stage_completed = false;
 		//Datos de la solicitud
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
 
+			
 		}
-
 		//Revision de requisitos
-		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
-
+		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements') && $request->stage > 0){
+			$data_stage_completed = true;
+			$requirements = $this->Requirements->getRequestRequirements($id);
+			$this->set(compact('requirements'));
+			
 		}
-		
 		//Revisión preliminar
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
 
@@ -346,14 +352,14 @@ public function add()
 		//Se trae los datos de la solicitud
 	    $request = $this->Requests->get($id);
 		
-		$user = $this->Requests->getStudent($request['student_id']);
+		$user = $this->Requests->getStudentInfo($request['student_id']);
 		$user = $user[0]; //Agarra la unica tupla
 		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
 		$class = $class[0];
 		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
 		$professor = $professor[0];
 		//Manda los parametros a la revision
-        $this->set(compact('request','user','class','professor'));	
+		$this->set(compact('request','user','class','professor', 'data_stage_completed'));	
 		
 		
 	}

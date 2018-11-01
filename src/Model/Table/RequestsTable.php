@@ -53,7 +53,12 @@ class RequestsTable extends Table
 		$this->belongsTo('Classes', [
             'foreignKey' => 'class_number',
             'joinType' => 'INNER'
-        ]);
+		]);
+		
+		$this->belongsToMany('Requirements',[
+            'foreignKey' => 'request_id',
+            'joinType' => 'INNER'
+		]);
 		
     }
 	

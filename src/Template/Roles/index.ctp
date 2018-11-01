@@ -88,7 +88,7 @@
         </div>
         
         <div class='input-group mb-3 col-md-4' id='modificar_tag' style='display: none'>
-           <span style="width:90px" class="input-group-text" >Modificar</span>     
+           <span style="width:25%" class="input-group-text" >Modificar</span>     
            <div class="input-group-append" >
                 <div class="input-group-text bg-white">
                     <?php

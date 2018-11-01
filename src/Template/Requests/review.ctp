@@ -46,3 +46,60 @@
 	?>	
 	</div>
 </div>
+
+
+<?php if($data_stage_completed): ?>
+<?= $this->Form->create(false) ?>
+	<div>
+		<div class='input-group mb-2' id='modificar_tag'>
+           <span style="width:8%" class="input-group-text" >Modificar</span>     
+           <div class="input-group-append" >
+                <div class="input-group-text bg-white">
+                    <?php
+                        echo $this->Form->checkbox(
+                            'Editar',
+                            ['id' => 'edit_checkbox'
+                            ]
+                        );
+                    ?>
+                </div>
+           </div>
+        </div>
+		Opcional
+		<table class='table text-center'>
+			<?php
+				
+				echo $this->Html->tableHeaders(['Requisito', 'Aprobado', 'Rechazado', 'Inopia']);
+				for ($i = 0; $i < count($requirements['Opcional']); $i++){
+					$requirement_row[] = $requirements['Opcional'][$i]['description'];
+					$requirement_row[] = '<input type="radio" name="optional_requeriement_'.$i.'" id=\'optional_'.$i.'_1\'>';
+					$requirement_row[] = '<input type="radio" name="optional_requeriement_'.$i.'" id=\'optional_'.$i.'_2\'>';
+					$requirement_row[] = $this->Form->checkbox(
+							'Editar',
+							['id' => 'assistant_',
+							 'checked' => false]
+						);
+
+					echo $this->Html->tableCells($requirement_row);
+					$requirement_row = [];
+				}
+			?>		  
+        </table>
+		Obligatorio
+		<table class='table text-center'>
+			<?php
+				echo $this->Html->tableHeaders(['Requisito', 'Aprobado', 'Rechazado']);
+				for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
+					$requirement_row[] = $requirements['Obligatorio'][$i]['description'];
+					$requirement_row[] = '<input type="radio" name="compulsory_requeriement_'.$i.'" id=\'compulsory_'.$i.'_1\'>';
+					$requirement_row[] = '<input type="radio" name="compulsory_requeriement_'.$i.'" id=\'compulsory_'.$i.'_2\'>';
+	
+					echo $this->Html->tableCells($requirement_row);
+					$requirement_row = [];
+				}
+			?>		  
+
+        </table>
+	</div>
+<?= $this->Form->end() ?>
+<?php endif; ?>
