@@ -116,6 +116,7 @@ class AppController extends Controller
         //echo($action);
         //echo($module);
 		return true;
-        return $role_c->is_Authorized($user['role_id'], $module, $action);
+        return $role_c->is_Authorized($user['role_id'], $module, $action);*/
+        return true;
     }
 }
