@@ -108,13 +108,13 @@ class CoursesClassesVwController extends AppController
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
         // Three controller to comunicate with other models or handle the two relations or tables.
-        $ClassesController = new ClassesController;
-        $CoursesController = new CoursesController;
         $usersController = new UsersController;
         //------------------------------------------------
         // To fetch the options of the courses and the classes.
-        $courses = $CoursesController->Courses->find('list', ['limit' => 1000]);
-        $all_classes_codes = $ClassesController->Classes->find('list', ['limit' => 1000])->select('class_number');
+        $classesModel = $this->loadmodel('Classes');
+        $coursesModel = $this->loadmodel('Courses');
+        $courses = $coursesModel->find('list', ['limit' => 1000]);
+        $all_classes_codes = $classesModel->find('list', ['limit' => 1000])->select('class_number');
         //------------------------------------------------
         // This fetch the professors' names.
         // Actually, this instruction fetches a array of
@@ -141,10 +141,6 @@ class CoursesClassesVwController extends AppController
                     $model,
                     $this->request->getData()
                 );
-                //------------------------------------------------
-                // This is to translate the course's nae to the code.
-                $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
-                //------------------------------------------------
                 // First we fetch the selected index
                 $indexProf=$model->Profesor;
                 // Then we fetch the professors again.
@@ -152,23 +148,22 @@ class CoursesClassesVwController extends AppController
                 // And finally we "translate" the professors index into the dni
                 $prof = preg_split('/\s+/', $prof[$indexProf]);
                 $prof = $usersController->getId($prof[0], $prof[1]);
-                debug($new_course_id);
                 //------------------------------------------------
                 // Finally,we make the update.
-                $result = $ClassesController->update(
+                $result = $classesModel->updateClass(
                     $code,
                     $class_number,
                     $semester,
                     $year,
-                    $new_course_id,
+                    $model->Curso,
                     $model->Grupo,
-                    $model->Semestre,
+                    $model->Semestre + 1,
                     $model->Año,
                     $prof
                 );
                 //------------------------------------------------
                 // Thsi shows the message to the user.
-                if (!$result) {
+                if ($result) {
                     $this->Flash->success(__('Se editó el curso correctamente.'));
                 } else {
                     $this->Flash->error(__('Error: no se pudo editar el curso.'));
