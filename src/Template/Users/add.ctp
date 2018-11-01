@@ -4,11 +4,7 @@
  * @var \App\Model\Entity\User $user
  */
 
-echo $this->Html->css('buttons');
-echo $this->Html->css('forms');
-echo $this->Html->css('titles');
 ?>
-
 
 <link rel="stylesheet" href="style.css">
 <h3>Agregar usuario</h3>

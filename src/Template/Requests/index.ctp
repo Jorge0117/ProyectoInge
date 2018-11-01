@@ -60,7 +60,9 @@ echo $this->Html->css('buttons');
                 
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
-                    <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
+                    <?php if ($admin === true): ?>
+					<?= $this->Html->link('<i class="fa fa-print  fa-pencil-square-o fa-2x"></i>', ['action' => 'review', $request->id]) ?>
+                    <?php endif; ?>
                 </td>
 				
             </tr>

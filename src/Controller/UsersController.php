@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+//namespace Cake\ORM;
 
 use App\Controller\AppController;
 
@@ -87,7 +88,7 @@ class UsersController extends AppController
             }
 
             //agrega a la tabla students
-            if($user->role === 'Estudiante'){
+            if($user->role_id === 'Estudiante'){
                 $carne = $username;
                 $Students->newStudent($user, $carne);
             }
@@ -131,10 +132,19 @@ class UsersController extends AppController
                 }else{
                     $user->role_id= 'Profesor';
                 }
+
                 
-                if($user->role === 'Estudiante'){
-                    $carne = $username;
-                    $Students->newStudent($user, $carne);
+                if($user->role_id === 'Estudiante'){
+                    
+                    $students = TableRegistry::get('Students');
+                    $students = $students->patchEntity($students, [$user, $username]);
+
+                    if ($students->save($students)) {
+                        $this->Flash->success(__('Se agregó el estudiante correctamente.'));        
+                    }
+
+                
+                    //$Students->newStudent($user, $carne);
                 }
 
                 $user = $this->Users->patchEntity($user, $this->request->getData());

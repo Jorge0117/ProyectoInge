@@ -71,4 +71,14 @@ class StudentsTable extends Table
 
         return $validator;
     }
+
+    public function addStudent($id, $carne){
+        $query = $this->insert(['student_id', 'carne'])
+                    ->values($id, $carne);
+
+        debug($query);
+        die();
+
+        return $query;
+    }
 }

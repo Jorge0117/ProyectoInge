@@ -6,3 +6,16 @@ h3{
     font-size: 1.3em;
     text-align: center;
 }
+
+.ecci-title {
+    color: white;
+    border-bottom: 2px solid #ceb92bff;
+}
+
+.bg-ecci-blue {
+    background-color:#015b96ff;
+}
+
+.bg-ecci-green {
+    background-color:#ceb92bff;
+}

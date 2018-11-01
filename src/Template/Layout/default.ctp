@@ -35,18 +35,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 
-    <style type="text/css">
-      .bg-ecci-blue {
-        background-color:#015b96ff;
-      }
-      .bg-ecci-green {
-        background-color:#ceb92bff;
-      }
-      .ecci-title {
-        color: white;
-        border-bottom: 2px solid #ceb92bff;
-      }
-    </style>
+    <?php
+    echo $this->Html->css('buttons');
+    echo $this->Html->css('forms');
+    echo $this->Html->css('titles');
+    echo $this->Html->css('grid-index');
+    ?>
+
 
     <!-- <style type="text/css">
       h1.text {
