@@ -24,7 +24,6 @@
         <div class = "form-section">
             <?php
                 $courses = iterator_to_array($courses);
-                debug($courses);
                 echo $this->Form->control(
                     'Curso',
                     [

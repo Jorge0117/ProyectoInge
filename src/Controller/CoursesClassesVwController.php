@@ -186,13 +186,12 @@ class CoursesClassesVwController extends AppController
     public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
         //------------------------------------------------
-        // The courses are only deleted when a new
-        // 'Excel' is loaded so this delete method call the
-        // one from the classses/groups controller .
-        $ClassesController = new ClassesController;
+        // This loads the model so we can execute an 
+        // query into de database.
+        $classesModel = $this->loadmodel('Classes');
         //------------------------------------------------
         // The call itself
-        $result = $ClassesController->delete(
+        $result = $classesModel->deleteClass(
             $code,
             $class_number,
             $semester,
