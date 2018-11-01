@@ -425,7 +425,7 @@ public function add()
 
 	public function sendMail($carne,$profesor,$curso,$grupo,$estado,$tipoHoras,$horas)
     {
-		$estudiante = $this->Requests->getStudentInfo($carne);
+		$estudiante = $this->Requests->getStudent($carne);
 		$mail = $estudiante[0]['email_personal'];
 		$name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
     	$email = new Email();
