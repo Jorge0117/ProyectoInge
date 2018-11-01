@@ -55,7 +55,7 @@
                 <td id= 'RoundnumberData'><p style = 'padding:6px 0px'><?= $last[2] ?></p></td>
                     <?= $this->Form->create($round ,['id'=>'mainRoundsIndexform']) ?>
                     <fieldset>
-                        <div class="form-section">
+                        <div>
                             <td>
                                 <?= $this->Form->control('start_date',[
                                     'type'=>'calendar',
