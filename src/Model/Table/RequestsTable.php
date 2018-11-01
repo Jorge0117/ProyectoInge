@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Datasource\ConnectionManager;
 
@@ -185,6 +186,15 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result;
     }
+
+    public function getStudentInfo($student_id)
+	{
+		$connet = ConnectionManager::get('default');
+		      //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
+		$result = $connet->execute("select * from users u, students s where u.identification_number = '$student_id' and u.identification_number = s.user_id");
+		$result = $result->fetchAll('assoc');
+        return $result;
+    }
 	
 	public function getID()
 	{
@@ -211,7 +221,9 @@ class RequestsTable extends Table
         return $result;
 
 	}
-	
+
+
+	/*
 	public function getStudentInfo($student_id)
 	{
 		$connet = ConnectionManager::get('default');
@@ -221,6 +233,7 @@ class RequestsTable extends Table
         return $result;
 
 	}
+	*/
 	
 	//Obtiene todas las solicitudes pendientes que coincidan con el curso y grupo actual.
 	/*

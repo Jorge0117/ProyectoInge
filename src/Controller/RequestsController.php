@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 use Cake\Datasource\ConnectionManager;
 /**
  * Requests Controller
@@ -12,6 +13,16 @@ use Cake\Datasource\ConnectionManager;
  */
 class RequestsController extends AppController
 {
+
+    public function beforeFilter(Event $event)
+    {
+		/**
+		 * FIXME
+		 * Arreglar permisos en la bd.
+		 */
+        parent::beforeFilter($event);
+        $this->Auth->allow('print');
+    }
 	
     /**
      * Index method
@@ -33,14 +44,38 @@ class RequestsController extends AppController
 	 
     public function index()
     {
-        /*$this->paginate = [
-            'contain' => ['Courses', 'Students']
-        ];*/
-        $requests = $this->paginate($this->Requests);
-
-		$disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+        $table = $this->loadModel('InfoRequests');
+        $rol_usuario = $this->Auth->user('role_id');
+		$id_usuario = $this->Auth->user('identification_number');
 		
-        $this->set(compact('requests','disponible'));
+        //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
+        if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+			$query = $table->find('all');
+            $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+			$admin = true;
+			$this->set(compact('query','disponible', 'admin'));
+		}else{
+			
+            //ESTUDIANTE
+            //Si es estudiante solamente muestra sus solicitudes.
+            if($rol_usuario === 'Estudiante'){
+                $query = $table->find('all', [
+                    'conditions' => ['cedula' => $id_usuario]]);
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+				$admin = false;
+                $this->set(compact('query','disponible', 'admin'));                
+                
+            }else{
+                //PROFESOR
+                //Si es profesor solamente muestra las solicitudes de sus grupos.
+                $query = $table->find('all', [
+                    'conditions' => ['id_prof' => $id_usuario]]);
+                $disponible = false; 
+				$admin = false;
+                $this->set(compact('query','disponible', 'admin'));
+			}	
+		}
+		
     }
 
     /**
@@ -52,12 +87,62 @@ class RequestsController extends AppController
      */
     public function view($id = null)
     {
-        $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students']
-        ]);
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
 
-        $this->set('request', $request);
+        $request = $this->Requests->get($id, [
+			'contain' => ['Courses', 'Students']
+		]);
 		
+		$user = $this->Users->get($request->student->user_id);
+
+		$query = $this->Classes
+				->find()
+				->select('professor_id')
+				->where(['course_id' => $request->course_id,
+					'class_number' => $request->class_number,
+					'semester' => $request->class_semester,
+					'year' => $request->class_year]);
+
+		$profesor = $query->first();
+
+		if ($profesor) {
+			$request['docente'] = $this->Users->get($profesor['professor_id']);
+		}
+		$this->set('profesor', $profesor);
+		// $docente = $this->Users->get($query);
+		$request['user'] = $user;
+		$this->set('request', $request);		
+	}
+	
+	public function print($id = null)
+    {
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
+
+        $request = $this->Requests->get($id, [
+			'contain' => ['Courses', 'Students']
+		]);
+		
+		$user = $this->Users->get($request->student->user_id);
+
+		$query = $this->Classes
+				->find()
+				->select('professor_id')
+				->where(['course_id' => $request->course_id,
+					'class_number' => $request->class_number,
+					'semester' => $request->class_semester,
+					'year' => $request->class_year]);
+
+		$profesor = $query->first();
+
+		if ($profesor) {
+			$request['docente'] = $this->Users->get($profesor['professor_id']);
+		}
+		$this->set('profesor', $profesor);
+		// $docente = $this->Users->get($query);
+		$request['user'] = $user;
+		$this->set('request', $request);		
     }
 
     /**
@@ -100,21 +185,14 @@ public function get_student_id()
 {
 	$student_id = "402220000";
 	
-	return $student_id;
-	
-	//return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
+    return $student_id;
+    
+    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()
 {
 	return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
-}
-
-public function get_semester()
-{
-	//Pedir get_round y luego sacar el atributo 
-	
-	return "1";
 }
 
 public function add()

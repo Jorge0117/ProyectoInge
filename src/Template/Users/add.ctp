@@ -4,11 +4,7 @@
  * @var \App\Model\Entity\User $user
  */
 
-echo $this->Html->css('buttons');
-echo $this->Html->css('forms');
-echo $this->Html->css('titles');
 ?>
-
 
 <link rel="stylesheet" href="style.css">
 <h3>Agregar usuario</h3>
@@ -19,6 +15,7 @@ echo $this->Html->css('titles');
             <legend><?= __('Datos personales') ?></legend>
             <?php
                 echo $this->Form->control('identification_number',['type'=>'text']);
+                echo $this->Form->control('identification_type',['label'=>['text'=>'Tipo de identificación']]);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
                 echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
