@@ -75,10 +75,23 @@
 	<?php
 	$carne = $user['carne'];
 	$estado = $request['status'];
+	$profesor = $professor['name'];
+	$grupo = $request['class_number'];
+	$curso = $class['name'];
+	$tipoHoras = ' ';
+	$horas = 0;
+	if($request['wants_assistant_hours'] == 1){
+		$tipoHoras = 'horas asistente';
+		$horas = 10;
+	}
+	else {
+		$tipoHoras = 'horas estudiante';
+		$horas = 10;
+	}
 	?>
 	<?= $this->Html->link(
         'Enviar Correo',
-        array('controller'=>'requests','action'=>'sendMail',$carne,$estado),
+        array('controller'=>'requests','action'=>'sendMail',$carne,$profesor,$curso,$grupo,$estado,$tipoHoras,$horas),
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
 </div>
