@@ -41,12 +41,12 @@
 
  <?= $this->Html->link(
         'Agregar grupo',
-        ['controller'=>'Classes','action'=>'add'],
+        ['controller'=>'CoursesClassesVw','action'=>'addClass'],
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
-        ['controller'=>'CoursesClassesVw','action'=>'add'],
+        ['controller'=>'CoursesClassesVw','action'=>'addCourse'],
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
 <button id="butExcel" class="btn btn-primary float-right btn-space">Cargar Archivo</button>

@@ -41,7 +41,7 @@ class CoursesClassesVwController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function addCourse()
     {
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
@@ -63,16 +63,17 @@ class CoursesClassesVwController extends AppController
 
             //Con el índice de profesor y el método preg_split, so consigue el nombre y el apellido del profesor en un array
             $prof = preg_split('/\s+/', $prof[$indexProf]);
+            debug($prof);
             //Se consigue el id del profesor con el nombre y apellido
             $prof = $usersController->getId($prof[0], $prof[1]);
 
             //Agrega el curso a la base
-            $courseController = new CoursesController;
-            $courseController->add($code, $name, $cred);
+            $courseTable=$this->loadmodel('Courses');
+            $courseTable->addCourse($code, $name, $cred);
 
             //Agrega el grupo al a base
-            $classController = new ClassesController;
-            $classController->addClass($code, $group, $semester, $year, $prof);
+            $classTable=$this->loadmodel('Classes');
+            $classTable->addClass($code, $group, $semester, $year, 1, $prof);
 
 
             $this->Flash->success(__('Se agregó el curso correctamente.'));
@@ -83,6 +84,40 @@ class CoursesClassesVwController extends AppController
         $usersController = new UsersController;
         $professors = $usersController->getProfessors();
         $this->set(compact('coursesClassesVw', 'professors'));
+    }
+
+    public function addClass(){
+        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+        if ($this->request->is('post')) {
+            $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+            
+            $code=$coursesClassesVw->Curso;
+            $group=$coursesClassesVw->Grupo;
+            $semester=$coursesClassesVw->Semestre;
+            $year=$coursesClassesVw->Año;
+            $indexProf=$coursesClassesVw->Profesor;
+
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
+
+            //Agrega el grupo al a base
+            $classTable=$this->loadmodel('Classes');
+            $classTable->addClass($code, $group, $semester, $year, 1, $prof);
+
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+        }
+
+        $courseTable=$this->loadmodel('Courses');
+        $courses = $courseTable->find('list', ['limit' => 1000]);
+
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+
+        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+        $this->set(compact('coursesClassesVw', 'courses', 'professors'));
     }
 
     /**
