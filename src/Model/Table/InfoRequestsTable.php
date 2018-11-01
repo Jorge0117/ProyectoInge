@@ -65,7 +65,7 @@ class InfoRequestsTable extends Table
             ->notEmpty('carne');
 
         $validator
-            ->numeric('nombre')
+            ->scalar('nombre')
             ->allowEmpty('nombre');
 
         $validator
