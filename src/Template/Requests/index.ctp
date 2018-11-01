@@ -15,8 +15,9 @@ echo $this->Html->css('buttons');
 	<?php endif; ?>
     
 </nav>
-<div class="requests index large-9 medium-8 columns content">
+<div class="requests index large-9 medium-8 columns content text-grid">
     <h3><?= __('Solicitudes') ?></h3>
+    
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>

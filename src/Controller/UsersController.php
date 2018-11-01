@@ -160,8 +160,7 @@ class UsersController extends AppController
         $AdministrativeBoss = new AdministrativeBossesController;
         $AdministrativeAssistant = new AdministrativeAssistantsController;
         //guarda el rol del usuario actual para verificar si puede editar el rol
-        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
-        //debug($rol_usuario);
+        $rol_usuario = $this->Auth->user('role_id');
         $admin = 0;
         if($rol_usuario === 'Administrador'){
             $admin = 1;
