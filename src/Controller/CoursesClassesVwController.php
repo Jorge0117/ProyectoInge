@@ -10,6 +10,8 @@ use Cake\Datasource\ConnectionManager;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 require ROOT.DS.'vendor' .DS. 'phpoffice/phpspreadsheet/src/Bootstrap.php';
 
 /**
@@ -63,10 +65,9 @@ class CoursesClassesVwController extends AppController
 
             //Con el índice de profesor y el método preg_split, so consigue el nombre y el apellido del profesor en un array
             $prof = preg_split('/\s+/', $prof[$indexProf]);
-            debug($prof);
+            
             //Se consigue el id del profesor con el nombre y apellido
             $prof = $usersController->getId($prof[0], $prof[1]);
-
             //Agrega el curso a la base
             $courseTable=$this->loadmodel('Courses');
             $courseTable->addCourse($code, $name, $cred);
@@ -265,13 +266,12 @@ class CoursesClassesVwController extends AppController
         $this->loadModel('CoursesClassesVw');
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         $UserController = new UsersController;
-        $fileController = new FilesController;
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
 
         //Lee el archivo que se va a subir
 
-        $fileDir = $fileController->getDir();
+        $fileDir = $this->getDir();
         $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
 
         //$inputFileName = TESTS. DS. 'archPrueba.xlsx';
@@ -347,8 +347,8 @@ class CoursesClassesVwController extends AppController
         //Cuando se da aceptar
         if ($this->request->is('post')) {
             //Borra todos los grupos
-            $ClassesController = new ClassesController;
-            $result = $ClassesController->deleteAll();
+            $classesModel = $this->loadmodel('Classes');
+            $classesModel->deleteAllClasses();
 
             //Llama al método addFromFile con cada fila
             for ($row = 0; $row < count($table); ++$row) {
@@ -356,7 +356,7 @@ class CoursesClassesVwController extends AppController
             }
 
             //Se borra el archivo
-            $fileController->deleteFiles();
+            $this->deleteFiles();
 
             $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
@@ -367,33 +367,54 @@ class CoursesClassesVwController extends AppController
     public function addFromFile ($parameters, $profId){
         //Si la fila está vacía no hace nada
         if($parameters[0] != null){
-
-            //Divide el profesor en nombre y apellido
-            //$prof = preg_split('/\s+/', $parameters[3]);
-            //Consigue el id del profesor
-            //$UserController = new UsersController;
-            //$profId = $UserController->getId($prof[1], $prof[0]);
+            $courseTable = $this->loadmodel('Courses');
+            $classTable = $this->loadmodel('Classes');
 
             //Agrega el curso
-            $courseController = new CoursesController;
-            $courseController->add($parameters[1], $parameters[0], 0);
+            $courseTable->addCourse($parameters[1], $parameters[0], 0);
 
             //Agrega el grupo
-            $classController = new ClassesController;
-            $classController->addClass($parameters[1], $parameters[2], 1, 2019, $profId);
+            $classTable->addClass($parameters[1], $parameters[2], 1, 2019, 1, $profId);
 
         }
     }
 
-    public function deleteAll (){
-        //Borra todos los grupos
-        $ClassesController = new ClassesController;
-        $result = $ClassesController->deleteAll();
-    }
 
     public function cancelExcel(){
-        $fileController = new FilesController;
-        $fileController->deleteFiles();
+        $this->deleteFiles();
         return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
+
+    public function uploadFile()
+    {
+        $this->loadmodel('Files');
+        $file = $this->Files->newEntity();
+        if ($this->request->is('post')) {
+            $file = $this->Files->patchEntity($file, $this->request->getData());
+
+            if ($this->Files->save($file)) {
+                //$this->Flash->success(__('The file has been saved.'));
+                return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'importExcelfile']);
+            }
+            $this->Flash->error(__('Error subiendo el archivo'));
+        }
+        $this->set(compact('file'));
+    }
+
+    public function getDir(){
+        $fileTable = $this->loadmodel('Files');
+        return $fileTable->getDir();
+    }
+
+    public function deleteFiles(){
+        //Obtiene las direcciones
+        $fileDir = $this->getDir();
+        //Borra el folder
+        $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
+        $folder = new Folder($path);
+        $folder->delete();
+        $fileTable = $this->loadmodel('Files');
+        $fileTable->deleteFiles();
+    }
+
 }

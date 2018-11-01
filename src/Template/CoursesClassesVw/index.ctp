@@ -143,7 +143,7 @@
 <div id="Subir archivo" class="modal">
     <div class="modal-content">
         <div class="files form large-9 medium-8 columns content">
-            <?= $this->Form->create(null, ['type' => 'file', 'url' => '/Files/add']) ?>
+            <?= $this->Form->create(null, ['type' => 'file', 'url' => '/CoursesClassesVW/uploadFile']) ?>
             <fieldset>
                 <legend><?= __('Seleccione el archivo') ?></legend>
                 <?php
