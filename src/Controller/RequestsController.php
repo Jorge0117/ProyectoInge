@@ -360,7 +360,15 @@ public function add()
 		$professor = $professor[0];
 		//Manda los parametros a la revision
 		$this->set(compact('request','user','class','professor', 'data_stage_completed'));	
-		
+		if ($this->request->is(['patch', 'post', 'put'])) {
+			$data = $this->request->getData();
+			//debug($data);
+			if( array_key_exists('AceptarRequisitos', $data) ) {
+
+				//debug('ds');
+			
+			}
+		}
 		
 	}
 	/*public function save()

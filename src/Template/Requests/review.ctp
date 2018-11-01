@@ -45,6 +45,8 @@
 		}
 	?>	
 	</div>
+		
+	<?= $this->Form->end() ?>
 </div>
 
 
@@ -68,18 +70,18 @@
 		Opcional
 		<table class='table text-center'>
 			<?php
-				
+				//debug($requirements);
 				echo $this->Html->tableHeaders(['Requisito', 'Aprobado', 'Rechazado', 'Inopia']);
 				for ($i = 0; $i < count($requirements['Opcional']); $i++){
 					$requirement_row[] = $requirements['Opcional'][$i]['description'];
-					$requirement_row[] = '<input type="radio" name="optional_requeriement_'.$i.'" id=\'optional_'.$i.'_1\'>';
-					$requirement_row[] = '<input type="radio" name="optional_requeriement_'.$i.'" id=\'optional_'.$i.'_2\'>';
+					$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('optional'.$i, [['value' => 'approved', 'text' => '']]);
+					$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected">';//$this->Form->radio('optional'.$i, [['value' => 'rejected', 'text' => '']]);
 					$requirement_row[] = $this->Form->checkbox(
 							'Editar',
-							['id' => 'assistant_',
-							 'checked' => false]
+							['checked' => false,
+							 'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number']]
 						);
-
+					$this->Form->unlockField('requirement_'.$requirements['Opcional'][$i]['requirement_number']);
 					echo $this->Html->tableCells($requirement_row);
 					$requirement_row = [];
 				}
@@ -91,9 +93,9 @@
 				echo $this->Html->tableHeaders(['Requisito', 'Aprobado', 'Rechazado']);
 				for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
 					$requirement_row[] = $requirements['Obligatorio'][$i]['description'];
-					$requirement_row[] = '<input type="radio" name="compulsory_requeriement_'.$i.'" id=\'compulsory_'.$i.'_1\'>';
-					$requirement_row[] = '<input type="radio" name="compulsory_requeriement_'.$i.'" id=\'compulsory_'.$i.'_2\'>';
-	
+					$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('compulsory'.$i, [['value' => 'approved', 'text' => '', 'id'=>'rc1']]);
+					$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'" value="rejected">';//$this->Form->radio('compulsory'.$i, [['value' => 'rejected', 'text' => '', 'id'=>'rc2']]);
+					$this->Form->unlockField('requirement_'.$requirements['Obligatorio'][$i]['requirement_number']);
 					echo $this->Html->tableCells($requirement_row);
 					$requirement_row = [];
 				}
@@ -108,8 +110,11 @@
         <div class='col-md-2 row' style="text-align:right">
         
         
-        <?php echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
-                                                                                'id' => 'CancelarBtn']); ?>
+        <?= $this->Html->link(
+			'Cancelar',
+			['controller'=>'requests','action'=>'index'],
+			['class'=>'btn btn-secondary float-right btn-space']
+		)?>
         </div>
         <div class='col-md-1 row submit' style="text-align:right">
         <?php
@@ -120,9 +125,11 @@
                     'name' => 'AceptarRequisitos',
                     'type' => 'submit',
                     'class' => 'btn btn-primary btn-aceptar'
-                ]);
+				]);
+			
         ?>
         </div>
     </div>
+	
 <?= $this->Form->end() ?>
 <?php endif; ?>
