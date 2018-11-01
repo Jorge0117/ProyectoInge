@@ -430,7 +430,7 @@ public function add()
 		//Se trae los datos de la solicitud
 	    $request = $this->Requests->get($id);
 		
-		$user = $this->Requests->getStudentInfo($request['student_id']);
+		$user = $this->Requests->getStudent($request['student_id']);
 		$user = $user[0]; //Agarra la unica tupla
 		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
 		$class = $class[0];
@@ -440,10 +440,10 @@ public function add()
 		$this->set(compact('request','user','class','professor', 'data_stage_completed'));	
 		if ($this->request->is(['patch', 'post', 'put'])) {
 			$data = $this->request->getData();
-			//debug($data);
 			if( array_key_exists('AceptarRequisitos', $data) ) {
-
+				debug($data);
 				//debug('ds');
+
 			
 			}
 		}
