@@ -101,5 +101,28 @@
 
         </table>
 	</div>
+	<div class='row container' id='BtnDiv'>
+        <div class='col-md-9' >
+        
+        </div>
+        <div class='col-md-2 row' style="text-align:right">
+        
+        
+        <?php echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
+                                                                                'id' => 'CancelarBtn']); ?>
+        </div>
+        <div class='col-md-1 row submit' style="text-align:right">
+        <?php
+            echo $this->Form->button(
+                'Aceptar',
+                [
+					'id' => 'AceptarRequisitos',
+                    'name' => 'AceptarRequisitos',
+                    'type' => 'submit',
+                    'class' => 'btn btn-primary btn-aceptar'
+                ]);
+        ?>
+        </div>
+    </div>
 <?= $this->Form->end() ?>
 <?php endif; ?>
