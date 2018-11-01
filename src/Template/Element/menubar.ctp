@@ -17,15 +17,15 @@
             <div class="collapse navbar-collapse" id="modulesList">
                 <ul class="nav navbar-nav">
 
-                    <li class="nav-item"><h4><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></h4></li>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                     
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
-                        <li class="nav-item"><h4><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></h4></li>
-                        <li class="nav-item"><h4><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></h4></li>
-                        <li class="nav-item"><h4><?= $this->Html->link('Asistencias pasadas',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></h4></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
-                        <li class="nav-item dropdown"><h4>
+                        <li class="nav-item dropdown item-menu">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownSol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Solicitudes
                             </a>
@@ -41,36 +41,20 @@
                                     <?= $this->Html->link('Asistentes pasados',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
                                 <?php endif ?>
                             </div>   
-                        </h4></li>
+                        </li>
                     <?php endif ?>
 
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                        <li class="nav-item"><h4><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></h4></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item dropdown"><h4>
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownReq" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Requisitos
-                            </a>
-                            <div class="dropdown-menu" aria-labeledby="dropdownReq">
-                                <?= $this->Html->link('Listar',['controller'=>'Requirements','action'=>'index'],['class'=>'dropdown-item'] ) ?>
-                                <?= $this->Html->link('Agregar',['controller'=>'Requirements','action'=>'add'],['class'=>'dropdown-item'] ) ?>
-                            </div>
-                        </h4></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item"><h4><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></h4></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        
+                        <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item dropdown"><h4>
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownUsuarios" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuarios
-                            </a>
-                            <div class="dropdown-menu" aria-labeledby="dropdownUsuarios">
-                                <?= $this->Html->link('Listar',['controller'=>'Users','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                <?= $this->Html->link('Agregar',['controller'=>'Users','action'=>'add'],['class'=>'dropdown-item']) ?>
-                            <div>
-                        </h4></li>
-
-                        <li class="nav-item"><h4><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></h4></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>
@@ -78,7 +62,6 @@
         <?php else: ?>
 
             <span class="navbar-text">
-                <h4></h4>
             </span>
         <?php endif ?>
 

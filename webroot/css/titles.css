@@ -11,9 +11,15 @@ h4{
     font-size: 1.3em;
 }
 
-.ecci-title {
+
+h1{
+    font-size: 2em;
     color: white;
     border-bottom: 2px solid #ceb92bff;
+}
+
+.user-icon:hover{
+    cursor: pointer;
 }
 
 .bg-ecci-blue {
@@ -22,4 +28,9 @@ h4{
 
 .bg-ecci-green {
     background-color:#ceb92bff;
+}
+
+.item-menu{
+    font-size: 1.5em;
+    color: #999999;
 }
