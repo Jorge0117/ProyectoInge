@@ -43,7 +43,7 @@ echo $this->Html->css('buttons');
                 <td><?= h($request->nombre) ?></td>
 
                 <td><?= $this->Number->format($request->promedio) ?></td>
-                <td><?= h($request->anoo) ?></td>
+                <td><?= h($request->anno) ?></td>
                 <td><?= $this->Number->format($request->semestre) ?></td>
                 <td><?= h($request->curso) ?></td>
                 <td><?= $this->Number->format($request->grupo) ?></td>
@@ -59,9 +59,10 @@ echo $this->Html->css('buttons');
 				
                 
                 <td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-print fa_custom fa-2x"></i>', ['action' => 'view', $request->id]) ?>
+                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
+                    
                     <?php if ($admin === true): ?>
-					<?= $this->Html->link('<i class="fa fa-print  fa-pencil-square-o fa-2x"></i>', ['action' => 'review', $request->id]) ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
                     <?php endif; ?>
                 </td>
 				
