@@ -33,7 +33,11 @@
                 );
                 echo $this->Form->control(
                     'Grupo',
-                    ['default' => $class_number]
+                    [
+                        'default' => $class_number,
+                        'type' => 'number',
+                        'min' => 1
+                    ]
                 );
                 echo $this->Form->control(
                     'Semestre',
@@ -44,7 +48,12 @@
                 );
                 echo $this->Form->control(
                     'Año',
-                    ['default' => $year]
+                    [
+                        'default' => $year,
+                        'type' => 'number',
+                        'min' => 1901,
+                        'max' => 2155
+                    ]
                 );
                 // echo $old_professor;
                 $default_prof_index = array_search(trim($old_professor),$professors);
