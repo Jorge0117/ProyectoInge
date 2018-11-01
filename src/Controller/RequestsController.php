@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * Requests Controller
  *
@@ -79,12 +79,32 @@ class RequestsController extends AppController
      */
     public function view($id = null)
     {
-        $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students']
-        ]);
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
 
-        $this->set('request', $request);
+        $request = $this->Requests->get($id, [
+			'contain' => ['Courses', 'Students']
+		]);
 		
+		$user = $this->Users->get($request->student->user_id);
+
+		$query = $this->Classes
+				->find()
+				->select('professor_id')
+				->where(['course_id' => $request->course_id,
+					'class_number' => $request->class_number,
+					'semester' => $request->class_semester,
+					'year' => $request->class_year]);
+
+		$profesor = $query->first();
+
+		if ($profesor) {
+			$request['docente'] = $this->Users->get($profesor['professor_id']);
+		}
+		$this->set('profesor', $profesor);
+		// $docente = $this->Users->get($query);
+		$request['user'] = $user;
+		$this->set('request', $request);		
     }
 
     /**
@@ -127,21 +147,14 @@ public function get_student_id()
 {
 	$student_id = "402220000";
 	
-	return $student_id;
-	
-	//return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
+    return $student_id;
+    
+    //return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()
 {
 	return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
-}
-
-public function get_semester()
-{
-	//Pedir get_round y luego sacar el atributo 
-	
-	return "1";
 }
 
 public function add()
