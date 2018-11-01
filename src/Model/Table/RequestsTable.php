@@ -216,7 +216,9 @@ class RequestsTable extends Table
         return $result;
 
 	}
-	
+
+
+	/*
 	public function getStudentInfo($student_id)
 	{
 		$connet = ConnectionManager::get('default');
@@ -226,6 +228,7 @@ class RequestsTable extends Table
         return $result;
 
 	}
+	*/
 	
 	//Obtiene todas las solicitudes pendientes que coincidan con el curso y grupo actual.
 	/*
