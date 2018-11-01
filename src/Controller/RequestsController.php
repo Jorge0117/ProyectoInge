@@ -98,11 +98,11 @@ public function get_round_start_date()
 
 public function get_student_id()
 {
-	$student_id = "z12345";
+	$student_id = "402220000";
 	
 	return $student_id;
 	
-	//return 	$this->Auth->user('username'); //Este es el que en realidad hay que devolver
+	//return 	$this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
 }
 
 public function get_round()
@@ -320,43 +320,71 @@ public function add()
 	public function review($id = null){
 		$role_c = new RolesController;
         $action = 'review';
-		$module = 'Request';
+		$module = 'Requests';
 		$user = $this->Auth->user();
-		
+
+		//--------------------------------------------------------------------------
+		// All of the variables added in this section are ment to be for 
+		// the preliminar review of each requests.
+		$load_preliminar_review = false;
+		$predetermined_state = null;
+		//--------------------------------------------------------------------------
 		//Datos de la solicitud
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Data')){
-
+			
 		}
-
+		
 		//Revision de requisitos
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Requirements')){
-
+			
 		}
 		
 		//Revisión preliminar
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Preliminary')){
-
+			// $load_preliminar_review = $load_review_requirements;
+			// $predetermined_state = $this->Classes->newEntity()->fetchState($id);
 		}
-
+		
 		//Revisión final
 		
 		if($role_c->is_Authorized($user['role_id'], $module, $action.'Final')){
-
+			
 		}
 		
 		//Se trae los datos de la solicitud
-	    $request = $this->Requests->get($id);
-		
+		$request = $this->Requests->get($id);
 		$user = $this->Requests->getStudent($request['student_id']);
 		$user = $user[0]; //Agarra la unica tupla
 		$class = $this->Requests->getClass($request['course_id'],$request['class_number']);
-		$class = $class[0];
+		$class = $class[0]; 
 		$professor = $this->Requests->getTeacher($request['course_id'],$request['class_number'],$request['class_semester'],$request['class_year']);
 		$professor = $professor[0];
 		//Manda los parametros a la revision
-        $this->set(compact('request','user','class','professor'));	
 		
+		$this->set('load_preliminar_review',$load_preliminar_review);
 		
+		$this->set(compact('request','user','class','professor'));
+		if ($this->request->is(['patch', 'post', 'put'])) {
+			//--------------------------------------------------------------------------
+			$data = $this->request->getData();
+			$status_index = $data['status'];
+			switch($status_index){
+				case 1:
+					$status_new_val = 'e';
+					break;
+				case 2:
+					$status_new_val = 'n';
+					break;
+				case 3:
+					$status_new_val = 'i';
+					break;
+			}
+			debug($status_new_val);
+			die();
+			//--------------------------------------------------------------------------
+
+
+		}
 	}
 	/*public function save()
 	{

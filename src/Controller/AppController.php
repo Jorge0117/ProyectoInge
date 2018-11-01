@@ -115,7 +115,7 @@ class AppController extends Controller
         $module = $this->request->getParam('controller');
         //echo($action);
         //echo($module);
-        return $role_c->is_Authorized($user['role_id'], $module, $action);*/
-        return true;
+		return true;
+        return $role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }

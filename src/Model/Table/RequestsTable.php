@@ -207,11 +207,11 @@ class RequestsTable extends Table
 
 	}
 	
-	public function getStudentInfo($student_carnet)
+	public function getStudentInfo($student_id)
 	{
 		$connet = ConnectionManager::get('default');
 		      //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
-		$result = $connet->execute("select * from users u, students s where s.carne = '$student_carnet' and u.identification_number = s.user_id");
+		$result = $connet->execute("select * from users u, students s where u.identification_number = '$student_id' and u.identification_number = s.user_id");
 		$result = $result->fetchAll('assoc');
         return $result;
 
@@ -293,6 +293,21 @@ class RequestsTable extends Table
         return $result;
     }
 	
+
+	/**
+	 * This method was added by Joseph Rementería
+	 * 
+	 * Fetches the state of the given id request.
+	 */
+	public function fetchState($id = null)
+	{
+		$connect = ConnectionManager::get('default');
+		$result = $connect->execute("SELECT status FROM request WHERE id = '$id'");
+		debug($result);
+		die();
+		return $result;
+	}
+
 	public function getRequirements($id,$s,$in)
 	{
 		$connet = ConnectionManager::get('default');
