@@ -34,15 +34,18 @@ class RequestsController extends AppController
     public function index()
     {
         $table = $this->loadModel('InfoRequests');
-    
+		$session = $this->getRequest()->getSession();
         $rol_usuario = $this->getRequest()->getSession()->read('role_id');
         $id_usuario = $this->getRequest()->getSession()->read('identification_number');
-
+		debug($rol_usuario);
+		debug($session);
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
         if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
-            $query = $table->find();
+			
+			$query = $table->find('all');
             $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
 			$admin = true;
+			debug($query);
             $this->set(compact('query','disponible', 'admin'));
         }else{
 
@@ -63,7 +66,6 @@ class RequestsController extends AppController
                 $disponible = false; 
 				$admin = false;
                 $this->set(compact('query','disponible', 'admin'));
-
             }
         }
         
