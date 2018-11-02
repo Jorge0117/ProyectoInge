@@ -37,6 +37,13 @@ class Application extends BaseApplication
     {
         $this->addPlugin('CakePdf', ['bootstrap' => true]);
 
+        $cakepdfconfig = [
+            'engine' => 'CakePdf.WkHtmlToPdf',
+            'pageSize' => 'letter'
+        ];
+
+        Configure::write('CakePdf', $cakepdfconfig);
+
         $this->addPlugin('BootstrapUI');
 
         // Call parent to load bootstrap from files.
