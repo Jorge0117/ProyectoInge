@@ -301,18 +301,28 @@
 					</div>
 				</div>
 			</div>
+			<div class='row container' id='BtnDiv'>
+			<div class='col-md-9' >
+			
+			</div>
+			<div class='col-md-2 row' style="text-align:right">
+			
 			<div id='submitDiv' class="submit" style = 'width:100%; height:4%; color:green; display:none'>
 				<?= $this->Html->link('Cancelar',[
 						'controller'=>'requests',
 						'action'=>'index'],[
 						'class'=>'btn btn-secondary float-right btn-space'
 				]);?>
+				</div>
+			<div class='col-md-1 row submit' style="text-align:right">
 				<?= $this->Form->button('Aceptar',[
 						'id' => 'AceptarFin',
 						'name' => 'AceptarFin',
 						'type' => 'submit',
 						'class' => 'btn btn-primary btn-aceptar'
 				]);?>
+					</div>
+		</div>
 			</div>
 		</div>
 		
