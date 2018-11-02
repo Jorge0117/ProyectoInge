@@ -59,7 +59,7 @@
 	<?= $this->Form->create(false) ?>
 		<div>
 			<div class='input-group mb-2' id='modificar_tag'>
-			<span style="width:8%" class="input-group-text" >Modificar</span>     
+			<span style="width:10%" class="input-group-text" >Modificar</span>     
 			<div class="input-group-append" >
 					<div class="input-group-text bg-white">
 						<?php
@@ -72,7 +72,9 @@
 					</div>
 			</div>
 			</div>
+			<legend>
 			Opcional
+			</legend>
 			<div style='width:64%'>
 			<table class='table text-center'>
 				<?php
@@ -81,16 +83,16 @@
 						['Requisito' => ['style' => 'width:70%; text-align: left;']], ['Aprobado'  => ['style' => 'width:10%']], ['Rechazado'  => ['style' => 'width:10%']],['Inopia' =>  ['style' => 'width:10%']]
 						]);
 					for ($i = 0; $i < count($requirements['Opcional']); $i++){
-						
-						echo('<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required></td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"></td>');
-						echo('<td>'.$this->Form->checkbox(
+						echo('<tr>'."\n");
+						echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+						echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
 							'Editar',
 							['checked' => false,
 							'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number']]
-						).'</td>');
-						echo('</tr>');
+						).'</td>'."\n");
+						echo('</tr>'."\n");
 						//$requirement_row[] = $requirements['Opcional'][$i]['description'];
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('optional'.$i, [['value' => 'approved', 'text' => '']]);
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected">';//$this->Form->radio('optional'.$i, [['value' => 'rejected', 'text' => '']]);
@@ -106,7 +108,9 @@
 				?>		  
 			</table>
 			</div>
+			<legend>
 			Obligatorio
+			</legend>
 			<div  style='width:58%'>
 			<table class='table text-center '>
 				<?php
@@ -114,9 +118,11 @@
 						['Requisito' => ['style' => 'width:62%; text-align: left;']], ['Aprobado'  => ['style' => 'width:10%']], ['Rechazado'  => ['style' => 'width:10%']]
 						]);
 					for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
-						echo('<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required></td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"></td>'); 
+						echo('<tr>'."\n");
+						echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+						echo('</tr>'."\n"); 
 						//$requirement_row[] = [$requirements['Obligatorio'][$i]['description'] , ['style' => 'text-align: left;']];
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('compulsory'.$i, [['value' => 'approved', 'text' => '', 'id'=>'rc1']]);
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'" value="rejected">';//$this->Form->radio('compulsory'.$i, [['value' => 'rejected', 'text' => '', 'id'=>'rc2']]);
