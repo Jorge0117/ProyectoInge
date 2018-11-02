@@ -118,8 +118,10 @@ class RequestsController extends AppController
     
     public function print($id = null)
     {
-        $this->loadModel('Users');
-        $this->loadModel('Classes');
+		// $this->viewBuilder()->setClassName('CakePdf.Pdf');
+		$this->layout = 'request';
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
 
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students']

@@ -6,14 +6,14 @@
 ?>
 
 
-<div class="container">
-    <div class="mt-3 mb-3 text-center"><h4><strong>Solicitud de concurso para asistencia</strong></h4></div>
+<div class="container mb-5">
+    <div class="mb-4"><h3>Solicitud #<?php echo h($request->id);?></h3></div>
 
-    <div class="mb-3">
+    <div class="mb-4">
         <h4>Datos del estudiante:</h4>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-4">
         <div class="row justify-content-between">
             <div class="col-3 border-bottom border-dark text-center">
                 <?= $request->has('user') ? h($request->user->lastname1) : '' ?>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="mb-3">
+    <div class="mb-4">
         <div class="row justify-content-between">
             <div class="col-2 border-bottom border-dark text-center">
                 <?= $request->has('user') ? h($request->user->identification_number) : '' ?>
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <div class="mt-4 mb-3">
+    <div class="mt-4 mb-4">
         <p>Documentos que debe adjuntar al entregar el formulario en la ECCI:<p>
         <ol>
             <li>Entregar este formulario debidamente en la Secretaria de la ECCI, sin la firma del docente.</li>
@@ -122,7 +122,7 @@
         </ol>
     </div>
 
-    <div class="mt-3 mb-4">
+    <div class="mt-4 mb-4">
         <p>Información sobre otras asistencias:<p>
         <ol>
             <li>¿Tiene o va a solicitar asistencia en otra Unidad Académica u oficina de la Universidad?</li>
@@ -220,7 +220,7 @@
         </div>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 mb-5">
         <div class="row justify-content-start">
             <div class="col-3 text-right">
                 <strong>Firma del docente:</strong>
