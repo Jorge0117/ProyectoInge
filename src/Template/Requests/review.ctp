@@ -55,7 +55,7 @@
 </div>
 
 <?php if($data_stage_completed): ?>
-<div class="requests view large-9 medium-8 columns content">
+<div class="requests view large-9 medium-8 columns content form-section">
 	<?= $this->Form->create(false) ?>
 		<div>
 			<div class='input-group mb-2' id='modificar_tag'>
