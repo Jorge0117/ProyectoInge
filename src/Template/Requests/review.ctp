@@ -213,3 +213,197 @@
 		<?= $this->Form->end() ?>
 	</div>
 <?php endif;?>
+<?php $last = $this->Rounds->getLastRow(); ?>
+<?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
+<?php if($load_final_review):?>
+	<?= $this->Form->create(false) ?>
+		<div id="divPreliminar" class="form-section">
+			<legend>
+				Revisión Final
+			</legend>
+			<?= $this->Form->control('ClasificaciónFinal',[
+						'options' => ['-No Clasificado-', 'Aprobado', 'Rechazado'],
+						'default' => $default_indexf,
+						'onchange'=>"approve()",
+			]);?>
+			<div id = 'hoursDiv' style = 'width:100%; display:none;'>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tsh',
+								'value' => 'hs',
+								'label' => false,
+								'onclick'=>"studentHours()",
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Estudiante: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('hours',[
+							'	id'=>'student',
+								'type'=>'number',
+								'min' => '3',
+								'max' => '12',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+						<?php $this->Form->unlockField('hours')?>
+					</div>
+				</div>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tah',
+								'value' => 'ha',
+								'label' => false,	
+								'onclick'=>"assistantHours()",
+										
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Asistente: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('hours',[
+								'id'=>'assistant',
+								'type'=>'number',
+								'min' => '3',
+								'max' => '20',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+						<?php $this->Form->unlockField('hours')?>
+					</div>	
+				</div>
+				<?= $this->Form->control('date',[
+								'type'=>'hidden',
+								'value'=> $last[0]
+						]);?>
+						<?= $this->Form->control('type',[
+								'type'=>'hidden',
+						]);?>
+						<?php $this->Form->unlockField('date')?>
+						<?php $this->Form->unlockField('type')?>
+				<div style = 'width:33%; display:flex'>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Disponibles: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('horasDisponibles',[
+								'type'=>'number',
+								'value'=> null,
+								'label' => false,
+								'disabled',
+						]);?>
+					</div>
+				</div>
+			</div>
+			<div id='submitDiv' class="submit" style = 'width:100%; height:4%; color:green; display:none'>
+				<?= $this->Html->link('Cancelar',[
+						'controller'=>'requests',
+						'action'=>'index'],[
+						'class'=>'btn btn-secondary float-right btn-space'
+				]);?>
+				<?= $this->Form->button('Aceptar',[
+						'id' => 'AceptarFin',
+						'name' => 'AceptarFin',
+						'type' => 'submit',
+						'class' => 'btn btn-primary btn-aceptar'
+				]);?>
+			</div>
+		</div>
+		
+			
+	<?= $this->Form->end() ?>
+<?php endif;?>
+
+
+<script>
+$(document).ready( function () {
+    if(!last){                
+        approve();
+    }
+});
+/** Función approve
+  * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
+  *		 por agregar.
+  **/
+	function approve(){
+		byId('tsh').checked = false;
+		byId('tah').checked = false;
+		byId('submitDiv').style.display = 'none';
+		var clasification = byId('clasificacionfinal').value;
+		if(clasification == 1){
+			byId('hoursDiv').style.display = 'flex';
+		}else{
+			byId('hoursDiv').style.display = 'none';
+			if(clasification == 2){
+				byId('submitDiv').style.display = 'block';
+			}
+		}
+	}
+/** Función studentHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function studentHours(){
+		if(byId('tsh').checked){
+			byId('type').value = "hs";
+			byId('tah').checked = false;
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+			byId('student').value = 3;
+			byId('student').disabled = false;
+			byId('student').focus();
+			var tsh = <?= $last[5]; ?>;
+			var ash = <?= $last[7]; ?>;
+			var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
+	}
+/** Función assistantHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function assistantHours(){
+		if(byId('tah').checked){
+			byId('type').value = "ha";
+			byId('tsh').checked = false;
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('assistant').value = 3;
+			byId('assistant').disabled = false;
+			byId('assistant').focus();
+			var tah = <?= $last[6]; ?>;
+			var aah = <?= $last[8]; ?>;
+			var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
+	}
+/** Función byId
+  * EFE: Función wrapper de getElementById
+  * REQ: Id del elemento a obtener.
+  * RET: Elemento requerido.
+  **/
+  function byId(id) {
+	return document.getElementById(id);
+}
+
+</script>

@@ -30,7 +30,7 @@ class RequestsController extends AppController
      * @return \Cake\Http\Response|void
      */
 
-    public function validarFecha()
+    /*public function validarFecha()
     {
         $resultado = false;
         $inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
@@ -42,7 +42,7 @@ class RequestsController extends AppController
 
         return $resultado;
 
-    }
+    }*/
 
     public function index()
     {
@@ -64,7 +64,7 @@ class RequestsController extends AppController
                 $query = $table->find('all', [
                     'conditions' => ['cedula' => $id_usuario],
                 ]);
-                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+                $disponible = $this->Rounds->between(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
                 $this->set(compact('query', 'disponible', 'admin'));
 
@@ -429,6 +429,9 @@ class RequestsController extends AppController
         $load_preliminar_review = false;
         $default_index = null;
         //--------------------------------------------------------------------------
+
+        $load_final_review = false;
+
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
@@ -448,7 +451,12 @@ class RequestsController extends AppController
         //Revisión final
 
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
-
+            $load_final_review = $default_index == 1 || $default_index >=3;
+            $this->set('load_final_review', $load_final_review);
+            $default_indexf = 0;
+            if($default_index == 4)$default_indexf = 1;
+            else if($default_index == 5)$default_indexf = 2;
+            $this->set('default_indexf', $default_indexf);
         }
 
         //Se trae los datos de la solicitud
@@ -569,6 +577,33 @@ class RequestsController extends AppController
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
+            $index = $this->Requests->getStatusIndexOutOfId($id);
+            $load_final_review = $index == 1 || $index >= 3;
+            debug('entra '.$load_final_review);
+            debug('indx '.$index);
+            
+            $default_indexf = 0;
+            if($index == 4)$default_indexf = 1;
+            else if($index == 5)$default_indexf = 2;
+            debug($load_final_review);
+            $this->set('default_indexf', $default_indexf);
+            //$this->set('default_index', $default_index);
+            if (array_key_exists('AceptarFin', $data)) {
+                $status_index = $data['ClasificaciónFinal'];
+                switch ($status_index) {
+                    case 1:
+                        $status_new_val = 'a';
+                        break;
+                    case 2:
+                        $status_new_val = 'r';
+                        break;
+                }
+                $this->Requests->approveRequest($id,$data["date"],$data["type"],$data["hours"]);
+                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                //$this->sendMail();
+                
+            }
         }
     }
 }
