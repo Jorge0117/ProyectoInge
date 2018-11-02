@@ -470,10 +470,11 @@ class RequestsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            debug($data);
+            //debug($data);
             //--------------------------------------------------------------------------
             if (array_key_exists('AceptarRequisitos', $data)) {
-                // Actualizar el estado de los requisitos opcionales
+				// Actualizar el estado de los requisitos opcionales
+				$requirements_review_completed = true;
                 for ($i = 0; $i < count($requirements['Opcional']); $i++) {
                     $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
                     $optional_requirement = $this->RequestsRequirements->newEntity();
@@ -483,8 +484,9 @@ class RequestsController extends AppController
                     $optional_requirement->acepted_inopia = intval($data['inopia_op_' . $requirement_number]);
 
                     //debug($optional_requirement);
-                    if ($this->RequestsRequirements->save($optional_requirement)) {
-                        debug('niece');
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+						$requirements_review_completed = false;
+						return;
                     }
 				}
 				
@@ -496,10 +498,18 @@ class RequestsController extends AppController
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     //debug($optional_requirement);
-                    if ($this->RequestsRequirements->save($optional_requirement)) {
-                        debug('niece2');
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                        $requirements_review_completed = false;
+						return;
                     }
-                }
+				}
+
+				//Se muestra un mensaje informando si la transacción se completo o no.
+				if($requirements_review_completed){
+					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+				}else{
+					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
+				}
             }
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status
