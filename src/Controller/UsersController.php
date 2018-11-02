@@ -1,7 +1,10 @@
 <?php
 namespace App\Controller;
+//namespace Cake\ORM;
 
 use App\Controller\AppController;
+//use Cake\ORM\TableRegistry;
+//App::import('Controller', 'Students'); // mention at top
 
 
 /**
@@ -86,15 +89,12 @@ class UsersController extends AppController
                 $user->role_id= 'Profesor';
             }
 
-            //agrega a la tabla students
-            if($user->role === 'Estudiante'){
-                $carne = $username;
-                $Students->newStudent($user, $carne);
-            }
-
             if ($this->Users->save($user)) { 
                 $session->delete('NEW_USER');        
-
+                if($user->role_id === 'Estudiante'){
+                    $table = $this->loadModel('Students');
+                    $table->addStudent($user->identification_number, $username);
+                }
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['controller' => 'Security', 'action' => 'login']);
             } 
@@ -104,7 +104,6 @@ class UsersController extends AppController
         }
         // $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles'));
-        
     }
 
     /**
@@ -131,15 +130,14 @@ class UsersController extends AppController
                 }else{
                     $user->role_id= 'Profesor';
                 }
-                
-                if($user->role === 'Estudiante'){
-                    $carne = $username;
-                    $Students->newStudent($user, $carne);
-                }
 
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 
                 if ($this->Users->save($user)) {
+                    if($user->role_id === 'Estudiante'){
+                        $table = $this->loadModel('Students');
+                        $table->addStudent($user->identification_number, $username);
+                    }
                     $this->Flash->success(__('Se agregó el usuario correctamente.'));
                     return $this->redirect(['action' => 'index']);
                 }
@@ -162,13 +160,11 @@ class UsersController extends AppController
         $AdministrativeBoss = new AdministrativeBossesController;
         $AdministrativeAssistant = new AdministrativeAssistantsController;
         //guarda el rol del usuario actual para verificar si puede editar el rol
-        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
-        debug($rol_usuario);
+        $rol_usuario = $this->Auth->user('role_id');
         $admin = 0;
         if($rol_usuario === 'Administrador'){
             $admin = 1;
         }
-        $this->set('mostar', $admin);
         
         $user = $this->Users->get($id, [
             'contain' => []
@@ -228,7 +224,7 @@ class UsersController extends AppController
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'roles', 'admin'));
     }
 
     /**

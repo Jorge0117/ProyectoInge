@@ -59,7 +59,9 @@ class UsersTable extends Table
             'cascadeCallbacks' => true
         ]);
         $this->hasMany('Students', [
-            'foreignKey' => 'user_id'
+            'className' => 'Students',
+            'foreignKey' => 'user_id',
+            'dependent' => true
         ]);
     }
 
@@ -84,6 +86,12 @@ class UsersTable extends Table
                     'message' => 'Not unique']
                 ]
         );
+
+        $validator
+        ->scalar('identification_type')
+        ->maxLength('identification_type', 20)
+        ->requirePresence('identification_type', 'create')
+        ->notEmpty('identification_type');
 
         $validator
             ->scalar('name')
@@ -118,7 +126,7 @@ class UsersTable extends Table
         $validator
             ->scalar('phone')
             ->maxLength('phone', 12)
-            ->allowEmpty('phone');
+            ->notEmpty('phone');
 
         return $validator;
     }
@@ -141,7 +149,7 @@ class UsersTable extends Table
     public function getId ($name, $lastname) {
         $connect = ConnectionManager::get('default');
 
-        $id = $connect->execute("select identification_number from users where name = '$name' and lastname1 = '$lastname'") ->fetchAll();
+        $id = $connect->execute("select identification_number from users where name like '%$name' and lastname1 like '$lastname%'") ->fetchAll();
         if($id != null){
             return $id[0][0];
         }else{
