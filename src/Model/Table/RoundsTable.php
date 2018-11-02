@@ -121,6 +121,7 @@ public function getToday(){
     $query = $connet->execute(
         "SELECT DATE(now())"
     )->fetchAll();
+    debug($query);
     return $query[0][0];
 }
 
