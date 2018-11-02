@@ -423,10 +423,10 @@ class RequestsController extends AppController
         $action = 'review';
         $module = 'Requests';
         $user = $this->Auth->user();
-		//debug($user);
+        //debug($user);
         $request = $this->Requests->get($id);
         $data_stage_completed = false;
-		//Datos de la solicitud
+        //Datos de la solicitud
 
         // All of the variables added in this section are ment to be for 
         // the preliminar review of each requests.
@@ -437,7 +437,7 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
         }
-		//Revision de requisitos
+        //Revision de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
             $data_stage_completed = true;
             $requirements = $this->Requirements->getRequestRequirements($id);
@@ -500,22 +500,23 @@ class RequestsController extends AppController
                 }
                 $requirements = $this->Requirements->getRequestRequirements($id);
                 //--------------------------------------------------------------------------
-                $total_of_mandatories_requirements = 1;
+                // Comunication with other controllers
+                $requirementsController = new RequirementsController();
+                //--------------------------------------------------------------------------
+                // This counts the  amount of mandatory requirements in the reqirements table
+                // and the amount of them in this request
+                $total_of_mandatories_requirements = $requirementsController->countmandatoryRequirements();
                 $total_of_aproved_req = sizeof($requirements['Obligatorio']);
-                debug('TEST');
-                $condition = 
-                ($total_of_mandatories_requirements == $total_of_aproved_req) 
-                && 
-                (
-                    ('e' == $status_new_val) || ('i' == $status_new_val)
-                );
-                debug($condition);
-                if ($condition) {
+                //--------------------------------------------------------------------------
+                // if this request was the same amount of mandatory requirements approved 
+                // as the ones in the table and whether the administrator wants to 
+                // classified this as 'i' or 'e', the change can be seen in the DB.
+                if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
                     //Redirecciona al index:
                     $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 } else {
-                    $this->Flash->success(__('El estudiante no cumple con los requisitos obligatorios'));
+                    $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
                 }
                 
             }
