@@ -23,7 +23,7 @@ class RequestsController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow('print');
     }
-    
+
     /**
      * Index method
      *
@@ -36,8 +36,10 @@ class RequestsController extends AppController
         $inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
         $final = "2019-10-25"; //CAMBIAR POR FUNCION DE RONDA
 
-        if (strtotime(date("y-m-d")) < strtotime($final) && strtotime(date("y-m-d")) > strtotime($inicio))
+        if (strtotime(date("y-m-d")) < strtotime($final) && strtotime(date("y-m-d")) > strtotime($inicio)) {
             $resultado = true;
+        }
+
         return $resultado;
 
     }
@@ -47,34 +49,37 @@ class RequestsController extends AppController
         $table = $this->loadModel('InfoRequests');
         $rol_usuario = $this->Auth->user('role_id');
         $id_usuario = $this->Auth->user('identification_number');
-        
+
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
-        if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+        if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') { //muestra todos
             $query = $table->find('all');
             $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
             $admin = true;
-            $this->set(compact('query', 'admin'));
-        }else{
-            
+            $this->set(compact('query', 'disponible', 'admin'));
+        } else {
+
             //ESTUDIANTE
             //Si es estudiante solamente muestra sus solicitudes.
-            if($rol_usuario === 'Estudiante'){
+            if ($rol_usuario === 'Estudiante') {
                 $query = $table->find('all', [
-                    'conditions' => ['cedula' => $id_usuario]]);
+                    'conditions' => ['cedula' => $id_usuario],
+                ]);
+                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
-                $this->set(compact('query', 'admin'));                
-                
-            }else{
+                $this->set(compact('query', 'disponible', 'admin'));
+
+            } else {
                 //PROFESOR
                 //Si es profesor solamente muestra las solicitudes de sus grupos.
                 $query = $table->find('all', [
-                    'conditions' => ['id_prof' => $id_usuario]]);
-                $disponible = false; 
+                    'conditions' => ['id_prof' => $id_usuario],
+                ]);
+                $disponible = false;
                 $admin = false;
-                $this->set(compact('query','admin'));
-            }    
+                $this->set(compact('query', 'disponible', 'admin'));
+            }
         }
-        
+
     }
 
     /**
@@ -90,20 +95,22 @@ class RequestsController extends AppController
         $this->loadModel('Classes');
 
         $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students']
+            'contain' => ['Courses', 'Students'],
         ]);
-        
+
         $user = $this->Users->get($request->student->user_id);
 
         $query = $this->Classes
-                ->find()
-                ->select('professor_id')
-                ->where(
-                    ['course_id' => $request->course_id,
+            ->find()
+            ->select('professor_id')
+            ->where(
+                [
+                    'course_id' => $request->course_id,
                     'class_number' => $request->class_number,
                     'semester' => $request->class_semester,
-                    'year' => $request->class_year]
-                );
+                    'year' => $request->class_year,
+                ]
+            );
 
         $profesor = $query->first();
 
@@ -113,29 +120,30 @@ class RequestsController extends AppController
         $this->set('profesor', $profesor);
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
-        $this->set('request', $request);        
+        $this->set('request', $request);
     }
-    
-    public function print($id = null)
-    {
+
+    function print($id = null) {
         $this->loadModel('Users');
         $this->loadModel('Classes');
 
         $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students']
+            'contain' => ['Courses', 'Students'],
         ]);
-        
+
         $user = $this->Users->get($request->student->user_id);
 
         $query = $this->Classes
-                ->find()
-                ->select('professor_id')
-                ->where(
-                    ['course_id' => $request->course_id,
+            ->find()
+            ->select('professor_id')
+            ->where(
+                [
+                    'course_id' => $request->course_id,
                     'class_number' => $request->class_number,
                     'semester' => $request->class_semester,
-                    'year' => $request->class_year]
-                );
+                    'year' => $request->class_year,
+                ]
+            );
 
         $profesor = $query->first();
 
@@ -145,7 +153,7 @@ class RequestsController extends AppController
         $this->set('profesor', $profesor);
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
-        $this->set('request', $request);        
+        $this->set('request', $request);
     }
 
     /**
@@ -153,27 +161,27 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-   /* public function add()
+    /* public function add()
     {
-        $request = $this->Requests->newEntity();
-        if ($this->request->is('post')) {
-            $request = $this->Requests->patchEntity($request, $this->request->getData());
-            
-            $RequestsTable=$this->loadmodel('Requests');
-            //$round almacena datos originales
-            
-            debug($request->status,'char');
-            
-            if ($this->Requests->save($request)) {
-                $this->Flash->success(__('The request has been saved.'));
+    $request = $this->Requests->newEntity();
+    if ($this->request->is('post')) {
+    $request = $this->Requests->patchEntity($request, $this->request->getData());
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The request could not be saved. Please, try again.'));
-        }
-        $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
-        $students = $this->Requests->Students->find('list', ['limit' => 200]);
-        $this->set(compact('request', 'courses', 'students'));
+    $RequestsTable=$this->loadmodel('Requests');
+    //$round almacena datos originales
+
+    debug($request->status,'char');
+
+    if ($this->Requests->save($request)) {
+    $this->Flash->success(__('The request has been saved.'));
+
+    return $this->redirect(['action' => 'index']);
+    }
+    $this->Flash->error(__('The request could not be saved. Please, try again.'));
+    }
+    $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
+    $students = $this->Requests->Students->find('list', ['limit' => 200]);
+    $this->set(compact('request', 'courses', 'students'));
     }
      */
 
@@ -186,9 +194,9 @@ class RequestsController extends AppController
     public function get_student_id()
     {
         $student_id = "402220000";
-        
+
         return $student_id;
-        
+
         //return     $this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
     }
 
@@ -197,7 +205,7 @@ class RequestsController extends AppController
     //     $student_id = "402220000";
 
     //     return $student_id;
-    
+
     // //return     $this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
     // }
 
@@ -208,7 +216,7 @@ class RequestsController extends AppController
 
     public function get_semester()
     {
-    //Pedir get_round y luego sacar el atributo 
+        //Pedir get_round y luego sacar el atributo
 
         return "1";
     }
@@ -223,10 +231,10 @@ class RequestsController extends AppController
 
             $RequestsTable = $this->loadmodel('Requests');
             //$round almacena datos originales
-            
+
             //Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
-            $request->set('status', 'p'); //Toda solicitud esta pendiente 
-            $request->set('round_start', $this->get_round_start_date());//obtiene llave de ronda
+            $request->set('status', 'p'); //Toda solicitud esta pendiente
+            $request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
 
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
             $request->set('class_year', date('Y')); //obtiene el año actual de la solicitud
@@ -244,7 +252,7 @@ class RequestsController extends AppController
         /*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud
         Por lo tanto, lo que se hara aqui es traerse toda la información útil de la base de datos:
         Todos los nombres y codigos de los cursos que tengan al menos un curso disponible para asistencias
-        Todos los 
+        Todos los
          */
         $students = $this->Requests->Students->find('list', ['limit' => 200]);
         //$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
@@ -252,11 +260,11 @@ class RequestsController extends AppController
 
         $semestre = "1";
         $año = 2019;
-        
+
         //Se trae la ronda actusl
         $ronda = $this->get_round();
         //debug($ronda);
-        
+
         //Modifica las clases para dejar los datos requeridos de curso y grupo
         //$tuplas = $classes->execute();
         $course = array();
@@ -266,24 +274,24 @@ class RequestsController extends AppController
         $grupos = $this->Requests->getGroups($this->get_student_id(), $semestre, $año);
 
         $aux;
-        //$aux[0] = "Seleccione un Curso"; 
+        //$aux[0] = "Seleccione un Curso";
         //Se trae todos los grupos de la base de datos y los almacena en un vector
         $i = 0;
         $course_counter = 0;
         foreach ($grupos as $g) {
             $class[$i] = $g['class_number']; //Se trae el número de clase
             $course[$i] = $g['course_id']; //Se trae el nombre de curso. Esto es para que cuando se seleccione un grupo se pueda encontrar
-                                            //sus grupos sin necesidad de realizar un acceso adicional a la base de datos. Recomendado por Diego
-                                            
+            //sus grupos sin necesidad de realizar un acceso adicional a la base de datos. Recomendado por Diego
+
             //Busca los cursos y los coloca solo 1 vez en el vector de cursos.
             //Realiza la busqueda en base al codigo de curso, ya que al ser más corto entonces la busqueda será más eficiente
             $encontrado = 0;
             for ($j = 0; $j < $course_counter && $encontrado == 0; $j = $j + 1) {
-                if (strcmp($aux[$j]['code'], $g['course_id']) == 0)
+                if (strcmp($aux[$j]['code'], $g['course_id']) == 0) {
                     $encontrado = 1;
+                }
+
             }
-
-
 
             if ($encontrado == 0) {
                 $aux[$course_counter] = array();
@@ -293,11 +301,8 @@ class RequestsController extends AppController
             }
 
             $i = $i + 1;
-        }    
-        
+        }
 
-            
-        
         //Poner esta etiqueta en el primer campo es obligatorio, para asi obligar al usuario a seleccionar un grupo y asi se pueda
         //activar el evento onChange del select de grupos
 
@@ -305,12 +310,11 @@ class RequestsController extends AppController
         //Esta parte se encarga de controlar los codigos y nombres de cursos
         //$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
 
-
-        $c2[0] = "Seleccione un Curso"; 
+        $c2[0] = "Seleccione un Curso";
         //foreach($aux as $c) //Recorre cada tupla de curso
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
-            //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i    
+            //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
             $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
             $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
             $i = $i + 1;
@@ -319,28 +323,27 @@ class RequestsController extends AppController
 
         $teacher = $this->Requests->getTeachers();
         $id = $this->Requests->getID();
-        
+
         //Funcionalidad Solicitada: Agregar datos del usuario
-        
+
         //Obtiene el carnet del estudiante actual.
         $estudiante = $this->get_student_id();
-        
+
         //En base al carnet del estudiante actual, se trae la tupla de usuario respectiva a ese estudiante
         $estudiante = $this->Requests->getStudentInfo($estudiante);
-        
+
         //Las keys de los arrays deben corresponder al nombre del campo de la tabla que almacene los usuarios
         $nombreEstudiante = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
         $correo = $estudiante[0]['email_personal'];
         $telefono = $estudiante[0]['phone'];
         $carnet = $estudiante[0]['carne'];
         $cedula = $estudiante[0]['identification_number'];
-        
+
         //$año = date('Y'); //obtiene el año actual de la solicitud
         //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
-        
+
         //debug($nombreEstudiante);
         $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre'));
-
 
     }
     /**
@@ -353,7 +356,7 @@ class RequestsController extends AppController
     public function edit($id = null)
     {
         $request = $this->Requests->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -402,22 +405,26 @@ class RequestsController extends AppController
             print_r($p);
         }
 
-
-
         $this->autoRender = false;
-
 
     }
 
     public function review($id = null)
     {
         $role_c = new RolesController;
+        $this->loadModel('Requirements');
+        $this->loadModel('RequestsRequirements');
+        //--------------------------------------------------------------------------
+        // Modulo y acción requeridos para verificar permisos
         $action = 'review';
         $module = 'Requests';
         $user = $this->Auth->user();
+        //debug($user);
+        $request = $this->Requests->get($id);
+        $data_stage_completed = false;
+        //Datos de la solicitud
 
-        //--------------------------------------------------------------------------
-        // All of the variables added in this section are ment to be for 
+        // All of the variables added in this section are ment to be for
         // the preliminar review of each requests.
         $load_preliminar_review = false;
         $default_index = null;
@@ -426,24 +433,24 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
         }
-        
         //Revision de requisitos
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements')) {
-
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
+            $data_stage_completed = true;
+			$requirements = $this->Requirements->getRequestRequirements($id);
+			$this->set(compact('requirements'));
+			$this->set(compact('data_stage_completed'));
         }
-        
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
-        
         //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
 
         }
-        
+
         //Se trae los datos de la solicitud
         $request = $this->Requests->get($id);
         $user = $this->Requests->getStudentInfo($request['student_id']);
@@ -452,7 +459,7 @@ class RequestsController extends AppController
         $class = $class[0];
         $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
         $professor = $professor[0];
-        
+
         //--------------------------------------------------------------------------
         // Sending the value of the boolean that says whether the preliminar review
         // should appears or not and the default index.
@@ -463,12 +470,56 @@ class RequestsController extends AppController
         $this->set(compact('request', 'user', 'class', 'professor'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            //debug($data);
             //--------------------------------------------------------------------------
-            // When the user says 'aceptar', we only have to change a request status 
+            if (array_key_exists('AceptarRequisitos', $data)) {
+				// Actualizar el estado de los requisitos opcionales
+				$requirements_review_completed = true;
+                for ($i = 0; $i < count($requirements['Opcional']); $i++) {
+                    $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
+                    $optional_requirement = $this->RequestsRequirements->newEntity();
+                    $optional_requirement->request_id = intval($id);
+                    $optional_requirement->requirement_number = $requirement_number;
+                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    $optional_requirement->acepted_inopia = intval($data['inopia_op_' . $requirement_number]);
+
+                    //debug($optional_requirement);
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+						$requirements_review_completed = false;
+						return;
+					}
+				}
+				
+				// Actualizar el estado de los requisitos obligatorios
+                for ($i = 0; $i < count($requirements['Obligatorio']); $i++) {
+                    $requirement_number = intval($requirements['Obligatorio'][$i]['requirement_number']);
+                    $optional_requirement = $this->RequestsRequirements->newEntity();
+                    $optional_requirement->request_id = intval($id);
+                    $optional_requirement->requirement_number = $requirement_number;
+                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    //debug($optional_requirement);
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                        $requirements_review_completed = false;
+						return;
+                    }
+				}
+
+				//Se muestra un mensaje informando si la transacción se completo o no.
+				if($requirements_review_completed){
+					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 2;
+					$this->Requests->save($request_reviewed);
+				}else{
+					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
+				}
+            }
+            //--------------------------------------------------------------------------
+            // When the user says 'aceptar', we only have to change a request status
             // if the loaded view was the preliminar one and not the last one
-            if ($load_preliminar_review /** && !$load_don_daniel*/ ) {
+            if (array_key_exists('AceptarPreliminar', $data)) {
                 //--------------------------------------------------------------------------
-                $data = $this->request->getData();
                 $status_index = $data['Clasificación'];
                 switch ($status_index) {
                     case 0:
@@ -484,13 +535,40 @@ class RequestsController extends AppController
                         $status_new_val = 'i';
                         break;
                 }
+                $requirements = $this->Requirements->getRequestRequirements($id);
                 //--------------------------------------------------------------------------
-                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
-                //Redirecciona al index:
-                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
-                return $this->redirect(['action' => 'index']);
+                // Comunication with other controllers
+                $requirementsController = new RequirementsController();
+                //--------------------------------------------------------------------------
+                // This counts the  amount of mandatory requirements in the reqirements table
+                // and the amount of them in this request
+                $total_of_mandatories_requirements = $requirementsController->countmandatoryRequirements();
+                $total_of_aproved_req = sizeof($requirements['Obligatorio']);
+                //--------------------------------------------------------------------------
+                // if this request was the same amount of mandatory requirements approved 
+                // as the ones in the table and whether the administrator wants to 
+                // classified this as 'i' or 'e', the change can be seen in the DB.
+                $update_bool = false;
+                if (('p' == $status_new_val) || ('n' == $status_new_val)) {
+                    $update_bool = true; 
+                }
+                if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
+                    $update_bool = true;
+                    //Redirecciona al index:
+                } else {
+                    $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                }
+
+                if ($update_bool) {
+                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 3;
+					$this->Requests->save($request_reviewed);
+                }
             }
             //--------------------------------------------------------------------------
+            // return $this->redirect(['action' => 'index']);
         }
     }
     /*public function save()
