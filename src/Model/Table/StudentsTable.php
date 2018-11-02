@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Students Model
@@ -70,5 +71,13 @@ class StudentsTable extends Table
             ->notEmpty('carne');
 
         return $validator;
+    }
+
+    public function addStudent($id, $carne){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\w\d{5}/", $carne) && preg_match("/\d+/", $id)){
+            $connect->execute("INSERT INTO students (`user_id`, `carne`) VALUES ('$id', '$carne');") ;
+        }
+        
     }
 }

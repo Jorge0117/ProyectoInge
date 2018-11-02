@@ -54,6 +54,8 @@
                     <td> Asistente </td>
                 <?php elseif ($request->wants_student_hours): ?>
                     <td> Estudiante </td>
+                <?php else: ?>
+                    <td></td>
                 <?php endif ?>
             </tr>
         </tbody>    
