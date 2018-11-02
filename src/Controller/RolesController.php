@@ -108,6 +108,7 @@ class RolesController extends AppController
      */
     public function updatePermissions()
     {
+        $updates_completed = true;
         $n_permission_types = count($this->permission_types);
         $this->render(false);
         $this->loadModel('PermissionsRoles');
@@ -158,10 +159,8 @@ class RolesController extends AppController
                             $permission_role->role_id = $data['role_select'];
                             $permission_role->permission_id = $this->permissions_id_matrix[$i][$j - 1];
                             echo (var_dump('' . $permission_role->role_id . $permission_role->permission_id));
-                            if ($this->PermissionsRoles->save($permission_role)) {
-                                //$this->Flash->success(__('The role has been saved.'));
-                            } else {
-                                //$this->Flash->error(__('The role could not be saved. Please, try again.'));
+                            if (!$this->PermissionsRoles->save($permission_role)) {
+                                $updates_completed = false;
                             }
                         }
                     } else {
@@ -169,17 +168,20 @@ class RolesController extends AppController
                             $permission_role = $this->PermissionsRoles->get(
                                 ['role_id' => $data['role_select'],
                                     'permission_id' => $this->permissions_id_matrix[$i][$j - 1]]);
-                            if ($this->PermissionsRoles->delete($permission_role)) {
-                                //$this->Flash->success(__('The role has been deleted.'));
-                            } else {
-                                //$this->Flash->error(__('The role could not be saved. Please, try again.'));
+                            if (!$this->PermissionsRoles->delete($permission_role)) {
+                                $updates_completed = false;
                             }
                         }
                     }
                 }
             }
-
+            if($updates_completed){
+                $this->Flash->success(__('Se han actualizado los permisos del rol.'));
+            }else{
+                $this->Flash->error(__('Los permisos del rol no han sido ser actualizados.'));
+            }
         }
+
         return $this->redirect('/roles/index');
     }
 
