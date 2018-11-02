@@ -478,7 +478,6 @@ class RequestsController extends AppController
             if (array_key_exists('AceptarRequisitos', $data)) {
                
             }
-            
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status 
             // if the loaded view was the preliminar one and not the last one
@@ -499,14 +498,29 @@ class RequestsController extends AppController
                         $status_new_val = 'i';
                         break;
                 }
+                $requirements = $this->Requirements->getRequestRequirements($id);
                 //--------------------------------------------------------------------------
-                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
-                //Redirecciona al index:
-                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
-                //return $this->redirect(['action' => 'index']);
+                $total_of_mandatories_requirements = 1;
+                $total_of_aproved_req = sizeof($requirements['Obligatorio']);
+                debug('TEST');
+                $condition = 
+                ($total_of_mandatories_requirements == $total_of_aproved_req) 
+                && 
+                (
+                    ('e' == $status_new_val) || ('i' == $status_new_val)
+                );
+                debug($condition);
+                if ($condition) {
+                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                    //Redirecciona al index:
+                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                } else {
+                    $this->Flash->success(__('El estudiante no cumple con los requisitos obligatorios'));
+                }
+                
             }
             //--------------------------------------------------------------------------
+            // return $this->redirect(['action' => 'index']);
         }
-
     }
 }
