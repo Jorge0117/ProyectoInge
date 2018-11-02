@@ -11,23 +11,17 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon')    ?>
+    <?= $this->Html->meta('icon', ['fullBase' => true])    ?>
 
     <!-- Espacio donde se cargan los archivos pertinentes a bootstrap -->
-    <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'])?>
-      <!-- <link rel="stylesheet" href="plugins/font/typicons.min.css"/></head><body><div class="page-header">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
-    <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min','jquery.dataTables.min']) ?>
+    <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'], ['fullBase' => true])?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
 
     <?php
-    echo $this->Html->css('buttons');
-    echo $this->Html->css('forms');
-    echo $this->Html->css('titles');
-    echo $this->Html->css('grid-index');
+    echo $this->Html->css('buttons', ['fullBase' => true]);
+    echo $this->Html->css('forms', ['fullBase' => true]);
+    echo $this->Html->css('titles', ['fullBase' => true]);
+    echo $this->Html->css('grid-index', ['fullBase' => true]);
     ?>
 
     <!-- <link type="text/css" href="webroot/css/bootstrap.min.css" rel="stylesheet" /> -->

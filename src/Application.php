@@ -40,9 +40,13 @@ class Application extends BaseApplication
         $cakepdfconfig = [
             'engine' => [
                 'className' => 'CakePdf.WkHtmlToPdf',
-                'binary' => '/usr/local/bin/wkhtmltopdf'
+                'options' => [
+                    'print-media-type' => false,
+                    'outline' => true,
+                    'dpi' => '96'
+                ],
             ],
-            'pageSize' => 'letter'
+            'pageSize' => 'Letter'
         ];
 
         Configure::write('CakePdf', $cakepdfconfig);

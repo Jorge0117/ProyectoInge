@@ -62,7 +62,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     /**
      * Pdf view, render and return PDFs on the browser
      */
-    // $routes->addExtensions(['pdf']);
+    $routes->addExtensions(['pdf']);
 
     /**
      * Connect catchall routes for all controllers.
