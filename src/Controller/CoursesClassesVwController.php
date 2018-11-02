@@ -41,7 +41,7 @@ class CoursesClassesVwController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function addCourse()
     {
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
@@ -63,16 +63,17 @@ class CoursesClassesVwController extends AppController
 
             //Con el índice de profesor y el método preg_split, so consigue el nombre y el apellido del profesor en un array
             $prof = preg_split('/\s+/', $prof[$indexProf]);
+            debug($prof);
             //Se consigue el id del profesor con el nombre y apellido
             $prof = $usersController->getId($prof[0], $prof[1]);
 
             //Agrega el curso a la base
-            $courseController = new CoursesController;
-            $courseController->add($code, $name, $cred);
+            $courseTable=$this->loadmodel('Courses');
+            $courseTable->addCourse($code, $name, $cred);
 
             //Agrega el grupo al a base
-            $classController = new ClassesController;
-            $classController->addClass($code, $group, $semester, $year, $prof);
+            $classTable=$this->loadmodel('Classes');
+            $classTable->addClass($code, $group, $semester, $year, 1, $prof);
 
 
             $this->Flash->success(__('Se agregó el curso correctamente.'));
@@ -85,6 +86,40 @@ class CoursesClassesVwController extends AppController
         $this->set(compact('coursesClassesVw', 'professors'));
     }
 
+    public function addClass(){
+        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+        if ($this->request->is('post')) {
+            $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
+            
+            $code=$coursesClassesVw->Curso;
+            $group=$coursesClassesVw->Grupo;
+            $semester=$coursesClassesVw->Semestre;
+            $year=$coursesClassesVw->Año;
+            $indexProf=$coursesClassesVw->Profesor;
+
+            $usersController = new UsersController;
+            $prof = $usersController->getProfessors();
+
+            $prof = preg_split('/\s+/', $prof[$indexProf]);
+            $prof = $usersController->getId($prof[0], $prof[1]);
+
+            //Agrega el grupo al a base
+            $classTable=$this->loadmodel('Classes');
+            $classTable->addClass($code, $group, $semester, $year, 1, $prof);
+
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+        }
+
+        $courseTable=$this->loadmodel('Courses');
+        $courses = $courseTable->find('list', ['limit' => 1000]);
+
+        $usersController = new UsersController;
+        $professors = $usersController->getProfessors();
+
+        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
+        $this->set(compact('coursesClassesVw', 'courses', 'professors'));
+    }
+
     /**
      * Edit method, edited by Joseph Rementería.
      *
@@ -92,7 +127,14 @@ class CoursesClassesVwController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($code = null, $class_number = null, $semester = null,$year = null, $course_name = null)
+    public function edit(
+        $code = null, 
+        $class_number = null, 
+        $semester = null,
+        $year = null, 
+        $course_name = null,
+        $old_professor = null
+    )
     {
         //------------------------------------------------
         // To know whether or not the entire process went right.
@@ -101,13 +143,13 @@ class CoursesClassesVwController extends AppController
         $model = $this->CoursesClassesVw->newEntity();
         //------------------------------------------------
         // Three controller to comunicate with other models or handle the two relations or tables.
-        $ClassesController = new ClassesController;
-        $CoursesController = new CoursesController;
         $usersController = new UsersController;
         //------------------------------------------------
         // To fetch the options of the courses and the classes.
-        $courses = $CoursesController->Courses->find('list', ['limit' => 1000]);
-        $all_classes_codes = $ClassesController->Classes->find('list', ['limit' => 1000])->select('class_number');
+        $classesModel = $this->loadmodel('Classes');
+        $coursesModel = $this->loadmodel('Courses');
+        $courses = $coursesModel->find('list', ['limit' => 1000]);
+        $all_classes_codes = $classesModel->find('list', ['limit' => 1000])->select('class_number');
         //------------------------------------------------
         // This fetch the professors' names.
         // Actually, this instruction fetches a array of
@@ -124,6 +166,7 @@ class CoursesClassesVwController extends AppController
         $this->set('courses', $courses);
         $this->set('all_classes_codes', $all_classes_codes);
         $this->set('course_name', $course_name);
+        $this->set('old_professor', $old_professor);
         //------------------------------------------------
         // This is when the user says 'Aceptar'.
         if ($this->request->is('post')) {
@@ -133,10 +176,6 @@ class CoursesClassesVwController extends AppController
                     $model,
                     $this->request->getData()
                 );
-                //------------------------------------------------
-                // This is to translate the course's nae to the code.
-                $new_course_id = $CoursesController->selectACourseCodeFromName($model->Curso);
-                //------------------------------------------------
                 // First we fetch the selected index
                 $indexProf=$model->Profesor;
                 // Then we fetch the professors again.
@@ -144,23 +183,22 @@ class CoursesClassesVwController extends AppController
                 // And finally we "translate" the professors index into the dni
                 $prof = preg_split('/\s+/', $prof[$indexProf]);
                 $prof = $usersController->getId($prof[0], $prof[1]);
-                debug($new_course_id);
                 //------------------------------------------------
                 // Finally,we make the update.
-                $result = $ClassesController->update(
+                $result = $classesModel->updateClass(
                     $code,
                     $class_number,
                     $semester,
                     $year,
-                    $new_course_id,
+                    $model->Curso,
                     $model->Grupo,
-                    $model->Semestre,
+                    $model->Semestre + 1,
                     $model->Año,
                     $prof
                 );
                 //------------------------------------------------
                 // Thsi shows the message to the user.
-                if (!$result) {
+                if ($result) {
                     $this->Flash->success(__('Se editó el curso correctamente.'));
                 } else {
                     $this->Flash->error(__('Error: no se pudo editar el curso.'));
@@ -183,13 +221,12 @@ class CoursesClassesVwController extends AppController
     public function delete($code = null, $class_number = null, $semester = null,$year = null)
     {
         //------------------------------------------------
-        // The courses are only deleted when a new
-        // 'Excel' is loaded so this delete method call the
-        // one from the classses/groups controller .
-        $ClassesController = new ClassesController;
+        // This loads the model so we can execute an 
+        // query into de database.
+        $classesModel = $this->loadmodel('Classes');
         //------------------------------------------------
         // The call itself
-        $result = $ClassesController->delete(
+        $result = $classesModel->deleteClass(
             $code,
             $class_number,
             $semester,
@@ -225,13 +262,19 @@ class CoursesClassesVwController extends AppController
     }
 
     public function importExcelfile (){
-
+        $this->loadModel('CoursesClassesVw');
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
-
+        $UserController = new UsersController;
+        $fileController = new FilesController;
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
+
         //Lee el archivo que se va a subir
-        $inputFileName = TESTS. DS. 'archPrueba.xlsx';
+
+        $fileDir = $fileController->getDir();
+        $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
+
+        //$inputFileName = TESTS. DS. 'archPrueba.xlsx';
         //Identifica el tipo de archivo
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
         //Crea un nuevo reader para el tipo de archivo
@@ -254,14 +297,49 @@ class CoursesClassesVwController extends AppController
         //Contiene las filas del archivo
         $rows = [];
 
+        $profIds = [];
         //Se llena la matriz
         for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                 $rows[$col -1] = $value;
+
+                //Revisa si el profe existe
+                if($col == 4){
+                    if($value != null){
+                        //Divide el profesor en nombre y apellido
+                        $prof = preg_split('/\s+/', $value);
+                        //Consigue el id del profesor
+                        $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
+                        if($id == null){
+                            //Se borra el archivo
+                            $fileController->deleteFiles();
+                            $this->Flash->error('El profesor '. $value .' no se encuentra en la tabla');
+                            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+                        }else{
+                            array_push($profIds, $id);
+                        }
+                    }else{
+                        array_push($profIds, null);
+                    }
+                    
+                }
+
             }
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
+        }
+        //Se cambia el nombre de las llaves del array si no es post
+        if(!$this->request->is('post')){
+            $table = array_map(function($tag) {
+                return array(
+                    'Curso' => $tag['0'],
+                    'Sigla' => $tag['1'],
+                    'Grupo' => $tag['2'],
+                    'Profesor' => $tag['3']
+                );
+            }, $table);
+    
         }
         //Hace que table sea visible para el template
         $this->set('table', $table);
@@ -271,25 +349,30 @@ class CoursesClassesVwController extends AppController
             //Borra todos los grupos
             $ClassesController = new ClassesController;
             $result = $ClassesController->deleteAll();
+
             //Llama al método addFromFile con cada fila
             for ($row = 0; $row < count($table); ++$row) {
-                $this->addFromFile($table[$row]);
+                $this->addFromFile($table[$row], $profIds[$row]);
             }
+
+            //Se borra el archivo
+            $fileController->deleteFiles();
+
             $this->Flash->success(__('Se agregaron los cursos correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
         $this->set(compact('coursesClassesVw'));
     }
 
-    public function addFromFile ($parameters){
+    public function addFromFile ($parameters, $profId){
         //Si la fila está vacía no hace nada
         if($parameters[0] != null){
 
             //Divide el profesor en nombre y apellido
-            $prof = preg_split('/\s+/', $parameters[3]);
+            //$prof = preg_split('/\s+/', $parameters[3]);
             //Consigue el id del profesor
-            $UserController = new UsersController;
-            $profId = $UserController->getId($prof[1], $prof[0]);
+            //$UserController = new UsersController;
+            //$profId = $UserController->getId($prof[1], $prof[0]);
 
             //Agrega el curso
             $courseController = new CoursesController;
@@ -306,5 +389,11 @@ class CoursesClassesVwController extends AppController
         //Borra todos los grupos
         $ClassesController = new ClassesController;
         $result = $ClassesController->deleteAll();
+    }
+
+    public function cancelExcel(){
+        $fileController = new FilesController;
+        $fileController->deleteFiles();
+        return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
 }

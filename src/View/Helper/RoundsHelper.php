@@ -21,29 +21,52 @@ class RoundsHelper extends Helper
     public function getLastRow() {
         $last = (new RoundsTable)->getLastRow();
         if($last != null){
-            $s_year = substr($last[0],0,4);
-            $s_month = substr($last[0],5,2);
-            $s_day = substr($last[0],8,2);
-            $last[0] = $s_day . "-" . $s_month . "-" . $s_year;
-            $e_year = substr($last[4],0,4);
-            $e_month = substr($last[4],5,2);
-            $e_day = substr($last[4],8,2);
-            $last[4] = $e_day . "-" . $e_month . "-" . $e_year;
+            $last[0] = $this->YmdtodmY($last[0]);
+            $last[1] = $this->YmdtodmY($last[1]);
             return $last;
+        }
+        return null;
+    }
+
+    public function getPenultimateRow(){
+        $penultimate = (new RoundsTable)->getPenultimateRow();
+        if($penultimate != null){
+            $penultimate[0] = $this->YmdtodmY($penultimate[0]);
+            $penultimate[1] = $this->YmdtodmY($penultimate[1]);
+            return $penultimate;
         }
         return null;
         
     }
+
+    public function YmdtodmY($date){
+        $j = $i = 0;
+        while($date[$i] != '/' && $date[$i] != '-'){
+            $i++;
+        }
+        $first = substr($date,$j,$i++);
+        $j = $i;
+        $i = 0;
+        while($date[$j+$i] != '/' && $date[$j+$i] != '-'){
+            $i++;
+        }
+        $second = substr($date,$j,$i++);
+        
+        $third = substr($date,$j+$i);
+        return $third . "-" . $second . "-" . $first;
+    }
+
     //devuelve el día actual.
     public function getToday() {
-        return (new RoundsTable)->getToday();
+        $today = (new RoundsTable)->getToday();
+        return $this->YmdtodmY($today);
     }
 
     //obtiene la ultima ronda creada.
     public function getLastRound() {
         $last = $this->getLastRow();
         if($last!= null){
-            return ["Ronda #" . $last[1], "Inicio:" . $last[0], "Fin:" . $last[4]]; 
+            return ["Ronda #" . $last[2] .' '. $last[3] . ' ciclo ' . $last[4], "Inicio: " . $last[0], "Fin: " . $last[1]]; 
         }
         return "";
     }
@@ -52,4 +75,9 @@ class RoundsHelper extends Helper
     public function between(){
         return (new RoundsTable)->between();
     }
+
+    public function active(){
+        return (new RoundsTable)->active();
+    }
 }
+
