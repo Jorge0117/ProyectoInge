@@ -197,16 +197,16 @@
 	<?= $this->Form->end() ?>
 <?php endif;?>
 <?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
-<?php if($load_preliminar_review):?>
+<?php if($load_final_review):?>
 	<?= $this->Form->create(false) ?>
 		<div id="divPreliminar" class="form-section">
 			<legend>
 				Revisión Final
 			</legend>
-			<?= $this->Form->control('Clasificación Final',[
+			<?= $this->Form->control('ClasificaciónFinal',[
 						'options' => ['-No Clasificado-', 'Aprobado', 'Rechazado'],
-						'default' => $default_index,
-						'onclick'=>"approve()",
+						'default' => $default_indexf,
+						'onchange'=>"approve()",
 			]);?>
 			<div id = 'hoursDiv' style = 'width:100%; display:none;'>
 				<div style = 'width:35%; display:flex'>
@@ -221,7 +221,7 @@
 						<p> <?= "Horas Estudiante: " ?></p>
 					</div>
 					<div style = 'width:30%'>
-						<?= $this->Form->control('Horas Estudiante',[
+						<?= $this->Form->control('horasEstudiante',[
 								'type'=>'number',
 								'min' => '3',
 								'max' => '12',
@@ -244,7 +244,7 @@
 						<p> <?= "Horas Asistente: " ?></p>
 					</div>
 					<div style = 'width:30%'>
-						<?= $this->Form->control('Horas Asistente',[
+						<?= $this->Form->control('horasAsistente',[
 								'type'=>'number',
 								'min' => '3',
 								'max' => '20',
@@ -259,7 +259,7 @@
 						<p> <?= "Horas Disponibles: " ?></p>
 					</div>
 					<div style = 'width:30%'>
-						<?= $this->Form->control('Horas Disponibles',[
+						<?= $this->Form->control('horasDisponibles',[
 								'type'=>'number',
 								'value'=> null,
 								'label' => false,
@@ -275,8 +275,8 @@
 						'class'=>'btn btn-secondary float-right btn-space'
 				]);?>
 				<?= $this->Form->button('Aceptar',[
-						'id' => 'submitEnd',
-						'name' => 'submitEnd',
+						'id' => 'AceptarFin',
+						'name' => 'AceptarFin',
 						'type' => 'submit',
 						'class' => 'btn btn-primary btn-aceptar'
 				]);?>
@@ -289,13 +289,16 @@
 
 <?php $last = $this->Rounds->getLastRow(); ?>
 <script>
+
 /** Función approve
   * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
   *		 por agregar.
   **/
 	function approve(){
+		byId('tsh').checked = false;
+		byId('tah').checked = false;
 		byId('submitDiv').style.display = 'none';
-		var clasification = byId('clasificacion-final').value;
+		var clasification = byId('clasificacionfinal').value;
 		if(clasification == 1){
 			byId('hoursDiv').style.display = 'flex';
 		}else{
@@ -310,34 +313,50 @@
   * 	 para que no existan incongruencias
   **/
 	function studentHours(){
-		byId('tah').checked = false;
-		byId('horas-asistente').value = null;
-		byId('horas-asistente').disabled = true;
-		byId('horas-estudiante').value = 3;
-		byId('horas-estudiante').disabled = false;
-		var tsh = <?= $last[5]; ?>;
-		var ash = <?= $last[7]; ?>;
-		var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
-		// debe de alterar las horas actuales de la tabla ronda con esos calculos
-		byId('horas-disponibles').value = tot;
-		byId('submitDiv').style.display = 'block';
+		if(byId('tsh').checked){
+			byId('tah').checked = false;
+			byId('horasasistente').value = null;
+			byId('horasasistente').disabled = true;
+			byId('horasestudiante').value = 3;
+			byId('horasestudiante').disabled = false;
+			byId('horasestudiante').focus();
+			var tsh = <?= $last[5]; ?>;
+			var ash = <?= $last[7]; ?>;
+			var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('horasestudiante').value = null;
+			byId('horasestudiante').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
 	}
 /** Función assistantHours
   * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
   * 	 para que no existan incongruencias
   **/
 	function assistantHours(){
-		byId('tsh').checked = false;
-		byId('horas-estudiante').value = null;
-		byId('horas-estudiante').disabled = true;
-		byId('horas-asistente').value = 3;
-		byId('horas-asistente').disabled = false;
-		var tah = <?= $last[6]; ?>;
-		var aah = <?= $last[8]; ?>;
-		var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
-		// debe de alterar las horas actuales de la tabla ronda con esos calculos
-		byId('horas-disponibles').value = tot;
-		byId('submitDiv').style.display = 'block';
+		if(byId('tah').checked){
+			byId('tsh').checked = false;
+			byId('horasestudiante').value = null;
+			byId('horasestudiante').disabled = true;
+			byId('horasasistente').value = 3;
+			byId('horasasistente').disabled = false;
+			byId('horasasistente').focus();
+			var tah = <?= $last[6]; ?>;
+			var aah = <?= $last[8]; ?>;
+			var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('horasasistente').value = null;
+			byId('horasasistente').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
 	}
 /** Función byId
   * EFE: Función wrapper de getElementById

@@ -430,7 +430,7 @@ class RequestsController extends AppController
         $default_index = null;
         //--------------------------------------------------------------------------
 
-        $load_end_review = false;
+        $load_final_review = false;
 
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
@@ -450,8 +450,12 @@ class RequestsController extends AppController
         //Revisión final
 
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
-            $load_end_review = true;
-            $this->set('load_end_review', $load_end_review);
+            $load_final_review = $default_index == 1 || $default_index >=3;
+            $this->set('load_final_review', $load_final_review);
+            $default_indexf = 0;
+            if($default_index == 4)$default_indexf = 1;
+            else if($default_index == 5)$default_indexf = 2;
+            $this->set('default_indexf', $default_indexf);
         }
 
         //Se trae los datos de la solicitud
@@ -548,6 +552,31 @@ class RequestsController extends AppController
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
+            $index = $this->Requests->getStatusIndexOutOfId($id);
+            $load_final_review = $index == 1 || $index >= 3;
+            debug('entra '.$load_final_review);
+            debug('indx '.$index);
+            
+            $default_indexf = 0;
+            if($index == 4)$default_indexf = 1;
+            else if($index == 5)$default_indexf = 2;
+            debug($load_final_review);
+            $this->set('default_indexf', $default_indexf);
+            //$this->set('default_index', $default_index);
+            if (array_key_exists('AceptarFin', $data)) {
+                $status_index = $data['ClasificaciónFinal'];
+                switch ($status_index) {
+                    case 1:
+                        $status_new_val = 'a';
+                        break;
+                    case 2:
+                        $status_new_val = 'r';
+                        break;
+                }
+                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                
+            }
         }
     }
 }
