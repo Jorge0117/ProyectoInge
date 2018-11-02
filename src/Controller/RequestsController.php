@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 /**
  * Requests Controller
  *
@@ -22,7 +23,7 @@ class RequestsController extends AppController
         parent::beforeFilter($event);
         $this->Auth->allow('print');
     }
-    
+
     /**
      * Index method
      *
@@ -48,33 +49,35 @@ class RequestsController extends AppController
         $id_usuario = $this->Auth->user('identification_number');
         
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
-        if($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente'){   //muestra todos
+        if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') {   //muestra todos
             $query = $table->find('all');
             $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
             $admin = true;
-            $this->set(compact('query','disponible', 'admin'));
-        }else{
+            $this->set(compact('query', 'disponible', 'admin'));
+        } else {
             
             //ESTUDIANTE
             //Si es estudiante solamente muestra sus solicitudes.
-            if($rol_usuario === 'Estudiante'){
+            if ($rol_usuario === 'Estudiante') {
                 $query = $table->find('all', [
-                    'conditions' => ['cedula' => $id_usuario]]);
+                    'conditions' => ['cedula' => $id_usuario]
+                ]);
                 $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
-                $this->set(compact('query','disponible', 'admin'));                
-                
-            }else{
+                $this->set(compact('query', 'disponible', 'admin'));
+
+            } else {
                 //PROFESOR
                 //Si es profesor solamente muestra las solicitudes de sus grupos.
                 $query = $table->find('all', [
-                    'conditions' => ['id_prof' => $id_usuario]]);
-                $disponible = false; 
+                    'conditions' => ['id_prof' => $id_usuario]
+                ]);
+                $disponible = false;
                 $admin = false;
-                $this->set(compact('query','disponible', 'admin'));
-            }    
+                $this->set(compact('query', 'disponible', 'admin'));
+            }
         }
-        
+
     }
 
     /**
@@ -92,18 +95,20 @@ class RequestsController extends AppController
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students']
         ]);
-        
+
         $user = $this->Users->get($request->student->user_id);
 
         $query = $this->Classes
-                ->find()
-                ->select('professor_id')
-                ->where(
-                    ['course_id' => $request->course_id,
+            ->find()
+            ->select('professor_id')
+            ->where(
+                [
+                    'course_id' => $request->course_id,
                     'class_number' => $request->class_number,
                     'semester' => $request->class_semester,
-                    'year' => $request->class_year]
-                );
+                    'year' => $request->class_year
+                ]
+            );
 
         $profesor = $query->first();
 
@@ -113,9 +118,9 @@ class RequestsController extends AppController
         $this->set('profesor', $profesor);
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
-        $this->set('request', $request);        
+        $this->set('request', $request);
     }
-    
+
     public function print($id = null)
     {
         $this->loadModel('Users');
@@ -124,18 +129,20 @@ class RequestsController extends AppController
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students']
         ]);
-        
+
         $user = $this->Users->get($request->student->user_id);
 
         $query = $this->Classes
-                ->find()
-                ->select('professor_id')
-                ->where(
-                    ['course_id' => $request->course_id,
+            ->find()
+            ->select('professor_id')
+            ->where(
+                [
+                    'course_id' => $request->course_id,
                     'class_number' => $request->class_number,
                     'semester' => $request->class_semester,
-                    'year' => $request->class_year]
-                );
+                    'year' => $request->class_year
+                ]
+            );
 
         $profesor = $query->first();
 
@@ -145,7 +152,7 @@ class RequestsController extends AppController
         $this->set('profesor', $profesor);
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
-        $this->set('request', $request);        
+        $this->set('request', $request);
     }
 
     /**
@@ -186,7 +193,7 @@ class RequestsController extends AppController
     public function get_student_id()
     {
         $student_id = "402220000";
-        
+
         return $student_id;
         
         //return     $this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
@@ -412,11 +419,15 @@ class RequestsController extends AppController
     public function review($id = null)
     {
         $role_c = new RolesController;
+        $this->loadModel('Requirements');
         $action = 'review';
         $module = 'Requests';
         $user = $this->Auth->user();
+		//debug($user);
+        $request = $this->Requests->get($id);
+        $data_stage_completed = false;
+		//Datos de la solicitud
 
-        //--------------------------------------------------------------------------
         // All of the variables added in this section are ment to be for 
         // the preliminar review of each requests.
         $load_preliminar_review = false;
@@ -426,18 +437,17 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
         }
-        
-        //Revision de requisitos
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements')) {
-
+		//Revision de requisitos
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
+            $data_stage_completed = true;
+            $requirements = $this->Requirements->getRequestRequirements($id);
+            $this->set(compact('requirements'));
         }
-        
         //Revisión preliminar
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary')) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
-        
         //Revisión final
 
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
@@ -446,7 +456,7 @@ class RequestsController extends AppController
         
         //Se trae los datos de la solicitud
         $request = $this->Requests->get($id);
-        $user = $this->Requests->getStudentInfo($request['student_id']);
+        $user = $this->Requests->getStudent($request['student_id']);
         $user = $user[0]; //Agarra la unica tupla
         $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
         $class = $class[0];
@@ -460,15 +470,20 @@ class RequestsController extends AppController
         $this->set('default_index', $default_index);
         //--------------------------------------------------------------------------
         //Manda los parametros a la revision
-        $this->set(compact('request', 'user', 'class', 'professor'));
+        $this->set(compact('request', 'user', 'class', 'professor', 'data_stage_completed'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            debug($data);
+            if (array_key_exists('AceptarRequisitos', $data)) {
+               
+            }
+            
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status 
             // if the loaded view was the preliminar one and not the last one
-            if ($load_preliminar_review /** && !$load_don_daniel*/ ) {
+            if (array_key_exists('AceptarPreliminar', $data)) {
                 //--------------------------------------------------------------------------
-                $data = $this->request->getData();
                 $status_index = $data['Clasificación'];
                 switch ($status_index) {
                     case 0:
@@ -488,31 +503,10 @@ class RequestsController extends AppController
                 $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
                 //Redirecciona al index:
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             //--------------------------------------------------------------------------
         }
-    }
-    /*public function save()
-    {
-        //Guarda los datos;
-        $backup = $this->loadModel('RequestsBackup');
-        $request = $this->Requests->newEntity();
-        $request = $this->Requests->patchEntity($request, $this->request->getData()); //Obtiene valores de los campos
-        
-        $st = $this->get_student_id();
-        $ci = null;
-        $cai = null;
-        $ash = null;
-        $aah = null;
-        $ft = null; 
-        $hah = $request->get('has_another_hours');
-        $backup->saveRequest($st,$ci,$cai,$ash,$aah,$ft,$hah);
-        
-        debug($hah);
-        
-        //Redirecciona al index
-        //return $this->redirect(['action' => 'index']);
-    }*/
 
+    }
 }

@@ -195,6 +195,8 @@ class RolesController extends AppController
         $role_permissions = [];
         $this->loadModel('PermissionsRoles');
         $this->loadModel('Permissions');
+        //debug($module);
+        //debug($action);
         if ($role == 'Administrador') {
             $role_selected = 'administrator';
             $role_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
