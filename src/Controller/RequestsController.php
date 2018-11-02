@@ -511,14 +511,20 @@ class RequestsController extends AppController
                 // if this request was the same amount of mandatory requirements approved 
                 // as the ones in the table and whether the administrator wants to 
                 // classified this as 'i' or 'e', the change can be seen in the DB.
+                $update_bool = false;
+                if (('p' == $status_new_val) || ('n' == $status_new_val)) {
+                    $update_bool = true; 
+                }
                 if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
-                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                    $update_bool = true;
                     //Redirecciona al index:
-                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 } else {
                     $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
                 }
-                
+                if ($update_bool) {
+                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                }
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
