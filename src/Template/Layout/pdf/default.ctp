@@ -9,7 +9,6 @@
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon')    ?>
@@ -30,6 +29,10 @@
     echo $this->Html->css('titles');
     echo $this->Html->css('grid-index');
     ?>
+
+    <!-- <link type="text/css" href="webroot/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <!-- <link type="text/css" href="webroot/css/jquery.dataTables.min.css" rel="stylesheet" /> -->
+
 </head>
 
 <body>

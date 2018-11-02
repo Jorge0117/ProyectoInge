@@ -38,7 +38,10 @@ class Application extends BaseApplication
         $this->addPlugin('CakePdf', ['bootstrap' => true]);
 
         $cakepdfconfig = [
-            'engine' => 'CakePdf.WkHtmlToPdf',
+            'engine' => [
+                'className' => 'CakePdf.WkHtmlToPdf',
+                'binary' => '/usr/local/bin/wkhtmltopdf'
+            ],
             'pageSize' => 'letter'
         ];
 
