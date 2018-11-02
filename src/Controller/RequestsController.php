@@ -436,17 +436,18 @@ class RequestsController extends AppController
         //Revision de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
             $data_stage_completed = true;
-            $requirements = $this->Requirements->getRequestRequirements($id);
-            $this->set(compact('requirements'));
+			$requirements = $this->Requirements->getRequestRequirements($id);
+			$this->set(compact('requirements'));
+			$this->set(compact('data_stage_completed'));
         }
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
         //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
 
         }
 
@@ -466,7 +467,7 @@ class RequestsController extends AppController
         $this->set('default_index', $default_index);
         //--------------------------------------------------------------------------
         //Manda los parametros a la revision
-        $this->set(compact('request', 'user', 'class', 'professor', 'data_stage_completed'));
+        $this->set(compact('request', 'user', 'class', 'professor'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -487,7 +488,7 @@ class RequestsController extends AppController
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
 						$requirements_review_completed = false;
 						return;
-                    }
+					}
 				}
 				
 				// Actualizar el estado de los requisitos obligatorios
@@ -507,6 +508,9 @@ class RequestsController extends AppController
 				//Se muestra un mensaje informando si la transacción se completo o no.
 				if($requirements_review_completed){
 					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 2;
+					$this->Requests->save($request_reviewed);
 				}else{
 					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
 				}
@@ -557,7 +561,10 @@ class RequestsController extends AppController
 
                 if ($update_bool) {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
-                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 3;
+					$this->Requests->save($request_reviewed);
                 }
             }
             //--------------------------------------------------------------------------

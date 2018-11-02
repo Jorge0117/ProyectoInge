@@ -164,8 +164,8 @@
 
 
 <?php if($load_preliminar_review):?>
-	<?= $this->Form->create(false) ?>
-		<div id="divPreliminar" class="form-section">
+<div id="divPreliminar" class="form-section">
+		<?= $this->Form->create(false) ?>
 			<legend>
 				Revisión preliminar
 			</legend>
@@ -178,23 +178,25 @@
 					]
 				);
 			?>
-		</div>
-		</fieldset>
+		
+		<!-- </fieldset> JOE: CREO QUE ERA ESTO-->
 			<?= $this->Html->link(
 				'Cancelar',
 				['controller'=>'requests','action'=>'index'],
 				['class'=>'btn btn-secondary float-right btn-space']
 			)?>
 		<?php
-            echo $this->Form->button(
-                'Aceptar',
-                [
+			echo $this->Form->button(
+				'Aceptar',
+				[
 					'id' => 'AceptarPreliminar',
-                    'name' => 'AceptarPreliminar',
-                    'type' => 'submit',
-                    'class' => 'btn btn-primary btn-aceptar'
+					'name' => 'AceptarPreliminar',
+					'type' => 'submit',
+					'class' => 'btn btn-primary btn-aceptar'
 				]);
 			
-        ?>
-	<?= $this->Form->end() ?>
+		?>
+		
+		<?= $this->Form->end() ?>
+	</div>
 <?php endif;?>
