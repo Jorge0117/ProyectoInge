@@ -372,4 +372,13 @@ class RequestsTable extends Table
         return $result;
     }
 
+    public function approveRequest($req_id,$start_d,$h_type,$cnt){
+       /* $connet = ConnectionManager::get('default');
+        $connet->execute(
+            "CALL create_approved_request('$req_id','$start_d', '$h_type', '$cnt')"
+        );*/
+    }
+
 }
+
+

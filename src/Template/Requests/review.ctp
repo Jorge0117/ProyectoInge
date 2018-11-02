@@ -196,6 +196,7 @@
         ?>
 	<?= $this->Form->end() ?>
 <?php endif;?>
+<?php $last = $this->Rounds->getLastRow(); ?>
 <?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
 <?php if($load_final_review):?>
 	<?= $this->Form->create(false) ?>
@@ -213,6 +214,7 @@
 					<div style = 'width:5%; margin-top:2%' align = center>
 						<?= $this->Form->checkbox('checkbox',[
 								'id'=>'tsh',
+								'value' => 'hs',
 								'label' => false,
 								'onclick'=>"studentHours()",
 						]);?>
@@ -221,7 +223,8 @@
 						<p> <?= "Horas Estudiante: " ?></p>
 					</div>
 					<div style = 'width:30%'>
-						<?= $this->Form->control('horasEstudiante',[
+						<?= $this->Form->control('hours',[
+							'	id'=>'student',
 								'type'=>'number',
 								'min' => '3',
 								'max' => '12',
@@ -229,12 +232,14 @@
 								'disabled',
 								
 						]);?>
+						<?php $this->Form->unlockField('hours')?>
 					</div>
 				</div>
 				<div style = 'width:35%; display:flex'>
 					<div style = 'width:5%; margin-top:2%' align = center>
 						<?= $this->Form->checkbox('checkbox',[
 								'id'=>'tah',
+								'value' => 'ha',
 								'label' => false,	
 								'onclick'=>"assistantHours()",
 										
@@ -244,7 +249,8 @@
 						<p> <?= "Horas Asistente: " ?></p>
 					</div>
 					<div style = 'width:30%'>
-						<?= $this->Form->control('horasAsistente',[
+						<?= $this->Form->control('hours',[
+								'id'=>'assistant',
 								'type'=>'number',
 								'min' => '3',
 								'max' => '20',
@@ -252,8 +258,18 @@
 								'disabled',
 								
 						]);?>
+						<?php $this->Form->unlockField('hours')?>
 					</div>	
 				</div>
+				<?= $this->Form->control('date',[
+								'type'=>'hidden',
+								'value'=> $last[0]
+						]);?>
+						<?= $this->Form->control('type',[
+								'type'=>'hidden',
+						]);?>
+						<?php $this->Form->unlockField('date')?>
+						<?php $this->Form->unlockField('type')?>
 				<div style = 'width:33%; display:flex'>
 					<div style = 'margin-top:0.6%'>
 						<p> <?= "Horas Disponibles: " ?></p>
@@ -287,9 +303,13 @@
 	<?= $this->Form->end() ?>
 <?php endif;?>
 
-<?php $last = $this->Rounds->getLastRow(); ?>
-<script>
 
+<script>
+$(document).ready( function () {
+    if(!last){                
+        approve();
+    }
+});
 /** Función approve
   * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
   *		 por agregar.
@@ -314,12 +334,13 @@
   **/
 	function studentHours(){
 		if(byId('tsh').checked){
+			byId('type').value = "hs";
 			byId('tah').checked = false;
-			byId('horasasistente').value = null;
-			byId('horasasistente').disabled = true;
-			byId('horasestudiante').value = 3;
-			byId('horasestudiante').disabled = false;
-			byId('horasestudiante').focus();
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+			byId('student').value = 3;
+			byId('student').disabled = false;
+			byId('student').focus();
 			var tsh = <?= $last[5]; ?>;
 			var ash = <?= $last[7]; ?>;
 			var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
@@ -327,8 +348,8 @@
 			byId('horasdisponibles').value = tot;
 			byId('submitDiv').style.display = 'block';
 		}else{
-			byId('horasestudiante').value = null;
-			byId('horasestudiante').disabled = true;
+			byId('student').value = null;
+			byId('student').disabled = true;
 			byId('horasdisponibles').value = null;
 			byId('submitDiv').style.display = 'none';
 		}
@@ -339,12 +360,13 @@
   **/
 	function assistantHours(){
 		if(byId('tah').checked){
+			byId('type').value = "ha";
 			byId('tsh').checked = false;
-			byId('horasestudiante').value = null;
-			byId('horasestudiante').disabled = true;
-			byId('horasasistente').value = 3;
-			byId('horasasistente').disabled = false;
-			byId('horasasistente').focus();
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('assistant').value = 3;
+			byId('assistant').disabled = false;
+			byId('assistant').focus();
 			var tah = <?= $last[6]; ?>;
 			var aah = <?= $last[8]; ?>;
 			var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
@@ -352,8 +374,8 @@
 			byId('horasdisponibles').value = tot;
 			byId('submitDiv').style.display = 'block';
 		}else{
-			byId('horasasistente').value = null;
-			byId('horasasistente').disabled = true;
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
 			byId('horasdisponibles').value = null;
 			byId('submitDiv').style.display = 'none';
 		}

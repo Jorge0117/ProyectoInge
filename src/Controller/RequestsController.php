@@ -573,8 +573,10 @@ class RequestsController extends AppController
                         $status_new_val = 'r';
                         break;
                 }
+                $this->Requests->approveRequest($id,$data["date"],$data["type"],$data["hours"]);
                 $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                //$this->sendMail();
                 
             }
         }
