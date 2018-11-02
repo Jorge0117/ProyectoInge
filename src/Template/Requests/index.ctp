@@ -9,10 +9,6 @@ echo $this->Html->css('buttons');
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
-
-    <?php if ($disponible === true): ?>
-    <?= $this->Html->link(__('Agregar solicitud'), ['action' => 'add'], ['class'=>'btn btn-primary btn-agregar-index']) ?>
-	<?php endif; ?>
     
 </nav>
 <div class="requests index large-9 medium-8 columns content text-grid">

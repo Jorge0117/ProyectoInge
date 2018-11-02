@@ -52,7 +52,7 @@ class RequestsController extends AppController
             $query = $table->find('all');
             $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
             $admin = true;
-            $this->set(compact('query','disponible', 'admin'));
+            $this->set(compact('query', 'admin'));
         }else{
             
             //ESTUDIANTE
@@ -60,9 +60,8 @@ class RequestsController extends AppController
             if($rol_usuario === 'Estudiante'){
                 $query = $table->find('all', [
                     'conditions' => ['cedula' => $id_usuario]]);
-                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
-                $this->set(compact('query','disponible', 'admin'));                
+                $this->set(compact('query', 'admin'));                
                 
             }else{
                 //PROFESOR
@@ -71,7 +70,7 @@ class RequestsController extends AppController
                     'conditions' => ['id_prof' => $id_usuario]]);
                 $disponible = false; 
                 $admin = false;
-                $this->set(compact('query','disponible', 'admin'));
+                $this->set(compact('query','admin'));
             }    
         }
         
