@@ -429,6 +429,9 @@ class RequestsController extends AppController
         $load_preliminar_review = false;
         $default_index = null;
         //--------------------------------------------------------------------------
+
+        $load_end_review = false;
+
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
@@ -447,7 +450,8 @@ class RequestsController extends AppController
         //Revisión final
 
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
-
+            $load_end_review = true;
+            $this->set('load_end_review', $load_end_review);
         }
 
         //Se trae los datos de la solicitud

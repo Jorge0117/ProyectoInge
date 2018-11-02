@@ -196,3 +196,156 @@
         ?>
 	<?= $this->Form->end() ?>
 <?php endif;?>
+<?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
+<?php if($load_preliminar_review):?>
+	<?= $this->Form->create(false) ?>
+		<div id="divPreliminar" class="form-section">
+			<legend>
+				Revisión Final
+			</legend>
+			<?= $this->Form->control('Clasificación Final',[
+						'options' => ['-No Clasificado-', 'Aprobado', 'Rechazado'],
+						'default' => $default_index,
+						'onclick'=>"approve()",
+			]);?>
+			<div id = 'hoursDiv' style = 'width:100%; display:none;'>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tsh',
+								'label' => false,
+								'onclick'=>"studentHours()",
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Estudiante: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('Horas Estudiante',[
+								'type'=>'number',
+								'min' => '3',
+								'max' => '12',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+					</div>
+				</div>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tah',
+								'label' => false,	
+								'onclick'=>"assistantHours()",
+										
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Asistente: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('Horas Asistente',[
+								'type'=>'number',
+								'min' => '3',
+								'max' => '20',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+					</div>	
+				</div>
+				<div style = 'width:33%; display:flex'>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Disponibles: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('Horas Disponibles',[
+								'type'=>'number',
+								'value'=> null,
+								'label' => false,
+								'disabled',
+						]);?>
+					</div>
+				</div>
+			</div>
+			<div id='submitDiv' class="submit" style = 'width:100%; height:4%; color:green; display:none'>
+				<?= $this->Html->link('Cancelar',[
+						'controller'=>'requests',
+						'action'=>'index'],[
+						'class'=>'btn btn-secondary float-right btn-space'
+				]);?>
+				<?= $this->Form->button('Aceptar',[
+						'id' => 'submitEnd',
+						'name' => 'submitEnd',
+						'type' => 'submit',
+						'class' => 'btn btn-primary btn-aceptar'
+				]);?>
+			</div>
+		</div>
+		
+			
+	<?= $this->Form->end() ?>
+<?php endif;?>
+
+<?php $last = $this->Rounds->getLastRow(); ?>
+<script>
+/** Función approve
+  * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
+  *		 por agregar.
+  **/
+	function approve(){
+		byId('submitDiv').style.display = 'none';
+		var clasification = byId('clasificacion-final').value;
+		if(clasification == 1){
+			byId('hoursDiv').style.display = 'flex';
+		}else{
+			byId('hoursDiv').style.display = 'none';
+			if(clasification == 2){
+				byId('submitDiv').style.display = 'block';
+			}
+		}
+	}
+/** Función studentHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function studentHours(){
+		byId('tah').checked = false;
+		byId('horas-asistente').value = null;
+		byId('horas-asistente').disabled = true;
+		byId('horas-estudiante').value = 3;
+		byId('horas-estudiante').disabled = false;
+		var tsh = <?= $last[5]; ?>;
+		var ash = <?= $last[7]; ?>;
+		var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+		// debe de alterar las horas actuales de la tabla ronda con esos calculos
+		byId('horas-disponibles').value = tot;
+		byId('submitDiv').style.display = 'block';
+	}
+/** Función assistantHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function assistantHours(){
+		byId('tsh').checked = false;
+		byId('horas-estudiante').value = null;
+		byId('horas-estudiante').disabled = true;
+		byId('horas-asistente').value = 3;
+		byId('horas-asistente').disabled = false;
+		var tah = <?= $last[6]; ?>;
+		var aah = <?= $last[8]; ?>;
+		var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+		// debe de alterar las horas actuales de la tabla ronda con esos calculos
+		byId('horas-disponibles').value = tot;
+		byId('submitDiv').style.display = 'block';
+	}
+/** Función byId
+  * EFE: Función wrapper de getElementById
+  * REQ: Id del elemento a obtener.
+  * RET: Elemento requerido.
+  **/
+  function byId(id) {
+	return document.getElementById(id);
+}
+
+</script>

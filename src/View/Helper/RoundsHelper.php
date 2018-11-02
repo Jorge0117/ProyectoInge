@@ -36,22 +36,15 @@ class RoundsHelper extends Helper
             return $penultimate;
         }
         return null;
-        
     }
 
     public function YmdtodmY($date){
         $j = $i = 0;
-        while($date[$i] != '/' && $date[$i] != '-'){
-            $i++;
-        }
+        while($date[$i] != '/' && $date[$i] != '-')$i++;
         $first = substr($date,$j,$i++);
-        $j = $i;
-        $i = 0;
-        while($date[$j+$i] != '/' && $date[$j+$i] != '-'){
-            $i++;
-        }
+        $j = $i;$i = 0;
+        while($date[$j+$i] != '/' && $date[$j+$i] != '-')$i++;
         $second = substr($date,$j,$i++);
-        
         $third = substr($date,$j+$i);
         return $third . "-" . $second . "-" . $first;
     }
