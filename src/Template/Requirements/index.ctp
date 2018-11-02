@@ -12,7 +12,7 @@
             <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
             'Agregar requisito',
             ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
-            ['class'=>'btn btn-primary float-right btn-space']
+            ['class'=>'btn btn-primary float-right btn-space btn-agregar-index']
         )?>
     <?php endif; ?>
     
