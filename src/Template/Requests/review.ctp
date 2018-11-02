@@ -178,13 +178,19 @@
 					]
 				);
 			?>
-		
+		<div class='row container' id='BtnDiv'>
+			<div class='col-md-9' >
+			
+			</div>
+			<div class='col-md-2 row' style="text-align:right">
 		<!-- </fieldset> JOE: CREO QUE ERA ESTO-->
 			<?= $this->Html->link(
 				'Cancelar',
 				['controller'=>'requests','action'=>'index'],
 				['class'=>'btn btn-secondary float-right btn-space']
 			)?>
+			</div>
+			<div class='col-md-1 row submit' style="text-align:right">
 		<?php
 			echo $this->Form->button(
 				'Aceptar',
@@ -196,7 +202,8 @@
 				]);
 			
 		?>
-		
+			</div>
+		</div>
 		<?= $this->Form->end() ?>
 	</div>
 <?php endif;?>
