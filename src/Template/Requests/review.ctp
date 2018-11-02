@@ -1,5 +1,10 @@
 <style>
-	.form-section{
+    .btn-space {
+        margin-right: 3px;
+        margin-leftt: 3px;
+    }
+
+    .form-section{
         background-color: #e4e4e4;
         padding: 2%;
         margin: 2%;
@@ -48,7 +53,6 @@
 		
 	<?= $this->Form->end() ?>
 </div>
-
 
 <?php if($data_stage_completed): ?>
 <?= $this->Form->create(false) ?>
@@ -155,3 +159,40 @@
 	
 <?= $this->Form->end() ?>
 <?php endif; ?>
+
+
+<?php if($load_preliminar_review):?>
+	<?= $this->Form->create(false) ?>
+		<div id="divPreliminar" class="form-section">
+			<legend>
+				Revisión preliminar
+			</legend>
+			<?php
+				echo $this->Form->control(
+					'Clasificación',
+					[
+						'options' => ['-No Clasificado-', 'Elegible', 'No Elegible','Elegible por Inopia'],
+						'default' => $default_index
+					]
+				);
+			?>
+		</div>
+		</fieldset>
+			<?= $this->Html->link(
+				'Cancelar',
+				['controller'=>'requests','action'=>'index'],
+				['class'=>'btn btn-secondary float-right btn-space']
+			)?>
+		<?php
+            echo $this->Form->button(
+                'Aceptar',
+                [
+					'id' => 'AceptarPreliminar',
+                    'name' => 'AceptarPreliminar',
+                    'type' => 'submit',
+                    'class' => 'btn btn-primary btn-aceptar'
+				]);
+			
+        ?>
+	<?= $this->Form->end() ?>
+<?php endif;?>
