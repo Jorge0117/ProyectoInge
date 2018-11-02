@@ -452,7 +452,7 @@ class RequestsController extends AppController
 
         //Se trae los datos de la solicitud
         $request = $this->Requests->get($id);
-        $user = $this->Requests->getStudent($request['student_id']);
+        $user = $this->Requests->getStudentInfo($request['student_id']);
         $user = $user[0]; //Agarra la unica tupla
         $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
         $class = $class[0];
