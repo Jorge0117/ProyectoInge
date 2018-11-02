@@ -30,7 +30,7 @@ class RequestsController extends AppController
      * @return \Cake\Http\Response|void
      */
 
-    public function validarFecha()
+    /*public function validarFecha()
     {
         $resultado = false;
         $inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
@@ -42,7 +42,7 @@ class RequestsController extends AppController
 
         return $resultado;
 
-    }
+    }*/
 
     public function index()
     {
@@ -64,7 +64,7 @@ class RequestsController extends AppController
                 $query = $table->find('all', [
                     'conditions' => ['cedula' => $id_usuario],
                 ]);
-                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+                $disponible = $this->Rounds->between(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
                 $this->set(compact('query', 'disponible', 'admin'));
 
@@ -429,6 +429,9 @@ class RequestsController extends AppController
         $load_preliminar_review = false;
         $default_index = null;
         //--------------------------------------------------------------------------
+
+        $load_final_review = false;
+
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
@@ -436,18 +439,24 @@ class RequestsController extends AppController
         //Revision de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
             $data_stage_completed = true;
-            $requirements = $this->Requirements->getRequestRequirements($id);
-            $this->set(compact('requirements'));
+			$requirements = $this->Requirements->getRequestRequirements($id);
+			$this->set(compact('requirements'));
+			$this->set(compact('data_stage_completed'));
         }
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
         //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
-
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
+            $load_final_review = $default_index == 1 || $default_index >=3;
+            $this->set('load_final_review', $load_final_review);
+            $default_indexf = 0;
+            if($default_index == 4)$default_indexf = 1;
+            else if($default_index == 5)$default_indexf = 2;
+            $this->set('default_indexf', $default_indexf);
         }
 
         //Se trae los datos de la solicitud
@@ -466,7 +475,7 @@ class RequestsController extends AppController
         $this->set('default_index', $default_index);
         //--------------------------------------------------------------------------
         //Manda los parametros a la revision
-        $this->set(compact('request', 'user', 'class', 'professor', 'data_stage_completed'));
+        $this->set(compact('request', 'user', 'class', 'professor'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -487,7 +496,7 @@ class RequestsController extends AppController
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
 						$requirements_review_completed = false;
 						return;
-                    }
+					}
 				}
 				
 				// Actualizar el estado de los requisitos obligatorios
@@ -507,6 +516,9 @@ class RequestsController extends AppController
 				//Se muestra un mensaje informando si la transacción se completo o no.
 				if($requirements_review_completed){
 					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 2;
+					$this->Requests->save($request_reviewed);
 				}else{
 					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
 				}
@@ -533,27 +545,65 @@ class RequestsController extends AppController
                 }
                 $requirements = $this->Requirements->getRequestRequirements($id);
                 //--------------------------------------------------------------------------
-                $total_of_mandatories_requirements = 1;
+                // Comunication with other controllers
+                $requirementsController = new RequirementsController();
+                //--------------------------------------------------------------------------
+                // This counts the  amount of mandatory requirements in the reqirements table
+                // and the amount of them in this request
+                $total_of_mandatories_requirements = $requirementsController->countmandatoryRequirements();
                 $total_of_aproved_req = sizeof($requirements['Obligatorio']);
-                debug('TEST');
-                $condition =
-                    ($total_of_mandatories_requirements == $total_of_aproved_req)
-                    &&
-                    (
-                    ('e' == $status_new_val) || ('i' == $status_new_val)
-                );
-                debug($condition);
-                if ($condition) {
-                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                //--------------------------------------------------------------------------
+                // if this request was the same amount of mandatory requirements approved 
+                // as the ones in the table and whether the administrator wants to 
+                // classified this as 'i' or 'e', the change can be seen in the DB.
+                $update_bool = false;
+                if (('p' == $status_new_val) || ('n' == $status_new_val)) {
+                    $update_bool = true; 
+                }
+                if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
+                    $update_bool = true;
                     //Redirecciona al index:
-                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 } else {
-                    $this->Flash->success(__('El estudiante no cumple con los requisitos obligatorios'));
+                    $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
                 }
 
+                if ($update_bool) {
+                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 3;
+					$this->Requests->save($request_reviewed);
+                }
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
+            $index = $this->Requests->getStatusIndexOutOfId($id);
+            $load_final_review = $index == 1 || $index >= 3;
+            debug('entra '.$load_final_review);
+            debug('indx '.$index);
+            
+            $default_indexf = 0;
+            if($index == 4)$default_indexf = 1;
+            else if($index == 5)$default_indexf = 2;
+            debug($load_final_review);
+            $this->set('default_indexf', $default_indexf);
+            //$this->set('default_index', $default_index);
+            if (array_key_exists('AceptarFin', $data)) {
+                $status_index = $data['ClasificaciónFinal'];
+                switch ($status_index) {
+                    case 1:
+                        $status_new_val = 'a';
+                        break;
+                    case 2:
+                        $status_new_val = 'r';
+                        break;
+                }
+                $this->Requests->approveRequest($id,$data["date"],$data["type"],$data["hours"]);
+                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                //$this->sendMail();
+                
+            }
         }
     }
 }

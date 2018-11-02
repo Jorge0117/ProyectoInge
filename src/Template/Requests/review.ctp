@@ -55,11 +55,11 @@
 </div>
 
 <?php if($data_stage_completed): ?>
-<div class="requests view large-9 medium-8 columns content">
+<div class="requests view large-9 medium-8 columns content form-section">
 	<?= $this->Form->create(false) ?>
 		<div>
 			<div class='input-group mb-2' id='modificar_tag'>
-			<span style="width:8%" class="input-group-text" >Modificar</span>     
+			<span style="width:10%" class="input-group-text" >Modificar</span>     
 			<div class="input-group-append" >
 					<div class="input-group-text bg-white">
 						<?php
@@ -72,7 +72,9 @@
 					</div>
 			</div>
 			</div>
+			<legend>
 			Opcional
+			</legend>
 			<div style='width:64%'>
 			<table class='table text-center'>
 				<?php
@@ -81,16 +83,16 @@
 						['Requisito' => ['style' => 'width:70%; text-align: left;']], ['Aprobado'  => ['style' => 'width:10%']], ['Rechazado'  => ['style' => 'width:10%']],['Inopia' =>  ['style' => 'width:10%']]
 						]);
 					for ($i = 0; $i < count($requirements['Opcional']); $i++){
-						
-						echo('<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required></td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"></td>');
-						echo('<td>'.$this->Form->checkbox(
+						echo('<tr>'."\n");
+						echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+						echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
 							'Editar',
 							['checked' => false,
 							'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number']]
-						).'</td>');
-						echo('</tr>');
+						).'</td>'."\n");
+						echo('</tr>'."\n");
 						//$requirement_row[] = $requirements['Opcional'][$i]['description'];
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('optional'.$i, [['value' => 'approved', 'text' => '']]);
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected">';//$this->Form->radio('optional'.$i, [['value' => 'rejected', 'text' => '']]);
@@ -106,7 +108,9 @@
 				?>		  
 			</table>
 			</div>
+			<legend>
 			Obligatorio
+			</legend>
 			<div  style='width:58%'>
 			<table class='table text-center '>
 				<?php
@@ -114,9 +118,11 @@
 						['Requisito' => ['style' => 'width:62%; text-align: left;']], ['Aprobado'  => ['style' => 'width:10%']], ['Rechazado'  => ['style' => 'width:10%']]
 						]);
 					for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
-						echo('<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required></td>'); 
-						echo('<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"></td>'); 
+						echo('<tr>'."\n");
+						echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
+						echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+						echo('</tr>'."\n"); 
 						//$requirement_row[] = [$requirements['Obligatorio'][$i]['description'] , ['style' => 'text-align: left;']];
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved">';//$this->Form->radio('compulsory'.$i, [['value' => 'approved', 'text' => '', 'id'=>'rc1']]);
 						//$requirement_row[] = '<input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'" value="rejected">';//$this->Form->radio('compulsory'.$i, [['value' => 'rejected', 'text' => '', 'id'=>'rc2']]);
@@ -164,8 +170,8 @@
 
 
 <?php if($load_preliminar_review):?>
-	<?= $this->Form->create(false) ?>
-		<div id="divPreliminar" class="form-section">
+<div id="divPreliminar" class="form-section">
+		<?= $this->Form->create(false) ?>
 			<legend>
 				Revisión preliminar
 			</legend>
@@ -178,23 +184,236 @@
 					]
 				);
 			?>
-		</div>
-		</fieldset>
+		<div class='row container' id='BtnDiv'>
+			<div class='col-md-9' >
+			
+			</div>
+			<div class='col-md-2 row' style="text-align:right">
+		<!-- </fieldset> JOE: CREO QUE ERA ESTO-->
 			<?= $this->Html->link(
 				'Cancelar',
 				['controller'=>'requests','action'=>'index'],
 				['class'=>'btn btn-secondary float-right btn-space']
 			)?>
+			</div>
+			<div class='col-md-1 row submit' style="text-align:right">
 		<?php
-            echo $this->Form->button(
-                'Aceptar',
-                [
+			echo $this->Form->button(
+				'Aceptar',
+				[
 					'id' => 'AceptarPreliminar',
-                    'name' => 'AceptarPreliminar',
-                    'type' => 'submit',
-                    'class' => 'btn btn-primary btn-aceptar'
+					'name' => 'AceptarPreliminar',
+					'type' => 'submit',
+					'class' => 'btn btn-primary btn-aceptar'
 				]);
 			
-        ?>
+		?>
+			</div>
+		</div>
+		<?= $this->Form->end() ?>
+	</div>
+<?php endif;?>
+<?php $last = $this->Rounds->getLastRow(); ?>
+<?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
+<?php if($load_final_review):?>
+	<?= $this->Form->create(false) ?>
+		<div id="divPreliminar" class="form-section">
+			<legend>
+				Revisión Final
+			</legend>
+			<?= $this->Form->control('ClasificaciónFinal',[
+						'options' => ['-No Clasificado-', 'Aprobado', 'Rechazado'],
+						'default' => $default_indexf,
+						'onchange'=>"approve()",
+			]);?>
+			<div id = 'hoursDiv' style = 'width:100%; display:none;'>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tsh',
+								'value' => 'hs',
+								'label' => false,
+								'onclick'=>"studentHours()",
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Estudiante: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('hours',[
+							'	id'=>'student',
+								'type'=>'number',
+								'min' => '3',
+								'max' => '12',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+						<?php $this->Form->unlockField('hours')?>
+					</div>
+				</div>
+				<div style = 'width:35%; display:flex'>
+					<div style = 'width:5%; margin-top:2%' align = center>
+						<?= $this->Form->checkbox('checkbox',[
+								'id'=>'tah',
+								'value' => 'ha',
+								'label' => false,	
+								'onclick'=>"assistantHours()",
+										
+						]);?>
+					</div>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Asistente: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('hours',[
+								'id'=>'assistant',
+								'type'=>'number',
+								'min' => '3',
+								'max' => '20',
+								'label' => false,
+								'disabled',
+								
+						]);?>
+						<?php $this->Form->unlockField('hours')?>
+					</div>	
+				</div>
+				<?= $this->Form->control('date',[
+								'type'=>'hidden',
+								'value'=> $last[0]
+						]);?>
+						<?= $this->Form->control('type',[
+								'type'=>'hidden',
+						]);?>
+						<?php $this->Form->unlockField('date')?>
+						<?php $this->Form->unlockField('type')?>
+				<div style = 'width:33%; display:flex'>
+					<div style = 'margin-top:0.6%'>
+						<p> <?= "Horas Disponibles: " ?></p>
+					</div>
+					<div style = 'width:30%'>
+						<?= $this->Form->control('horasDisponibles',[
+								'type'=>'number',
+								'value'=> null,
+								'label' => false,
+								'disabled',
+						]);?>
+					</div>
+				</div>
+			</div>
+			<div class='row container' id='BtnDiv'>
+			<div class='col-md-9' >
+			
+			</div>
+			<div class='col-md-2 row' style="text-align:right">
+			
+			<div id='submitDiv' class="submit" style = 'width:100%; height:4%; color:green; display:none'>
+				<?= $this->Html->link('Cancelar',[
+						'controller'=>'requests',
+						'action'=>'index'],[
+						'class'=>'btn btn-secondary float-right btn-space'
+				]);?>
+				</div>
+			<div class='col-md-1 row submit' style="text-align:right">
+				<?= $this->Form->button('Aceptar',[
+						'id' => 'AceptarFin',
+						'name' => 'AceptarFin',
+						'type' => 'submit',
+						'class' => 'btn btn-primary btn-aceptar'
+				]);?>
+					</div>
+		</div>
+			</div>
+		</div>
+		
+			
 	<?= $this->Form->end() ?>
 <?php endif;?>
+
+
+<script>
+$(document).ready( function () {
+    if(!last){                
+        approve();
+    }
+});
+/** Función approve
+  * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
+  *		 por agregar.
+  **/
+	function approve(){
+		byId('tsh').checked = false;
+		byId('tah').checked = false;
+		byId('submitDiv').style.display = 'none';
+		var clasification = byId('clasificacionfinal').value;
+		if(clasification == 1){
+			byId('hoursDiv').style.display = 'flex';
+		}else{
+			byId('hoursDiv').style.display = 'none';
+			if(clasification == 2){
+				byId('submitDiv').style.display = 'block';
+			}
+		}
+	}
+/** Función studentHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function studentHours(){
+		if(byId('tsh').checked){
+			byId('type').value = "hs";
+			byId('tah').checked = false;
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+			byId('student').value = 3;
+			byId('student').disabled = false;
+			byId('student').focus();
+			var tsh = <?= $last[5]; ?>;
+			var ash = <?= $last[7]; ?>;
+			var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
+	}
+/** Función assistantHours
+  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+  * 	 para que no existan incongruencias
+  **/
+	function assistantHours(){
+		if(byId('tah').checked){
+			byId('type').value = "ha";
+			byId('tsh').checked = false;
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('assistant').value = 3;
+			byId('assistant').disabled = false;
+			byId('assistant').focus();
+			var tah = <?= $last[6]; ?>;
+			var aah = <?= $last[8]; ?>;
+			var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
+			// debe de alterar las horas actuales de la tabla ronda con esos calculos
+			byId('horasdisponibles').value = tot;
+			byId('submitDiv').style.display = 'block';
+		}else{
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+			byId('horasdisponibles').value = null;
+			byId('submitDiv').style.display = 'none';
+		}
+	}
+/** Función byId
+  * EFE: Función wrapper de getElementById
+  * REQ: Id del elemento a obtener.
+  * RET: Elemento requerido.
+  **/
+  function byId(id) {
+	return document.getElementById(id);
+}
+
+</script>
