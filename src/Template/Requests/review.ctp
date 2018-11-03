@@ -153,17 +153,19 @@
 									'id' => 'AceptarRequisitos',
 									'name' => 'AceptarRequisitos',
 									'type' => 'submit',
-									'class' => 'btn btn-primary btn-aceptar'
+									'class' => 'btn btn-primary btn-aceptar radioRequirements',
+									'disabled' => $requirements['stage'] > 1
 								]);
 							
 						?>		
 					</div>
 
 					<div class='col-md-1 row submit' style="text-align:right">
+						
 						<?= $this->Html->link(
 							'Cancelar',
 							['controller'=>'requests','action'=>'index'],
-							['class'=>'btn btn-secondary float-right btn-space']
+							['class'=>'btn btn-secondary float-right btn-space radioRequirements']
 						)?>
 					</div>
 				</div>

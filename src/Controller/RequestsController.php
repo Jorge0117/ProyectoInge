@@ -442,7 +442,7 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
             $requirements = $this->Requirements->getRequestRequirements($id); 
             $requirements['stage'] =  $request->stage;
-            debug($requirements);
+            //debug($requirements);
 			$this->set(compact('requirements'));			
         }
         //Revisión preliminar
