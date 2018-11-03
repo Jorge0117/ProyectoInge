@@ -30,7 +30,7 @@ class RequestsController extends AppController
      * @return \Cake\Http\Response|void
      */
 
-    public function validarFecha()
+    /*public function validarFecha()
     {
         $resultado = false;
         $inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
@@ -42,7 +42,7 @@ class RequestsController extends AppController
 
         return $resultado;
 
-    }
+    }*/
 
     public function index()
     {
@@ -64,7 +64,7 @@ class RequestsController extends AppController
                 $query = $table->find('all', [
                     'conditions' => ['cedula' => $id_usuario],
                 ]);
-                $disponible = $this->validarFecha(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
+                $disponible = $this->Rounds->between(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
                 $this->set(compact('query', 'disponible', 'admin'));
 
