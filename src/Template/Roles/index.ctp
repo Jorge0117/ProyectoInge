@@ -73,10 +73,10 @@
     <div class='form-size container'>
         <div class='form-section'>
             <?= $this->Form->create(false,['url' => '/roles/updatePermissions']) ?>
-                <div class='row' >
-                    <div class='input-group mb-3 col-md-3' style='width:20%'>
+                <div class='row-right' >
+                    <div class='input-group mb-3 mr-1' style='width:40%'>
                         <div class="input-group-prepend">
-                                <span style="width:90px" class="input-group-text" >Rol:</span>
+                                <span  class="input-group-text" >Rol:</span>
                         </div>
                     
                         <?php
@@ -91,25 +91,20 @@
                         
                     </div>
                     
-                    <div class='input-group mb-3 col-md-4' id='modificar_tag' style='display: none'>
-                    <span style="width:90px" class="input-group-text" >Modificar</span>     
-                    <div class="input-group-append" >
-                            <div class="input-group-text bg-white">
-                                <?php
-                                    echo $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'edit_checkbox',
-                                        'style' => 'display: none'
-                                        ]
-                                    );
-                                ?>
-                            </div>
-                    </div>
-                    </div>
-
-                    
-                    <div class='col-md-5 mb-3' style="text-align:right">
-                    
+                    <div class='input-group mb-3 ml-1' id='modificar_tag' style='display: none'>
+                        <span  class="input-group-text" >Modificar</span>     
+                        <div class="input-group-append" >
+                                <div class="input-group-text bg-white">
+                                    <?php
+                                        echo $this->Form->checkbox(
+                                            'Editar',
+                                            ['id' => 'edit_checkbox',
+                                            'style' => 'display: none'
+                                            ]
+                                        );
+                                    ?>
+                                </div>
+                        </div>
                     </div>
                 </div>
 
@@ -247,17 +242,7 @@
                     </table>
                 </div>
 
-                <div class='row container' id='BtnDiv'>
-                    <div class='col-md-9' >
-                    
-                    </div>
-                    <div class='col-md-2 row' style="text-align:right">
-                    
-                    
-                    <?php echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
-                                                                                            'id' => 'CancelarBtn']); ?>
-                    </div>
-                    <div class='col-md-1 row submit' style="text-align:right">
+                <div class='row-btn container' id='BtnDiv'>
                     <?php
                         echo $this->Form->button(
                             'Aceptar',
@@ -267,7 +252,11 @@
                                 'class' => 'btn btn-primary btn-aceptar'
                             ]);
                     ?>
-                    </div>
+
+                    <?php 
+                        echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
+                                                                                 'id' => 'CancelarBtn']); 
+                    ?>
                 </div>
 
                 <?php $this->Form->unlockField('administrator');
