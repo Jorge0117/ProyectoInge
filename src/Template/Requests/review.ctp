@@ -141,27 +141,25 @@
 						</table>
 					</div>
 				</div>
-				
-
 				<div class='row-btn container' id='BtnDiv'>
-						<?= $this->Html->link(
-							'Cancelar',
-							['controller'=>'requests','action'=>'index'],
-							['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
-						)?>
+					<?= $this->Html->link(
+						'Cancelar',
+						['controller'=>'requests','action'=>'index'],
+						['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
+					)?>
 
-						<?php
-							echo $this->Form->button(
-								'Aceptar',
-								[
-									'id' => 'AceptarRequisitos',
-									'name' => 'AceptarRequisitos',
-									'type' => 'submit',
-									'class' => 'btn btn-primary btn-aceptar radioRequirements pull-right',
-									'disabled' => $requirements['stage'] > 1
-								]);
-							
-						?>
+					<?php
+						echo $this->Form->button(
+							'Aceptar',
+							[
+								'id' => 'AceptarRequisitos',
+								'name' => 'AceptarRequisitos',
+								'type' => 'submit',
+								'class' => 'btn btn-primary btn-aceptar radioRequirements pull-right',
+								'disabled' => $requirements['stage'] > 1
+							]);
+						
+					?>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>
