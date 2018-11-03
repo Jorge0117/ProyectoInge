@@ -204,7 +204,7 @@ function sensitiveRange(first){
     }else{// end_date
         var min = byId('start-date').value
         var yesterday = alterDate(getToday(),-1);
-        if(compareDates(min,yesterday) < 0) min = alterDate(yesterday,-1);  //Para poder cerrar la ronda sin eliminarla
+        if(compareDates(min,yesterday) < 0) min = yesterday;  //Para poder cerrar la ronda sin eliminarla
         var max = null;
         if(byId('flag').value != '1' && last){                              //editar
             if(last[3] == 'I') max = '30-06-';                              //primer semestre
@@ -213,12 +213,6 @@ function sensitiveRange(first){
         }
         calendar.setSensitiveRange(min,max);
     }
-    /*if(onSameSemester('<?= $last[1]; ?>','<?= $last[1]; ?>', byId('start-date').value) || '<?= $last == null ?>' ){
-        byId('tshHeader').style.display = "table-cell";
-        byId('tshData').style.display = "table-cell";
-        byId('tahHeader').style.display = "table-cell";
-        byId('tahData').style.display = "table-cell";
-    }*/
 }    
 
 // cambia el estado de neutro a editar

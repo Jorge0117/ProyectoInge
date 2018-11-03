@@ -190,4 +190,19 @@ class RequirementsController extends AppController
         }
 
     }
+
+    /**
+     * This method was added by Joseph Rementería.
+     * 
+     * To validate whether a request can be classified as 'e', 'i' 
+     * or not, we need to count all of the mandatory requirements.
+     * 
+     * 
+     */
+    public function countMandatoryRequirements()
+    {
+        $requirementsCount = $this->Requirements->find('all')->where(['type' => 'Obligatorio'])->toArray();
+        return sizeof($requirementsCount);
+    }
+
 }

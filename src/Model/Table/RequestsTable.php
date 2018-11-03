@@ -54,8 +54,13 @@ class RequestsTable extends Table
         $this->belongsTo('Classes', [
             'foreignKey' => 'class_number',
             'joinType' => 'INNER'
-        ]);
-
+		]);
+		
+		$this->belongsToMany('Requirements',[
+            'foreignKey' => 'request_id',
+            'joinType' => 'INNER'
+		]);
+		
     }
     
     //Funciones auxiliares encargadas de ayudar a los validadores
@@ -357,8 +362,23 @@ class RequestsTable extends Table
             case 'i':
                 $result = 3;
                 break;
+            case 'a':
+                $result = 4;
+                break;
+            case 'r':
+                $result = 5;
+                break;
         }
         return $result;
     }
 
+    public function approveRequest($req_id,$start_d,$h_type,$cnt){
+       /* $connet = ConnectionManager::get('default');
+        $connet->execute(
+            "CALL create_approved_request('$req_id','$start_d', '$h_type', '$cnt')"
+        );*/
+    }
+
 }
+
+
