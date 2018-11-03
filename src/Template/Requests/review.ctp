@@ -92,15 +92,18 @@
 								for ($i = 0; $i < count($requirements['Opcional']); $i++){
 									$checkedApproved = $requirements['Opcional'][$i]['state'] == 'a'?'checked':'';
 									$checkedRejected = $requirements['Opcional'][$i]['state'] == 'r'?'checked':'';
-									$checkedInopia = $requirements['Opcional'][$i]['acepted_inopia'] == 0? false : true; 
+									$checkedInopia = $requirements['Opcional'][$i]['acepted_inopia'] == 0? false : true;
+									$disable_radios = $requirements['stage'] > 1? 'disabled':''; 
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' ></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
 											'Editar',
 											['checked' => $checkedInopia,
-											'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number']]
+											'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number'],
+											'class'=> "radioRequirements",
+											'disabled' => $requirements['stage'] > 1]
 										).'</td>'."\n");
 									echo('</tr>'."\n");
 									$this->Form->unlockField('requirement_'.$requirements['Opcional'][$i]['requirement_number']);
@@ -124,10 +127,11 @@
 								for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
 									$checkedApproved = $requirements['Obligatorio'][$i]['state'] == 'a'?'checked':'';
 									$checkedRejected = $requirements['Obligatorio'][$i]['state'] == 'r'?'checked':'';
+									$disable_radios = $requirements['stage'] > 1? 'disabled':''; 
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									echo('</tr>'."\n"); 
 									$this->Form->unlockField('requirement_'.$requirements['Obligatorio'][$i]['requirement_number']);
 								}
@@ -332,9 +336,16 @@
 	<?php endif;?>
 </div>
 
-<script>
+<script type="text/javascript">
 $(document).ready( function () {
-    if(!last){                
+    $("#edit_checkbox").change(function(){
+		if($("#edit_checkbox").is(":checked")){
+			$('.radioRequirements').prop( "disabled", false );
+		}else{
+			$('.radioRequirements').prop( "disabled", true );	
+		}
+    });
+	if(!last){                
         approve();
     }
 });
