@@ -47,6 +47,10 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_number',
             'joinType' => 'INNER'
         ]);
+
+        $this->hasMany('RequestsRequirements', [
+            'foreignKey' => 'requirement_number'
+        ]);
     }
     //Función para eliminar un requisito, llamada por el controlador
     public function deleteRequirement($requirement_number)
@@ -98,20 +102,29 @@ class RequirementsTable extends Table
     public function getRequestRequirements($id){
 
         //$request_id = intval($request_id);
-        $optional_requirements = $this->find('all')->join([
-            'rr' => [
-                'table' => 'requests_requirements',
-                'conditions' => 'rr.requirement_number = Requirements.requirement_number and rr.request_id = '.$id.' and Requirements.type = \'Opcional\''
-            ]
-        ])->toArray();
+        $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
+            return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
+        })->where(['type' => 'Opcional'])->toArray();
+        $optional_requirements = [];
+        for ($i = 0; $i < count($requirements); $i++){
+            $optional_requirements[$i] = [];
+            $optional_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
+            $optional_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
+            $optional_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
+            $optional_requirements[$i]['description'] = $requirements[$i]['description'];
+        }
 
-        $compulsory_requirements = $this->find('all')->join([
-            'rr' => [
-                'table' => 'requests_requirements',
-                'conditions' => 'rr.requirement_number = Requirements.requirement_number and rr.request_id = '.$id.' and Requirements.type = \'Obligatorio\''
-            ]
-        ])->toArray();
-		
+
+        $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
+            return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
+        })->where(['type' => 'Obligatorio'])->toArray();
+		$compulsory_requirements = [];
+        for ($i = 0; $i < count($requirements); $i++){
+            $compulsory_requirements[$i] = [];
+            $compulsory_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
+            $compulsory_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
+            $compulsory_requirements[$i]['description'] = $requirements[$i]['description'];
+        }
         
         $requirements = ['Obligatorio' => $compulsory_requirements, 'Opcional' => $optional_requirements];
 		return $requirements;

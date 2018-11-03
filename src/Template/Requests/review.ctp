@@ -55,46 +55,51 @@
 		<?= $this->Form->end() ?>
 	</div>
 
-	<?php if($data_stage_completed): ?>
+	<?php if($requirements['stage'] > 0): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
-					<div class='input-group mb-2' id='modificar_tag'>
-						<span style="width:13%" class="input-group-text" >Modificar</span>     
-						<div class="input-group-append" >
-							<div class="input-group-text bg-white">
-								<?php
-									echo $this->Form->checkbox(
-										'Editar',
-										['id' => 'edit_checkbox'
-										]
-									);
-								?>
+					<?php if($requirements['stage'] > 1): ?>
+						<div class='input-group mb-2' id='modificar_tag'>
+							<span style="width:13%" class="input-group-text" >Modificar</span>     
+							<div class="input-group-append" >
+								<div class="input-group-text bg-white">
+									<?php
+										echo $this->Form->checkbox(
+											'Editar',
+											['id' => 'edit_checkbox'
+											]
+										);
+									?>
+								</div>
 							</div>
 						</div>
-					</div>
-
+					<?php endif; ?>
 					<legend>
 						Opcional
 					</legend>
 
-					<div style='width:64%'>
+					<div>
 						<table class='table text-center'>
 							<?php
 								
 								echo ("<tr class='bg-white'>
 									\t<th style='width:70%; text-align: left;'>Requisito</th> 
-									\t<th style='width:10%'>Aprobado</th> <th style='width:10%'>Rechazado</th> 
+									\t<th style='width:10%'>Aprobado</th> 
+									\t<th style='width:10%'>Rechazado</th> 
 									\t<th style='width:10%'>Inopia</th>
 									</tr>");
 								for ($i = 0; $i < count($requirements['Opcional']); $i++){
+									$checkedApproved = $requirements['Opcional'][$i]['state'] == 'a'?'checked':'';
+									$checkedRejected = $requirements['Opcional'][$i]['state'] == 'r'?'checked':'';
+									$checkedInopia = $requirements['Opcional'][$i]['acepted_inopia'] == 0? false : true; 
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' ></td>'."\n");
 									echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
 											'Editar',
-											['checked' => false,
+											['checked' => $checkedInopia,
 											'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number']]
 										).'</td>'."\n");
 									echo('</tr>'."\n");
@@ -108,18 +113,21 @@
 						Obligatorio
 					</legend>
 
-					<div  style='width:58%'>
+					<div>
 						<table class='table text-center '>
 							<?php
 								echo ("<tr class='bg-white'>
 									\t<th style='width:70%; text-align: left;'>Requisito</th> 
-									\t<th style='width:10%'>Aprobado</th> <th style='width:10%'>Rechazado</th> 
+									\t<th style='width:10%'>Aprobado</th>
+									\t<th style='width:10%'>Rechazado</th> 
 									</tr>");
 								for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
+									$checkedApproved = $requirements['Obligatorio'][$i]['state'] == 'a'?'checked':'';
+									$checkedRejected = $requirements['Obligatorio'][$i]['state'] == 'r'?'checked':'';
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"></td>'."\n");
+									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.'></td>'."\n");
 									echo('</tr>'."\n"); 
 									$this->Form->unlockField('requirement_'.$requirements['Obligatorio'][$i]['requirement_number']);
 								}
@@ -128,6 +136,7 @@
 						</table>
 					</div>
 				</div>
+				
 
 				<div class='row container' id='BtnDiv'>
 					<div class='col-md-9' ></div>

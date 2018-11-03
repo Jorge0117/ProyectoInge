@@ -428,6 +428,8 @@ class RequestsController extends AppController
         // the preliminar review of each requests.
         $load_preliminar_review = false;
         $default_index = null;
+
+        $load_final_review = false;
         //--------------------------------------------------------------------------
 
         $load_final_review = false;
@@ -438,10 +440,10 @@ class RequestsController extends AppController
         }
         //Revision de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
-            $data_stage_completed = true;
-			$requirements = $this->Requirements->getRequestRequirements($id);
-			$this->set(compact('requirements'));
-			$this->set(compact('data_stage_completed'));
+            $requirements = $this->Requirements->getRequestRequirements($id); 
+            $requirements['stage'] =  $request->stage;
+            debug($requirements);
+			$this->set(compact('requirements'));			
         }
         //Revisión preliminar
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
@@ -452,7 +454,7 @@ class RequestsController extends AppController
 
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
             $load_final_review = $default_index == 1 || $default_index >=3;
-            $this->set('load_final_review', $load_final_review);
+            
             $default_indexf = 0;
             if($default_index == 4)$default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
@@ -605,5 +607,7 @@ class RequestsController extends AppController
                 
             }
         }
+        $this->set('load_final_review', $load_final_review);
+        $this->set(compact('data_stage_completed'));
     }
 }
