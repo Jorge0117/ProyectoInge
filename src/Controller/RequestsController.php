@@ -564,7 +564,9 @@ class RequestsController extends AppController
                     $update_bool = true;
                     //Redirecciona al index:
                 } else {
-                    $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                    if (('e' == $status_new_val) || ('i' == $status_new_val) {
+                        $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                    }
                 }
 
                 if ($update_bool) {
