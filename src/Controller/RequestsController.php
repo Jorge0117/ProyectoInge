@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\Network\Email\Email;
 
 /**
  * Requests Controller
@@ -122,10 +123,13 @@ class RequestsController extends AppController
         $request['user'] = $user;
         $this->set('request', $request);
     }
-
-    function print($id = null) {
-        $this->loadModel('Users');
-        $this->loadModel('Classes');
+    
+    public function print($id = null)
+    {
+		// $this->viewBuilder()->setClassName('CakePdf.Pdf');
+		$this->layout = 'request';
+		$this->loadModel('Users');
+		$this->loadModel('Classes');
 
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students'],
@@ -434,25 +438,29 @@ class RequestsController extends AppController
 
         $load_final_review = false;
 
+        $request_stage = $request->stage;
+        $this->set(compact('request_stage'));
+
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
         }
         //Revision de requisitos
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
             $requirements = $this->Requirements->getRequestRequirements($id); 
             $requirements['stage'] =  $request->stage;
             //debug($requirements);
 			$this->set(compact('requirements'));			
         }
+
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
-        //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
+        //Revisión final
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2) {
             $load_final_review = $default_index == 1 || $default_index >=3;
             
             $default_indexf = 0;
@@ -611,4 +619,76 @@ class RequestsController extends AppController
         $this->set('load_final_review', $load_final_review);
         $this->set(compact('data_stage_completed'));
     }
+    /*public function save()
+    {
+        //Guarda los datos;
+        $backup = $this->loadModel('RequestsBackup');
+        $request = $this->Requests->newEntity();
+        $request = $this->Requests->patchEntity($request, $this->request->getData()); //Obtiene valores de los campos
+        
+        $st = $this->get_student_id();
+        $ci = null;
+        $cai = null;
+        $ash = null;
+        $aah = null;
+        $ft = null; 
+        $hah = $request->get('has_another_hours');
+        $backup->saveRequest($st,$ci,$cai,$ash,$aah,$ft,$hah);
+        
+        debug($hah);
+        
+        //Redirecciona al index
+        //return $this->redirect(['action' => 'index']);
+    }*/
+
+	public function reprovedMessage()
+	{
+		$id = 146;//$this->Requests->getID();
+		$s = 'p';
+		$in = '0';
+		$requisitos = $this->Requests->getRequirements($id,$s,$in); 
+		$lista = ' ';
+		foreach($requisitos as $r)
+		{
+			$lista .= '
+			' . $r['description'];
+		}
+		return $lista;
+	}
+
+	public function sendMail($carne,$profesor,$curso,$grupo,$estado,$tipoHoras,$horas)
+    {
+		$estudiante = $this->Requests->getStudent($carne);
+		$mail = $estudiante[0]['email_personal'];
+		$name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+    	$email = new Email();
+		$email->transport('mailjet');
+		/*$text = 'Estudiante ' . $name . ' :
+		Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió
+		el(los) siguiente(s) requisito(s):';
+		$lista = $this->reprovedMessage();
+		$text .= ' 
+		' . $lista;*/
+		$text = 'Estudiante ' . $name . ' :
+		Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el profesor ' . $profesor .
+		' en el grupo ' . $grupo . ' debido a : ' . ' 
+		Sin embargo, usted se mantiene como Elegible y puede participar en la
+		 próxima ronda.';
+		/*$text = 'Estimado Estudiante ' . $name . ' :
+		Su solicitud de asistente al curso ' . $curso . ' con el profesor ' . $profesor . ' y grupo ' . $grupo . 
+		'fue ACEPTADO con un total de horas de ' . $horas . ' ' . $tipoHoras . '.';*/
+        try {
+            $res = $email->from(['estivenalg@gmail.com' => 'Emisor'])
+                  ->to([$mail => 'Receptor'])
+                  ->subject('Subject')                  
+                  ->send($text);
+
+        } catch (Exception $e) {
+
+            echo 'Exception : ',  $e->getMessage(), "\n";
+
+         }
+         $this->redirect(['action' => 'index']);
+    }
+
 }

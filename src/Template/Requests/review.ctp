@@ -1,10 +1,10 @@
 <style>
-    .btn-space {
+	.btn-space {
         margin-right: 3px;
         margin-leftt: 3px;
     }
 
-    .form-section{
+	.form-section{
         background-color: #e4e4e4;
         padding: 2%;
         margin: 2%;
@@ -55,7 +55,7 @@
 		<?= $this->Form->end() ?>
 	</div>
 
-	<?php if($requirements['stage'] > 0): ?>
+	<?php if($request_stage > 0): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
@@ -143,10 +143,7 @@
 				</div>
 				
 
-				<div class='row container' id='BtnDiv'>
-					<div class='col-md-9' ></div>
-
-					<div class='col-md-2 row' style="text-align:right">
+				<div class='row-btn container' id='BtnDiv'>
 						<?php
 							echo $this->Form->button(
 								'Aceptar',
@@ -154,28 +151,23 @@
 									'id' => 'AceptarRequisitos',
 									'name' => 'AceptarRequisitos',
 									'type' => 'submit',
-									'class' => 'btn btn-primary btn-aceptar radioRequirements',
+									'class' => 'btn btn-primary btn-aceptar radioRequirements pull-right',
 									'disabled' => $requirements['stage'] > 1
 								]);
 							
-						?>		
-					</div>
-
-					<div class='col-md-1 row submit' style="text-align:right">
-						
+						?>
 						<?= $this->Html->link(
 							'Cancelar',
 							['controller'=>'requests','action'=>'index'],
-							['class'=>'btn btn-secondary float-right btn-space radioRequirements']
+							['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
 						)?>
-					</div>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>
 	<?php endif; ?>
 
 
-	<?php if($load_preliminar_review):?>
+	<?php if($request_stage > 1):?>
 		<div id="divPreliminar" class="form-section">
 			<?= $this->Form->create(false) ?>
 				<legend>
@@ -191,10 +183,7 @@
 						]
 					);
 				?>
-				<div class='row container' id='BtnDiv'>
-					<div class='col-md-9' ></div>
-
-					<div class='col-md-2 row' style="text-align:right">
+				<div class='row-btn container' id='BtnDiv'>
 						<?php
 							echo $this->Form->button(
 								'Aceptar',
@@ -206,16 +195,12 @@
 								]);
 							
 						?>
-					</div>
 
-					<div class='col-md-1 row submit' style="text-align:right">
 						<?= $this->Html->link(
 							'Cancelar',
 							['controller'=>'requests','action'=>'index'],
 							['class'=>'btn btn-secondary float-right btn-space']
 						)?>
-					</div>
-				</div>
 			<?= $this->Form->end() ?>
 		</div>
 	<?php endif;?>
@@ -223,7 +208,7 @@
 
 	<?php $last = $this->Rounds->getLastRow(); ?>
 	<?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
-	<?php if($load_final_review):?>
+	<?php if($request_stage > 2):?>
 		<?= $this->Form->create(false) ?>
 			<div id="divPreliminar" class="form-section">
 				<legend>

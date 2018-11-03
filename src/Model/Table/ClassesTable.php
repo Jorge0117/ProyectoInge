@@ -111,7 +111,8 @@ class ClassesTable extends Table
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         $result = $connection->execute(
-            "DELETE FROM classes 
+            "UPDATE classes 
+            SET state = 0
             WHERE   course_id       = '$code' 
                 AND class_number    = $class_number
                 AND semester        = $semester
