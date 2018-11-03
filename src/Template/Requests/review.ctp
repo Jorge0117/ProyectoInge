@@ -144,6 +144,12 @@
 				
 
 				<div class='row-btn container' id='BtnDiv'>
+						<?= $this->Html->link(
+							'Cancelar',
+							['controller'=>'requests','action'=>'index'],
+							['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
+						)?>
+
 						<?php
 							echo $this->Form->button(
 								'Aceptar',
@@ -156,11 +162,6 @@
 								]);
 							
 						?>
-						<?= $this->Html->link(
-							'Cancelar',
-							['controller'=>'requests','action'=>'index'],
-							['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
-						)?>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>
@@ -184,23 +185,22 @@
 					);
 				?>
 				<div class='row-btn container' id='BtnDiv'>
-						<?php
-							echo $this->Form->button(
-								'Aceptar',
-								[
-									'id' => 'AceptarPreliminar',
-									'name' => 'AceptarPreliminar',
-									'type' => 'submit',
-									'class' => 'btn btn-primary btn-aceptar'
-								]);
+					<?= $this->Html->link(
+						'Cancelar',
+						['controller'=>'requests','action'=>'index'],
+						['class'=>'btn btn-secondary float-right btn-space']
+					)?>
+					<?php
+						echo $this->Form->button(
+							'Aceptar',
+							[
+								'id' => 'AceptarPreliminar',
+								'name' => 'AceptarPreliminar',
+								'type' => 'submit',
+								'class' => 'btn btn-primary btn-aceptar'
+						]);
 							
-						?>
-
-						<?= $this->Html->link(
-							'Cancelar',
-							['controller'=>'requests','action'=>'index'],
-							['class'=>'btn btn-secondary float-right btn-space']
-						)?>
+					?>
 			<?= $this->Form->end() ?>
 		</div>
 	<?php endif;?>
