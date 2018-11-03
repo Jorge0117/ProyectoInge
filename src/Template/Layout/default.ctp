@@ -17,30 +17,30 @@ $cakeDescription = 'Asistencias ECCI';
 <!DOCTYPE html>
 <html>
 <head>
-    <?= $this->Html->charset() ?>
+    <?=$this->Html->charset()?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
+        <?=$cakeDescription?>:
+        <?=$this->fetch('title')?>
     </title>
-    <?= $this->Html->meta('icon')    ?>
+    <?=$this->Html->meta('icon')?>
 
     <!-- Espacio donde se cargan los archivos pertinentes a bootstrap -->
-    <?= $this->Html->css(['bootstrap.min','jquery.dataTables.min'])?>
+    <?=$this->Html->css(['bootstrap.min', 'jquery.dataTables.min'])?>
       <!-- <link rel="stylesheet" href="plugins/font/typicons.min.css"/></head><body><div class="page-header">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
-    <?= $this->Html->script(['jquery-3.3.1.min', 'bootstrap.min','jquery.dataTables.min']) ?>
+    <?=$this->Html->script(['jquery-3.3.1.min', 'bootstrap.min', 'jquery.dataTables.min'])?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?=$this->fetch('meta')?>
+    <?=$this->fetch('css')?>
+    <?=$this->fetch('script')?>
 
     <?php
-    echo $this->Html->css('buttons');
-    echo $this->Html->css('forms');
-    echo $this->Html->css('titles');
-    echo $this->Html->css('grid-index');
-    ?>
+echo $this->Html->css('buttons');
+echo $this->Html->css('forms');
+echo $this->Html->css('titles');
+echo $this->Html->css('grid-index');
+?>
 
 
     <!-- <style type="text/css">
@@ -67,17 +67,17 @@ $cakeDescription = 'Asistencias ECCI';
 				width:630px;
         height:70px;
 				font-family:Arial, Helvetica, sans-serif;
-        align-items: center; 
+        align-items: center;
 			}
-			
+
 			ul, ol {
 				list-style:none;
 			}
-			
+
 			.nav > li {
 				float:left;
 			}
-			
+
 			.nav li a {
 				background-color:#fff;
 				color:#000;
@@ -85,26 +85,26 @@ $cakeDescription = 'Asistencias ECCI';
 				padding:10px 12px;
 				display:block;
 			}
-			
+
 			.nav li a:hover {
 				background-color:#015b96ff;
         color:#fff;
 			}
-			
+
 			.nav li ul {
 				display:none;
 				position:absolute;
 				min-width:140px;
 			}
-			
+
 			.nav li:hover > ul {
 				display:block;
 			}
-			
+
 			.nav li ul li {
 				position:relative;
 			}
-			
+
 			.nav li ul li ul {
 				right:-140px;
 				top:0px;
@@ -139,17 +139,17 @@ $cakeDescription = 'Asistencias ECCI';
 </head>
 <body>
 
-    <?= $this->element('titlebar') ?>
-    <?= $this->element('menubar') ?>
+    <?=$this->element('titlebar')?>
+    <?=$this->element('menubar')?>
 
     <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
-      <span class="navbar-text"><?php if(isset($title)) {echo h($title);} else { echo " ";}?></span>
+      <span class="navbar-text"><?php if (isset($title)) {echo h($title);} else {echo " ";}?></span>
     </nav>
 
-    <?= $this->Flash->render() ?>
+    <?=$this->Flash->render()?>
 
     <div class="container pt-5">
-      <?= $this->fetch('content') ?>
+      <?=$this->fetch('content')?>
     </div>
 
     <footer>
