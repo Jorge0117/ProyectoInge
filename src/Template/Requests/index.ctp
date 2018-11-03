@@ -20,12 +20,11 @@ echo $this->Html->css('buttons');
 
     <br><br>
 
-    <>
-    <label style='position:absolute; left: 58%; top: 60%;'> 
+    <label style='position:absolute; left: 58%; top: 56.5%;'> 
         Filtrar por:
     </label>
 
-    <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='position:absolute; left: 64%; top: 60%; border-width:2px; border-style:inset; z-index: 1;'>
+    <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='position:absolute; left: 64%; top: 56.5%; border-width:2px; border-style:inset; z-index: 1;'>
         <option value = 't'>Todas</option>
         <option value = 'a'>Aprobado</option>
         <option value = 'e'>Elegible</option>
