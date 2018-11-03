@@ -492,8 +492,9 @@ class RequestsController extends AppController
                     $optional_requirement->request_id = intval($id);
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
-                    $optional_requirement->acepted_inopia = intval($data['inopia_op_' . $requirement_number]);
-
+                    if(array_key_exists('inopia_op_' . $requirement_number,$data)){
+                        $optional_requirement->acepted_inopia = intval($data['inopia_op_' . $requirement_number]);
+                    }
                     //debug($optional_requirement);
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
 						$requirements_review_completed = false;

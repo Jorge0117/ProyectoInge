@@ -106,6 +106,7 @@
 											'disabled' => $requirements['stage'] > 1]
 										).'</td>'."\n");
 									echo('</tr>'."\n");
+									$this->Form->unlockField('inopia_op_'.$requirements['Opcional'][$i]['requirement_number']);
 									$this->Form->unlockField('requirement_'.$requirements['Opcional'][$i]['requirement_number']);
 								}
 							?>		  
