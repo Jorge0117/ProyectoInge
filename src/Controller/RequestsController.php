@@ -438,25 +438,29 @@ class RequestsController extends AppController
 
         $load_final_review = false;
 
+        $request_stage = $request->stage;
+        $this->set(compact('request_stage'));
+
         //Datos de la solicitud
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
 
         }
         //Revision de requisitos
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
             $requirements = $this->Requirements->getRequestRequirements($id); 
             $requirements['stage'] =  $request->stage;
             //debug($requirements);
 			$this->set(compact('requirements'));			
         }
+
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
-        //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
+        //Revisión final
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2) {
             $load_final_review = $default_index == 1 || $default_index >=3;
             
             $default_indexf = 0;

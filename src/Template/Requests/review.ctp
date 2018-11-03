@@ -55,7 +55,7 @@
 		<?= $this->Form->end() ?>
 	</div>
 
-	<?php if($requirements['stage'] > 0): ?>
+	<?php if($request_stage > 0): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
@@ -175,7 +175,7 @@
 	<?php endif; ?>
 
 
-	<?php if($load_preliminar_review):?>
+	<?php if($request_stage > 1):?>
 		<div id="divPreliminar" class="form-section">
 			<?= $this->Form->create(false) ?>
 				<legend>
@@ -223,7 +223,7 @@
 
 	<?php $last = $this->Rounds->getLastRow(); ?>
 	<?php $approved = false // cambiar este valor al valor actual de la solicitud, 1 si esta aprovado 0 todo lo demás?> 
-	<?php if($load_final_review):?>
+	<?php if($request_stage > 2):?>
 		<?= $this->Form->create(false) ?>
 			<div id="divPreliminar" class="form-section">
 				<legend>
