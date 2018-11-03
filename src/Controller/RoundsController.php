@@ -18,32 +18,36 @@ class RoundsController extends AppController
      */
     public function index()
     {   
+
         $round = $this->Rounds->newEntity();
+        // Función del helper que retorna la ultima ronda añadida
         $last = $this->Rounds->getLastRow();
         if ($this->request->is('post') || $this->request->is(['patch', 'post', 'put'])) {
-            
             $data = $this->request->getData();        
             $flag = $data['flag'];
             $start = $this->mirrorDate($data['start_date']);
             $end = $this->mirrorDate($data['end_date']);
+            $tsh = $data['total_student_hours'];
+            $tah = $data['total_assistant_hours'];
             $RoundsTable = $this->loadmodel('Rounds');
            
             if($flag == '1'){
-                $sameYear = substr($last[3],-2) === substr($start,2,2);
+                $sameYear = substr($last[4],-2) === substr($start,2,2);
                 $old_month = substr($last[0],5,2);
                 $new_month = substr($start,5,2);
                 $sameSemester = ($old_month<7&&$old_month==12)&&($new_month<7&&$new_month==12)||
                                 ($old_month>=7&&$old_month<12)&&($new_month>=7&&$new_month<12);
-                if($last[1]==3 && $sameYear && $sameSemester){
+                if($last[2]==3 && $sameYear && $sameSemester){
                     $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que ha llegado al límite de 3 rondas por semestre, puede proceder a eliminar o editar la ronda actual.'));
                 }else if($start == $last[0]){
                     $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
                 }else{
-                    $RoundsTable->insertRound($start,$end);
+                   
+                    $RoundsTable->insertRound($start,$end,$tsh,$tah);
                     $this->Flash->success(__('Se agregó la ronda correctamente.'));
                 }
             }else if($flag == '2'){
-                $RoundsTable->editRound($start,$end,$last[0]);
+                $RoundsTable->editRound($start,$end,$last[0],$tsh,$tah);
                 $this->Flash->success(__('Se editó la ronda correctamente.'));
             }
         }
@@ -76,7 +80,7 @@ class RoundsController extends AppController
                 $this->Flash->success(__('Se borró la ronda correctamente.'));
             }
         } else {
-            $this->Flash->error(__('Error: no se logró borrar, debido a que ya se le ha dado inicio a la ronda, puede proceder a editarla.'));
+            $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que ya se le ha dado inicio, puede proceder a editarla.'));
         }
         return $this->redirect(['action' => 'index']);
     }

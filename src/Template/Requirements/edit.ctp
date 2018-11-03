@@ -38,6 +38,8 @@
                         ['value' => 'Obligatorio', 'text' => '<span style="padding:0 10px 0 10px;">Obligatorio</span>'],
                     
                         ['value' => 'Opcional', 'text' => '<span style="padding:0 10px 0 10px;">Opcional</span>'],
+
+                        ['value' => 'Ambos', 'text' => '<span style="padding:0 10px 0 10px;">Ambas</span>'],
                     ],
                     [ 
                         'div' => false, 

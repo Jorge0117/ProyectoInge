@@ -9,6 +9,7 @@
         "cakephp/cakephp": "3.6.*",
         "cakephp/migrations": "^2.0.0",
         "cakephp/plugin-installer": "^1.0",
+        "davidyell/proffer": "^0.8",
         "friendsofcake/bootstrap-ui": "^1.4",
         "josegonzalez/dotenv": "3.*",
         "mobiledetect/mobiledetectlib": "2.*",

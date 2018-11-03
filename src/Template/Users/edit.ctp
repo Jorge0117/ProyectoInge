@@ -5,65 +5,16 @@
  */
 ?>
 
-<style type="text/css">
-    .btn-aceptar{
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-    }
-
-    h3{
-        background-color: #ceb92bff;
-        color: #ffffff;
-        text-align: center;
-        display: block;
-        width: 100%;
-        line-height:1.5em;
-    }
-    
-    .form-size{
-        width: 70%;
-        min-width: 200px;
-        padding-left: 50px;
-    }
-
-    .btn-cancelar{
-        background-color: #999999;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-        margin-right: 5px;
-    }
-
-    .form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
-
-</style>
-
-
 <div class="users form large-9 medium-8 columns content form-size">
     <?= $this->Form->create($user,array(
                 'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
     
-    <?php echo $mostrar; 
-        if($mostrar == 0){
-            ?>
-            <style type="text/css">#show_rol{
-            display: none;
-            }</style>
-            <?php
-        }
-    ?>
 
     <fieldset>
         <div class="form-section">
             <legend><?= __('Datos personales') ?></legend>
             <?php
+                //Espacios para modificar datos personales del usuario
                 echo $this->Form->control('identification_number',['type'=>'text']);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
@@ -73,13 +24,19 @@
             ?>
         </div>
         
-
-        <div class="form-section" id = "show_rol">
-            <legend><?= __('Datos de seguridad') ?></legend>
-            <?php
+        <?php
+        if($admin == 1){
+            echo '<div class="form-section" id = "show_rol">';
+            echo '<legend><?= __("Datos de seguridad") ?></legend>';
+           
+                //espacio para modificar rol del usuario, solamente puede verlo el administrador
                 echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
-            ?>
-        </div>
+        
+            echo '</div>';
+        }
+        
+
+        ?>
         
     </fieldset>
     

@@ -22,7 +22,7 @@ class RoundsHelper extends Helper
         $last = (new RoundsTable)->getLastRow();
         if($last != null){
             $last[0] = $this->YmdtodmY($last[0]);
-            $last[4] = $this->YmdtodmY($last[4]);
+            $last[1] = $this->YmdtodmY($last[1]);
             return $last;
         }
         return null;
@@ -32,7 +32,7 @@ class RoundsHelper extends Helper
         $penultimate = (new RoundsTable)->getPenultimateRow();
         if($penultimate != null){
             $penultimate[0] = $this->YmdtodmY($penultimate[0]);
-            $penultimate[4] = $this->YmdtodmY($penultimate[4]);
+            $penultimate[1] = $this->YmdtodmY($penultimate[1]);
             return $penultimate;
         }
         return null;
@@ -66,9 +66,9 @@ class RoundsHelper extends Helper
     public function getLastRound() {
         $last = $this->getLastRow();
         if($last!= null){
-            return ["Ronda #" . $last[1] .' '. $last[2] . ' ciclo ' . $last[3], "Inicio: " . $last[0], "Fin: " . $last[4]]; 
+            return ["Ronda #" . $last[2] .' '. $last[3] . ' ciclo ' . $last[4], "Inicio: " . $last[0], "Fin: " . $last[1]]; 
         }
-        return null;
+        return "";
     }
 
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
@@ -80,3 +80,4 @@ class RoundsHelper extends Helper
         return (new RoundsTable)->active();
     }
 }
+

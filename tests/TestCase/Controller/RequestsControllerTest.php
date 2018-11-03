@@ -18,8 +18,7 @@ class RequestsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.requests',
         'app.courses',
-        'app.students',
-        'app.requestsrequirements'
+        'app.students'
     ];
 
     /**
