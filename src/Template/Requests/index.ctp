@@ -17,7 +17,19 @@ echo $this->Html->css('buttons');
 </nav>
 <div class="requests index large-9 medium-8 columns content text-grid">
     <h3><?= __('Solicitudes') ?></h3>
-    
+
+    <br>
+
+    <label style='position:absolute; left: 52%;'>
+        Filtrar por:
+    </label>
+
+    <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='position:absolute; left: 58%; height: 5%; width: 13.3%; border-width:2px; border-style:inset; z-index: 1;'>
+        <option value = 't'>Todas</option>
+        <option value = 'e'>Elegible</option>
+        <option value = 'n'>No elegible</option>
+    </select>
+
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>
@@ -95,4 +107,24 @@ echo $this->Html->css('buttons');
           }
         );
     } );
+
+    function hideRequest(selector, table){
+        var selId = document.getElementById(selector);
+        var tabId = document.getElementById(table);
+        var numRows = tabId.rows.length;
+
+        if(selId.value != 't'){
+            for(var i = 1; i < numRows; ++i){
+                if( tabId.rows[i].cells[9].innerHTML != selId.value )
+                    tabId.rows[i].style.display = "none";
+                else
+                    tabId.rows[i].style.display = "table-row";
+            }
+        }
+        else{
+            for(var i = 1; i < numRows; ++i){
+                tabId.rows[i].style.display = "table-row";
+            }
+        }
+    }
 </script>
