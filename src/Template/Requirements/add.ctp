@@ -71,12 +71,12 @@
             <br> <br>
 
             <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
-            <button type="submit" class="btn btn-primary" style='position:absolute; left: 74%; top: 77.8%;'>
+            <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar' style='position:absolute; left: 74%; top: 77.8%;'>
                 Agregar
             </button>
 
             <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
-            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-secondary', 'style'=>'position:absolute; left: 86.3%; top: 77.8%;']) ?>
+            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar', 'style'=>'position:absolute; left: 86.3%; top: 77.8%;']) ?>
 
         </fieldset>
     </div>

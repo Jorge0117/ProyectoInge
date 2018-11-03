@@ -12,11 +12,13 @@
             <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
             'Agregar requisito',
             ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
-            ['class'=>'btn btn-primary float-right btn-space btn-agregar-index']
+            ['class'=>'btn btn-primary float-right btn-space btn-agregar-index', 'style'=>'position:absolute; left: 80.2%; top: 50%;']
         )?>
     <?php endif; ?>
     
     <h3><?= __('Requisitos') ?></h3> <!--Título arriba del grid que indica la vista en la que se está-->
+    <br><br>
+
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'><!--Se define el grid con los datos de los requisitos-->
         <thead>
             <tr> <!--Nombre de las columnas en el grid-->
