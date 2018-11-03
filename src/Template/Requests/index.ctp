@@ -26,8 +26,12 @@ echo $this->Html->css('buttons');
 
     <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='position:absolute; left: 58%; height: 5%; width: 13.3%; border-width:2px; border-style:inset; z-index: 1;'>
         <option value = 't'>Todas</option>
+        <option value = 'a'>Aprobado</option>
         <option value = 'e'>Elegible</option>
+        <option value = 'i'>Inopia</option>
         <option value = 'n'>No elegible</option>
+        <option value = 'p'>Pendiente</option>
+        <option value = 'r'>Rechazado</option>
     </select>
 
     <table cellpadding="0" cellspacing="0" id = "requesttable">
