@@ -238,8 +238,21 @@ class RequestsController extends AppController
             $request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
 
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
-            $request->set('class_year', date('Y')); //obtiene el año actual de la solicitud
-            $request->set('class_semester', $this->get_semester()); //obtiene el semestre actual de la solicitud
+			
+			//Se trae la ronda actusl
+			$ronda = $this->get_round();
+			
+			//---------------------------------
+			if($ronda[0]['semester'] == 'II')
+				$nuevoSemestre = "2";
+			else
+				$nuevoSemestre = "1";
+			
+			$nuevoAño = $ronda[0]['year'];
+			//---------------------------------
+			
+            $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
+            $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
             $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
             //die();
             //debug($request);
@@ -259,13 +272,22 @@ class RequestsController extends AppController
         //$classes = $this->Requests->Classes->find('list', ['limit' => 200]);
         $nombre;
 
-        $semestre = "1";
-        $año = 2019;
+        $semestre = "2";
+        $año = 2018;
 
         //Se trae la ronda actusl
         $ronda = $this->get_round();
-        //debug($ronda);
 
+		
+		//---------------------------------
+		if($ronda[0]['semester'] == 'II')
+			$semestre = "2";
+		else
+			$semestre = "1";
+		
+		$año = $ronda[0]['year'];
+		//---------------------------------
+		
         //Modifica las clases para dejar los datos requeridos de curso y grupo
         //$tuplas = $classes->execute();
         $course = array();
