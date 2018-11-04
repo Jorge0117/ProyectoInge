@@ -76,7 +76,12 @@ class CoursesClassesVwController extends AppController
 
 
             $this->Flash->success(__('Se agregó el curso correctamente.'));
-            return $this->redirect(['action' => 'index']);
+            echo "<script type='text/javascript'>
+                    $(document).ready(function(){
+                    $('#Modal').modal('show');
+                    });
+                    </script>";
+            //return $this->redirect(['action' => 'index']);
 
         }
         //Consigue le array de profesores

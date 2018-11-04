@@ -59,6 +59,8 @@
         float: right;
         margin-right: 5px;
     }
+
+
 	
 </style>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
@@ -286,7 +288,9 @@
 
 		?>
     </fieldset>
-   <?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary btn-aceptar']) ?>
+	<?= $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary float-right btn-space']) ?>
+
+
    <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
    <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
 
@@ -294,7 +298,95 @@
     <?= $this->Form->end() ?>
 	   <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
 
-	
-	
+
 </div>
 
+
+<div id="MensajeInformativo" class="modal">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
+			
+            <fieldset>
+					<legend><?= __('Atención') ?></legend>
+					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+					y una fotocopia legible de la cédula de identidad por ambos lados.
+					<br>
+					<b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
+					<br>
+			</fieldset>
+			<fieldset>
+				<?= $this->Html->link('Aceptar',['controller'=>'requests','action'=>'index'],['class'=>'btn btn-primary float-middle btn-space']) ?>
+			</fieldset>
+        
+            
+        </div>
+    </div>
+</div>
+
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%;
+		text-align: center;
+    }
+
+</style>
+
+<script>
+// Get the modal
+var modal = document.getElementById('MensajeInformativo');
+
+// Get the button that opens the modal
+var btn = document.getElementById("butAceptar");
+
+var acep = document.getElementById("butCanc");
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+acep.onclick = function() {
+	$.ajax({ url:'/src/Controller/RequestsController.php',
+         data: {action: 'index'},
+         type: 'post',
+         success: function(output) {
+                      alert(output);
+                  }
+	});
+	modal.style.display = "none";
+	//$(location).attr('href', "http://"+ document.domain +"/ProyectoInge/Requests/")
+	//$this->redirect(['action' => 'index']);
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>

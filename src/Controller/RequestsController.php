@@ -243,9 +243,9 @@ public function add()
 		
 		//$año = date('Y'); //obtiene el año actual de la solicitud
 		//$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
-		
 		//debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre'));
+
+        $this->set(compact('request', 'c2', 'students','class','course','teacher','nombre','id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'ronda'));
 		
 
     }
