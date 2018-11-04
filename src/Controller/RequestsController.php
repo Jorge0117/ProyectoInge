@@ -439,17 +439,18 @@ class RequestsController extends AppController
         //Revision de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request->stage > 0) {
             $data_stage_completed = true;
-            $requirements = $this->Requirements->getRequestRequirements($id);
-            $this->set(compact('requirements'));
+			$requirements = $this->Requirements->getRequestRequirements($id);
+			$this->set(compact('requirements'));
+			$this->set(compact('data_stage_completed'));
         }
         //Revisión preliminar
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request->stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatusIndexOutOfId($id);
         }
         //Revisión final
 
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final')) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request->stage > 2) {
             $load_final_review = $default_index == 1 || $default_index >=3;
             $this->set('load_final_review', $load_final_review);
             $default_indexf = 0;
@@ -460,7 +461,7 @@ class RequestsController extends AppController
 
         //Se trae los datos de la solicitud
         $request = $this->Requests->get($id);
-        $user = $this->Requests->getStudent($request['student_id']);
+        $user = $this->Requests->getStudentInfo($request['student_id']);
         $user = $user[0]; //Agarra la unica tupla
         $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
         $class = $class[0];
@@ -474,14 +475,15 @@ class RequestsController extends AppController
         $this->set('default_index', $default_index);
         //--------------------------------------------------------------------------
         //Manda los parametros a la revision
-        $this->set(compact('request', 'user', 'class', 'professor', 'data_stage_completed'));
+        $this->set(compact('request', 'user', 'class', 'professor'));
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            debug($data);
+            //debug($data);
             //--------------------------------------------------------------------------
             if (array_key_exists('AceptarRequisitos', $data)) {
-                // Actualizar el estado de los requisitos opcionales
+				// Actualizar el estado de los requisitos opcionales
+				$requirements_review_completed = true;
                 for ($i = 0; $i < count($requirements['Opcional']); $i++) {
                     $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
                     $optional_requirement = $this->RequestsRequirements->newEntity();
@@ -491,9 +493,10 @@ class RequestsController extends AppController
                     $optional_requirement->acepted_inopia = intval($data['inopia_op_' . $requirement_number]);
 
                     //debug($optional_requirement);
-                    if ($this->RequestsRequirements->save($optional_requirement)) {
-                        debug('niece');
-                    }
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+						$requirements_review_completed = false;
+						return;
+					}
 				}
 				
 				// Actualizar el estado de los requisitos obligatorios
@@ -504,10 +507,21 @@ class RequestsController extends AppController
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     //debug($optional_requirement);
-                    if ($this->RequestsRequirements->save($optional_requirement)) {
-                        debug('niece2');
+                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                        $requirements_review_completed = false;
+						return;
                     }
-                }
+				}
+
+				//Se muestra un mensaje informando si la transacción se completo o no.
+				if($requirements_review_completed){
+					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 2;
+					$this->Requests->save($request_reviewed);
+				}else{
+					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
+				}
             }
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status
@@ -531,24 +545,37 @@ class RequestsController extends AppController
                 }
                 $requirements = $this->Requirements->getRequestRequirements($id);
                 //--------------------------------------------------------------------------
-                $total_of_mandatories_requirements = 1;
+                // Comunication with other controllers
+                $requirementsController = new RequirementsController();
+                //--------------------------------------------------------------------------
+                // This counts the  amount of mandatory requirements in the reqirements table
+                // and the amount of them in this request
+                $total_of_mandatories_requirements = $requirementsController->countmandatoryRequirements();
                 $total_of_aproved_req = sizeof($requirements['Obligatorio']);
-                debug('TEST');
-                $condition =
-                    ($total_of_mandatories_requirements == $total_of_aproved_req)
-                    &&
-                    (
-                    ('e' == $status_new_val) || ('i' == $status_new_val)
-                );
-                debug($condition);
-                if ($condition) {
-                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                //--------------------------------------------------------------------------
+                // if this request was the same amount of mandatory requirements approved 
+                // as the ones in the table and whether the administrator wants to 
+                // classified this as 'i' or 'e', the change can be seen in the DB.
+                $update_bool = false;
+                if (('p' == $status_new_val) || ('n' == $status_new_val)) {
+                    $update_bool = true; 
+                }
+                if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
+                    $update_bool = true;
                     //Redirecciona al index:
-                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 } else {
-                    $this->Flash->success(__('El estudiante no cumple con los requisitos obligatorios'));
+                    if (('e' == $status_new_val) || ('i' == $status_new_val) {
+                        $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                    }
                 }
 
+                if ($update_bool) {
+                    $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+					$request_reviewed = $this->Requests->get($id);
+					$request_reviewed->stage = 3;
+					$this->Requests->save($request_reviewed);
+                }
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
