@@ -313,7 +313,7 @@ class CoursesClassesVwController extends AppController
                         $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
                         if($id == null){
                             //Se borra el archivo
-                            $fileController->deleteFiles();
+                            $this->deleteFiles();
                             $this->Flash->error('El profesor '. $value .' no se encuentra en la tabla');
                             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
                         }else{
@@ -388,6 +388,7 @@ class CoursesClassesVwController extends AppController
     public function uploadFile()
     {
         $this->loadmodel('Files');
+        $this->deleteFiles();
         $file = $this->Files->newEntity();
         if ($this->request->is('post')) {
             $file = $this->Files->patchEntity($file, $this->request->getData());
@@ -412,7 +413,9 @@ class CoursesClassesVwController extends AppController
         //Borra el folder
         $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
         $folder = new Folder($path);
-        $folder->delete();
+        if(!is_null($folder->path)){
+            $folder->delete();
+        }
         $fileTable = $this->loadmodel('Files');
         $fileTable->deleteFiles();
     }
