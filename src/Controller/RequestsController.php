@@ -54,9 +54,8 @@ class RequestsController extends AppController
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
         if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') { //muestra todos
             $query = $table->find('all');
-            $disponible = false; //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
             $admin = true;
-            $this->set(compact('query', 'disponible', 'admin'));
+            $this->set(compact('query', 'admin'));
         } else {
 
             //ESTUDIANTE
@@ -65,9 +64,8 @@ class RequestsController extends AppController
                 $query = $table->find('all', [
                     'conditions' => ['cedula' => $id_usuario],
                 ]);
-                $disponible = $this->Rounds->between(); //Devuelve true si la fecha actual se encuentra entre el periodo de alguna ronda
                 $admin = false;
-                $this->set(compact('query', 'disponible', 'admin'));
+                $this->set(compact('query', 'admin'));
 
             } else {
                 //PROFESOR
@@ -75,9 +73,8 @@ class RequestsController extends AppController
                 $query = $table->find('all', [
                     'conditions' => ['id_prof' => $id_usuario],
                 ]);
-                $disponible = false;
                 $admin = false;
-                $this->set(compact('query', 'disponible', 'admin'));
+                $this->set(compact('query', 'admin'));
             }
         }
 

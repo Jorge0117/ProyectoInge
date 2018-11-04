@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<h3>Modificar usuario</h3>
 
 <div class="users form large-9 medium-8 columns content form-size">
     <?= $this->Form->create($user,array(
