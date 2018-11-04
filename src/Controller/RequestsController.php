@@ -199,9 +199,9 @@ class RequestsController extends AppController
     {
         $student_id = "402220000";
 
-        return $student_id;
+       // return $student_id;
 
-        //return     $this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
+		return     $this->Auth->user('identification_number'); //Este es el que en realidad hay que devolver
     }
 
     // public function get_student_id()
@@ -286,7 +286,7 @@ class RequestsController extends AppController
             $class[$i] = $g['class_number']; //Se trae el número de clase
             $course[$i] = $g['course_id']; //Se trae el nombre de curso. Esto es para que cuando se seleccione un grupo se pueda encontrar
             //sus grupos sin necesidad de realizar un acceso adicional a la base de datos. Recomendado por Diego
-
+			$profesor[$i] = $g['prof']; //Se trae el nombre del profesor el grupo
             //Busca los cursos y los coloca solo 1 vez en el vector de cursos.
             //Realiza la busqueda en base al codigo de curso, ya que al ser más corto entonces la busqueda será más eficiente
             $encontrado = 0;
@@ -347,7 +347,7 @@ class RequestsController extends AppController
         //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 
         //debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre'));
+        $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
 
     }
     /**
