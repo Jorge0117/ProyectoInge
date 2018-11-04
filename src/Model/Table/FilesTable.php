@@ -82,6 +82,11 @@ class FilesTable extends Table
     public function getDir(){
         $connection = ConnectionManager::get('default');
         $data = $connection->execute("select * from files") ->fetchAll();
-        return[$data[0][1], $data[0][2]];
+        if(count($data) > 0){
+            return[$data[0][1], $data[0][2]];
+        }else{
+            return null;
+        }
+        
     }
 }

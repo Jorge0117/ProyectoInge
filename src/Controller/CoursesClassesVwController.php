@@ -410,14 +410,13 @@ class CoursesClassesVwController extends AppController
     public function deleteFiles(){
         //Obtiene las direcciones
         $fileDir = $this->getDir();
-        //Borra el folder
-        $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
-        $folder = new Folder($path);
-        if(!is_null($folder->path)){
+        if($fileDir != null){
+            //Borra el folder
+            $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
+            $folder = new Folder($path);
             $folder->delete();
-        }
-        $fileTable = $this->loadmodel('Files');
-        $fileTable->deleteFiles();
+            $fileTable = $this->loadmodel('Files');
+            $fileTable->deleteFiles();
+        } 
     }
-
 }
