@@ -4,10 +4,11 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<h3>Modificar usuario</h3>
 
 <div class="users form large-9 medium-8 columns content form-size">
     <?= $this->Form->create($user,array(
-                'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
+                'type'=>'file')) ?>
     
 
     <fieldset>
@@ -30,7 +31,7 @@
             echo '<legend><?= __("Datos de seguridad") ?></legend>';
            
                 //espacio para modificar rol del usuario, solamente puede verlo el administrador
-                echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+                echo $this->Form->control('role_id', ['options' => $roles, 'label'=>['text'=>'Rol']]);
         
             echo '</div>';
         }

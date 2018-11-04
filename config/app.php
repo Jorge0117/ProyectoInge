@@ -210,6 +210,14 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        'mailjet' => [
+            'host' => 'in-v3.mailjet.com',
+            'port' => 25,
+            'timeout' => 60,
+            'username' => '234124609a61db8066486733b2aab722',
+            'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
+            'className' => 'Smtp'
+        ],
     ],
 
     /**

@@ -6,7 +6,6 @@
 
 ?>
 
-<link rel="stylesheet" href="style.css">
 <h3>Agregar usuario</h3>
 <div class="form-size users form large-9 medium-8 columns content">
     <?= $this->Form->create($user, ['novalidate']) ?>

@@ -70,7 +70,7 @@
 	*/
 	function updateClass() 
 	{
-
+		document.getElementById("prof").value = ""; 
 		//Obtiene los select de grupo y curso respectivamente
 		selClass = document.getElementById("class-number");
 		selCourse = document.getElementById("course-id");
@@ -180,7 +180,7 @@
 		
 		//Obtiene el valor del curso y grupo seleccionados actualmente
 		Course = selCourse.options[selCourse.selectedIndex].text;
-		Group = selClass.options[selClass.selectedIndex].text;
+		Group = selClass.options[selClass.selectedIndex].text;/*
 		//Realiza una peticion al servidor mediante la tecnica AJAX, para obtener el nombre del profesor en base al curso y grupo actual
 		$.ajax({
 	url:"<?php echo \Cake\Routing\Router::url(array('controller'=>'Requests','action'=>'obtenerProfesor'));?>" ,   cache: false,
@@ -189,10 +189,10 @@
     dataType: 'text',
 	async: false,
 	data: { curso: Course, grupo: Group, salida:"xdxd"},
-    success: function (data) {
+    success: function (data,response) {
        // $('#context').html(data);
+	   	alert(response);
 	    p = data.split(" ");
-		
 		//Mete en el campo bloqueado la informacion del profesor
 		document.getElementById("prof").value = (p[6] + " " + p[7]).split(")")[0]; 
 	},
@@ -201,16 +201,43 @@
 		alert(exception);
 
 	}
-		});
+		});*/
+		
+		
+		//Mete al profesor:
+		
+		cursos = document.getElementById("a2").options;
+		grupos  = document.getElementById("a1").options;
+		
+		cursoActual = selCourse.options[selCourse.selectedIndex].text;
+		grupoActual = selClass.options[selClass.selectedIndex].text;
+
+		for(c = 0;  c < cursos.length; c = c + 1) // Recorre los cursos
+		{	
+			//Si el curso es el mismo al curso seleccionado, manda el grupo al vector
+			
+			if(cursoActual.localeCompare(cursos[c].text) == 0)
+			{
+				//alert(grupos[c].text);
+				if(grupoActual == grupos[c].text)
+				{
+				/*var tmp = document.createElement("option");
+				//if(c+1 < a1.options.length)
+				//{
+				tmp.text = a1.options[c].text; //Prestarle atencion a esta linea
+				selClass.options.add(tmp,i);
+				i = i + 1;
+				//}*/
+		
+				document.getElementById("prof").value = (document.getElementById("a4")[c].text);
+				}
+			}
+
+		}
 		
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
-	}
-	
-	function hidePersonalInfo()
-	{
-		alert("");
 	}
 
 </script>
@@ -279,7 +306,7 @@
 			*/
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
-			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $teacher , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
 
 

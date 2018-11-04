@@ -64,4 +64,10 @@ class PermissionsTable extends Table
 
         return $validator;
     }
+
+    public function getPermissions($rol){
+        return $this->find('list')->matching('Roles', function ($q)  use($rol){
+            return $q->where(['Roles.role_id' => $rol]);
+        })->toArray();
+    }
 }

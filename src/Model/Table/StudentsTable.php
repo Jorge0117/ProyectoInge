@@ -80,4 +80,14 @@ class StudentsTable extends Table
         }
         
     }
+
+    public function deleteStudent($id){
+        $connect = ConnectionManager::get('default');
+        $return = -1;
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("DELETE from students where user_id = '$id';") ;
+            $return = 1;
+        }
+        return $return;
+    }
 }
