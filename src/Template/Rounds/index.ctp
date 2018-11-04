@@ -25,15 +25,19 @@
 </style>
 
 <!--Variables utilizadas para el primer display-->
-<?php $last = $this->Rounds->getLastRow() ?>
-<?php $s_date = $last[0];?>
-<?php if($s_date==null){
-    $s_date = $this->Rounds->getToday();
-}?>
-<?php $e_date = $last[1];?>
-<?php if($e_date==null){
-    $e_date = $this->Rounds->getToday();
-}?>
+<?php 
+    $last = $this->Rounds->getLastRow();
+    $s_date = $last[0];
+    $e_date = $last[1];
+    $tsh = $last[5];
+    $tah = $last[6];
+    $ash = $last[7];
+    $aah = $last[8];
+    if(!$last){
+        $ash = $aah = 0;
+    }
+?>
+
 
 <div class='rounds index large-9 menium-8 columns content'>
     <h3><?= 'Rondas' ?></h3>
@@ -45,8 +49,8 @@
                 <th id='RoundnumberHeader'><?= '#' ?></th>
                 <th><?= 'Fecha Inicio' ?></th>    
                 <th><?= 'Fecha Fin' ?></th>
-                <th id = 'tshHeader' style = 'width:110px; display:none'><?= 'Total de Horas Asistente' ?></th>
-                <th id = 'tahHeader' style = 'width:110px; display:none'><?= 'Total de Horas Estudiante' ?></th>
+                <th id = 'tshHeader' style = 'width:110px; display:none'><?= 'Total de Horas Estudiante' ?></th>
+                <th id = 'tahHeader' style = 'width:110px; display:none'><?= 'Total de Horas Asistente' ?></th>
                 <th style = 'width:80px;'> </th>
             </tr>
         </thead>
@@ -62,7 +66,7 @@
                                     'value'=>$s_date,
                                     'label' => false,
                                     'readonly'=>true,
-                                    'onclick'=>"sensitiveRange(0)"
+                                    'onclick'=>"sensitiveRange(1)"
                                 ]);?></td>
                             <td>
                                 <?= $this->Form->control('end_date',[
@@ -70,23 +74,25 @@
                                     'value'=>$e_date,
                                     'label' => false,
                                     'readonly'=>true,
-                                    'onclick'=>"sensitiveRange(1)"
+                                    'onclick'=>"sensitiveRange(0)"
                                 ]);?></td>
                             <td id = 'tshData' style = 'display:none'>
                                 <?= $this->Form->control('total_student_hours',[
                                     'type'=>'number',
-                                    'value'=> '0',
+                                    'value'=> $tsh,
                                     'label' => false,
-                                    'min' => '0',
+                                    'min' => $ash,
                                     'max' => '99999',
+                                    'required'
                                 ]);?></td>
                             <td id = 'tahData' style = 'display:none'>
                                 <?= $this->Form->control('total_assistant_hours',[
                                     'type'=>'number',
-                                    'value'=> '0',
+                                    'value'=> $tah,
                                     'label' => false,
-                                    'min' => '0',
+                                    'min' => $aah,
                                     'max' => '99999',
+                                    'required'
                                 ]);?></td>
                             </div>
                             <input type="hidden" id="flag" name='flag' value="0">
@@ -117,6 +123,24 @@
 </div>
 
 <script>
+// configuración para un nuevo lenguaje del calendario (Español)
+dhtmlXCalendarObject.prototype.langData["es"] = {
+    dateformat: "%d.%m.%Y",
+    hdrformat: "%F %Y",
+    monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
+                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
+    monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
+                    "Jul","Ago","Sep","Oct","Nov","Dic"],
+    daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
+                    "Viernes","Sábado"],
+    daysSNames: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
+    weekstart: 1,
+    weekname: "Sem",
+    today: "Hoy",
+    clear: "Borrar"
+};
+dhtmlXCalendarObject.prototype.lang = "es";
+
 calendar = new dhtmlXCalendarObject(["start-date", "end-date"]);
 calendar.setDateFormat("%d-%m-%Y");
 calendar.hideTime();
@@ -126,6 +150,10 @@ var last = getLast();
 $(document).ready( function () {
     if(!last){                
         startAdd();
+        byId('start-date').value = getToday();
+
+        byId('end-date').value = byId('start-date').value;
+        byId('tshHeader').style.display = "table-cell";
         byId('tshHeader').style.display = "table-cell";
         byId('tshData').style.display = "table-cell";
         byId('tahHeader').style.display = "table-cell";
@@ -133,76 +161,66 @@ $(document).ready( function () {
     }
 });
 
-function sensitiveRange(field){
-    if(field){//end date
-        var min = alterDate(byId('start-date').value,1)// día siguiente de la fecha inicio
-        var yesterday = getYesterday();
-        if(compareDates(min,yesterday) < 0) min = alterDate(yesterday,1);
-        var max = null;
-        if(byId('flag').value != '1' && last){//editar
-            if(last[3] == 'I') max = '30-06-';//primer semestre
-            else max = '30-11-';//segundo semestre
-            max = max.concat(last[4]);// agrega el año
-        }
-        calendar.setSensitiveRange(min,max);
-    }else{// start date
-        var yesterday = getYesterday();
-        var min = yesterday;
+function sensitiveRange(first){
+    if(first){// start_date
+        var min = getToday();
         var max = null;
         if(byId('flag').value == '1' && last){// añadir
-            var lastEnd = last[1];
-            if(compareDates(lastEnd,yesterday) > 0){
-                min = lastEnd;
+            if(last[2] == 3){
+                var sem1ds = '01-07-'.concat(last[4]);
+                var sem2ds = '01-12-'.concat(last[4]);
+                if(last[3] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
+                else if(last[3] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+            }
+            if(compareDates(last[0],last[1]) == 0 && compareDates(last[1],min) > 0){
+                min = alterDate(last[1],1);
+            }else if(compareDates(last[1],min) > 0){
+                min = last[1];
             }
         }else{ // editar
-            var penultimate = '<?= $this->Rounds->getPenultimateRow()[1]?>';
-            var sem1ds = '01-12-';
-            sem1ds = sem1ds.concat(last[4]-1);
-            var sem2ds = '01-07-'
-            sem2ds = sem2ds.concat(last[4]);
-            if(last[3] == 'I' && (compareDates(sem1ds,yesterday) > 0)){
-                min = sem1ds;
-            }else if(last[3] == 'II' && (compareDates(sem2ds,yesterday) > 0)){
-                min = sem2ds;
+            var penultimateStart = '<?= $this->Rounds->getPenultimateRow()[0] ?>';
+            var penultimateEnd = '<?= $this->Rounds->getPenultimateRow()[1] ?>';
+            console.log('1',min,penultimateEnd)
+            if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
+                min = alterDate(penultimateEnd,1);
+            }else if(compareDates(penultimateEnd,min) > 0){
+                min = penultimateEnd;
             }
-            if(compareDates(penultimate,min) > 0){
-                min = penultimate;
-            }
+            console.log('2',min)
+            var sem1ds = '01-12-'.concat(last[4]-1);
+            var sem2ds = '01-07-'.concat(last[4]);
+            if(last[3] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
+            else if(last[3] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+            console.log('3',min)
             if(last){
-                var lastStart = last[0];
-                if(compareDates(lastStart,alterDate(yesterday,1)) < 0){
-                    max = lastStart;
-                }
+                if(last[3] == 'I') max = '30-06-';                              //primer semestre
+                else max = '30-11-';                                            //segundo semestre
+                max = max.concat(last[4]);                                      // agrega el año
             }
 
+        }
+        
+        calendar.setSensitiveRange(min,max);
+    }else{// end_date
+        var min = byId('start-date').value
+        var yesterday = alterDate(getToday(),-1);
+        if(compareDates(min,yesterday) < 0) min = yesterday;  //Para poder cerrar la ronda sin eliminarla
+        var max = null;
+        if(byId('flag').value != '1' && last){                              //editar
+            if(last[3] == 'I') max = '30-06-';                              //primer semestre
+            else max = '30-11-';                                            //segundo semestre
+            max = max.concat(last[4]);                                      // agrega el año
         }
         calendar.setSensitiveRange(min,max);
     }
-    /*if(onSameSemester('<?= $last[1]; ?>','<?= $last[1]; ?>', byId('start-date').value) || '<?= $last == null ?>' ){
-        byId('tshHeader').style.display = "table-cell";
-        byId('tshData').style.display = "table-cell";
-        byId('tahHeader').style.display = "table-cell";
-        byId('tahData').style.display = "table-cell";
-    }*/
-    compareDates('01-01-2018','01-01-2018');
-    compareDates('01-01-2018','21-01-2018');
-    compareDates('30-01-2018','21-01-2018');
 }    
 
-// Retorna un booleano indicando si se ha cambiado de semestre al seleccionar la fecha
-function onSameSemester(lastYear,lastSemester,date){
-    console.log(date);
-    console.log(date.substr(6));
-    console.log(date.substr(3,2));
-    return false;
-}
-
-// cambia el estado
+// cambia el estado de neutro a editar
 calendar.attachEvent("onClick", function(date){
     var start = byId('start-date').value;
     var end = byId('end-date').value;
-    if(compareDates(start,end)>=0){
-        byId('end-date').value = alterDate(start,1);
+    if(compareDates(start,end)>0){
+        byId('end-date').value = start;
     }
     if(last){
         if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0)&&byId('flag').value != '1'){
@@ -212,13 +230,14 @@ calendar.attachEvent("onClick", function(date){
 });
 
 /**  
-  * EFE: calcula el día anterior
-  * RET: string con el valor del dia anterior
+  * EFE: Calcula el día actual.
+  * RET: string con el valor del dia actual
   **/
-function getYesterday(){
-    var yesterday  = new Date(1970,0,1,0,0,0,0);
-    yesterday.setMilliseconds(Date.now());
-    return getStringFormat(yesterday);
+function getToday(){
+    var today  = new Date(1970,0,1,0,0,0,0);
+    var GMTm6ms = 21600000;
+    today.setMilliseconds(Date.now()-GMTm6ms);
+    return getStringFormat(today);
 }
 
 /**  
@@ -291,10 +310,6 @@ function splitDate(date){
   **/
 function startEdit(){ 
     start('2');
-    if(last){
-        byId('total-student-hours').value = last[5];
-        byId('total-assistant-hours').value = last[6];
-    }
     byId('tshHeader').style.display = "table-cell";
     byId('tshData').style.display = "table-cell";
     byId('tahHeader').style.display = "table-cell";
@@ -318,12 +333,12 @@ function startAdd(){
             byId('tshData').style.display = "table-cell";
             byId('tahHeader').style.display = "table-cell";
             byId('tahData').style.display = "table-cell";
-        }else if(compareDates(byId('start-date').value,last[1])<0){
-            byId('start-date').value = last[1];
+        }else if(compareDates(byId('start-date').value,last[1])<=0){
+            byId('start-date').value = alterDate(last[1],1);
         }
-        var next = alterDate(byId('start-date').value,1);
-        if(compareDates(byId('end-date').value,next)<0){
-            byId('end-date').value = next;
+        var end = byId('start-date').value;
+        if(compareDates(byId('end-date').value,end)<0){
+            byId('end-date').value = end;
         }   
     }
 }
@@ -339,7 +354,9 @@ function start(flag){
         byId('RoundnumberData').style.display = "none";
         byId('edit').style.display = "none";
     }else if(flag == '2') byId('add').style.display = "none";
-    byId('cancelar').style.display = "inline";
+    if(last){
+        byId('cancelar').style.display = "inline";
+    }
     byId('aceptar').style.display = "inline";
     byId('flag').value = flag; 
 }
@@ -348,26 +365,34 @@ function start(flag){
   * EFE: Vuelve a colocar los datos iniciales en lo campos del form
   **/
 function cancel() {
-    if(last){
-        byId('start-date').value = last[0];
-        byId('end-date').value = last[1];
-    }
+    byId('start-date').value = last[0];
+    byId('end-date').value = last[1];
     byId('flag').value = "0"; 
     end();
 }
 
 /** Función end
-  * EFE: Reinicia el estado de la vista al estado anterior del cambio por hacer.
+  * EFE: Reinicia el estado de la vista al estado anterior del cambio por hacer
+  * Es llamada al presionar el botón aceptar.
   **/
 function end() {
+    if(last && last[2] != 3){
+        var tsh = byId('total-student-hours').value;
+        var tah = byId('total-assistant-hours').value;
+        if(tsh < parseInt(last[7]))byId('total-student-hours').value = last[7];
+        if(tah < parseInt(last[8]))byId('total-assistant-hours').value = last[8];
+    }else{
+        if(!byId('total-student-hours').value)byId('total-student-hours').value = 0;
+        if(!byId('total-assistant-hours').value)byId('total-assistant-hours').value = 0;
+    }
     // Campos del número de ronda
     byId('RoundnumberHeader').style.display = "table-cell";
     byId('RoundnumberData').style.display = "table-cell";
     // Horas por asignar
     byId('tshHeader').style.display = "none";
-    byId('tahData').style.display = "none";
-    byId('tahHeader').style.display = "none";
     byId('tshData').style.display = "none";
+    byId('tahHeader').style.display = "none";
+    byId('tahData').style.display = "none";
     //Botones
     byId('trash').style.display = "table-cell";
     byId('edit').style.display = "table-cell";
@@ -396,22 +421,6 @@ function byId(id) {
 	return document.getElementById(id);
 }
 
-// configuración para un nuevo lenguaje del calendario (Español)
-dhtmlXCalendarObject.prototype.langData["es"] = {
-    dateformat: "%d.%m.%Y",
-    hdrformat: "%F %Y",
-    monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
-    monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
-                    "Jul","Ago","Sep","Oct","Nov","Dic"],
-    daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
-                    "Viernes","Sábado"],
-    daysSNames: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"],
-    weekstart: 1,
-    weekname: "Sem",
-    today: "Hoy",
-    clear: "Borrar"
-};
-dhtmlXCalendarObject.prototype.lang = "es";
+
 
 </script>
