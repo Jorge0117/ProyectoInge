@@ -26,7 +26,7 @@ class RolesController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    public function index()
+    public function edit()
     {
         $n_permission_types = count($this->permission_types);
         $this->set(compact('n_permission_types'));
