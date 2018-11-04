@@ -246,6 +246,10 @@
             </div>
 
             <div class='row-btn container' id='BtnDiv'>
+                <?php 
+                    echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
+                                                                                'id' => 'CancelarBtn']); 
+                ?>
                 <?php
                     echo $this->Form->button(
                         'Aceptar',
@@ -254,11 +258,6 @@
                             'type' => 'submit',
                             'class' => 'btn btn-primary btn-aceptar'
                         ]);
-                ?>
-
-                <?php 
-                    echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
-                                                                                'id' => 'CancelarBtn']); 
                 ?>
             </div>
 
