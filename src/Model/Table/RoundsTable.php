@@ -145,4 +145,10 @@ public function active(){
     )->fetchAll();
     return $query[0][0];
 } 
+
+    public function getStartActualRound(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT max(start_date) from rounds;")->fetchAll();
+        return $query[0][0];   
+    }
 }

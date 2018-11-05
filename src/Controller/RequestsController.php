@@ -48,12 +48,16 @@ class RequestsController extends AppController
     public function index()
     {
         $table = $this->loadModel('InfoRequests');
+        $rounds = $this->loadModel('Rounds');
         $rol_usuario = $this->Auth->user('role_id');
         $id_usuario = $this->Auth->user('identification_number');
-
+        $ronda_actual = $rounds->getStartActualRound();
+        debug($ronda_actual);
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
         if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') { //muestra todos
-            $query = $table->find('all');
+            $query = $table->find('all', [
+                'conditions' => ['inicio' => $ronda_actual],
+            ]);
             $admin = true;
             $this->set(compact('query', 'admin'));
         } else {
@@ -62,7 +66,7 @@ class RequestsController extends AppController
             //Si es estudiante solamente muestra sus solicitudes.
             if ($rol_usuario === 'Estudiante') {
                 $query = $table->find('all', [
-                    'conditions' => ['cedula' => $id_usuario],
+                    'conditions' => ['cedula' => $id_usuario, 'inicio' => $ronda_actual],
                 ]);
                 $admin = false;
                 $this->set(compact('query', 'admin'));
@@ -71,7 +75,7 @@ class RequestsController extends AppController
                 //PROFESOR
                 //Si es profesor solamente muestra las solicitudes de sus grupos.
                 $query = $table->find('all', [
-                    'conditions' => ['id_prof' => $id_usuario],
+                    'conditions' => ['id_prof' => $id_usuario, 'inicio' => $ronda_actual],
                 ]);
                 $admin = false;
                 $this->set(compact('query', 'admin'));

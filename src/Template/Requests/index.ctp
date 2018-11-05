@@ -71,12 +71,6 @@
                 <option value = 'r'>Rechazado</option>
             </select>
         </div>
-
-        <div class="col-8">
-            <?php if ( $this->Rounds->between() ): ?>
-                <?= $this->Html->link(__('Agregar solicitud'), ['action' => 'add'], ['class'=>'btn btn-primary btn-agregar-index']) ?>
-            <?php endif; ?>
-        </div>
     <div>
 
     <br>
