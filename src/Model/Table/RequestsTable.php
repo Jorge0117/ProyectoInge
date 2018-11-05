@@ -398,6 +398,16 @@ class RequestsTable extends Table
     }
 
 
+    public function getRequirements($id,$s,$in)
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select re.description from requests_requirements r, requirements re 
+		where r.requirement_number = re.requirement_number and r.request_id = '$id'
+		and r.state = '$s' and r.acepted_inopia = '$in'");
+		$result = $result->fetchAll('assoc');
+        return $result;
+	}
+
 }
 
 
