@@ -45,17 +45,38 @@
                     ]
                 );
 
+                echo '<br>';
+
+                //Entrada para ingresar el tipo de horas (radio box).
+                echo $this->Form->label('Tipo de horas');
+                echo '<br>';
+                echo $this->Form->radio(
+                    'hour_type',
+                    [
+                        ['value' => 'Estudiante', 'text' => '<span style="padding:0 10px 0 10px;">Horas Estudiante</span>'],
+                    
+                        ['value' => 'Asistente', 'text' => '<span style="padding:0 10px 0 10px;">Horas Asistente</span>'],
+
+                        ['value' => 'Ambos', 'text' => '<span style="padding:0 10px 0 10px;">Ambas</span>'],
+                    ],
+                    [ 
+                        'div' => false,
+                        'class' => 'col-md-15', 
+                        'escape' => false,
+                    ]
+                );
             ?>
+            <br> <br>
             <br> <br>
             <br> <br>
 
             <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
-            <button type="submit" class="btn btn-primary" style='position:absolute; left: 86.3%; top: 77.8%;'>
+            <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar' style='position:absolute; left: 74%; top: 77.8%;'>
                 Agregar
             </button>
 
             <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
-            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-secondary', 'style'=>'position:absolute; left: 1.5%; top: 77.8%;']) ?>
+            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar', 'style'=>'position:absolute; left: 86.3%; top: 77.8%;']) ?>
 
         </fieldset>
     </div>
