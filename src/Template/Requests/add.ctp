@@ -6,58 +6,6 @@
  use Cake\Routing\Router;
 ?>
 
-
-
-<style>
-    .button {
-        background-color: #ceb92bff;
-        border: none;
-        padding: 5px 7px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 8px 2px;
-        cursor: pointer;
-        float: right;
-    }
-    .button a {
-        color:#fff; 
-    }
-    /* .actions a {
-        color:#000; 
-    } */
-    #image1 {
-        height: 10px;
-        width: 10px;
-    }
-	
-
-	.form-size{
-        width: 70%;
-        min-width: 200px;
-        padding-left: 50px;
-    }
-	
-	.btn-aceptar{
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-    }
-	
-	.btn-cancelar{
-        background-color: #999999;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-        margin-right: 5px;
-    }
-	
-</style>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-
 <script>
 	/*
 	Esta funcion se encarga de cargar el valor de select de grupos en base al valor ingresado en el select de curso.
@@ -287,9 +235,8 @@
 			?>
 			</div>
 			
-			
-			
-			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary btn-aceptar']) ?>
+
+			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar']) ?>
 			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
 			
 			<?php
