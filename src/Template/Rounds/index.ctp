@@ -116,9 +116,8 @@
 </div>
 
 <div class="submit">
-    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
     <?= $this->Form->button('Aceptar',['onclick' => "end()",'id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
-    
+    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>    
     <?= $this->Form->end() ?>
 </div>
 
