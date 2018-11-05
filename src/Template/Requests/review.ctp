@@ -212,14 +212,13 @@
 	<?php 
 		$last = $this->Rounds->getLastRow(); 
 		$approved_request = $this->Requests->getApproved($id); 
-		debug($approved_request);
 		$hsCnt = 0;
 		$haCnt = 0;
 		if($approved_request){
-			if($approved_request[1] == 'hs'){
-				$hsCnt = $approved_request[2];
+			if($approved_request[0][1] == 'hs'){
+				$hsCnt = $approved_request[0][2];
 			}else{
-				$haCnt = $approved_request[2];
+				$haCnt = $approved_request[0][2];
 			}
 		}
 	?>
@@ -344,18 +343,6 @@ $(document).ready( function () {
 		}
     });
 	if('<?= $approved ?>'){
-		if('<?= $approved_request != null ?>'){// revisar luego de tener un approved
-			/*console.log('no deberia entrar');
-			var type;
-			//var type = '<?= $approved_request[1]; ?>';
-			if(type == 'hs'){
-				/*byId('student').value = '<?= $approved_request[2] ?>';
-				byId('assistantRow').style.display = 'none';*/
-			/*}/*else{
-				byId('assistant').value = '<?= $approved_request[2] ?>';
-				byId('studentRow').style.display = 'none';
-			}*/
-		}
 		var tsh = '<?= $last[5]; ?>';
 		var ash = '<?= $last[7]; ?>';
 		var totS = tsh-ash;

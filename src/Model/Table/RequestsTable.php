@@ -393,7 +393,7 @@ class RequestsTable extends Table
         $query = $connet->execute(
             "SELECT * FROM approved_requests
              WHERE request_id = '$id'"
-        )->fetchAll()[0];
+        )->fetchAll();
         return $query;
     }
 
