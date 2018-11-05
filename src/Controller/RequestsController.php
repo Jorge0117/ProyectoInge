@@ -235,7 +235,7 @@ class RequestsController extends AppController
 
             //Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
             $request->set('status', 'p'); //Toda solicitud esta pendiente
-            $request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
+            //$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
 
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
 			
@@ -249,6 +249,7 @@ class RequestsController extends AppController
 				$nuevoSemestre = "1";
 			
 			$nuevoAño = $ronda[0]['year'];
+			$request->set('round_start', $ronda[0]['start_date']);
 			//---------------------------------
 			
             $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
@@ -257,10 +258,10 @@ class RequestsController extends AppController
             //die();
             //debug($request);
             if ($this->Requests->save($request)) {
-                $this->Flash->success(__('La Solicitud de Asistencia ha sido ingresada exitosamente'));
+                $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The request could not be saved. Please, try again.'));
+            $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
         $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
         /*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud
@@ -278,7 +279,7 @@ class RequestsController extends AppController
         //Se trae la ronda actusl
         $ronda = $this->get_round();
 
-		
+				//debug($ronda);
 		//---------------------------------
 		if($ronda[0]['semester'] == 'II')
 			$semestre = "2";
