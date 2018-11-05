@@ -257,10 +257,10 @@ class RequestsController extends AppController
             //die();
             //debug($request);
             if ($this->Requests->save($request)) {
-                $this->Flash->success(__('La Solicitud de Asistencia ha sido ingresada exitosamente'));
+                $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The request could not be saved. Please, try again.'));
+            $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
         $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
         /*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud

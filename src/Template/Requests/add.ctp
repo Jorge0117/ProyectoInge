@@ -32,12 +32,7 @@
         width: 10px;
     }
 	
-	.form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
-	
+
 	.form-size{
         width: 70%;
         min-width: 200px;
@@ -250,10 +245,9 @@
 <div class="form-size requests form large-9 medium-8 columns content" >
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Añadir Solicitud') ?></legend>
+        <center><legend><?= __('Añadir Solicitud') ?></legend></center>
         <?php
 			//debug(($classes->execute())[1]);
-			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
 
 			//Implementacion del bloque que se trae todos los datos del usuario
 		?>
@@ -292,6 +286,12 @@
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			?>
 			</div>
+			
+			
+			
+			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary btn-aceptar']) ?>
+			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+			
 			<?php
 			/*echo $this->Form->Label("Datos adicionales Solicitud: ");
 			
@@ -304,6 +304,7 @@
 				Estos campos solamente sirven para almacenar vectores, dado que esta es la única forma eficiente que conozco de compartir variables
 				entre php y javascript. Si conocen una mejor me avisan :)
 			*/
+			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
@@ -313,8 +314,7 @@
 
 		?>
     </fieldset>
-   <?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary btn-aceptar']) ?>
-   <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+
    <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
 
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
