@@ -18,7 +18,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\ApprovedRequestsView[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\ApprovedRequestsView findOrCreate($search, callable $callback = null, $options = [])
  */
-class ApprovedRequestsViewTable extends Table
+class professorAssistantsTable extends Table
 {
 
     /**
@@ -31,7 +31,7 @@ class ApprovedRequestsViewTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('approved_requests_view');
+        $this->setTable('professor_assistants');
     }
 
     /**
@@ -90,6 +90,11 @@ class ApprovedRequestsViewTable extends Table
             ->scalar('id_prof')
             ->maxLength('id_prof', 20)
             ->allowEmpty('id_prof');
+
+        $validator
+            ->scalar('id_student')
+            ->maxLength('id_student', 20)
+            ->allowEmpty('id_student');    
 
         return $validator;
     }

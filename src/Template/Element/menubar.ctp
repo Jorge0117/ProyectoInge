@@ -44,6 +44,9 @@
                         </li>
                     <?php endif ?>
 
+                    <?php if ($current_user['role_id'] === 'Profesor'): ?>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Asistentes del profesor',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
+                    <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
                         <li class="nav-item item-menu"><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
@@ -55,8 +58,6 @@
                         <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                         <li class="nav-item item-menu"><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
-
-                        <li class="nav-item item-menu"><?= $this->Html->link('Reportes',['controller'=>'Reports','action'=>'approvedReport'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>
