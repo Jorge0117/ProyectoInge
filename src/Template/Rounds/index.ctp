@@ -127,7 +127,7 @@ dhtmlXCalendarObject.prototype.langData["es"] = {
     dateformat: "%d.%m.%Y",
     hdrformat: "%F %Y",
     monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
+                    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
     monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
                     "Jul","Ago","Sep","Oct","Nov","Dic"],
     daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
