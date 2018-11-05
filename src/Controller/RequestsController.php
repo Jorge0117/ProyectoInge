@@ -52,7 +52,7 @@ class RequestsController extends AppController
         $rol_usuario = $this->Auth->user('role_id');
         $id_usuario = $this->Auth->user('identification_number');
         $ronda_actual = $rounds->getStartActualRound();
-        debug($ronda_actual);
+
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
         if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') { //muestra todos
             $query = $table->find('all', [
