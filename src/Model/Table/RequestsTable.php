@@ -258,13 +258,14 @@ class RequestsTable extends Table
         return $result;
     }
     
-    //Obtiene los codigos de curso y codigo nombre de las grupo de este semestre y año cuyo estado sea 1
+    //Obtiene el profesor, los codigos de curso y codigo nombre de los grupo de este semestre y año cuyo estado sea 1
     public function getGroups($id_estudiante, $semestre, $year)
     {
         $connet = ConnectionManager::get('default');
 
-        $result = $connet->execute("select c.course_id,c.class_number, co.name from classes c, courses co
+        $result = $connet->execute("select c.course_id,c.class_number, co.name, u.name as prof from classes c, courses co, users u
         where c.year = '$year' and c.semester = '$semestre' and co.code = c.course_id AND c.state = 1 AND 
+		u.identification_number = c.professor_id AND
         concat(c.course_id,c.class_number)  NOT IN(
         select concat(c.course_id,c.class_number) from classes c, requests r 
         where c.course_id = r.course_id and r.class_number = c.class_number and r.status = 'p' and r.student_id = '$id_estudiante')");
@@ -372,12 +373,30 @@ class RequestsTable extends Table
         return $result;
     }
 
-    public function approveRequest($req_id,$start_d,$h_type,$cnt){
-       /* $connet = ConnectionManager::get('default');
+    public function approveRequest($req_id,$h_type,$cnt){
+        $connet = ConnectionManager::get('default');
         $connet->execute(
-            "CALL create_approved_request('$req_id','$start_d', '$h_type', '$cnt')"
-        );*/
+            "CALL approve_request('$req_id', '$h_type', '$cnt')"
+        );
     }
+
+    public function declineRequest($req_id){
+        $connet = ConnectionManager::get('default');
+        $connet->execute(
+            "CALL decline_request('$req_id')"
+        );
+    }
+
+    public function getApproved($id)
+    {
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+            "SELECT * FROM approved_requests
+             WHERE request_id = '$id'"
+        )->fetchAll();
+        return $query;
+    }
+
 
 }
 

@@ -10,12 +10,13 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenDate $fecha
  * @property string $cedula
  * @property string $carne
- * @property float $nombre
+ * @property string $nombre
  * @property float $promedio
  * @property string $anno
  * @property int $semestre
  * @property string $curso
  * @property int $grupo
+ * @property \Cake\I18n\FrozenDate $inicio
  * @property string $ronda
  * @property string $estado
  * @property bool $otras_horas
@@ -44,6 +45,7 @@ class InfoRequest extends Entity
         'semestre' => true,
         'curso' => true,
         'grupo' => true,
+        'inicio' => true,
         'ronda' => true,
         'estado' => true,
         'otras_horas' => true,
