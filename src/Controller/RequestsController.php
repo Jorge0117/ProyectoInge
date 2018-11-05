@@ -611,7 +611,10 @@ class RequestsController extends AppController
 					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
 					$request_reviewed = $this->Requests->get($id);
 					$request_reviewed->stage = 3;
-					$this->Requests->save($request_reviewed);
+                    $this->Requests->save($request_reviewed);
+                }
+                if($status_new_val == 'n'){
+                    $this->sendMail($request['id'],1);
                 }
             }
             //--------------------------------------------------------------------------
@@ -637,7 +640,12 @@ class RequestsController extends AppController
                     $this->Requests->updateRequestStatus($id, $status_new_val);
                 }
                 
-                //$this->sendMail();
+                if($status_index == 'r'){
+                    $this->sendMail($id,2);
+                }
+                else{
+                    $this->sendMail($id,3);
+                }
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 return $this->redirect(['action' => 'index']);
                 
@@ -668,10 +676,9 @@ class RequestsController extends AppController
         //return $this->redirect(['action' => 'index']);
     }*/
 
-	public function reprovedMessage()
+	public function reprovedMessage($id)
 	{
-		$id = 149;//$this->Requests->getID();
-		$s = 'p';
+		$s = 'r';
 		$in = '0';
 		$requisitos = $this->Requests->getRequirements($id,$s,$in); 
 		$lista = ' ';
@@ -683,31 +690,42 @@ class RequestsController extends AppController
 		return $lista;
 	}
 
-	public function sendMail($carne,$profesor,$curso,$grupo,$estado)
+    public function sendMail($id,$estado)
     {
-		$estudiante = $this->Requests->getStudent($carne);
+        $request = $this->Requests->get($id);
+        $estudiante = $this->Requests->getStudentInfo($request['student_id']);
+        $clase = $this->Requests->getClass($request['course_id'], $request['class_number']);
+        $prof = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
+        $profesor = $prof[0]['name'];
+        $curso = $clase[0]['name'];
+        $grupo = $request['class_number'];
 		$mail = $estudiante[0]['email_personal'];
-		$name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+        $name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+        
     	$email = new Email();
 		$email->transport('mailjet');
 
+        if($estado == 1){
 		$text = 'Estudiante ' . $name . ' :
 		Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
-		$lista = $this->reprovedMessage();
+		$lista = $this->reprovedMessage($id);
 		$text .= ' 
 		' . $lista;
-
-		/*$text = 'Estudiante ' . $name . ' :
-		Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el profesor ' . $profesor .
+        }
+        if($estado == 2){
+		$text = 'Estudiante ' . $name . ' :
+		Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $profesor .
 		' en el curso ' . $curso . ' y grupo ' . $grupo . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.';
-
+        }
+        if($estado == 3){
 		$text = 'Estimado Estudiante ' . $name . ' :
-		Su solicitud de asistente al curso ' . $curso . ' con el(la) profesor(a) ' . $profesor . ' y grupo' . ', ' . $grupo . 
-		'fue ACEPTADO.';*/
+		Su solicitud del concurso al curso con el(la) profesor(a) ' . $profesor . ', curso ' . $curso .  ' y grupo' . $grupo . ', ' . 
+        'fue ACEPTADA.';
+        }
         try {
-            $res = $email->from(['estivenalg@gmail.com' => 'Emisor'])
-                  ->to([$mail => 'Receptor'])
-                  ->subject('Subject')                  
+            $res = $email->from('estivenalg@gmail.com')
+                  ->to($mail)
+                  ->subject('Resultado del concurso de asistencia')                  
                   ->send($text);
 
         } catch (Exception $e) {

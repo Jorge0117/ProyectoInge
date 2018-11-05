@@ -493,15 +493,3 @@ $(document).ready( function () {
 	}
 
 </script>
-	<?php
-	$carne = $user['carne'];
-	$estado = $request['status'];
-	$profesor = $professor['name'];
-	$grupo = $request['class_number'];
-	$curso = $class['name'];
-	?>
-	<?= $this->Html->link(
-        'Enviar Correo',
-        array('controller'=>'requests','action'=>'sendMail',$carne,$profesor,$curso,$grupo,$estado),
-        ['class'=>'btn btn-primary float-right btn-space']
-    )?>
