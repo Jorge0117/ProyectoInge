@@ -41,12 +41,12 @@
 
  <?= $this->Html->link(
         'Agregar grupo',
-        ['controller'=>'Classes','action'=>'add'],
+        ['controller'=>'CoursesClassesVw','action'=>'addClass'],
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
-        ['controller'=>'CoursesClassesVw','action'=>'add'],
+        ['controller'=>'CoursesClassesVw','action'=>'addCourse'],
         ['class'=>'btn btn-primary float-right btn-space']
     )?>
 <button id="butExcel" class="btn btn-primary float-right btn-space">Cargar Archivo</button>
@@ -77,7 +77,7 @@
                 
                 <td class="actions">
                     <?= $this->Html->link(
-                        '<i class="fa fa-pencil fa_custom fa-2x"></i>', // Editar
+                        '<i class="fa fa-pencil fa_custom fa-1x"></i>', // Editar
                         [
                             'action' => 'edit', 
                             $course->Sigla,
@@ -85,13 +85,14 @@
                             $this->Number->format($course->Semestre),
                             $course->Año,
                             $course->Curso,
+                            $course->Profesor
                         ],
                         [
                             'escape' => false
                         ]
                     ) ?>
                     <?= $this->Form->postLink(
-                        '<i class="fa fa-trash-o fa_custom fa-2x"></i>',// Eliminar
+                        '<i class="fa fa-trash-o fa_custom fa-1x"></i>',// Eliminar
                         [
                             'action' => 'delete', 
                             $course->Sigla,
@@ -142,7 +143,7 @@
 <div id="Subir archivo" class="modal">
     <div class="modal-content">
         <div class="files form large-9 medium-8 columns content">
-            <?= $this->Form->create(null, ['type' => 'file', 'url' => '/Files/add']) ?>
+            <?= $this->Form->create(null, ['type' => 'file', 'url' => '/CoursesClassesVW/uploadFile']) ?>
             <fieldset>
                 <legend><?= __('Seleccione el archivo') ?></legend>
                 <?php
