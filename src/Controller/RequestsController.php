@@ -733,7 +733,6 @@ class RequestsController extends AppController
             echo 'Exception : ',  $e->getMessage(), "\n";
 
          }
-         $this->redirect(['action' => 'index']);
     }
 
 }
