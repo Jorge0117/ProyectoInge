@@ -1,7 +1,10 @@
 <?php
 namespace App\Controller;
+//namespace Cake\ORM;
 
 use App\Controller\AppController;
+//use Cake\ORM\TableRegistry;
+//App::import('Controller', 'Students'); // mention at top
 
 
 /**
@@ -86,15 +89,12 @@ class UsersController extends AppController
                 $user->role_id= 'Profesor';
             }
 
-            //agrega a la tabla students
-            if($user->role === 'Estudiante'){
-                $carne = $username;
-                $Students->newStudent($user, $carne);
-            }
-
             if ($this->Users->save($user)) { 
                 $session->delete('NEW_USER');        
-
+                if($user->role_id === 'Estudiante'){
+                    $table = $this->loadModel('Students');
+                    $table->addStudent($user->identification_number, $username);
+                }
                 $this->Flash->success(__('Se agregó el usuario correctamente.'));
                 return $this->redirect(['controller' => 'Security', 'action' => 'login']);
             } 
@@ -104,7 +104,6 @@ class UsersController extends AppController
         }
         // $roles = $this->Users->Roles->find('list', ['limit' => 200]);
         $this->set(compact('user', 'roles'));
-        
     }
 
     /**
@@ -131,15 +130,14 @@ class UsersController extends AppController
                 }else{
                     $user->role_id= 'Profesor';
                 }
-                
-                if($user->role === 'Estudiante'){
-                    $carne = $username;
-                    $Students->newStudent($user, $carne);
-                }
 
                 $user = $this->Users->patchEntity($user, $this->request->getData());
                 
                 if ($this->Users->save($user)) {
+                    if($user->role_id === 'Estudiante'){
+                        $table = $this->loadModel('Students');
+                        $table->addStudent($user->identification_number, $username);
+                    }
                     $this->Flash->success(__('Se agregó el usuario correctamente.'));
                     return $this->redirect(['action' => 'index']);
                 }
@@ -158,12 +156,16 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {   
-        $Professors = new ProfessorsController;
-        $AdministrativeBoss = new AdministrativeBossesController;
-        $AdministrativeAssistant = new AdministrativeAssistantsController;
+        //$Professors = new ProfessorsController;
+        //$AdministrativeBoss = new AdministrativeBossesController;
+        //$AdministrativeAssistant = new AdministrativeAssistantsController;
+        $tableStudents = $this->loadModel('Students');
+        $tableProfessors = $this->loadModel('Professors');
+        $tableAdm = $this->loadModel('AdministrativeBosses');
+        $tableAs = $this->loadModel('AdministrativeAssistants');
+
         //guarda el rol del usuario actual para verificar si puede editar el rol
-        $rol_usuario = $this->getRequest()->getSession()->read('role_id');
-        //debug($rol_usuario);
+        $rol_usuario = $this->Auth->user('role_id');
         $admin = 0;
         if($rol_usuario === 'Administrador'){
             $admin = 1;
@@ -177,49 +179,58 @@ class UsersController extends AppController
                 return $this->redirect( array( 'action' => 'index' ));
             }
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $rol_actual = $user->role_id;
+            $id = $user->identification_number;
             if ($this->Users->save($user)) {
-                if($user->isDirty('role_id')){
+                if($rol_actual === $rol_usuario){
+                    //do nothing
+                }else{
                     //modifico el rol
-                    $rol_original = $user->getOriginal('role_id');
+                    $rol_original = $rol_usuario;
                     
-                    if($rol_original === 'Profesor'){
-                        //rol anterior era profesor
-                        //se elimina de la tabla profesores y se agrega al nuevo rol
-                        $Professors->delete($user);
-                        if($user->role_id === 'Administrador'){
-                            $AdministrativeBoss->newAdmin($user);
-                        }else{
-                            if($user->role_id === 'Asistente'){
-                                $AdministrativeAssistant->newAssistant($user);
-                            }
-                        } 
+                    if($user->role_id === 'Administrador'){
+                        $tableAdm->addBoss($id);
                     }else{
-                        if($rol_original === 'Administrador'){
-                            //rol anterior era jefe administrativo
-                            //se elimina de la tabla administrativebosses y se agrega al nuevo rol
-                            if($user->role_id === 'Asistente'){
-                                $AdministrativeAssistant->newAssistant($user);
-                            }else{
-                                if($user->role_id === 'Profesor'){
-                                    $Professors->newProfessor($user);
-                                }
-                            }
+                        if($user->role_id === 'Asistente'){
+                            $tableAs->addAssistant($id);
                         }else{
-                            if($rol_original === 'Asistente'){
-                                //roll anterior era asistente administrativo
-                                //se elimina de la tabla administrative_assistants y se agrega al nuevo rol
-                                $AdministrativeAssistant->delete($user);
-
-                                if($user->role_id === 'Administrador'){
-                                    $AdministrativeBoss->newAdmin($user);
-                                }else{
-                                    if($user->role_id === 'Profesor'){
-                                        $Professors->newAssistant($user);
-                                    }
+                            if($user->role_id === 'Profesor'){
+                                $tableProfessors->addProfessor($id);
+                            }else{
+                                if($user->role_id === 'Estudiante'){
+                                    $carne = $user->username;
+                                    $tableStudents->addStudent($id, $carne);
                                 }
                             }
                         }
                     }
+
+                    if($rol_original === 'Profesor'){
+                        //rol anterior era profesor
+                        //se elimina de la tabla profesores
+                        $tableProfessors->deleteProfessor($id);
+                         
+                    }else{
+                        if($rol_original === 'Administrador'){
+                            //rol anterior era jefe administrativo
+                            //se elimina de la tabla administrativebosses 
+                            $tableAdm->deleteBoss($id);
+                            
+                        }else{
+                            if($rol_original === 'Asistente'){
+                                //roll anterior era asistente administrativo
+                                //se elimina de la tabla administrative_assistants
+                                $tableAs->deleteAssitant($id);
+                            }else{
+                                if($rol_original === 'Estudiante'){
+                                    //roll anterior era asistente administrativo
+                                    //se elimina de la tabla administrative_assistants
+                                    $tableStudents->deleteStudent($id);
+                                }   
+                            }
+                        }
+                    }
+                     
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);
