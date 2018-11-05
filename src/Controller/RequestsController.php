@@ -484,13 +484,13 @@ class RequestsController extends AppController
         }
 
         //Revisión final
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2) {
-            $load_final_review = $default_index == 1 || $default_index >=3;
-            
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 1 || $default_index >=3)) {
+            $load_final_review = true;
             $default_indexf = 0;
             if($default_index == 4)$default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
+            $this->set('id', $id);
         }
 
         //Se trae los datos de la solicitud
@@ -601,7 +601,9 @@ class RequestsController extends AppController
                     $update_bool = true;
                     //Redirecciona al index:
                 } else {
-                    $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                    if (('e' == $status_new_val) || ('i' == $status_new_val)) {
+                        $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                    }
                 }
 
                 if ($update_bool) {
@@ -614,19 +616,11 @@ class RequestsController extends AppController
             }
             //--------------------------------------------------------------------------
             // return $this->redirect(['action' => 'index']);
-            $index = $this->Requests->getStatusIndexOutOfId($id);
-            $load_final_review = $index == 1 || $index >= 3;
-            debug('entra '.$load_final_review);
-            debug('indx '.$index);
-            
-            $default_indexf = 0;
-            if($index == 4)$default_indexf = 1;
-            else if($index == 5)$default_indexf = 2;
-            debug($load_final_review);
-            $this->set('default_indexf', $default_indexf);
-            //$this->set('default_index', $default_index);
+            //$request_status = $this->Requests->getStatusIndexOutOfId($id);
+            //debug('entra '.$load_final_review);
             if (array_key_exists('AceptarFin', $data)) {
-                $status_index = $data['ClasificaciónFinal'];
+                debug($data);
+                $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:
                         $status_new_val = 'a';
@@ -635,10 +629,17 @@ class RequestsController extends AppController
                         $status_new_val = 'r';
                         break;
                 }
-                $this->Requests->approveRequest($id,$data["date"],$data["type"],$data["hours"]);
-                $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
-                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                if($status_new_val == 'a'){
+                    $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
+                    $this->Requests->updateRequestStatus($id, $status_new_val);
+                }else if($status_new_val == 'r'){
+                    $this->Requests->declineRequest($id);
+                    $this->Requests->updateRequestStatus($id, $status_new_val);
+                }
+                
                 //$this->sendMail();
+                $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                return $this->redirect(['action' => 'index']);
                 
             }
         }
