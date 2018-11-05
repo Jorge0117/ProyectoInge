@@ -98,6 +98,9 @@ class ClassesTable extends Table
         if ($inTable == 0) {
             $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
             $return = true;
+        }else{
+            $connect->execute("update classes set state = 1 where course_id ='$id' and class_number = '$number' and semester = '$semester' and year = '$year'");
+            $return = true;
         }
         return $return;
     }
@@ -156,7 +159,7 @@ class ClassesTable extends Table
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         $result = $connection->execute(
-            "DELETE FROM classes"
+            "update Classes set state = 0"
         );
         //------------------------------------------------
         return $result;
