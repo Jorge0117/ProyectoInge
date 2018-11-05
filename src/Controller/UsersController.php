@@ -114,6 +114,7 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        $valid_user = $this->Auth->identify();
         $SecurityCont = new SecurityController;
         if (isset($this->request->data['cancel'])) {
             //Volver a sign in
@@ -121,6 +122,7 @@ class UsersController extends AppController
         }
         if ($this->request->is('post')) {
             $username =  $this->request->getData('username');
+            //verificar que username exista en la base de datos
             $user->username= $username;
                 $pattern = "/\w\d{5}/";
                 //asigna rol segun el nombre de usuario
@@ -156,9 +158,11 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {   
-        $Professors = new ProfessorsController;
-        $AdministrativeBoss = new AdministrativeBossesController;
-        $AdministrativeAssistant = new AdministrativeAssistantsController;
+        $tableStudents = $this->loadModel('Students');
+        $tableProfessors = $this->loadModel('Professors');
+        $tableAdm = $this->loadModel('AdministrativeBosses');
+        $tableAs = $this->loadModel('AdministrativeAssistants');
+
         //guarda el rol del usuario actual para verificar si puede editar el rol
         $rol_usuario = $this->Auth->user('role_id');
         $admin = 0;
@@ -169,54 +173,62 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        $rol_original = $user->role_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($this->request->data['cancel'])) {
                 return $this->redirect( array( 'action' => 'index' ));
             }
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $rol_actual = $user->role_id;
+            $id = $user->identification_number;
+            
             if ($this->Users->save($user)) {
-                if($user->isDirty('role_id')){
+                if($rol_actual != $rol_original){
                     //modifico el rol
-                    $rol_original = $user->getOriginal('role_id');
                     
-                    if($rol_original === 'Profesor'){
-                        //rol anterior era profesor
-                        //se elimina de la tabla profesores y se agrega al nuevo rol
-                        $Professors->delete($user);
-                        if($user->role_id === 'Administrador'){
-                            $AdministrativeBoss->newAdmin($user);
-                        }else{
-                            if($user->role_id === 'Asistente'){
-                                $AdministrativeAssistant->newAssistant($user);
-                            }
-                        } 
+                    if($user->role_id === 'Administrador'){
+                        $tableAdm->addBoss($id);
                     }else{
-                        if($rol_original === 'Administrador'){
-                            //rol anterior era jefe administrativo
-                            //se elimina de la tabla administrativebosses y se agrega al nuevo rol
-                            if($user->role_id === 'Asistente'){
-                                $AdministrativeAssistant->newAssistant($user);
-                            }else{
-                                if($user->role_id === 'Profesor'){
-                                    $Professors->newProfessor($user);
-                                }
-                            }
+                        if($user->role_id === 'Asistente'){
+                            $tableAs->addAssistant($id);
                         }else{
-                            if($rol_original === 'Asistente'){
-                                //roll anterior era asistente administrativo
-                                //se elimina de la tabla administrative_assistants y se agrega al nuevo rol
-                                $AdministrativeAssistant->delete($user);
-
-                                if($user->role_id === 'Administrador'){
-                                    $AdministrativeBoss->newAdmin($user);
-                                }else{
-                                    if($user->role_id === 'Profesor'){
-                                        $Professors->newAssistant($user);
-                                    }
+                            if($user->role_id === 'Profesor'){
+                                $tableProfessors->addProfessor($id);
+                            }else{
+                                if($user->role_id === 'Estudiante'){
+                                    $carne = $user->username;
+                                    $tableStudents->addStudent($id, $carne);
                                 }
                             }
                         }
                     }
+
+                    if($rol_original === 'Profesor'){
+                        //rol anterior era profesor
+                        //se elimina de la tabla profesores
+                        $tableProfessors->deleteProfessor($id);
+                         
+                    }else{
+                        if($rol_original === 'Administrador'){
+                            //rol anterior era jefe administrativo
+                            //se elimina de la tabla administrativebosses 
+                            $tableAdm->deleteBoss($id);
+                            
+                        }else{
+                            if($rol_original === 'Asistente'){
+                                //roll anterior era asistente administrativo
+                                //se elimina de la tabla administrative_assistants
+                                $tableAs->deleteAssitant($id);
+                            }else{
+                                if($rol_original === 'Estudiante'){
+                                    //roll anterior era asistente administrativo
+                                    //se elimina de la tabla administrative_assistants
+                                    $tableStudents->deleteStudent($id);
+                                }   
+                            }
+                        }
+                    }
+                     
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
                 return $this->redirect(['action' => 'index']);

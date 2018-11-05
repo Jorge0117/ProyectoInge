@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * AdministrativeBosses Model
@@ -50,5 +52,20 @@ class AdministrativeBossesTable extends Table
             ->allowEmpty('user_id', 'create');
 
         return $validator;
+    }
+
+    public function addBoss($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("INSERT INTO administrative_bosses (`user_id`) VALUES ('$id');") ;
+        }
+        
+    }
+
+    public function deleteBoss($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("DELETE FROM administrative_bosses WHERE `user_id` = '$id';") ;
+        }
     }
 }

@@ -105,11 +105,9 @@
     </table>
 
     <div class="row">
-        <div class="col-1">
-            <?= $this->Html->link('Volver', ['controller' => 'Requests', 'action' => 'index'], ['class' => 'btn btn-secondary']) ?>
-        </div>
-        <div class="col-1">
-            <?= $this->Html->link('Imprimir', ['controller' => 'Requests', 'action' => 'view', $request->id], ['class' => 'btn btn-primary']) ?>
+        <div class="col" align="right">
+            <?= $this->Html->link('Atrás', ['controller' => 'Requests', 'action' => 'index'], ['class' => 'btn btn-secondary']) ?>
+            <?= $this->Html->link('Imprimir', ['controller' => 'Requests', 'action' => 'print', $request->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
         </div>
     </div>
 </div>

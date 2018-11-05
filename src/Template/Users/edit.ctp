@@ -4,10 +4,11 @@
  * @var \App\Model\Entity\User $user
  */
 ?>
+<h3>Modificar usuario</h3>
 
 <div class="users form large-9 medium-8 columns content form-size">
     <?= $this->Form->create($user,array(
-                'type'=>'file','onsubmit'=>'window.alert("Se ha modificado el usuario correctamente.")')) ?>
+                'type'=>'file')) ?>
     
 
     <fieldset>
@@ -16,10 +17,11 @@
             <?php
                 //Espacios para modificar datos personales del usuario
                 echo $this->Form->control('identification_number',['type'=>'text']);
+                echo $this->Form->control('identification_type', ['options' => ['Cédula de nacional', 'Cédula de residencia', 'Pasaporte', 'Otra'], 'label'=>['text'=>'Tipo de identificación']]);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
                 echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
-                echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
+                echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal'], 'type'=>'email']);
                 echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);  
             ?>
         </div>
@@ -30,7 +32,7 @@
             echo '<legend><?= __("Datos de seguridad") ?></legend>';
            
                 //espacio para modificar rol del usuario, solamente puede verlo el administrador
-                echo $this->Form->control('role', ['options' => $roles, 'label'=>['text'=>'Rol']]);
+                echo $this->Form->control('role_id', ['options' => $roles, 'label'=>['text'=>'Rol']]);
         
             echo '</div>';
         }
