@@ -62,7 +62,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Semestres') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col" class="actions"><?= __('') ?></th>
+                <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>

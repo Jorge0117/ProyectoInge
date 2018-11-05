@@ -6,7 +6,7 @@ BEGIN
 		INSERT INTO professors 
         SET user_id = NEW.identification_number;
     ELSEIF NEW.role_id = 'Asistente' THEN
-		INSERT INTO administrative_assitants 
+		INSERT INTO administrative_assistants 
         SET user_id = NEW.identification_number;
     ELSEIF NEW.role_id = 'Administrador' THEN
 		INSERT INTO administrative_bosses 

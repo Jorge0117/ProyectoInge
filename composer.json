@@ -11,6 +11,7 @@
         "cakephp/plugin-installer": "^1.0",
         "davidyell/proffer": "^0.8",
         "friendsofcake/bootstrap-ui": "^1.4",
+        "friendsofcake/cakepdf": "^3.5",
         "josegonzalez/dotenv": "3.*",
         "mobiledetect/mobiledetectlib": "2.*",
         "phpoffice/phpspreadsheet": "^1.4"

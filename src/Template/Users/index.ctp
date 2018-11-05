@@ -10,7 +10,7 @@
  <?= $this->Html->link(
         'Agregar usuario',
         ['controller'=>'Users','action'=>'add'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary btn-agregar-index']
     )?>
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Usuarios') ?></h3>

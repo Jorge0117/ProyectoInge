@@ -210,6 +210,14 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        'mailjet' => [
+            'host' => 'in-v3.mailjet.com',
+            'port' => 25,
+            'timeout' => 60,
+            'username' => '234124609a61db8066486733b2aab722',
+            'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
+            'className' => 'Smtp'
+        ],
     ],
 
     /**
@@ -255,8 +263,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '3306',
-            'username' => 'admin',
-            'password' => 'temp123',
+            'username' => 'valeria',
+            'password' => 'valeria123',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
@@ -297,9 +305,9 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => '172.16.202.55',
-            'port' => '3306',
-            'username' => 'admin',
-            'password' => 'temp123',
+            'port' => '22',
+            'username' => 'jorge',
+            'password' => 'nGKlCZGZHn6Osxgs',
             'database' => 'proyecto_inge',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',

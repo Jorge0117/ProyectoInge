@@ -18,10 +18,14 @@ class RoundsFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'start_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'end_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'round_number' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'semester' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         'year' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'end_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'total_student_hours' => ['type' => 'smallinteger', 'length' => 6, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'total_assistant_hours' => ['type' => 'smallinteger', 'length' => 6, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'actual_student_hours' => ['type' => 'smallinteger', 'length' => 6, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'actual_assistant_hours' => ['type' => 'smallinteger', 'length' => 6, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['start_date'], 'length' => []],
         ],
@@ -41,11 +45,15 @@ class RoundsFixture extends TestFixture
     {
         $this->records = [
             [
-                'start_date' => '2018-10-09',
+                'start_date' => '2018-10-30',
+                'end_date' => '2018-10-30',
                 'round_number' => 'Lorem ipsum dolor sit amet',
                 'semester' => 'Lorem ipsum dolor sit amet',
                 'year' => 'Lorem ipsum dolor sit amet',
-                'end_date' => '2018-10-09'
+                'total_student_hours' => 1,
+                'total_assistant_hours' => 1,
+                'actual_student_hours' => 1,
+                'actual_assistant_hours' => 1
             ],
         ];
         parent::init();
