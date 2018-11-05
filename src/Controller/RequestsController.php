@@ -235,7 +235,7 @@ class RequestsController extends AppController
 
             //Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
             $request->set('status', 'p'); //Toda solicitud esta pendiente
-            $request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
+            //$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
 
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
 			
@@ -249,6 +249,7 @@ class RequestsController extends AppController
 				$nuevoSemestre = "1";
 			
 			$nuevoAño = $ronda[0]['year'];
+			$request->set('round_start', $ronda[0]['start_date']);
 			//---------------------------------
 			
             $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
@@ -278,7 +279,7 @@ class RequestsController extends AppController
         //Se trae la ronda actusl
         $ronda = $this->get_round();
 
-		
+				//debug($ronda);
 		//---------------------------------
 		if($ronda[0]['semester'] == 'II')
 			$semestre = "2";
