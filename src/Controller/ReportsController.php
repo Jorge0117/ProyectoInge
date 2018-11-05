@@ -29,6 +29,16 @@ class ReportsController extends AppController
         $this->set(compact('approvedRequestsView', 'ProfessorName'));
     }
 
-    
+    public function studentRequests(){
+        $table = $this->loadModel('InfoRequests');
+
+        $studentRequests = $table->find()->where(['cedula'=>$this->viewVars['current_user']['identification_number']]);
+        if(count($studentRequests->toArray()) > 0){
+            $user= new UsersController;
+            $idProf = $studentRequests->toArray()[0]->id_prof;
+            $ProfessorName = $user->getNameUser($idProf);
+        }
+        $this->set(compact('studentRequests', 'ProfessorName'));
+    }
 
 }
