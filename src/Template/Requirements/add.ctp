@@ -10,77 +10,82 @@
 </head>
 
 <!-- Se crea un contenedor para el form. -->
-<div class="container">
+<div class="form-size requests form large-9 medium-8 columns content">
 
-    <!-- Se crea el form. -->
-    <div class="requirements form col-lg-8 col-offset-4 centered">
+    <!-- Se busca crear un nuevo requisito desde el form. -->
+    <?= $this->Form->create($requirement) ?>
 
-        <!-- Se busca crear un nuevo requisito desde el form. -->
-        <?= $this->Form->create($requirement) ?>
-    
-        <fieldset>
+    <div class='container'>
+        <div class='row'>
+            <div class="col align-self-center">
 
-            <!-- Titulo de la vista. -->
-            <h3><?= __('Agregar requisito') ?></h3>
+                <!-- Titulo de la vista. -->
+                <h3><?= __('Agregar requisito') ?></h3>
 
-            <?php
+                <?php
 
-                //Entreda para ingresar la descripción del requisito (línea de caracteres).
-                echo $this->Form->input('description',['label' => 'Descripción del requisito', 'class' => 'form-control']);
+                    //Entreda para ingresar la descripción del requisito (línea de caracteres).
+                    echo $this->Form->input('description',['label' => 'Descripción del requisito', 'class' => 'form-control']);
             
-                //Entrada para ingresar el tipo de requisito (radio box).
-                echo $this->Form->label('Tipo del requisito');
-                echo '<br>';
-                echo $this->Form->radio(
-                    'type',
-                    [
-                        ['value' => 'Obligatorio', 'text' => '<span style="padding:0 10px 0 10px;">Obligatorio</span>'],
+                    //Entrada para ingresar el tipo de requisito (radio box).
+                    echo $this->Form->label('Tipo del requisito');
+                    echo '<br>';
+                    echo $this->Form->radio(
+                        'type',
+                        [
+                            ['value' => 'Obligatorio', 'text' => '<span style="padding:0 10px 0 10px;">Obligatorio</span>'],
                     
-                        ['value' => 'Opcional', 'text' => '<span style="padding:0 10px 0 10px;">Opcional</span>'],
-                    ],
-                    [ 
-                        'div' => false,
-                        'class' => 'col-md-15', 
-                        'escape' => false,
-                    ]
-                );
+                            ['value' => 'Opcional', 'text' => '<span style="padding:0 10px 0 10px;">Opcional</span>'],
+                        ],
+                        [ 
+                            'div' => false,
+                            'class' => 'col-md-15', 
+                            'escape' => false,
+                        ]
+                    );
 
-                echo '<br>';
+                    echo '<br>';
 
-                //Entrada para ingresar el tipo de horas (radio box).
-                echo $this->Form->label('Tipo de horas');
-                echo '<br>';
-                echo $this->Form->radio(
-                    'hour_type',
-                    [
-                        ['value' => 'Estudiante', 'text' => '<span style="padding:0 10px 0 10px;">Horas Estudiante</span>'],
+                    //Entrada para ingresar el tipo de horas (radio box).
+                    echo $this->Form->label('Tipo de horas');
+                    echo '<br>';
+                    echo $this->Form->radio(
+                        'hour_type',
+                        [
+                            ['value' => 'Estudiante', 'text' => '<span style="padding:0 10px 0 10px;">Horas Estudiante</span>'],
                     
-                        ['value' => 'Asistente', 'text' => '<span style="padding:0 10px 0 10px;">Horas Asistente</span>'],
+                            ['value' => 'Asistente', 'text' => '<span style="padding:0 10px 0 10px;">Horas Asistente</span>'],
 
-                        ['value' => 'Ambos', 'text' => '<span style="padding:0 10px 0 10px;">Ambas</span>'],
-                    ],
-                    [ 
-                        'div' => false,
-                        'class' => 'col-md-15', 
-                        'escape' => false,
-                    ]
-                );
-            ?>
-            <br> <br>
-            <br> <br>
-            <br> <br>
+                            ['value' => 'Ambos', 'text' => '<span style="padding:0 10px 0 10px;">Ambas</span>'],
+                        ],
+                        [ 
+                            'div' => false,
+                            'class' => 'col-md-15', 
+                            'escape' => false,
+                        ]
+                    );
 
-            <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
-            <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar' style='position:absolute; left: 74%; top: 77.8%;'>
-                Agregar
-            </button>
+                ?>
+            <div>
+        <div>
+    <div>
 
-            <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
-            <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar', 'style'=>'position:absolute; left: 86.3%; top: 77.8%;']) ?>
+    <div class='container'>
+        <div class='row'>
+            <div class='col self-align-end'>
 
-        </fieldset>
-    </div>
-
+                <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
+                <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar']) ?>
+                
+                <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
+                <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar'>
+                    Agregar
+                </button>
+            
+            <div>
+        <div>
+    <div>
+    
     <!-- Final del form -->
     <?= $this->Form->end() ?>
 

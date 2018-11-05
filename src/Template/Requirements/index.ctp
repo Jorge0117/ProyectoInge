@@ -8,16 +8,25 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <div class="courses index large-9 medium-8 columns content">
-    <?php if($show == 0): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
-            <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
-            'Agregar requisito',
-            ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
-            ['class'=>'btn btn-primary float-right btn-space btn-agregar-index', 'style'=>'position:absolute; left: 80.2%; top: 50%;']
-        )?>
-    <?php endif; ?>
     
     <h3><?= __('Requisitos') ?></h3> <!--Título arriba del grid que indica la vista en la que se está-->
     <br><br>
+
+    <div class='container'>
+        <div class='row'>
+            <div class='col self-align-end'>
+
+                <?php if(!$this->Rounds->between()): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
+                    <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
+                        'Agregar requisito',
+                        ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
+                        ['class'=>'btn btn-primary float-right btn-space btn-agregar-index']
+                    )?>
+                <?php endif; ?>
+                
+            <div>
+        <div>
+    <div>
 
     <table cellpadding="0" cellspacing="0" id = 'viewRequirements'><!--Se define el grid con los datos de los requisitos-->
         <thead>
@@ -26,7 +35,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Horas') ?></th>
                 
-                <?php if($show == 0): ?> 
+                <?php if(!$this->Rounds->between()): ?> 
                 <?php endif; ?>
                     <th scope="col" class="actions"><?= __(' ') ?></th>
             </tr>
@@ -39,7 +48,7 @@
                 <td><?= h($requirement->hour_type) ?></td>
 
                 <td class="actions">
-                    <?php if($show == 0): ?>
+                    <?php if(!$this->Rounds->between()): ?>
                         <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                         <?= $this->Form->postLink(
                             '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
