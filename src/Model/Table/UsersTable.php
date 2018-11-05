@@ -172,4 +172,11 @@ class UsersTable extends Table
         $prof = array_column($prof, 0);
         return $prof;
     }
+
+    public function getContactInfo($id) {
+        $connect = ConnectionManager::get('default');
+        $info= $connect->execute("select CONCAT(email_personal, \" \", phone) from users where  identification_number ='$id'") ->fetchAll();
+
+        return $info[0][0];
+    }
 }
