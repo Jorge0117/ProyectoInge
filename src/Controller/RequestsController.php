@@ -127,10 +127,10 @@ class RequestsController extends AppController
     
     public function print($id = null)
     {
-		// $this->viewBuilder()->setClassName('CakePdf.Pdf');
-		$this->layout = 'request';
-		$this->loadModel('Users');
-		$this->loadModel('Classes');
+        // $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        $this->layout = 'request';
+        $this->loadModel('Users');
+        $this->loadModel('Classes');
 
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students'],
@@ -202,7 +202,7 @@ class RequestsController extends AppController
 
        // return $student_id;
 
-		return     $this->Auth->user('identification_number'); //Este es el que en realidad hay que devolver
+        return     $this->Auth->user('identification_number'); //Este es el que en realidad hay que devolver
     }
 
     // public function get_student_id()
@@ -242,31 +242,31 @@ class RequestsController extends AppController
             //$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
 
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
-			
-			//Se trae la ronda actusl
-			$ronda = $this->get_round();
-			
-			//---------------------------------
-			if($ronda[0]['semester'] == 'II')
-				$nuevoSemestre = "2";
-			else
-				$nuevoSemestre = "1";
-			
-			$nuevoAño = $ronda[0]['year'];
-			$request->set('round_start', $ronda[0]['start_date']);
-			//---------------------------------
-			
+            
+            //Se trae la ronda actusl
+            $ronda = $this->get_round();
+            
+            //---------------------------------
+            if($ronda[0]['semester'] == 'II')
+                $nuevoSemestre = "2";
+            else
+                $nuevoSemestre = "1";
+            
+            $nuevoAño = $ronda[0]['year'];
+            $request->set('round_start', $ronda[0]['start_date']);
+            //---------------------------------
+            
             $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
             $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
             $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
 
-			
-			if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
-			{
-				//Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
-				$request->set('wants_assistant_hours',true);
-			}
-			
+            
+            if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
+            {
+                //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
+                $request->set('wants_assistant_hours',true);
+            }
+            
             //die();
             //debug($request);
             if ($this->Requests->save($request)) {
@@ -291,16 +291,16 @@ class RequestsController extends AppController
         //Se trae la ronda actusl
         $ronda = $this->get_round();
 
-				//debug($ronda);
-		//---------------------------------
-		if($ronda[0]['semester'] == 'II')
-			$semestre = "2";
-		else
-			$semestre = "1";
-		
-		$año = $ronda[0]['year'];
-		//---------------------------------
-		
+                //debug($ronda);
+        //---------------------------------
+        if($ronda[0]['semester'] == 'II')
+            $semestre = "2";
+        else
+            $semestre = "1";
+        
+        $año = $ronda[0]['year'];
+        //---------------------------------
+        
         //Modifica las clases para dejar los datos requeridos de curso y grupo
         //$tuplas = $classes->execute();
         $course = array();
@@ -318,7 +318,7 @@ class RequestsController extends AppController
             $class[$i] = $g['class_number']; //Se trae el número de clase
             $course[$i] = $g['course_id']; //Se trae el nombre de curso. Esto es para que cuando se seleccione un grupo se pueda encontrar
             //sus grupos sin necesidad de realizar un acceso adicional a la base de datos. Recomendado por Diego
-			$profesor[$i] = $g['prof']; //Se trae el nombre del profesor el grupo
+            $profesor[$i] = $g['prof']; //Se trae el nombre del profesor el grupo
             //Busca los cursos y los coloca solo 1 vez en el vector de cursos.
             //Realiza la busqueda en base al codigo de curso, ya que al ser más corto entonces la busqueda será más eficiente
             $encontrado = 0;
@@ -483,7 +483,7 @@ class RequestsController extends AppController
             $requirements = $this->Requirements->getRequestRequirements($id); 
             $requirements['stage'] =  $request->stage;
             //debug($requirements);
-			$this->set(compact('requirements'));			
+            $this->set(compact('requirements'));            
         }
 
         //Revisión preliminar
@@ -525,8 +525,8 @@ class RequestsController extends AppController
             //debug($data);
             //--------------------------------------------------------------------------
             if (array_key_exists('AceptarRequisitos', $data)) {
-				// Actualizar el estado de los requisitos opcionales
-				$requirements_review_completed = true;
+                // Actualizar el estado de los requisitos opcionales
+                $requirements_review_completed = true;
                 for ($i = 0; $i < count($requirements['Opcional']); $i++) {
                     $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
                     $optional_requirement = $this->RequestsRequirements->newEntity();
@@ -540,12 +540,12 @@ class RequestsController extends AppController
                     }
                     //debug($optional_requirement);
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
-						$requirements_review_completed = false;
-						return;
-					}
-				}
-				
-				// Actualizar el estado de los requisitos obligatorios
+                        $requirements_review_completed = false;
+                        return;
+                    }
+                }
+                
+                // Actualizar el estado de los requisitos obligatorios
                 for ($i = 0; $i < count($requirements['Obligatorio']); $i++) {
                     $requirement_number = intval($requirements['Obligatorio'][$i]['requirement_number']);
                     $optional_requirement = $this->RequestsRequirements->newEntity();
@@ -555,19 +555,19 @@ class RequestsController extends AppController
                     //debug($optional_requirement);
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
                         $requirements_review_completed = false;
-						return;
+                        return;
                     }
-				}
+                }
 
-				//Se muestra un mensaje informando si la transacción se completo o no.
-				if($requirements_review_completed){
-					$this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
-					$request_reviewed = $this->Requests->get($id);
-					$request_reviewed->stage = 2;
-					$this->Requests->save($request_reviewed);
-				}else{
-					$this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
-				}
+                //Se muestra un mensaje informando si la transacción se completo o no.
+                if ($requirements_review_completed) {
+                    $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
+                    $request_reviewed = $this->Requests->get($id);
+                    $request_reviewed->stage = 2;
+                    $this->Requests->save($request_reviewed);
+                } else {
+                    $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
+                }
             }
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status
@@ -596,8 +596,14 @@ class RequestsController extends AppController
                 //--------------------------------------------------------------------------
                 // This counts the  amount of mandatory requirements in the reqirements table
                 // and the amount of them in this request
-                $total_of_mandatories_requirements = $requirementsController->countmandatoryRequirements();
-                $total_of_aproved_req = sizeof($requirements['Obligatorio']);
+                $mandatory_requirements_count = $this->Requirements->getRequestRequirements($id)['Obligatorio'];
+                $total_of_mandatories_requirements = sizeof($mandatory_requirements_count); # $requirementsController->countmandatoryRequirements();
+                $total_of_aproved_req = 0;
+                for ($index = 0; $index < sizeof($mandatory_requirements_count); $index++) {
+                    if ('a' == $mandatory_requirements_count[$index]['state']) {
+                        $total_of_aproved_req++;
+                    }
+                }
                 //--------------------------------------------------------------------------
                 // if this request was the same amount of mandatory requirements approved 
                 // as the ones in the table and whether the administrator wants to 
@@ -617,14 +623,14 @@ class RequestsController extends AppController
 
                 if ($update_bool) {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
-					$this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
-					$request_reviewed = $this->Requests->get($id);
-					$request_reviewed->stage = 3;
+                    $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
+                    $request_reviewed = $this->Requests->get($id);
+                    $request_reviewed->stage = 3;
                     $this->Requests->save($request_reviewed);
                 }
                 //Si el estado es no aceptado, se envía el tipo de mensaje 1
-                if($status_new_val == 'n'){
-                    $this->sendMail($request['id'],1);
+                if($status_new_val == 'n') {
+                    $this->sendMail($request['id'], 1);
                 }
             }
             //--------------------------------------------------------------------------
@@ -632,7 +638,7 @@ class RequestsController extends AppController
             //$request_status = $this->Requests->getStatusIndexOutOfId($id);
             //debug('entra '.$load_final_review);
             if (array_key_exists('AceptarFin', $data)) {
-                debug($data);
+                #debug($data);
                 $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:
@@ -690,19 +696,19 @@ class RequestsController extends AppController
 
     //Método para recuperar los requisitos que no fueron cumplidos por el estudiante
     //Recibe el id de la solicitud
-	public function reprovedMessage($id)
-	{
-		$s = 'r'; //Es el valor que tienen los requisitos rechazados
-		$in = '0'; //Para indicar que no sean por inopia
-		$requisitos = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
-		$lista = ' '; //Inicializa la lista de los requisitos rechazados
-		foreach($requisitos as $r) //Aquí se van concatenando los requisitos recuperados
-		{
-			$lista .= '
-			' . $r['description'];
-		}
-		return $lista; //Se devuelve la lista de requisitos rechazados del estudiante
-	}
+    public function reprovedMessage($id)
+    {
+        $s = 'r'; //Es el valor que tienen los requisitos rechazados
+        $in = '0'; //Para indicar que no sean por inopia
+        $requisitos = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
+        $lista = ' '; //Inicializa la lista de los requisitos rechazados
+        foreach($requisitos as $r) //Aquí se van concatenando los requisitos recuperados
+        {
+            $lista .= '
+            ' . $r['description'];
+        }
+        return $lista; //Se devuelve la lista de requisitos rechazados del estudiante
+    }
 
     //Método para enviar correo electrónico al estudiante, dando algún aviso.
     //Recibe el id de la solicitud y un estado para indicar si es no elegible, aceptado o rechazado.
@@ -717,21 +723,21 @@ class RequestsController extends AppController
         $profesor = $prof[0]['name'];
         $curso = $clase[0]['name'];
         $grupo = $request['class_number'];
-		$mail = $estudiante[0]['email_personal'];
+        $mail = $estudiante[0]['email_personal'];
         $name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
         
         //Se crea una nueva instancia de correo de cakephp
-    	$email = new Email();
-		$email->transport('mailjet'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
+        $email = new Email();
+        $email->transport('mailjet'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
 
         //En todos los mensajes se debe cambiar la parte "correo de contacto" por el correo utilizado para atender dudas con respecto al tema de solicitudes de horas
 
         //Indica que si el estado es 1, se debe enviar mensaje de estudiante no elegible.
         if($estado == 1){
-		$text = 'Estudiante ' . $name . ' :
-		Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
-		$lista = $this->reprovedMessage($id);
-		$text .= ' 
+        $text = 'Estudiante ' . $name . ' :
+        Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
+        $lista = $this->reprovedMessage($id);
+        $text .= ' 
         ' . $lista;
         $text .= '
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
@@ -739,8 +745,8 @@ class RequestsController extends AppController
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
         if($estado == 2){
-		$text = 'Estudiante ' . $name . ' :
-		Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $profesor .
+        $text = 'Estudiante ' . $name . ' :
+        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $profesor .
         ' en el curso ' . $curso . ' y grupo ' . $grupo . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto".';
@@ -748,8 +754,8 @@ class RequestsController extends AppController
 
         //Si el estado es 3, se debe enviar mensaje de estudiante aceptado.
         if($estado == 3){
-		$text = 'Estimado Estudiante ' . $name . ' :
-		Su solicitud del concurso al curso con el(la) profesor(a) ' . $profesor . ', curso ' . $curso .  ' y grupo' . $grupo . ', ' . 
+        $text = 'Estimado Estudiante ' . $name . ' :
+        Su solicitud del concurso al curso con el(la) profesor(a) ' . $profesor . ', curso ' . $curso .  ' y grupo' . $grupo . ', ' . 
         'fue ACEPTADA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
