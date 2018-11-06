@@ -66,7 +66,7 @@ class FilesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->add('file', 'extension', [
+            ->uploadFile('file', 'extension', [
                 'rule' => ['extension', ['ods', 'xlsx', 'xls', 'xml']],
                 'message' =>'Tipo de archivo no soportado',
             ]);
