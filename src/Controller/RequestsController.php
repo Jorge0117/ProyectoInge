@@ -734,7 +734,7 @@ class RequestsController extends AppController
 		$text .= ' 
         ' . $lista;
         $text .= '
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"'
+        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
         }
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
