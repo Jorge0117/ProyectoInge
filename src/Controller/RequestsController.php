@@ -669,6 +669,7 @@ class RequestsController extends AppController
                 return $this->redirect(['action' => 'index']);
                 
             }
+            $this->redirect('/requests/review/'.$id);
         }
         $this->set('load_final_review', $load_final_review);
         $this->set(compact('data_stage_completed'));
