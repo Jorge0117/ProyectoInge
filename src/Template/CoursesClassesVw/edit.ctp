@@ -30,7 +30,8 @@
                     [
                         'default' => $class_number,
                         'type' => 'number',
-                        'min' => 1
+                        'min' => 1,
+                        'required'
                     ]
                 );
                 echo $this->Form->control(
@@ -46,7 +47,8 @@
                         'default' => $year,
                         'type' => 'number',
                         'min' => 1901,
-                        'max' => 2155
+                        'max' => 2155,
+                        'required'
                     ]
                 );
                 // echo $old_professor;

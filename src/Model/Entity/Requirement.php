@@ -27,6 +27,7 @@ class Requirement extends Entity
     protected $_accessible = [
         'description' => true,
         'type' => true,
+        'hour_type' => true,
         'fulfills_requirement' => true
     ];
 }

@@ -210,6 +210,8 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        //Este es un transporte de prueba, para utilizar un correo oficial de la ecci,
+        // se debe crear otro transporte con host y puerto de la ecci o modificar el transporte 'mailjet'
         'mailjet' => [
             'host' => 'in-v3.mailjet.com',
             'port' => 25,

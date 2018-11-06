@@ -116,9 +116,8 @@
 </div>
 
 <div class="submit">
-    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
     <?= $this->Form->button('Aceptar',['onclick' => "end()",'id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
-    
+    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>    
     <?= $this->Form->end() ?>
 </div>
 
@@ -128,7 +127,7 @@ dhtmlXCalendarObject.prototype.langData["es"] = {
     dateformat: "%d.%m.%Y",
     hdrformat: "%F %Y",
     monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
+                    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
     monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
                     "Jul","Ago","Sep","Oct","Nov","Dic"],
     daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
