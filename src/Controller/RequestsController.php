@@ -459,6 +459,7 @@ class RequestsController extends AppController
         //debug($user);
         $request = $this->Requests->get($id);
         $data_stage_completed = false;
+        $this->set('id', $id);
         //Datos de la solicitud
 
         // All of the variables added in this section are ment to be for
@@ -499,7 +500,7 @@ class RequestsController extends AppController
             if($default_index == 4)$default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
-            $this->set('id', $id);
+
         }
 
         //Se trae los datos de la solicitud
