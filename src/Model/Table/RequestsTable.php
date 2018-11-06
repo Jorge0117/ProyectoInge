@@ -418,7 +418,12 @@ class RequestsTable extends Table
 		and r.state = '$s' and r.acepted_inopia = '$in'");
 		$result = $result->fetchAll('assoc');
         return $result; // Se devuelve la lista de requisitos.
-	}
+    }
+    
+    public function isOwnedBy($id, $student_id)
+    {
+        return $this->exists(['id' => $id, 'student_id' => $student_id]);
+    }
 
 }
 

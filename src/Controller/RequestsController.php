@@ -15,14 +15,19 @@ use Cake\Network\Email\Email;
 class RequestsController extends AppController
 {
 
-    public function beforeFilter(Event $event)
+    public function isAuthorized($user)
     {
-        /**
-         * FIXME
-         * Arreglar permisos en la bd.
-         */
-        parent::beforeFilter($event);
-        $this->Auth->allow('print');
+
+        // Un estudiante puede ver sus propias solicitudes y nada más
+        if ($user['role_id'] === 'Estudiante' && in_array($this->request->getParam('action'), ['view', 'print'])) {
+
+            $request_id = (int)$this->request->getParam('pass.0');
+            if ($this->Requests->isOwnedBy($request_id, $user['identification_number'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 
     /**
