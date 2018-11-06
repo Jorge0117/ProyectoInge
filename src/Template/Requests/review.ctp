@@ -145,7 +145,7 @@
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
-						['class'=>'btn btn-secondary float-right btn-space radioRequirements pull-right']
+						['class'=>'btn btn-secondary btn-cancelar radioRequirements']
 					)?>
 
 					<?php
@@ -155,7 +155,7 @@
 								'id' => 'AceptarRequisitos',
 								'name' => 'AceptarRequisitos',
 								'type' => 'submit',
-								'class' => 'btn btn-primary btn-aceptar radioRequirements pull-right',
+								'class' => 'btn btn-primary btn-aceptar radioRequirements',
 								'disabled' => $requirements['stage'] > 1
 							]);
 						
@@ -186,7 +186,7 @@
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
-						['class'=>'btn btn-secondary float-right btn-space']
+						['class'=>'btn btn-secondary btn-cancelar']
 					)?>
 					<?php
 						echo $this->Form->button(
@@ -317,7 +317,7 @@
 						<?= $this->Form->postbutton('Cancelar',[
 							'controller'=>'requests',
 							'action'=>'index'],[
-							'class'=>'btn btn-secondary float-right btn-space'
+							'class'=>'btn btn-secondary btn-cancelar'
 						]);?>
 						<?= $this->Form->button('Aceptar',[
 							'onclick' => "finishEndForm()",

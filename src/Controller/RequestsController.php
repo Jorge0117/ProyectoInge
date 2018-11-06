@@ -459,6 +459,7 @@ class RequestsController extends AppController
         //debug($user);
         $request = $this->Requests->get($id);
         $data_stage_completed = false;
+        $this->set('id', $id);
         //Datos de la solicitud
 
         // All of the variables added in this section are ment to be for
@@ -499,7 +500,7 @@ class RequestsController extends AppController
             if($default_index == 4)$default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
-            $this->set('id', $id);
+
         }
 
         //Se trae los datos de la solicitud
@@ -533,7 +534,7 @@ class RequestsController extends AppController
                     $optional_requirement->request_id = intval($id);
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
-                    if(array_key_exists('inopia_op_' . $requirement_number,$data)){
+                    if(array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
                         $optional_requirement->acepted_inopia = 1;
                     }else{
                         $optional_requirement->acepted_inopia = 0;
@@ -668,6 +669,7 @@ class RequestsController extends AppController
                 return $this->redirect(['action' => 'index']);
                 
             }
+            $this->redirect('/requests/review/'.$id);
         }
         $this->set('load_final_review', $load_final_review);
         $this->set(compact('data_stage_completed'));
