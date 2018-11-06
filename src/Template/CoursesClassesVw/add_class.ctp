@@ -1,35 +1,35 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\CoursesClassesVw $coursesClassesVw
+ * @var \Cake\Datasource\EntityInterface $class
  */
 ?>
-
-<div class="coursesClassesVw form large-9 medium-8 columns content">
+<div class="classes form large-9 medium-8 columns content">
     <?= $this->Form->create($coursesClassesVw) ?>
     <fieldset>
-        <h3><?= __('Agregar curso') ?></h3>
+        <h3><?= __('Agregar grupo') ?></h3>
 
         <div class="form-section">
+            <div class="form-group text">
+                <label class="control-label" for="Curso"> Nombre del curso </label>
+                <?= $this->Form->select('Curso',$courses) ?>
+            </div>
             <?php
-                echo $this->Form->control('Sigla');
-                echo $this->Form->control('Curso');
-                echo $this->Form->control('Creditos');
-                echo $this->Form->control('Grupo');
+                echo $this->Form->control('Grupo',['label'=>['text'=>'Numero de clase'],'type'=>'text']);
+                echo $this->Form->control('Semestre', ['label'=>['text'=>'Semestre'],'type'=>'text']);
+                echo $this->Form->control('Año', ['label'=>['text'=>'Año'],'type'=>'text']);
+                //echo $this->Form->control('state');
                 echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => true]);
-                echo $this->Form->control('Semestre');
-                echo $this->Form->control('Año');
             ?>
         </div>
     </fieldset>
-
     <button type="submit" class="btn btn-primary float-right">Aceptar</button>
     <?= $this->Html->link(
         'Cancelar',
         ['controller'=>'CoursesClassesVw','action'=>'index'],
         ['class'=>'btn btn-secondary float-right btn-space']
     )?>
-    <?= $this->Form->end() ?> 
+    <?= $this->Form->end() ?>
 </div>
 
 
@@ -44,8 +44,7 @@
         min-width: 200px;
         padding-left: 50px;
     }
-
-        .form-section{
+    .form-section{
         background-color: #e4e4e4;
         padding: 2%;
         margin: 2%;

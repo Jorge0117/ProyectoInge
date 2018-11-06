@@ -6,7 +6,6 @@
 
 ?>
 
-<link rel="stylesheet" href="style.css">
 <h3>Agregar usuario</h3>
 <div class="form-size users form large-9 medium-8 columns content">
     <?= $this->Form->create($user, ['novalidate']) ?>
@@ -15,12 +14,12 @@
             <legend><?= __('Datos personales') ?></legend>
             <?php
                 echo $this->Form->control('identification_number',['type'=>'text']);
-                echo $this->Form->control('identification_type',['label'=>['text'=>'Tipo de identificación']]);
+                echo $this->Form->control('identification_type', ['options' => ['Cédula de nacional', 'Cédula de residencia', 'Pasaporte', 'Otra'], 'label'=>['text'=>'Tipo de identificación']]);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
                 echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);
-                echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal']]);
-                echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono']]);
+                echo $this->Form->control('email_personal',['label'=>['text'=>'Correo personal'], 'type'=>'email']);
+                echo $this->Form->control('phone', ['label'=>['text'=>'Teléfono'], 'type'=>'integer']);
             ?>
         </div>
         

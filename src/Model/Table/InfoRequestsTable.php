@@ -66,6 +66,7 @@ class InfoRequestsTable extends Table
 
         $validator
             ->scalar('nombre')
+            ->maxLength('nombre', 152)
             ->allowEmpty('nombre');
 
         $validator
@@ -91,6 +92,11 @@ class InfoRequestsTable extends Table
         $validator
             ->requirePresence('grupo', 'create')
             ->notEmpty('grupo');
+
+        $validator
+            ->date('inicio')
+            ->requirePresence('inicio', 'create')
+            ->notEmpty('inicio');
 
         $validator
             ->scalar('ronda')

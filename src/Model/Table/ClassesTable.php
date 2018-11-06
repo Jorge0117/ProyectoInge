@@ -98,6 +98,9 @@ class ClassesTable extends Table
         if ($inTable == 0) {
             $connect->execute("call addClass('$id', '$number', '$semester', '$year', '$state', '$profId')");
             $return = true;
+        }else{
+            $connect->execute("update classes set state = 1 where course_id ='$id' and class_number = '$number' and semester = '$semester' and year = '$year'");
+            $return = true;
         }
         return $return;
     }
@@ -111,7 +114,8 @@ class ClassesTable extends Table
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         $result = $connection->execute(
-            "DELETE FROM classes 
+            "UPDATE classes 
+            SET state = 0
             WHERE   course_id       = '$code' 
                 AND class_number    = $class_number
                 AND semester        = $semester
@@ -155,7 +159,7 @@ class ClassesTable extends Table
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         $result = $connection->execute(
-            "DELETE FROM classes"
+            "update Classes set state = 0"
         );
         //------------------------------------------------
         return $result;
@@ -196,20 +200,24 @@ class ClassesTable extends Table
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         // Executing the new query
-        $result = $connection->execute(
-            "UPDATE classes 
-            SET 
-                course_id           = '$new_code',
-                class_number        = $new_class_number,
-                semester            = $new_semester,
-                year                = $new_year,
-                professor_id        = '$new_user_id'
-            WHERE   course_id       = '$code' 
-                AND class_number    = '$class_number'
-                AND semester        = '$semester'
-                AND year            = '$year';
-            "
-        );
+        try {
+            $result = $connection->execute(
+                "UPDATE classes 
+                SET 
+                    course_id           = '$new_code',
+                    class_number        = $new_class_number,
+                    semester            = $new_semester,
+                    year                = $new_year,
+                    professor_id        = '$new_user_id'
+                WHERE   course_id       = '$code' 
+                    AND class_number    = '$class_number'
+                    AND semester        = '$semester'
+                    AND year            = '$year';
+                "
+            );
+        } catch (\Exception $e) {
+            throw $e;
+        }
         //------------------------------------------------
         return $result;
     }

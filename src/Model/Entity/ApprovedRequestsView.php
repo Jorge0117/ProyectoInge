@@ -4,25 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * InfoRequest Entity
+ * ApprovedRequestsView Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenDate $fecha
- * @property string $cedula
  * @property string $carne
- * @property string $nombre
- * @property float $promedio
+ * @property float $nombre
  * @property string $anno
  * @property int $semestre
  * @property string $curso
  * @property int $grupo
- * @property \Cake\I18n\FrozenDate $inicio
- * @property string $ronda
- * @property string $estado
- * @property bool $otras_horas
+ * @property string $tipo_hora
+ * @property int $hour_ammount
  * @property string $id_prof
  */
-class InfoRequest extends Entity
+class ApprovedRequestsView extends Entity
 {
 
     /**
@@ -36,19 +31,14 @@ class InfoRequest extends Entity
      */
     protected $_accessible = [
         'id' => true,
-        'fecha' => true,
-        'cedula' => true,
         'carne' => true,
         'nombre' => true,
-        'promedio' => true,
         'anno' => true,
         'semestre' => true,
         'curso' => true,
         'grupo' => true,
-        'inicio' => true,
-        'ronda' => true,
-        'estado' => true,
-        'otras_horas' => true,
+        'tipo_hora' => true,
+        'hour_ammount' => true,
         'id_prof' => true
     ];
 }

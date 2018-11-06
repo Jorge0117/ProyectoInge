@@ -23,7 +23,7 @@
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
                         <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
                         <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
                         <li class="nav-item dropdown item-menu">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownSol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +44,9 @@
                         </li>
                     <?php endif ?>
 
+                    <?php if ($current_user['role_id'] === 'Profesor'): ?>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Asistentes del profesor',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
+                    <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
                         <li class="nav-item item-menu"><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
@@ -67,6 +70,13 @@
 
     </div>
 
-    <div style="width:200px">
-    </div>
+    <?php $round = $this->Rounds->getLastRound() ?>
+    <?php if($round == null): ?>
+        <div style="width:200px">
+        </div>
+    <?php else: ?>
+        <div style="height:69px">  
+            <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
+        </div>
+    <?php endif; ?>
 </nav>
