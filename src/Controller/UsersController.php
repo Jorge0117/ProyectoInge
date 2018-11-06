@@ -218,7 +218,7 @@ class UsersController extends AppController
                             if($rol_original === 'Asistente'){
                                 //roll anterior era asistente administrativo
                                 //se elimina de la tabla administrative_assistants
-                                $tableAs->deleteAssitant($id);
+                                $tableAs->deleteAssistant($id);
                             }else{
                                 if($rol_original === 'Estudiante'){
                                     //roll anterior era asistente administrativo
