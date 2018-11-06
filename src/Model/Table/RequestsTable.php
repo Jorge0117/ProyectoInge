@@ -397,15 +397,20 @@ class RequestsTable extends Table
         return $query;
     }
 
-
+    //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
+    //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
+    // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si
+    // se aprueba requisito por inopia o no.
     public function getRequirements($id,$s,$in)
 	{
-		$connet = ConnectionManager::get('default');
+        $connet = ConnectionManager::get('default');
+        //Se hace consulta para obtener los requisitos rechazados dentro de la solicitud, se hace join con requirements
+        // Para obtener la descripción de los requisitos.
 		$result = $connet->execute("select re.description from requests_requirements r, requirements re 
 		where r.requirement_number = re.requirement_number and r.request_id = '$id'
 		and r.state = '$s' and r.acepted_inopia = '$in'");
 		$result = $result->fetchAll('assoc');
-        return $result;
+        return $result; // Se devuelve la lista de requisitos.
 	}
 
 }
