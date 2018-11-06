@@ -159,11 +159,25 @@ class UsersTable extends Table
         
     }
 
+    public function getNameUser ($id) {
+        $connect = ConnectionManager::get('default');
+
+        $name = $connect->execute("select CONCAT(name, \" \", lastname1) from users where identification_number ='$id'") ->fetchAll();
+        return $name[0][0];
+    }
+
     public function getProfessors() {
         $connect = ConnectionManager::get('default');
 
         $prof = $connect->execute("select CONCAT(name, \" \", lastname1) from users where role_id = 'Profesor'") ->fetchAll();
         $prof = array_column($prof, 0);
         return $prof;
+    }
+
+    public function getContactInfo($id) {
+        $connect = ConnectionManager::get('default');
+        $info= $connect->execute("select CONCAT(email_personal, \" \", phone) from users where  identification_number ='$id'") ->fetchAll();
+
+        return $info[0][0];
     }
 }

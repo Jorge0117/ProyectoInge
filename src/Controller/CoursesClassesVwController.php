@@ -374,7 +374,13 @@ class CoursesClassesVwController extends AppController
             $courseTable->addCourse($parameters[1], $parameters[0], 0);
 
             //Agrega el grupo
-            $classTable->addClass($parameters[1], $parameters[2], 1, 2019, 1, $profId);
+            if(date("m") > 6){
+                $semester = 2;
+            }else{
+                $semester = 1;
+            }
+
+            $classTable->addClass($parameters[1], $parameters[2], $semester, date("Y"), 1, $profId);
 
         }
     }

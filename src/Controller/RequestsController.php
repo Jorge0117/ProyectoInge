@@ -259,6 +259,14 @@ class RequestsController extends AppController
             $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
             $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
             $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
+
+			
+			if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
+			{
+				//Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
+				$request->set('wants_assistant_hours',true);
+			}
+			
             //die();
             //debug($request);
             if ($this->Requests->save($request)) {
@@ -349,8 +357,9 @@ class RequestsController extends AppController
 
         }
 
-        $teacher = $this->Requests->getTeachers();
-        $id = $this->Requests->getID();
+
+        //$teacher = $this->Requests->getTeachers();
+        //$id = $this->Requests->getID();
 
         //Funcionalidad Solicitada: Agregar datos del usuario
 
@@ -725,7 +734,7 @@ class RequestsController extends AppController
 		$text .= ' 
         ' . $lista;
         $text .= '
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"'
+        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
         }
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
