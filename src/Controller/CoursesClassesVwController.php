@@ -404,8 +404,10 @@ class CoursesClassesVwController extends AppController
                 return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'importExcelfile']);
             }
             $this->Flash->error(__('Error subiendo el archivo'));
+            return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
         }
         $this->set(compact('file'));
+        return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
     }
 
     public function getDir(){

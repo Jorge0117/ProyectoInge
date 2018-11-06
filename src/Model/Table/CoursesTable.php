@@ -74,12 +74,12 @@ class CoursesTable extends Table
         $validator
             ->scalar('code')
             ->maxLength('code', 7)
-            ->allowEmpty('code', 'create');
+            ->notEmpty('code');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
-            ->allowEmpty('name');
+            ->notEmpty('name');
 
         $validator
             ->allowEmpty('credits');
