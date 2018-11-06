@@ -59,10 +59,12 @@ class ReportsController extends AppController
            
             $user= new UsersController;
             $contactInfo = $user-> getContactInfo($professorAssistants->toArray()[0]->id_student);
+            $idProf = $professorAssistants->toArray()[0]->id_prof;
+            $ProfessorName = $user->getNameUser($idProf);
 
         }
         
-        $this->set(compact('professorAssistants', 'contactInfo'));
+        $this->set(compact('professorAssistants', 'contactInfo','ProfessorName' ));
     }
 
     
