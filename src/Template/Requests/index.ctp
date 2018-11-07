@@ -51,7 +51,7 @@
 </script>
 
 <div class="requests index large-9 medium-8 columns content text-grid">
-    <h3><?= __('Solicitudes') ?></h3>
+    <h3><?= __('Solicitudes de la ronda actual') ?></h3>
 
     <br><br>
 
@@ -106,7 +106,7 @@
                 <td><?= h($request->curso) ?></td>
                 <td><?= $this->Number->format($request->grupo) ?></td>
                 <td><?= $this->Number->format($request->ronda) ?></td>
-
+                
                 <?php if ($request->estado === 'p'): ?>
                     <td> Pendiente </td>
 				<?php else: ?>
@@ -119,7 +119,21 @@
                             <?php if ($request->estado === 'r'): ?>
                                 <td> Rechazada </td>
                             <?php else: ?>
-                                <td> No Elegible </td>
+                                <?php if ($request->estado === 'i'): ?>
+                                    <td> Elegible por inopia </td>
+                                <?php else: ?>
+                                    <?php if ($request->estado === 'n'): ?>
+                                        <td> No elegible </td>
+                                    <?php else: ?>
+                                        <?php if ($request->estado === 'x'): ?>
+                                            <td> Anulada </td>
+                                        <?php else: ?>
+                                            <?php if ($request->estado === 'c'): ?>
+                                                <td> Aceptada por inopia </td>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
                             <?php endif; ?>
                         <?php endif; ?>
                     <?php endif; ?>
