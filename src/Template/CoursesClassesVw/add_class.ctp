@@ -16,7 +16,7 @@
             </div>
             <?php
                 echo $this->Form->control('Grupo',['label'=>['text'=>'Numero de clase'],'type'=>'number']);
-                echo $this->Form->control('Semestre', ['label'=>['text'=>'Semestre'],'type' => 'number','max' => 3, 'min' => 1]);
+                echo $this->Form->control('Semestre', ['label'=>['text'=>'Semestre'],'type' => 'number','max' => 2, 'min' => 1]);
                 echo $this->Form->control('Año', ['label'=>['text'=>'Año'],'type' => 'number','max' => 9999, 'min' => 1900]);
                 //echo $this->Form->control('state');
                 echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => true]);

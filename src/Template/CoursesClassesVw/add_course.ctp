@@ -17,7 +17,7 @@
                 echo $this->Form->control('Creditos', ['type' => 'number','max' => 8, 'min' => 1]);
                 echo $this->Form->control('Grupo', ['type' => 'number']);
                 echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => false]);
-                echo $this->Form->control('Semestre', ['type' => 'number','max' => 3, 'min' => 1]);
+                echo $this->Form->control('Semestre', ['type' => 'number','max' => 2, 'min' => 1]);
                 echo $this->Form->control('Año', ['type' => 'number','max' => 9999, 'min' => 1900]);
             ?>
         </div>
