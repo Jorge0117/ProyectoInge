@@ -48,8 +48,8 @@ class RequestsController extends AppController
                             ]);
 
                 $professor = $query->first();
-                debug($submission);
-                debug($professor['professor_id']);
+                //debug($submission);
+                //debug($professor['professor_id']);
                 // die();
                 return $professor['professor_id'] === $user['identification_number'];
             }
