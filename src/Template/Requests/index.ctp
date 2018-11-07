@@ -106,8 +106,25 @@
                 <td><?= h($request->curso) ?></td>
                 <td><?= $this->Number->format($request->grupo) ?></td>
                 <td><?= $this->Number->format($request->ronda) ?></td>
-				
-                <td><?= h($request->estado) ?></td>
+
+                <?php if ($request->estado === 'p'): ?>
+                    <td> Pendiente </td>
+				<?php else: ?>
+                    <?php if ($request->estado === 'a'): ?>
+                        <td> Aceptada </td>
+                    <?php else: ?>
+                        <?php if ($request->estado === 'e'): ?>
+                            <td> Elegible </td>
+                        <?php else: ?>
+                            <?php if ($request->estado === 'r'): ?>
+                                <td> Rechazada </td>
+                            <?php else: ?>
+                                <td> No Elegible </td>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+				<?php endif; ?>
 
                 <?php if ($request->otras_horas === true): ?>
 					<td> SI </td>
