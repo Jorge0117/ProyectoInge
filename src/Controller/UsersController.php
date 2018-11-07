@@ -218,7 +218,7 @@ class UsersController extends AppController
                             if($rol_original === 'Asistente'){
                                 //roll anterior era asistente administrativo
                                 //se elimina de la tabla administrative_assistants
-                                $tableAs->deleteAssitant($id);
+                                $tableAs->deleteAssistant($id);
                             }else{
                                 if($rol_original === 'Estudiante'){
                                     //roll anterior era asistente administrativo
@@ -231,7 +231,11 @@ class UsersController extends AppController
                      
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
-                return $this->redirect(['action' => 'index']);
+                if($rol_usuario === 'Administrador'){
+                    return $this->redirect(['action' => 'index']);
+                }else{
+                    return $this->redirect(['action' => 'view', $user->identification_number]);
+                }
             }
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
@@ -270,5 +274,16 @@ class UsersController extends AppController
         return $userTable->getProfessors();
     }
 
+    public function getNameUser ($id) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getNameUser($id);
+    }
+    
+    public function getContactInfo ($id) {
+
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getContactInfo($id);
+    }
 
 }
