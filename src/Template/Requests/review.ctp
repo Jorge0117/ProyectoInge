@@ -467,12 +467,9 @@ $(document).ready( function () {
 			byId('endButtons').style.visibility = 'hidden';
 		}
 	}
-	/** Función assistantHours
-	  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
-	  * 	 para que no existan incongruencias
-	  **/
+
 	function finishEndForm(){
-		if(byId('type').value != null){
+		/*if(byId('type').value != null){
 			var field;
 			if(byId('type').value == "hs"){
 				field = byId('student');
@@ -481,7 +478,7 @@ $(document).ready( function () {
 			}
 			if(field.value > parseInt(field.max)) field.value = field.max;
 			else if(field.value < parseInt(field.min)) field.value = field.min;
-		}
+		}*/
 	}
 	/** Función byId
 	  * EFE: Función wrapper de getElementById
