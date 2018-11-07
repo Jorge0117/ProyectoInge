@@ -25,6 +25,9 @@ class RoundsController extends AppController
             else if($data['flag'] == '2') $this->edit($data);
         }
         $this->set(compact('round'));
+        if(!$this->between()){
+            $this->Flash->warning(__('Advertencia: Actualmente no se encuentra dentro de una ronda'));
+        }
     }
     
     /**
@@ -49,10 +52,12 @@ class RoundsController extends AppController
             $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que ha llegado al límite de 3 rondas por semestre, puede proceder a eliminar o editar la ronda actual.'));
         }else if($start < $last[0]){
             $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
+        }else if(!$tsh && !$tah){
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante y al total de horas asistente.'));
         }else if(!$tsh){
-            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
         }else if(!$tah){
-            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
         }else{
             $RoundsTable = $this->loadmodel('Rounds');
             $RoundsTable->insertRound($start,$end,$tsh,$tah);
@@ -78,7 +83,9 @@ class RoundsController extends AppController
         $tah = $data['total_assistant_hours'];
         $ash = $last[7];
         $aah = $last[8];
-        if(!$tsh){
+        if(!$tsh && !$tah){
+            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante y al total de horas asistente.'));
+        }else if(!$tsh){
             $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
         }else if(!$tah){
             $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
