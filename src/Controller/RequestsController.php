@@ -19,11 +19,39 @@ class RequestsController extends AppController
     {
 
         // Un estudiante puede ver sus propias solicitudes y nada más
-        if ($user['role_id'] === 'Estudiante' && in_array($this->request->getParam('action'), ['view', 'print'])) {
+        if (in_array($this->request->getParam('action'), ['view', 'print'])) {
 
             $request_id = (int)$this->request->getParam('pass.0');
-            if ($this->Requests->isOwnedBy($request_id, $user['identification_number'])) {
-                return true;
+
+            if ($user['role_id'] === 'Estudiante') {
+
+                return $this->Requests->isOwnedBy($request_id, $user['identification_number']);
+
+            } elseif ($user['role_id'] === 'Profesor') {
+
+                /**
+                 * FIXME
+                 * Encapsular esta consulta, se repite en print y view
+                 */
+                $submission = $this->Requests->get($request_id);
+
+
+                $this->loadModel('Classes');
+
+                $query = $this->Classes->find()
+                    ->select('professor_id')
+                    ->where([
+                                'course_id' => $submission->course_id,
+                                'class_number' => $submission->class_number,
+                                'semester' => $submission->class_semester,
+                                'year' => $submission->class_year,
+                            ]);
+
+                $professor = $query->first();
+                debug($submission);
+                debug($professor['professor_id']);
+                // die();
+                return $professor['professor_id'] === $user['identification_number'];
             }
         }
 
