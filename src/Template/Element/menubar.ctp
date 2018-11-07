@@ -34,7 +34,6 @@
     
                                 <?php if($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
                                     <?= $this->Html->link('Listar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                    <?= $this->Html->link('Revisar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
                                     <?= $this->Html->link('Aprobadas',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
                                 <?php elseif($current_user['role_id'] === 'Profesor'): ?>
                                     <?= $this->Html->link('Revisar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
