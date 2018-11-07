@@ -686,7 +686,6 @@ class RequestsController extends AppController
                     $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
                     $this->Requests->updateRequestStatus($id, $status_new_val);
                 }else if($status_new_val == 'r'){
-                    $this->Requests->declineRequest($id);
                     $this->Requests->updateRequestStatus($id, $status_new_val);
                 }
                 
