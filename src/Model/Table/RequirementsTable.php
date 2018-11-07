@@ -96,6 +96,11 @@ class RequirementsTable extends Table
             ->requirePresence('type', 'create')
             ->notEmpty('type');
 
+        $validator
+            ->scalar('hour_type')
+            ->requirePresence('hour_type', 'create')
+            ->notEmpty('hour_type');
+
         return $validator;
     }
 

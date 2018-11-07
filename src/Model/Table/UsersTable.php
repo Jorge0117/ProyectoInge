@@ -74,7 +74,7 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->scalar('identification_number')
+            ->alphaNumeric('identification_number')
             ->maxLength('identification_number', 20)
             ->notEmpty('identification_number');
         
@@ -88,25 +88,25 @@ class UsersTable extends Table
         );
 
         $validator
-        ->scalar('identification_type')
+        ->alphaNumeric('identification_type')
         ->maxLength('identification_type', 20)
         ->requirePresence('identification_type', 'create')
         ->notEmpty('identification_type');
 
         $validator
-            ->scalar('name')
+            ->alphaNumeric('name')
             ->maxLength('name', 50)
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
         $validator
-            ->scalar('lastname1')
+            ->alphaNumeric('lastname1')
             ->maxLength('lastname1', 50)
             ->requirePresence('lastname1', 'create')
             ->notEmpty('lastname1');
 
         $validator
-            ->scalar('lastname2')
+            ->alphaNumeric('lastname2')
             ->maxLength('lastname2', 50)
             ->allowEmpty('lastname2');
 
@@ -118,14 +118,15 @@ class UsersTable extends Table
             ->add('username', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('email_personal')
+            ->email('email_personal', true)
             ->maxLength('email_personal', 200)
             ->requirePresence('email_personal', 'create')
             ->notEmpty('email_personal');
 
         $validator
-            ->scalar('phone')
-            ->maxLength('phone', 12)
+            ->naturalNumber('phone')
+            ->minLength('phone',8)
+            ->maxLength('phone',12)
             ->notEmpty('phone');
 
         return $validator;
@@ -158,11 +159,25 @@ class UsersTable extends Table
         
     }
 
+    public function getNameUser ($id) {
+        $connect = ConnectionManager::get('default');
+
+        $name = $connect->execute("select CONCAT(name, \" \", lastname1) from users where identification_number ='$id'") ->fetchAll();
+        return $name[0][0];
+    }
+
     public function getProfessors() {
         $connect = ConnectionManager::get('default');
 
         $prof = $connect->execute("select CONCAT(name, \" \", lastname1) from users where role_id = 'Profesor'") ->fetchAll();
         $prof = array_column($prof, 0);
         return $prof;
+    }
+
+    public function getContactInfo($id) {
+        $connect = ConnectionManager::get('default');
+        $info= $connect->execute("select CONCAT(email_personal, \" \", phone) from users where  identification_number ='$id'") ->fetchAll();
+
+        return $info[0][0];
     }
 }

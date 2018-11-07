@@ -51,7 +51,7 @@ class CoursesClassesVwTable extends Table
         $validator
             ->scalar('Curso')
             ->maxLength('Curso', 255)
-            ->allowEmpty('Curso');
+            ->notEmpty('curso');
 
         $validator
             ->scalar('Creditos');

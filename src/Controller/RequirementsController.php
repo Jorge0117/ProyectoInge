@@ -24,7 +24,7 @@ class RequirementsController extends AppController
         $table = $this->loadModel('Requirements');
         $requirements = $table->find();
         $this->set(compact('requirements'));
-        $this->checkDate();
+        //$this->checkDate();
     }
 
     /**
@@ -157,21 +157,6 @@ class RequirementsController extends AppController
         }
         $this->redirect(['action' => 'index']);
         $this->Flash->error(__('No se logró eliminar el requisito'));
-    }
-
-    //Función que verifica si ya la ronda empezo o no para así bloquear el sistema.
-    public function checkDate(){
-
-        //Comentado mientras se realiza la función necesaria.
-        //$onDate = $this->requestAction('/rounds/nombredelafuncion/');
-
-        //Temporal para que la función sirva.
-        $onDate = 0;
-
-        /* Guarda en la variable show el valor de el onDate,
-           es decir, nos dirá si ya empezamos la ronda o no. */
-        $this->set('show', $onDate);
-    
     }
 
     //Función que relacionará a una solicitud con los requisitos.
