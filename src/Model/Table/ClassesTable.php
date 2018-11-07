@@ -193,7 +193,7 @@ class ClassesTable extends Table
     {
         //------------------------------------------------
         $result = true;
-        debug($new_code);
+        //debug($new_code);
         //die();
         //------------------------------------------------
         // Creates a new conenction to the DBMS to execute the new query 

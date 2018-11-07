@@ -322,7 +322,7 @@ class RequestsTable extends Table
     {
         $connect = ConnectionManager::get('default');
         $result = $connect->execute("SELECT status FROM request WHERE id = '$id'");
-        debug($result);
+        //debug($result);
         die();
         return $result;
     }

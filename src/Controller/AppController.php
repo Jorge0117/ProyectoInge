@@ -110,7 +110,7 @@ class AppController extends Controller
      */
     public function isAuthorized($user)
     {
-        // return true;
+        return true;
         $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
