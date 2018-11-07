@@ -141,7 +141,8 @@
 						</table>
 					</div>
 				</div>
-				<div class='row-btn container' id='BtnDiv'>
+				<div class="container">
+				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
@@ -160,6 +161,7 @@
 							]);
 						
 					?>
+				</div>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>
@@ -182,7 +184,8 @@
 						]
 					);
 				?>
-				<div class='row-btn container' id='BtnDiv'>
+				<div class="container">
+				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
@@ -199,8 +202,10 @@
 						]);
 							
 					?>
+				</div>
+				</div>
 			<?= $this->Form->end() ?>
-		</div>
+		
 		</div>
 	<?php endif;?>
 
