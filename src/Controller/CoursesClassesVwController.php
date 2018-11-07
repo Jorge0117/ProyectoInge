@@ -406,7 +406,7 @@ class CoursesClassesVwController extends AppController
 
             if ($this->Files->save($file)) {
                 //$this->Flash->success(__('The file has been saved.'));
-                return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'importExcelfile']);
+                return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'importExcelfile']);
             }
             $this->Flash->error(__('Error subiendo el archivo'));
             return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
