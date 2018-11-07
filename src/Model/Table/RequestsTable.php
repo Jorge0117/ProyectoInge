@@ -387,8 +387,8 @@ class RequestsTable extends Table
         );
     }
 
-    public function getApproved($id)
-    {
+        
+    public function getApproved($id) {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
             "SELECT * FROM approved_requests
@@ -397,6 +397,13 @@ class RequestsTable extends Table
         return $query;
     }
 
+    public function requestsOnRound(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+            "SELECT EXISTS (SELECT 1 FROM requests WHERE round_start = (SELECT max(start_date) FROM rounds))"
+        )->fetchAll()[0][0];
+        return $query;
+    }
     //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
     //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
     // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si

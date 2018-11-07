@@ -104,6 +104,7 @@ class RoundsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $round = $this->Rounds->get($date);
         $RoundsTable = $this->loadmodel('Rounds');
+        $RequestsTable = $this->loadmodel('Requests');
         $now = $RoundsTable->getToday();
         $s_date = $round->start_date;
         $less = substr($now,0,4) < $s_date->year;
@@ -112,11 +113,16 @@ class RoundsController extends AppController
             if(!$less)
                 $less = substr($now,8,2)-2 < $s_date->day;
         } 
-        if($less)
-            if($this->Rounds->delete($round))
+        $ror = $RequestsTable->requestsOnRound();
+        if($less && !$ror){
+            if($this->Rounds->delete($round)){
                 $this->Flash->success(__('Se borró la ronda correctamente.'));
-        else
+            }
+        }else if($ror){
+            $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que tiene solicitudes asociadas, puede proceder a editarla.'));
+        }else{
             $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que ya se le ha dado inicio, puede proceder a editarla.'));
+        }
         return $this->redirect(['action' => 'index']);
     }
 
