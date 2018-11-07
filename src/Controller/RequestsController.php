@@ -655,7 +655,7 @@ class RequestsController extends AppController
                     $this->sendMail($id,2);
                 }
                 //Si el estado es aceptado, se envía correo con el tipo de mensaje 3
-                else{
+                else if($status_index == 'a'){
                     $this->sendMail($id,3);
                 }
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
