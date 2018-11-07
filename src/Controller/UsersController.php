@@ -231,7 +231,11 @@ class UsersController extends AppController
                      
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
-                return $this->redirect(['action' => 'index']);
+                if($rol_usuario === 'Administrador'){
+                    return $this->redirect(['action' => 'index']);
+                }else{
+                    return $this->redirect(['action' => 'view', $user->identification_number]);
+                }
             }
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
