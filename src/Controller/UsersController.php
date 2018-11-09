@@ -21,7 +21,17 @@ class UsersController extends AppController
         parent::initialize();
         $this->Auth->allow('register');
     }
-    
+
+    public function isAuthorized($user)
+    {
+        if (in_array($this->request->getParam('action'), ['view', 'edit'])) {
+            $user_id = (int)$this->request->getParam('pass.0');           
+            return $user_id === (int)$user['identification_number'];
+        }
+        
+        return parent::isAuthorized($user);
+    }
+
     /**
      * Index method
      *
