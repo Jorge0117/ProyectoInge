@@ -16,7 +16,8 @@ class RoundsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.rounds'
+        'app.rounds',
+        'app.applications'
     ];
 
     /**
