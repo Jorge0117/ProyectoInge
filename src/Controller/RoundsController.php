@@ -25,6 +25,9 @@ class RoundsController extends AppController
             else if($data['flag'] == '2') $this->edit($data);
         }
         $this->set(compact('round'));
+        if(!$this->between()){
+            $this->Flash->warning(__('Advertencia: Actualmente no se encuentra dentro de una ronda'));
+        }
     }
     
     /**
@@ -49,10 +52,12 @@ class RoundsController extends AppController
             $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que ha llegado al límite de 3 rondas por semestre, puede proceder a eliminar o editar la ronda actual.'));
         }else if($start < $last[0]){
             $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
+        }else if(!$tsh && !$tah){
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante y al total de horas asistente.'));
         }else if(!$tsh){
-            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
         }else if(!$tah){
-            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
+            $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
         }else{
             $RoundsTable = $this->loadmodel('Rounds');
             $RoundsTable->insertRound($start,$end,$tsh,$tah);
@@ -78,7 +83,9 @@ class RoundsController extends AppController
         $tah = $data['total_assistant_hours'];
         $ash = $last[7];
         $aah = $last[8];
-        if(!$tsh){
+        if(!$tsh && !$tah){
+            $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante y al total de horas asistente.'));
+        }else if(!$tsh){
             $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas estudiante.'));
         }else if(!$tah){
             $this->Flash->error(__('Error: No se logró editar la ronda, debido a que se le ha asignado el valor de cero al total de las horas asistente.'));
@@ -104,6 +111,7 @@ class RoundsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $round = $this->Rounds->get($date);
         $RoundsTable = $this->loadmodel('Rounds');
+        $RequestsTable = $this->loadmodel('Requests');
         $now = $RoundsTable->getToday();
         $s_date = $round->start_date;
         $less = substr($now,0,4) < $s_date->year;
@@ -112,11 +120,16 @@ class RoundsController extends AppController
             if(!$less)
                 $less = substr($now,8,2)-2 < $s_date->day;
         } 
-        if($less)
-            if($this->Rounds->delete($round))
+        $ror = $RequestsTable->requestsOnRound();
+        if($less && !$ror){
+            if($this->Rounds->delete($round)){
                 $this->Flash->success(__('Se borró la ronda correctamente.'));
-        else
+            }
+        }else if($ror){
+            $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que tiene solicitudes asociadas, puede proceder a editarla.'));
+        }else{
             $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que ya se le ha dado inicio, puede proceder a editarla.'));
+        }
         return $this->redirect(['action' => 'index']);
     }
 
@@ -135,4 +148,13 @@ class RoundsController extends AppController
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
     }
+	
+	//Autor: Esteban Rojas
+	//Llama al modelo de Rondas y solicita la ronda actual.
+	public function get_actual_round()
+    {
+		$RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->getActualRound(date('y-m-d'));
+    }
+
 }

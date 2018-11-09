@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Helper;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
+use Cake\Database\Exception;
 require ROOT.DS.'vendor' .DS. 'phpoffice/phpspreadsheet/src/Bootstrap.php';
 
 /**
@@ -186,17 +187,21 @@ class CoursesClassesVwController extends AppController
                 $prof = $usersController->getId($prof[0], $prof[1]);
                 //------------------------------------------------
                 // Finally,we make the update.
-                $result = $classesModel->updateClass(
-                    $code,
-                    $class_number,
-                    $semester,
-                    $year,
-                    $model->Curso,
-                    $model->Grupo,
-                    $model->Semestre + 1,
-                    $model->Año,
-                    $prof
-                );
+                try {
+                    $result = $classesModel->updateClass(
+                        $code,
+                        $class_number,
+                        $semester,
+                        $year,
+                        $model->Curso,
+                        $model->Grupo,
+                        $model->Semestre + 1,
+                        $model->Año,
+                        $prof
+                    );
+                } catch (\Exception $e) {
+                    
+                }
                 //------------------------------------------------
                 // Thsi shows the message to the user.
                 if ($result) {
@@ -404,8 +409,10 @@ class CoursesClassesVwController extends AppController
                 return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'importExcelfile']);
             }
             $this->Flash->error(__('Error subiendo el archivo'));
+            return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
         }
         $this->set(compact('file'));
+        return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
     }
 
     public function getDir(){

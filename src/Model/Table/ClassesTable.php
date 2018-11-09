@@ -193,27 +193,31 @@ class ClassesTable extends Table
     {
         //------------------------------------------------
         $result = true;
-        debug($new_code);
+        //debug($new_code);
         //die();
         //------------------------------------------------
         // Creates a new conenction to the DBMS to execute the new query 
         $connection = ConnectionManager::get('default');
         //------------------------------------------------
         // Executing the new query
-        $result = $connection->execute(
-            "UPDATE classes 
-            SET 
-                course_id           = '$new_code',
-                class_number        = $new_class_number,
-                semester            = $new_semester,
-                year                = $new_year,
-                professor_id        = '$new_user_id'
-            WHERE   course_id       = '$code' 
-                AND class_number    = '$class_number'
-                AND semester        = '$semester'
-                AND year            = '$year';
-            "
-        );
+        try {
+            $result = $connection->execute(
+                "UPDATE classes 
+                SET 
+                    course_id           = '$new_code',
+                    class_number        = $new_class_number,
+                    semester            = $new_semester,
+                    year                = $new_year,
+                    professor_id        = '$new_user_id'
+                WHERE   course_id       = '$code' 
+                    AND class_number    = '$class_number'
+                    AND semester        = '$semester'
+                    AND year            = '$year';
+                "
+            );
+        } catch (\Exception $e) {
+            throw $e;
+        }
         //------------------------------------------------
         return $result;
     }

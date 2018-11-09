@@ -16,7 +16,7 @@
         <h1>Sistema de control de asistencias</h1>
     </span>
 
-    <div class='dropdown' style='width:100px'>
+    <div class='dropdown' style='width: 120px'>
         <?php if ( $current_user ): ?>
             <div>
                 <i class="fa fa-user-circle-o" style="font-size:48px;color:white"></i>

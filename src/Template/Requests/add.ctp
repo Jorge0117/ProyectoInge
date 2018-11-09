@@ -193,7 +193,7 @@
 <div class="form-size requests form large-9 medium-8 columns content" >
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <center><legend><?= __('Añadir Solicitud') ?></legend></center>
+        <center><legend><?= __('Agregar Solicitud') ?></legend></center>
         <?php
 			//debug(($classes->execute())[1]);
 
@@ -203,7 +203,7 @@
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
 			echo $this->Form->Control('Nombre del Estudiante: ',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id',['label' => 'Carnet del Estudiante:','disabled', 'value' => $carnet]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carnet del Estudiante:','disabled', 'value' => $carnet]);
 			echo $this->Form->Control('Cedula: ',['disabled', 'value' => $cedula]);
 			echo $this->Form->Control('Correo Eléctronico: ',['disabled', 'value' => $correo]);
 			echo $this->Form->Control('Telefono: ',['disabled', 'value' => $telefono]);
@@ -255,7 +255,7 @@
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
-			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
+			//echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
 
 
 

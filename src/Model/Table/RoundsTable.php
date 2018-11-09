@@ -121,7 +121,6 @@ public function getToday(){
     $query = $connet->execute(
         "SELECT DATE(now())"
     )->fetchAll();
-    debug($query);
     return $query[0][0];
 }
 
@@ -151,4 +150,21 @@ public function active(){
         $query = $connet->execute("SELECT max(start_date) from rounds;")->fetchAll();
         return $query[0][0];   
     }
+
+
+
+    //Autor: Esteban Rojas
+	//Esta funcion obtiene los datos de la ronda que esta activa en el sistema. Dado que los tiempos entre rondas no se traslapan 
+	//entonces esta función obtiene como máximo una sola tupla de rondas.
+	//Si no hay ninguna ronda activa, entonces retorna un vector vacio.
+	//Recordar referenciar los atributos de la ronda con [0]['campo']
+    public function getActualRound($fechaActual)
+    {
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from rounds where start_date <= '$fechaActual' AND '$fechaActual'  <= end_date");
+        $result = $result->fetchAll('assoc');
+        return $result;
+    }
+	
+	
 }
