@@ -44,7 +44,7 @@
     
     <div class="submit">
         <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
-        <?php echo $this->Form->submit(__('Cancelar'), ['class'=>'btn btn-secondary btn-cancelar'], array('name' => 'cancel', 'formnovalidate' => TRUE, 'div' => FALSE)); ?>
+        <?php echo $this->Html->link(__('Cancelar'), ['action' => 'view', $user->identification_number], ['class'=>'btn btn-secondary btn-cancelar']); ?>
     </div>
     
     <?= $this->Form->end() ?>
