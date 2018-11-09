@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * Professors Model
@@ -59,5 +61,20 @@ class ProfessorsTable extends Table
             ->allowEmpty('user_id', 'create');
 
         return $validator;
+    }
+
+    public function addProfessor($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("INSERT INTO professors (`user_id`) VALUES ('$id');") ;
+        }
+        
+    }
+
+    public function deleteProfessor($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("DELETE FROM professors WHERE `user_id` = '$id';") ;
+        }
     }
 }

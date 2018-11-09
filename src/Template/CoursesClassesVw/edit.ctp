@@ -4,70 +4,61 @@
  * @var \App\Model\Entity\Course $course
  */
 ?>
-<!--
-    <nav class="large-3 medium-4 columns" id="actions-sidebar">
-        <ul class="side-nav">
-            <li class="heading"><?= __('Actions') ?></li>
-            <li><?= $this->Form->postLink(
-                    __('Delete'),
-                    ['action' => 'delete', $course->code],
-                    ['confirm' => __('Are you sure you want to delete # {0}?', $course->code)]
-                )
-            ?></li>
-            <li><?= $this->Html->link(__('List Courses'), ['action' => 'index']) ?></li>
-            <li><?= $this->Html->link(__('List Applications'), ['controller' => 'Applications', 'action' => 'index']) ?></li>
-            <li><?= $this->Html->link(__('New Application'), ['controller' => 'Applications', 'action' => 'add']) ?></li>
-            <li><?= $this->Html->link(__('List Classes'), ['controller' => 'Classes', 'action' => 'index']) ?></li>
-            <li><?= $this->Html->link(__('New Class'), ['controller' => 'Classes', 'action' => 'add']) ?></li>
-        </ul>
-    </nav>
--->
+
 <style>
     .btn-space {
         margin-right: 3px;
         margin-leftt: 3px;
     }
-
-    .form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
 </style>
 <div class="courses form large-9 medium-8 columns content">
     <?= $this->Form->create() ?>
+    <legend><?= __('Editar Grupo') ?></legend>
     <fieldset>
         <div class = "form-section">
             <?php
-                // echo $this->Form->control(
-                //     'Sigla',
-                //     [
-                //         'default' => $code,
-                //         'options' => $all_classes_codes
-                //     ]
-                // ); 
+                $courses = iterator_to_array($courses);
                 echo $this->Form->control(
                     'Curso',
                     [
                         'options' => $courses,
-                        'default' => $course_name
+                        'default' => $code
                     ]
                 );
                 echo $this->Form->control(
                     'Grupo',
-                    ['default' => $class_number]
+                    [
+                        'default' => $class_number,
+                        'type' => 'number',
+                        'min' => 1,
+                        'required'
+                    ]
                 );
                 echo $this->Form->control(
                     'Semestre',
-                    ['default' => $semester]
+                    [
+                        'options' => [1,2,3],
+                        'default' => ($semester-1)
+                    ]
                 );
                 echo $this->Form->control(
                     'Año',
-                    ['default' => $year]
+                    [
+                        'default' => $year,
+                        'type' => 'number',
+                        'min' => 1901,
+                        'max' => 2155,
+                        'required'
+                    ]
                 );
+                // echo $old_professor;
+                $default_prof_index = array_search(trim($old_professor),$professors);
                 echo $this->Form->control(
                     'Profesor',
-                    ['options' => $professors]
+                    [
+                        'options' => $professors,
+                        'default' => $default_prof_index
+                     ]
                 );
             ?>
         </div>

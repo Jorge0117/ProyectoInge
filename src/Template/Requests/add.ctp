@@ -6,63 +6,6 @@
  use Cake\Routing\Router;
 ?>
 
-
-
-<style>
-    .button {
-        background-color: #ceb92bff;
-        border: none;
-        padding: 5px 7px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 8px 2px;
-        cursor: pointer;
-        float: right;
-    }
-    .button a {
-        color:#fff; 
-    }
-    /* .actions a {
-        color:#000; 
-    } */
-    #image1 {
-        height: 10px;
-        width: 10px;
-    }
-	
-	.form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
-    }
-	
-	.form-size{
-        width: 70%;
-        min-width: 200px;
-        padding-left: 50px;
-    }
-	
-	.btn-aceptar{
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-    }
-	
-	.btn-cancelar{
-        background-color: #999999;
-        color: #ffffff;
-        border: none;
-        text-align: center;
-        float: right;
-        margin-right: 5px;
-    }
-	
-</style>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-
 <script>
 	/*
 	Esta funcion se encarga de cargar el valor de select de grupos en base al valor ingresado en el select de curso.
@@ -70,7 +13,7 @@
 	*/
 	function updateClass() 
 	{
-
+		document.getElementById("prof").value = ""; 
 		//Obtiene los select de grupo y curso respectivamente
 		selClass = document.getElementById("class-number");
 		selCourse = document.getElementById("course-id");
@@ -180,7 +123,7 @@
 		
 		//Obtiene el valor del curso y grupo seleccionados actualmente
 		Course = selCourse.options[selCourse.selectedIndex].text;
-		Group = selClass.options[selClass.selectedIndex].text;
+		Group = selClass.options[selClass.selectedIndex].text;/*
 		//Realiza una peticion al servidor mediante la tecnica AJAX, para obtener el nombre del profesor en base al curso y grupo actual
 		$.ajax({
 	url:"<?php echo \Cake\Routing\Router::url(array('controller'=>'Requests','action'=>'obtenerProfesor'));?>" ,   cache: false,
@@ -189,10 +132,10 @@
     dataType: 'text',
 	async: false,
 	data: { curso: Course, grupo: Group, salida:"xdxd"},
-    success: function (data) {
+    success: function (data,response) {
        // $('#context').html(data);
+	   	alert(response);
 	    p = data.split(" ");
-		
 		//Mete en el campo bloqueado la informacion del profesor
 		document.getElementById("prof").value = (p[6] + " " + p[7]).split(")")[0]; 
 	},
@@ -201,16 +144,43 @@
 		alert(exception);
 
 	}
-		});
+		});*/
+		
+		
+		//Mete al profesor:
+		
+		cursos = document.getElementById("a2").options;
+		grupos  = document.getElementById("a1").options;
+		
+		cursoActual = selCourse.options[selCourse.selectedIndex].text;
+		grupoActual = selClass.options[selClass.selectedIndex].text;
+
+		for(c = 0;  c < cursos.length; c = c + 1) // Recorre los cursos
+		{	
+			//Si el curso es el mismo al curso seleccionado, manda el grupo al vector
+			
+			if(cursoActual.localeCompare(cursos[c].text) == 0)
+			{
+				//alert(grupos[c].text);
+				if(grupoActual == grupos[c].text)
+				{
+				/*var tmp = document.createElement("option");
+				//if(c+1 < a1.options.length)
+				//{
+				tmp.text = a1.options[c].text; //Prestarle atencion a esta linea
+				selClass.options.add(tmp,i);
+				i = i + 1;
+				//}*/
+		
+				document.getElementById("prof").value = (document.getElementById("a4")[c].text);
+				}
+			}
+
+		}
 		
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
-	}
-	
-	function hidePersonalInfo()
-	{
-		alert("");
 	}
 
 </script>
@@ -223,10 +193,9 @@
 <div class="form-size requests form large-9 medium-8 columns content" >
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <legend><?= __('Añadir Solicitud') ?></legend>
+        <center><legend><?= __('Agregar Solicitud') ?></legend></center>
         <?php
 			//debug(($classes->execute())[1]);
-			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
 
 			//Implementacion del bloque que se trae todos los datos del usuario
 		?>
@@ -234,7 +203,7 @@
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
 			echo $this->Form->Control('Nombre del Estudiante: ',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id',['label' => 'Carnet del Estudiante:','disabled', 'value' => $carnet]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carnet del Estudiante:','disabled', 'value' => $carnet]);
 			echo $this->Form->Control('Cedula: ',['disabled', 'value' => $cedula]);
 			echo $this->Form->Control('Correo Eléctronico: ',['disabled', 'value' => $correo]);
 			echo $this->Form->Control('Telefono: ',['disabled', 'value' => $telefono]);
@@ -265,6 +234,11 @@
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			?>
 			</div>
+			
+
+			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar']) ?>
+			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+			
 			<?php
 			/*echo $this->Form->Label("Datos adicionales Solicitud: ");
 			
@@ -277,17 +251,17 @@
 				Estos campos solamente sirven para almacenar vectores, dado que esta es la única forma eficiente que conozco de compartir variables
 				entre php y javascript. Si conocen una mejor me avisan :)
 			*/
+			echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
-			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $teacher , 'style' => 'visibility:hidden']);
-			echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
+			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
+			//echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
 
 
 
 		?>
     </fieldset>
-   <?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn btn-primary btn-aceptar']) ?>
-   <?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+
    <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
 
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->

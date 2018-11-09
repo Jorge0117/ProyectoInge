@@ -5,6 +5,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
+
 
 /**
  * AdministrativeAssistants Model
@@ -50,5 +52,20 @@ class AdministrativeAssistantsTable extends Table
             ->allowEmpty('user_id', 'create');
 
         return $validator;
+    }
+
+    public function addAssistant($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("INSERT INTO administrative_assistants (`user_id`) VALUES ('$id');") ;
+        }
+        
+    }
+
+    public function deleteAssistant($id){
+        $connect = ConnectionManager::get('default');
+        if(preg_match("/\d+/", $id)){
+            $connect->execute("DELETE from administrative_assistants where user_id = '$id';") ; 
+        }       
     }
 }

@@ -13,16 +13,16 @@
     </a>
 
     <span class="navbar-text">
-        <h1 class="ecci-title">Sistema de control de asistencias</h1>
+        <h1>Sistema de control de asistencias</h1>
     </span>
 
-    <div class='dropdown' style='width:100px'>
+    <div class='dropdown' style='width: 120px'>
         <?php if ( $current_user ): ?>
             <div>
                 <i class="fa fa-user-circle-o" style="font-size:48px;color:white"></i>
             </div>
             <div>
-                <a class='dropdown-toggle text-white' id="dropdownLogout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $current_user['name'] ?></a>
+                <a class='dropdown-toggle text-white user-icon' id="dropdownLogout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $current_user['name'] ?></a>
                 <div class='dropdown-menu dropdown-menu-right' aria-labeledby="dropdownLogout">
                     <?= $this->Html->link('Perfil', ['controller' => 'Users', 'action' => 'view', $current_user['identification_number'] ], ['class' => 'dropdown-item']) ?>
                     <div class="dropdown-divider"></div>
