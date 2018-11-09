@@ -501,7 +501,8 @@ class RequestsController extends AppController
 
         // Etapa de la solicitud
         $request_stage = $request->stage;
-        $this->set(compact('request_stage'));
+        $request_ponderado = $request->average;
+        $this->set(compact('request_stage', 'request_ponderado'));
 
         //--------------------------------------------------------------------------
         // Etapa Revision de requisitos
@@ -558,6 +559,7 @@ class RequestsController extends AppController
             // Se guarda los datos del request
             $data = $this->request->getData();
             $requirements_review_completed = true;
+            debug($data);
 
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
@@ -603,6 +605,7 @@ class RequestsController extends AppController
                 // etapa se encuentra la solicitud
                 $request_reviewed = $this->Requests->get($id);
                 $request_reviewed->stage = 2;
+                $request_reviewed->average = $data['ponderado'];
                 if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
                 } else {
@@ -706,7 +709,7 @@ class RequestsController extends AppController
             }
 
             // Se recarga la vista para que se actualicen los estados de revision
-            $this->redirect('/requests/review/'.$id);
+           // $this->redirect('/requests/review/'.$id);
         }
         $this->set('load_final_review', $load_final_review);
     }

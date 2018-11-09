@@ -58,6 +58,9 @@
 	<?php if($load_requirements_review): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
+				<legend>
+					Revisión de requisitos
+				</legend>
 				<div>
 					<?php if($requirements['stage'] > 1): ?>
 						<div class='input-group mb-2' id='modificar_tag'>
@@ -74,9 +77,15 @@
 								</div>
 							</div>
 						</div>
+						<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> true, 'class' => 'radioRequirements']);?>
 					<?php endif; ?>
+					
+					<?php if($requirements['stage'] == 1): ?>
+						<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float']);?>
+					<?php endif; ?>
+
 					<legend>
-						Opcional
+						Requisitos opcionales
 					</legend>
 
 					<div>
@@ -114,7 +123,7 @@
 					</div>
 
 					<legend>
-						Obligatorio
+						Requisitos obligatorios
 					</legend>
 
 					<div>
