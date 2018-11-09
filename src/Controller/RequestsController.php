@@ -526,7 +526,6 @@ class RequestsController extends AppController
         //--------------------------------------------------------------------------
         // Etapa Revision de requisitos
         // Se le indica a la vista que cargue la parte de revisión de requisitos
-        debug($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements'));
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
             // Se le indica a la vista que debe cargar la parte de revision de requisitos
             $load_requirements_review = true;
@@ -536,7 +535,6 @@ class RequestsController extends AppController
             $requirements['stage'] =  $request->stage;
             $this->set(compact('requirements'));            
         }
-        //debug($load_requirements_review);
         $this->set(compact('load_requirements_review'));
 
         //Revisión preliminar
