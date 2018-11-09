@@ -16,7 +16,7 @@
         <h1>Sistema de control de asistencias</h1>
     </span>
 
-    <div class='dropdown col-2'>
+    <div class='dropdown'>
         <?php if ( $current_user ): ?>
             <div class="float-right mr-4">
                 <div class="row justify-content-center">
