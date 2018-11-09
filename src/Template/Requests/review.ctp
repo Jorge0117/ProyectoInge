@@ -227,7 +227,7 @@
 			}
 		}
 	?>
-	<?php $approved = $request_stage > 2 && ($default_index == 1 || $default_index >= 3)?> 
+	<?php $approved = $load_final_review && ($default_index == 1 || $default_index >= 3)?> 
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
 			<?= $this->Form->create(false,['id'=>'endForm']) ?>
