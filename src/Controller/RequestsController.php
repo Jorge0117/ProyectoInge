@@ -479,46 +479,75 @@ class RequestsController extends AppController
 
     }
 
+
+    /**
+     * Se encarga de la logica de la revision de solicitudes. Se divide en la cuatro etapas de la revisión.
+     * 
+     *
+     * @param String $id Identificador de la solicitud
+     * @return void
+     */
     public function review($id = null)
     {
+        $this->set('id', $id);
+        //--------------------------------------------------------------------------
+        // Controlador de roles necesario para verificar que hayan permisos
         $role_c = new RolesController;
         $this->loadModel('Requirements');
         $this->loadModel('RequestsRequirements');
+
         //--------------------------------------------------------------------------
         // Modulo y acción requeridos para verificar permisos
         $action = 'review';
         $module = 'Requests';
+
+        //--------------------------------------------------------------------------
+        // Datos del usuario y solicitud que se encuentra revisando
         $user = $this->Auth->user();
-        //debug($user);
         $request = $this->Requests->get($id);
-        $data_stage_completed = false;
-        $this->set('id', $id);
-        //Datos de la solicitud
+
+        //--------------------------------------------------------------------------
+        // Varibles para indicar que cargar a la vista
+        $load_requirements_review = false;
+        $load_preliminar_review = false;
+        $load_final_review = false;
 
         // All of the variables added in this section are ment to be for
-        // the preliminar review of each requests.
-        $load_preliminar_review = false;
+        // the preliminar review of each requests.   
         $default_index = null;
 
-        $load_final_review = false;
         //--------------------------------------------------------------------------
-
         $load_final_review = false;
 
+        // Etapa de la solicitud
         $request_stage = $request->stage;
         $this->set(compact('request_stage'));
 
+        //--------------------------------------------------------------------------
         //Datos de la solicitud
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Data')) {
+        //Se trae los datos de la solicitud
+        $request = $this->Requests->get($id);
+        $user = $this->Requests->getStudentInfo($request['student_id']);
+        $user = $user[0]; //Agarra la unica tupla
+        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
+        $class = $class[0];
+        $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
+        $professor = $professor[0];
+        $this->set(compact('request', 'user', 'class', 'professor'));
 
-        }
-        //Revision de requisitos
+        //--------------------------------------------------------------------------
+        // Etapa Revision de requisitos
+        // Se le indica a la vista que cargue la parte de revisión de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
+            // Se le indica a la vista que debe cargar la parte de revision de requisitos
+            $load_requirements_review = true;
+
+            // Se cargan a la vista los requisitos de esta solicitud en especifico
             $requirements = $this->Requirements->getRequestRequirements($id); 
             $requirements['stage'] =  $request->stage;
-            //debug($requirements);
             $this->set(compact('requirements'));            
         }
+        $this->set(compact('load_requirements_review'));
 
         //Revisión preliminar
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
@@ -536,14 +565,7 @@ class RequestsController extends AppController
 
         }
 
-        //Se trae los datos de la solicitud
-        $request = $this->Requests->get($id);
-        $user = $this->Requests->getStudentInfo($request['student_id']);
-        $user = $user[0]; //Agarra la unica tupla
-        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
-        $class = $class[0];
-        $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
-        $professor = $professor[0];
+        
 
         //--------------------------------------------------------------------------
         // Sending the value of the boolean that says whether the preliminar review
@@ -552,27 +574,31 @@ class RequestsController extends AppController
         $this->set('default_index', $default_index);
         //--------------------------------------------------------------------------
         //Manda los parametros a la revision
-        $this->set(compact('request', 'user', 'class', 'professor'));
 
+        // Manejo de los requests
         if ($this->request->is(['patch', 'post', 'put'])) {
+            // Se guarda los datos del request
             $data = $this->request->getData();
-            //debug($data);
-            //--------------------------------------------------------------------------
+
+            // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
+
                 // Actualizar el estado de los requisitos opcionales
-                $requirements_review_completed = true;
                 for ($i = 0; $i < count($requirements['Opcional']); $i++) {
                     $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
                     $optional_requirement = $this->RequestsRequirements->newEntity();
                     $optional_requirement->request_id = intval($id);
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    
+                    // Guarda si fue aprovado por inopia
                     if(array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
                         $optional_requirement->acepted_inopia = 1;
                     }else{
                         $optional_requirement->acepted_inopia = 0;
                     }
-                    //debug($optional_requirement);
+
+                    // Verifica que todos los requisitos hayan sido guardados correctamente
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
                         $requirements_review_completed = false;
                         return;
@@ -586,23 +612,25 @@ class RequestsController extends AppController
                     $optional_requirement->request_id = intval($id);
                     $optional_requirement->requirement_number = $requirement_number;
                     $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
-                    //debug($optional_requirement);
+
+                    // Verifica que todos los requisitos hayan sido guardados correctamente
                     if (!$this->RequestsRequirements->save($optional_requirement)) {
                         $requirements_review_completed = false;
                         return;
                     }
                 }
 
-                //Se muestra un mensaje informando si la transacción se completo o no.
-                if ($requirements_review_completed) {
+                // Se muestra un mensaje informando si la transacción se completo o no. Tambie se actualiza en
+                // etapa se encuentra la solicitud
+                $request_reviewed = $this->Requests->get($id);
+                $request_reviewed->stage = 2;
+                if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
-                    $request_reviewed = $this->Requests->get($id);
-                    $request_reviewed->stage = 2;
-                    $this->Requests->save($request_reviewed);
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
                 }
             }
+
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status
             // if the loaded view was the preliminar one and not the last one
@@ -668,9 +696,6 @@ class RequestsController extends AppController
                 }
             }
             //--------------------------------------------------------------------------
-            // return $this->redirect(['action' => 'index']);
-            //$request_status = $this->Requests->getStatusIndexOutOfId($id);
-            //debug('entra '.$load_final_review);
             if (array_key_exists('AceptarFin', $data)) {
                 #debug($data);
                 $status_index = $data['End-Classification'];
@@ -701,10 +726,11 @@ class RequestsController extends AppController
                 return $this->redirect(['action' => 'index']);
                 
             }
+
+            // Se recarga la vista para que se actualicen los estados de revision
             $this->redirect('/requests/review/'.$id);
         }
         $this->set('load_final_review', $load_final_review);
-        $this->set(compact('data_stage_completed'));
     }
     /*public function save()
     {
