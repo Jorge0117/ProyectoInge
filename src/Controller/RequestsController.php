@@ -697,7 +697,7 @@ class RequestsController extends AppController
                     $this->sendMail($id,2);
                 }
                 //Si el estado es aceptado, se envía correo con el tipo de mensaje 3
-                else{
+                else if($status_index == 'a'){
                     $this->sendMail($id,3);
                 }
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
@@ -717,31 +717,31 @@ class RequestsController extends AppController
     {
         $s = 'r'; //Es el valor que tienen los requisitos rechazados
         $in = '0'; //Para indicar que no sean por inopia
-        $requisitos = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
-        $lista = ' '; //Inicializa la lista de los requisitos rechazados
-        foreach($requisitos as $r) //Aquí se van concatenando los requisitos recuperados
+        $requirements = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
+        $list = ' '; //Inicializa la lista de los requisitos rechazados
+        foreach($requirements as $r) //Aquí se van concatenando los requisitos recuperados
         {
-            $lista .= '
+            $list .= '
             ' . $r['description'];
         }
-        return $lista; //Se devuelve la lista de requisitos rechazados del estudiante
+        return $list; //Se devuelve la lista de requisitos rechazados del estudiante
     }
 
     //Método para enviar correo electrónico al estudiante, dando algún aviso.
     //Recibe el id de la solicitud y un estado para indicar si es no elegible, aceptado o rechazado.
-    public function sendMail($id,$estado)
+    public function sendMail($id,$state)
     {
         //Aquí se obtienen datos de la solicitud, nombre de profesor, curso, grupo y nombre de estudiante, 
         // necesarios para el correo
         $request = $this->Requests->get($id);
-        $estudiante = $this->Requests->getStudentInfo($request['student_id']);
-        $clase = $this->Requests->getClass($request['course_id'], $request['class_number']);
+        $student = $this->Requests->getStudentInfo($request['student_id']);
+        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
         $prof = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
-        $profesor = $prof[0]['name'];
-        $curso = $clase[0]['name'];
-        $grupo = $request['class_number'];
-        $mail = $estudiante[0]['email_personal'];
-        $name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+        $professor = $prof[0]['name'];
+        $course = $class[0]['name'];
+        $group = $request['class_number'];
+        $mail = $student[0]['email_personal'];
+        $name = $student[0]['name'] . " " . $student[0]['lastname1'] . " " . $student[0]['lastname2'];
         
         //Se crea una nueva instancia de correo de cakephp
         $email = new Email();
@@ -750,29 +750,29 @@ class RequestsController extends AppController
         //En todos los mensajes se debe cambiar la parte "correo de contacto" por el correo utilizado para atender dudas con respecto al tema de solicitudes de horas
 
         //Indica que si el estado es 1, se debe enviar mensaje de estudiante no elegible.
-        if($estado == 1){
+        if($state == 1){
         $text = 'Estudiante ' . $name . ' :
         Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
-        $lista = $this->reprovedMessage($id);
+        $list = $this->reprovedMessage($id);
         $text .= ' 
-        ' . $lista;
+        ' . $list;
         $text .= '
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
         }
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
-        if($estado == 2){
+        if($state == 2){
         $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $profesor .
-        ' en el curso ' . $curso . ' y grupo ' . $grupo . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
+        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $professor .
+        ' en el curso ' . $course . ' y grupo ' . $group . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto".';
         }
 
         //Si el estado es 3, se debe enviar mensaje de estudiante aceptado.
-        if($estado == 3){
+        if($state == 3){
         $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud del concurso al curso con el(la) profesor(a) ' . $profesor . ', curso ' . $curso .  ' y grupo' . $grupo . ', ' . 
+        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
         'fue ACEPTADA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
