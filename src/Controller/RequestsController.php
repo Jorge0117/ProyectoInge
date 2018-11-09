@@ -249,7 +249,8 @@ class RequestsController extends AppController
 
     public function get_round()
     {
-        return $this->Requests->getActualRound(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
+		$role_c = new RoundsController;
+        return $role_c->get_actual_round(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
     }
 
     public function get_semester()

@@ -148,4 +148,13 @@ class RoundsController extends AppController
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
     }
+	
+	//Autor: Esteban Rojas
+	//Llama al modelo de Rondas y solicita la ronda actual.
+	public function get_actual_round()
+    {
+		$RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->getActualRound(date('y-m-d'));
+    }
+
 }
