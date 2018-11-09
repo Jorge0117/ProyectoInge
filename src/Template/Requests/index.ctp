@@ -4,83 +4,8 @@
  * @var \App\Model\Entity\Request[]|\Cake\Collection\CollectionInterface $requests
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Acciones') ?></li>
-		<?php if ($disponible === true): ?>
-        <li><?= $this->Html->link(__('Nueva Solicitud'), ['action' => 'add']) ?></li>
-		<?php endif; ?>
-    </ul>
-</nav>
-<div class="requests index large-9 medium-8 columns content">
-    <h3><?= __('Solicitudes') ?></h3>
-    <table cellpadding="0" cellspacing="0" id = "requesttable">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('Fecha de Solicitud') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Otras Horas Asistente') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Otras Horas Estudiante') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('¿Tiene otras Horas?') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('¿Es primera Solicitud?') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
-                <th scope="col" class="actions"><?= __('Acciones') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($requests as $request): ?>
-            <tr>
-                <td><?= h($request->reception_date) ?></td>
-                <td><?= h($request->class_year) ?></td>
-               <!-- <td><?= $request->has('course') ? $this->Html->link($request->course->name, ['controller' => 'Courses', 'action' => 'view', $request->course->code]) : '' ?></td>-->
-                <td><?= h($request->course_id) ?></td>
-				<td><?= $this->Number->format($request->class_semester) ?></td>
-                <td><?= $this->Number->format($request->class_number) ?></td>
-                <td><?= h($request->status) ?></td>
-				
-				
-                <td><?= $this->Number->format($request->another_assistant_hours) ?></td>
 
-				
-                <td><?= $this->Number->format($request->another_student_hours) ?></td>
-				<?php if ($request->has_another_hours === true): ?>
-					<td> SI </td>
-				<?php else: ?>
-					<td> NO </td>
-				<?php endif; ?>
-				
-				<?php if ($request->first_time === true): ?>
-					<td> SI </td>
-				<?php else: ?>
-					<td> NO </td>
-				<?php endif; ?>
-				
-                <td><?= $this->Number->format($request->average) ?></td>
-				
-                <td class="actions">
-                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $request->id]) ?>
-                </td>
-				
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <!--<?= $this->Paginator->numbers() ?>-->
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Pagina {{page}} de {{pages}}, mostrando {{current}} solicitudes de {{count}}')]) ?></p>
-    </div>
-</div>
-
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 <script type="text/javascript">
     $(document).ready( function () {
         $("#requesttable").DataTable(
@@ -103,5 +28,140 @@
           }
         );
     } );
+
+    // Función encargada de filtrar las solicitudes.
+    function hideRequest(selector, table){
+        var selId = document.getElementById(selector); // Identificador del selector.
+        var tabId = document.getElementById(table);    // Identificador de la tabla que se va a filtrar.
+        var numRows = tabId.rows.length;               // Cantidad de solicitudes en la tabla.
+
+        // Si el valor es todos, muestre todas las solicitudes de la tabla.
+        // Si no filtre las solicitudes y muestre todas las solicitudes con el estado deseado.
+        if(selId.value != 't'){
+            for(var i = 1; i < numRows; ++i){
+                if( tabId.rows[i].cells[9].innerHTML != selId.value )
+                    tabId.rows[i].style.display = "none";
+                else
+                    tabId.rows[i].style.display = "table-row";
+            }
+        }
+        else{
+            for(var i = 1; i < numRows; ++i){
+                tabId.rows[i].style.display = "table-row";
+            }
+        }
+    }
 </script>
 
+<div class="requests index large-9 medium-8 columns content text-grid">
+    <h3><?= __('Solicitudes de la ronda actual') ?></h3>
+
+    <br><br>
+
+    <!-- Nos permite filtrar las solicitudes dependiendo del estado de las que queremos buscar. -->
+    <div class="row justify-content-between" >
+        <div class="col-0">
+            <label> 
+                Buscar por:
+            </label>
+
+            <!-- Elija el estado que se desea mostrar o elija todas para mostrar todas las solicitudes. -->
+            <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='border-style: inset;'>
+                <option value = 't'>Todas</option>
+                <option value = 'a'>Aprobado</option>
+                <option value = 'e'>Elegible</option>
+                <option value = 'i'>Inopia</option>
+                <option value = 'n'>No elegible</option>
+                <option value = 'p'>Pendiente</option>
+                <option value = 'r'>Rechazado</option>
+            </select>
+        </div>
+    <div>
+
+    <br>
+    
+    <table cellpadding="0" cellspacing="0" id = "requesttable">
+        <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('Fecha de solicitud') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Tiene otras horas') ?></th>
+                <th scope="col" class="actions"><?= __('Opciones') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($query as $request): ?>
+            <tr>
+                <td><?= h($request->fecha) ?></td>
+                
+                <td><?= h($request->carne) ?></td>
+                <td><?= h($request->nombre) ?></td>
+
+                <td><?= $this->Number->format($request->promedio) ?></td>
+                <td><?= h($request->anno) ?></td>
+                <td><?= $this->Number->format($request->semestre) ?></td>
+                <td><?= h($request->curso) ?></td>
+                <td><?= $this->Number->format($request->grupo) ?></td>
+                <td><?= $this->Number->format($request->ronda) ?></td>
+                
+                <?php if ($request->estado === 'p'): ?>
+                    <td> Pendiente </td>
+				<?php else: ?>
+                    <?php if ($request->estado === 'a'): ?>
+                        <td> Aceptada </td>
+                    <?php else: ?>
+                        <?php if ($request->estado === 'e'): ?>
+                            <td> Elegible </td>
+                        <?php else: ?>
+                            <?php if ($request->estado === 'r'): ?>
+                                <td> Rechazada </td>
+                            <?php else: ?>
+                                <?php if ($request->estado === 'i'): ?>
+                                    <td> Elegible por inopia </td>
+                                <?php else: ?>
+                                    <?php if ($request->estado === 'n'): ?>
+                                        <td> No elegible </td>
+                                    <?php else: ?>
+                                        <?php if ($request->estado === 'x'): ?>
+                                            <td> Anulada </td>
+                                        <?php else: ?>
+                                            <?php if ($request->estado === 'c'): ?>
+                                                <td> Aceptada por inopia </td>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+				<?php endif; ?>
+
+                <?php if ($request->otras_horas === true): ?>
+					<td> SI </td>
+				<?php else: ?>
+					<td> NO </td>
+				<?php endif; ?>
+				
+                
+                <td class="actions">
+                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
+                    
+                    <?php if ($admin === true): ?>
+                    <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
+                    <?php endif; ?>
+                </td>
+				
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
