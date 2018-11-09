@@ -194,35 +194,6 @@ class RequestsController extends AppController
         $this->set('request', $request);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    /* public function add()
-    {
-    $request = $this->Requests->newEntity();
-    if ($this->request->is('post')) {
-    $request = $this->Requests->patchEntity($request, $this->request->getData());
-
-    $RequestsTable=$this->loadmodel('Requests');
-    //$round almacena datos originales
-
-    debug($request->status,'char');
-
-    if ($this->Requests->save($request)) {
-    $this->Flash->success(__('The request has been saved.'));
-
-    return $this->redirect(['action' => 'index']);
-    }
-    $this->Flash->error(__('The request could not be saved. Please, try again.'));
-    }
-    $courses = $this->Requests->Courses->find('list', ['limit' => 200]);
-    $students = $this->Requests->Students->find('list', ['limit' => 200]);
-    $this->set(compact('request', 'courses', 'students'));
-    }
-     */
-
     public function get_round_start_date()
     {
         $start = date('2018-10-20'); //Deberia pedirselo a ronda
@@ -237,15 +208,6 @@ class RequestsController extends AppController
 
         return     $this->Auth->user('identification_number'); //Este es el que en realidad hay que devolver
     }
-
-    // public function get_student_id()
-    // {
-    //     $student_id = "402220000";
-
-    //     return $student_id;
-
-    // //return     $this->Auth->user('identificacion_number'); //Este es el que en realidad hay que devolver
-    // }
 
     public function get_round()
     {
@@ -390,10 +352,6 @@ class RequestsController extends AppController
             $i = $i + 1;
 
         }
-
-
-        //$teacher = $this->Requests->getTeachers();
-        //$id = $this->Requests->getID();
 
         //Funcionalidad Solicitada: Agregar datos del usuario
 
@@ -578,6 +536,7 @@ class RequestsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             // Se guarda los datos del request
             $data = $this->request->getData();
+            $requirements_review_completed = true;
 
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
@@ -731,27 +690,6 @@ class RequestsController extends AppController
         }
         $this->set('load_final_review', $load_final_review);
     }
-    /*public function save()
-    {
-        //Guarda los datos;
-        $backup = $this->loadModel('RequestsBackup');
-        $request = $this->Requests->newEntity();
-        $request = $this->Requests->patchEntity($request, $this->request->getData()); //Obtiene valores de los campos
-        
-        $st = $this->get_student_id();
-        $ci = null;
-        $cai = null;
-        $ash = null;
-        $aah = null;
-        $ft = null; 
-        $hah = $request->get('has_another_hours');
-        $backup->saveRequest($st,$ci,$cai,$ash,$aah,$ft,$hah);
-        
-        debug($hah);
-        
-        //Redirecciona al index
-        //return $this->redirect(['action' => 'index']);
-    }*/
 
     //Método para recuperar los requisitos que no fueron cumplidos por el estudiante
     //Recibe el id de la solicitud
