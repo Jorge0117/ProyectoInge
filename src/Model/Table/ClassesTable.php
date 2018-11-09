@@ -88,6 +88,7 @@ class ClassesTable extends Table
         return $rules;
     }
 
+    //Agrega el grupo a la base. Si no está en la tabla lo agrega con estado en 1. Si ya está cambia su estado a 1, haciendolo visible en el index
     public function addClass($id, $number, $semester, $year, $state, $profId )
     {
         $return = false;
@@ -151,6 +152,7 @@ class ClassesTable extends Table
         return $result;
     }
 
+    //Cambia el estado de todsas las clases a 0, ocultandolas en el index
     public function deleteAllClasses()
     {
         //------------------------------------------------
@@ -193,7 +195,7 @@ class ClassesTable extends Table
     {
         //------------------------------------------------
         $result = true;
-        debug($new_code);
+        //debug($new_code);
         //die();
         //------------------------------------------------
         // Creates a new conenction to the DBMS to execute the new query 

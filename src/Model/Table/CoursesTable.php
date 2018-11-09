@@ -47,7 +47,7 @@ class CoursesTable extends Table
             'foreignKey' => 'course_id'
         ]);
     }
-
+    //Agrega el curso a la base si no está
     public function addCourse($courseCode, $courseName, $courseCredits)
     {
         $return = false;
