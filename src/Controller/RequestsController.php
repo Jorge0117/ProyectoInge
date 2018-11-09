@@ -525,20 +525,9 @@ class RequestsController extends AppController
         $this->set(compact('request_stage'));
 
         //--------------------------------------------------------------------------
-        //Datos de la solicitud
-        //Se trae los datos de la solicitud
-        $request = $this->Requests->get($id);
-        $user = $this->Requests->getStudentInfo($request['student_id']);
-        $user = $user[0]; //Agarra la unica tupla
-        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
-        $class = $class[0];
-        $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
-        $professor = $professor[0];
-        $this->set(compact('request', 'user', 'class', 'professor'));
-
-        //--------------------------------------------------------------------------
         // Etapa Revision de requisitos
         // Se le indica a la vista que cargue la parte de revisión de requisitos
+        debug($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements'));
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
             // Se le indica a la vista que debe cargar la parte de revision de requisitos
             $load_requirements_review = true;
@@ -548,6 +537,7 @@ class RequestsController extends AppController
             $requirements['stage'] =  $request->stage;
             $this->set(compact('requirements'));            
         }
+        //debug($load_requirements_review);
         $this->set(compact('load_requirements_review'));
 
         //Revisión preliminar
@@ -566,7 +556,17 @@ class RequestsController extends AppController
 
         }
 
-        
+        //--------------------------------------------------------------------------
+        //Datos de la solicitud
+        //Se trae los datos de la solicitud
+        $request = $this->Requests->get($id);
+        $user = $this->Requests->getStudentInfo($request['student_id']);
+        $user = $user[0]; //Agarra la unica tupla
+        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
+        $class = $class[0];
+        $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
+        $professor = $professor[0];
+        $this->set(compact('request', 'user', 'class', 'professor'));
 
         //--------------------------------------------------------------------------
         // Sending the value of the boolean that says whether the preliminar review
