@@ -676,7 +676,6 @@ class RequestsController extends AppController
             }
             //--------------------------------------------------------------------------
             if (array_key_exists('AceptarFin', $data)) {
-                #debug($data);
                 $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:

@@ -232,7 +232,7 @@ function sensitiveRange(first){
     }
 }    
 
-// cambia el estado de neutro a editar
+// cambia el estado de neutro a editar, verifica que al agregar una nueva ronda esta sea el el semestre actual o de uno nuevo,
 calendar.attachEvent("onClick", function(date){
     var start = byId('start-date').value;
     var end = byId('end-date').value;
@@ -258,7 +258,7 @@ calendar.attachEvent("onClick", function(date){
     }
 });
 
-/**  
+/** función getToday
   * EFE: Calcula el día actual.
   * RET: string con el valor del dia actual
   **/
@@ -269,7 +269,7 @@ function getToday(){
     return getStringFormat(today);
 }
 
-/**  
+/**  función getDateFormat
   * EFE: Obtiene el formato de objeto fecha del string dado.
   * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
   * RET: objeto fecha.
@@ -281,7 +281,7 @@ function getDateFormat(date){
     return new Date(month.concat('-',day,'-',year));
 }
 
-/**  
+/**  función getStringFormat
   * EFE: Obtiene el formato string del objeto fecha date.
   * REQ: date: objeto fecha.
   * RET: string con formato de fecha 'dd-mm-yyyy'
@@ -297,7 +297,7 @@ function getStringFormat(date){
     return result.concat(d,'-',mc,m,'-',y);
 }
 
-/**  
+/**  funcion alterDate
   * EFE: Cambia el día de la fecha dada según al valor alt.
   * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
   *      alt: entero con cualquier valor.
@@ -309,7 +309,7 @@ function alterDate(date,alt){
     return getStringFormat(d);
 }
 
-/**  
+/** función compareDates
   * EFE: Compara cual de las dos fechas dadas es mayor o menor o si son iguales.
   * REQ: dos strings con formato de fecha 'dd-mm-yyyy'.
   * RET: < 0: si date1 < date2 

@@ -15,16 +15,20 @@ class RoundsController extends AppController
 {
     /**
      * Index method
+     * 
+     * @return null
      */
     public function index(){   
         $round = $this->Rounds->newEntity();
         $last = $this->Rounds->getLastRow();
+        // Recibe el form y con base a los datos recibidos elige si agregar o editar una ronda
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             if($data['flag'] == '1') $this->add($data);
             else if($data['flag'] == '2') $this->edit($data);
         }
         $this->set(compact('round'));
+        // Si el día actual no se encuentra entre las fechas final e inicial, lanza una advertencia
         if(!$this->between()){
             $this->Flash->warning(__('Advertencia: Actualmente no se encuentra dentro de una ronda'));
         }
@@ -34,6 +38,7 @@ class RoundsController extends AppController
      * add method
      *
      * @param array|null $data post data.
+     * @return null
      */
     public function add($data = null){
         $last = $this->Rounds->getLastRow();
@@ -63,9 +68,9 @@ class RoundsController extends AppController
             $RoundsTable->insertRound($start,$end,$tsh,$tah);
             $this->Flash->success(__('Se agregó la ronda correctamente.'));
             if($last[2]!=3){
-                if($tsh == $ash && $tah != $aah) $this->Flash->warning(__('No hay más horas estudiante disponibles, total de horas estudiante: '.$tsh.'.'));
-                else if($tsh != $ash && $tah == $aah) $this->Flash->warning(__('No hay más horas asistente disponibles, total de horas asistente: '.$tah.'.'));
-                else if($tsh == $ash && $tah == $aah)  $this->Flash->warning(__('No hay más horas estudiante ni asistente disponibles, total de horas estudiante: '.$tsh.', total de horas asistente: '.$tah.'.'));
+                if($tsh == $ash && $tah != $aah) $this->Flash->warning(__('Advertencia: No hay más horas estudiante disponibles, total de horas estudiante: '.$tsh.'.'));
+                else if($tsh != $ash && $tah == $aah) $this->Flash->warning(__('Advertencia: No hay más horas asistente disponibles, total de horas asistente: '.$tah.'.'));
+                else if($tsh == $ash && $tah == $aah)  $this->Flash->warning(__('Advertencia: No hay más horas estudiante ni asistente disponibles, total de horas estudiante: '.$tsh.', total de horas asistente: '.$tah.'.'));
             }
         }
     }
@@ -74,6 +79,7 @@ class RoundsController extends AppController
      * edit method
      *
      * @param array|null $data post data.
+     * @return null
      */
     public function edit($data = null){
         $last = $this->Rounds->getLastRow();
@@ -93,9 +99,9 @@ class RoundsController extends AppController
             $RoundsTable = $this->loadmodel('Rounds');
             $RoundsTable->editRound($start,$end,$last[0],$tsh,$tah);
             $this->Flash->success(__('Se editó la ronda correctamente.'));
-            if($tsh == $ash && $tah != $aah) $this->Flash->warning(__('No hay más horas estudiante disponibles, total de horas estudiante: '.$tsh.'.'));
-            else if($tsh != $ash && $tah == $aah) $this->Flash->warning(__('No hay más horas asistente disponibles, total de horas asistente: '.$tah.'.'));
-            else if($tsh == $ash && $tah == $aah)  $this->Flash->warning(__('No hay más horas estudiante ni asistente disponibles, total de horas estudiante: '.$tsh.', total de horas asistente: '.$tah.'.'));
+            if($tsh == $ash && $tah != $aah) $this->Flash->warning(__('Advertencia: No hay más horas estudiante disponibles, total de horas estudiante: '.$tsh.'.'));
+            else if($tsh != $ash && $tah == $aah) $this->Flash->warning(__('Advertencia: No hay más horas asistente disponibles, total de horas asistente: '.$tah.'.'));
+            else if($tsh == $ash && $tah == $aah)  $this->Flash->warning(__('Advertencia: No hay más horas estudiante ni asistente disponibles, total de horas estudiante: '.$tsh.', total de horas asistente: '.$tah.'.'));
         }
     }
 
@@ -133,6 +139,7 @@ class RoundsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+    // Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
     public function mirrorDate($date){
         $j = $i = 0;
         while($date[$i] != '/' && $date[$i] != '-')$i++;
@@ -144,6 +151,7 @@ class RoundsController extends AppController
         return $third . "-" . $second . "-" . $first;
     }
 
+    // informa si el día de hoy se encuentra dentro de la úlitma ronda agregada
     public function between(){
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
