@@ -30,7 +30,7 @@ class RequestsController extends AppController
             } elseif ($user['role_id'] === 'Profesor') {
 
                 /**
-                 * FIXME
+                 * FIXME:
                  * Encapsular esta consulta, se repite en print y view
                  */
                 $submission = $this->Requests->get($request_id);
@@ -119,8 +119,11 @@ class RequestsController extends AppController
 
     /**
      * View method
+     * 
+     * Consultar una solicitud. Muestra el detalle de la solicitud consultada
+     * Los datos se presentan en un formato de tabla.
      *
-     * @param string|null $id Request id.
+     * @param string|null $id Número o id de la solicitud.
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -158,6 +161,16 @@ class RequestsController extends AppController
         $this->set('request', $request);
     }
     
+    /**
+     * Muestra una solicitud en formato de impresión.
+     * 
+     * Esta acción es casi idéntica a la accion view, pero
+     * cambia el layout de la vista. Sustituye las
+     * barras de navegación por el encabezado y pie de
+     * página de la boleta de asistencia. La vista en sí
+     * tiene el mismo formato que la boleta de asistencia
+     * que se debe presentar en secretaría.
+     */
     public function print($id = null)
     {
         // $this->viewBuilder()->setClassName('CakePdf.Pdf');
