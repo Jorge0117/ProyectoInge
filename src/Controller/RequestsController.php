@@ -196,7 +196,7 @@ class RequestsController extends AppController
 
     public function get_round_start_date()
     {
-        $start = date('2018-10-20'); //Deberia pedirselo a ronda
+        $start = date('2018-10-20');
         return $start;
     }
 
@@ -209,12 +209,20 @@ class RequestsController extends AppController
         return     $this->Auth->user('identification_number'); //Este es el que en realidad hay que devolver
     }
 
+	//Solicita a la controladora de rondas la información de la ronda actual
     public function get_round()
     {
-		$role_c = new RoundsController;
-        return $role_c->get_actual_round(date('y-m-d')); //En realidad deberia llamar a la controladora de ronda, la cual luego ejecuta esta instruccion
+		$rounds_c = new RoundsController;
+        return $rounds_c->get_actual_round(date('y-m-d')); //
     }
-
+	
+	//Solicita a la controladora de usuarios la información del usuario actual
+    public function getStudentInfo($id)
+    {
+		$users_c = new UsersController;
+        return $users_c->getStudentInfo($id); //
+    }
+	
     public function get_semester()
     {
         //Pedir get_round y luego sacar el atributo
@@ -359,8 +367,8 @@ class RequestsController extends AppController
         $estudiante = $this->get_student_id();
 
         //En base al carnet del estudiante actual, se trae la tupla de usuario respectiva a ese estudiante
-        $estudiante = $this->Requests->getStudentInfo($estudiante);
-
+        //$estudiante = $this->Requests->getStudentInfo($estudiante);
+		$estudiante = $this->getStudentInfo($estudiante);
         //Las keys de los arrays deben corresponder al nombre del campo de la tabla que almacene los usuarios
         $nombreEstudiante = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
         $correo = $estudiante[0]['email_personal'];
