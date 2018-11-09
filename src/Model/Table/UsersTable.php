@@ -180,4 +180,13 @@ class UsersTable extends Table
 
         return $info[0][0];
     }
+
+	//Mediante un join, obtiene la información de un estudiante según su identificación
+	public function getStudentInfo($student_id)
+	{
+		$connet = ConnectionManager::get('default');
+		$result = $connet->execute("select * from users u, students s where u.identification_number = '$student_id' and u.identification_number = s.user_id");
+		$result = $result->fetchAll('assoc');
+        return $result;
+    }
 }

@@ -19,31 +19,13 @@ class ReportsController extends AppController
      * @return 
      */
 
-    /*
-    public function approvedReport()
-    {
-
-        $table = $this->loadModel('ApprovedRequestsView');
-        $approvedRequestsView = $table->find('all',array('conditions'=>array('prof_id'=>$current_user[identification_number])));
-        $approvedRequestsView = $table->find('all')
-        ->where(
-            ['prof_id'=>$current_user[identification_number]]
-        );
-        debug( $approvedRequestsView );die();
-        $user= new UsersController;
-        $idProf = $approvedRequestsView->toArray()[0]->id_prof;
-        $ProfessorName = $user->getNameUser($idProf);
-    
-        $this->set(compact('approvedRequestsView', 'ProfessorName'));
-        
-    }
-    */
-
     public function studentRequests(){
         $table = $this->loadModel('InfoRequests');
-
+        //Recupera todas las solicitudes del estudiante que esté logeado
         $studentRequests = $table->find()->where(['cedula'=>$this->viewVars['current_user']['identification_number']]);
+        //En caso de existir al menos una solicitud
         if(count($studentRequests->toArray()) > 0){
+            //Obtiene el nombre del profesor al que le solicitó la asistencia
             $user= new UsersController;
             $idProf = $studentRequests->toArray()[0]->id_prof;
             $ProfessorName = $user->getNameUser($idProf);

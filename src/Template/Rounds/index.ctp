@@ -127,7 +127,7 @@ dhtmlXCalendarObject.prototype.langData["es"] = {
     dateformat: "%d.%m.%Y",
     hdrformat: "%F %Y",
     monthesFNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
-                    "Julio","Agosto","Septiembre","Octubre","Nobiembre","Diciembre"],
+                    "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
     monthesSNames: ["Ene","Feb","Mar","Abr","May","Jun",
                     "Jul","Ago","Sep","Oct","Nov","Dic"],
     daysFNames: ["Domingo","Lunes","Martes","Miercoles","Jueves",
@@ -155,14 +155,18 @@ $(document).ready( function () {
         byId('tshHeader').style.display = "table-cell";
         byId('tshHeader').style.display = "table-cell";
         byId('tshData').style.display = "table-cell";
+        byId('tshData').value = 0;
         byId('tahHeader').style.display = "table-cell";
         byId('tahData').style.display = "table-cell";
+        byId('tahData').value = 0;
+        
     }
 });
 
 function sensitiveRange(first){
     if(first){// start_date
-        var min = getToday();
+        var today = getToday();
+        var min = today;
         var max = null;
         if(byId('flag').value == '1' && last){// añadir
             if(last[2] == 3){
@@ -179,42 +183,56 @@ function sensitiveRange(first){
         }else{ // editar
             var penultimateStart = '<?= $this->Rounds->getPenultimateRow()[0] ?>';
             var penultimateEnd = '<?= $this->Rounds->getPenultimateRow()[1] ?>';
-            console.log('1',min,penultimateEnd)
             if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
                 min = alterDate(penultimateEnd,1);
             }else if(compareDates(penultimateEnd,min) > 0){
                 min = penultimateEnd;
             }
-            console.log('2',min)
             var sem1ds = '01-12-'.concat(last[4]-1);
             var sem2ds = '01-07-'.concat(last[4]);
             if(last[3] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
             else if(last[3] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
-            console.log('3',min)
             if(last){
-                if(last[3] == 'I') max = '30-06-';                              //primer semestre
-                else max = '30-11-';                                            //segundo semestre
-                max = max.concat(last[4]);                                      // agrega el año
+                if(compareDates(last[0],today)<0){
+                    max = min = last[0];
+                }else{
+                    if(last[3] == 'I') max = '30-06-';                              //primer semestre
+                    else max = '30-11-';                                            //segundo semestre
+                    max = max.concat(last[4]);                                      // agrega el año
+                }   
             }
 
         }
-        
         calendar.setSensitiveRange(min,max);
     }else{// end_date
         var min = byId('start-date').value
         var yesterday = alterDate(getToday(),-1);
         if(compareDates(min,yesterday) < 0) min = yesterday;  //Para poder cerrar la ronda sin eliminarla
         var max = null;
-        if(byId('flag').value != '1' && last){                              //editar
+        if(last){
             if(last[3] == 'I') max = '30-06-';                              //primer semestre
             else max = '30-11-';                                            //segundo semestre
             max = max.concat(last[4]);                                      // agrega el año
+            if(byId('flag').value != '2'){                                  // Añadir
+                if(compareDates(max,min)<0){
+                    var minDate = splitDate(min);
+                    var year = minDate['y'];
+                    if(minDate['m'] == '12' || parseInt(minDate['m']) < 7){
+                        if(minDate['m'] == '12'){
+                            year = parseInt(year)+1;
+                        }
+                        max = '30-06-'.concat(year);
+                    }else{
+                        max = '30-11-'.concat(year);
+                    }
+                }
+            }
         }
         calendar.setSensitiveRange(min,max);
     }
 }    
 
-// cambia el estado de neutro a editar
+// cambia el estado de neutro a editar, verifica que al agregar una nueva ronda esta sea el el semestre actual o de uno nuevo,
 calendar.attachEvent("onClick", function(date){
     var start = byId('start-date').value;
     var end = byId('end-date').value;
@@ -222,13 +240,25 @@ calendar.attachEvent("onClick", function(date){
         byId('end-date').value = start;
     }
     if(last){
-        if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0)&&byId('flag').value != '1'){
+        if( byId('flag').value != '2'){
+            var startDate = splitDate(start);
+            var year = startDate['y'];
+            if(startDate['m'] == 12) year = parseInt(year)+1;
+            if(year != last[4] || (last[3] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (last[3] == 'II' && parseInt(startDate['m']) > 11)){
+                byId('tshHeader').style.display = "table-cell";
+                byId('tshData').style.display = "table-cell";
+                byId('tshData').value = 0;
+                byId('tahHeader').style.display = "table-cell";
+                byId('tahData').style.display = "table-cell";
+                byId('tahData').value = 0;
+            }
+        }else if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0) && byId('flag').value != '1'){
             startEdit();
         }
     }
 });
 
-/**  
+/** función getToday
   * EFE: Calcula el día actual.
   * RET: string con el valor del dia actual
   **/
@@ -239,7 +269,7 @@ function getToday(){
     return getStringFormat(today);
 }
 
-/**  
+/**  función getDateFormat
   * EFE: Obtiene el formato de objeto fecha del string dado.
   * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
   * RET: objeto fecha.
@@ -251,7 +281,7 @@ function getDateFormat(date){
     return new Date(month.concat('-',day,'-',year));
 }
 
-/**  
+/**  función getStringFormat
   * EFE: Obtiene el formato string del objeto fecha date.
   * REQ: date: objeto fecha.
   * RET: string con formato de fecha 'dd-mm-yyyy'
@@ -267,7 +297,7 @@ function getStringFormat(date){
     return result.concat(d,'-',mc,m,'-',y);
 }
 
-/**  
+/**  funcion alterDate
   * EFE: Cambia el día de la fecha dada según al valor alt.
   * REQ: date: string con formato de fecha 'dd-mm-yyyy'.
   *      alt: entero con cualquier valor.
@@ -279,7 +309,7 @@ function alterDate(date,alt){
     return getStringFormat(d);
 }
 
-/**  
+/** función compareDates
   * EFE: Compara cual de las dos fechas dadas es mayor o menor o si son iguales.
   * REQ: dos strings con formato de fecha 'dd-mm-yyyy'.
   * RET: < 0: si date1 < date2 
@@ -330,10 +360,16 @@ function startAdd(){
             byId('start-date').value = newRoundStart;            
             byId('tshHeader').style.display = "table-cell";
             byId('tshData').style.display = "table-cell";
+            byId('tshData').value = 0;
             byId('tahHeader').style.display = "table-cell";
             byId('tahData').style.display = "table-cell";
+            byId('tahData').value = 0;
         }else if(compareDates(byId('start-date').value,last[1])<=0){
-            byId('start-date').value = alterDate(last[1],1);
+            if(compareDates(last[0],last[1])==0){
+                byId('start-date').value = alterDate(last[1],1);
+            }else{
+                byId('start-date').value = last[1];
+            }
         }
         var end = byId('start-date').value;
         if(compareDates(byId('end-date').value,end)<0){
