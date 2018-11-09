@@ -168,7 +168,7 @@
 	<?php endif; ?>
 
 
-	<?php if($request_stage > 1):?>
+	<?php if($load_preliminar_review):?>
 		<div id="divPreliminar" class="form-section">
 			<?= $this->Form->create(false) ?>
 				<legend>
