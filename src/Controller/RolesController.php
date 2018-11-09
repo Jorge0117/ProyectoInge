@@ -175,11 +175,6 @@ class RolesController extends AppController
      * @return boolean
      */
     public function is_Authorized($role, $module, $action){
-
-        debug($role);
-        debug($module);
-        debug($action);
-        
         $role_permissions = [];
         $this->loadModel('PermissionsRoles');
         $this->loadModel('Permissions');
