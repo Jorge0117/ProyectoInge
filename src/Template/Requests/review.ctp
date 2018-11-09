@@ -55,7 +55,7 @@
 		<?= $this->Form->end() ?>
 	</div>
 
-	<?php if($request_stage > 0): ?>
+	<?php if($load_requirements_review): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
