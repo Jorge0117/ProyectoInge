@@ -25,23 +25,7 @@
                         <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                         <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
-                        <li class="nav-item dropdown item-menu">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownSol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Solicitudes
-                            </a>
-
-                            <div class="dropdown-menu" aria-labeledby="dropdownSol">
-    
-                                <?php if($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                                    <?= $this->Html->link('Listar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                    <?= $this->Html->link('Revisar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                    <?= $this->Html->link('Aprobadas',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                <?php elseif($current_user['role_id'] === 'Profesor'): ?>
-                                    <?= $this->Html->link('Revisar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                    <?= $this->Html->link('Asistentes pasados',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                <?php endif ?>
-                            </div>   
-                        </li>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>

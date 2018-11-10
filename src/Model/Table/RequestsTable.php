@@ -322,7 +322,7 @@ class RequestsTable extends Table
     {
         $connect = ConnectionManager::get('default');
         $result = $connect->execute("SELECT status FROM request WHERE id = '$id'");
-        debug($result);
+        //debug($result);
         die();
         return $result;
     }
@@ -379,14 +379,6 @@ class RequestsTable extends Table
             "CALL approve_request('$req_id', '$h_type', '$cnt')"
         );
     }
-
-    public function declineRequest($req_id){
-        $connet = ConnectionManager::get('default');
-        $connet->execute(
-            "CALL decline_request('$req_id')"
-        );
-    }
-
         
     public function getApproved($id) {
         $connet = ConnectionManager::get('default');

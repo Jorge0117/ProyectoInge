@@ -138,14 +138,14 @@ echo $this->Html->css('grid-index');
     </style> -->
 </head>
 <body>
-    <!--<div style='position: sticky; position: -webkit-sticky; top:0'> Sticky Menu-->
+    <div style='position: sticky; position: -webkit-sticky; top:0;z-index:10'> 
         <?=$this->element('titlebar')?>
         <?=$this->element('menubar')?>
 
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
           <span class="navbar-text"><?php if (isset($title)) {echo h($title);} else {echo " ";}?></span>
         </nav>
-    <!--</div> Sticky Menu-->
+    </div>
 
     <?=$this->Flash->render()?>
 

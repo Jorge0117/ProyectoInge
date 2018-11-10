@@ -29,11 +29,14 @@
         );
     } );
 
+    // Función encargada de filtrar las solicitudes.
     function hideRequest(selector, table){
-        var selId = document.getElementById(selector);
-        var tabId = document.getElementById(table);
-        var numRows = tabId.rows.length;
+        var selId = document.getElementById(selector); // Identificador del selector.
+        var tabId = document.getElementById(table);    // Identificador de la tabla que se va a filtrar.
+        var numRows = tabId.rows.length;               // Cantidad de solicitudes en la tabla.
 
+        // Si el valor es todos, muestre todas las solicitudes de la tabla.
+        // Si no filtre las solicitudes y muestre todas las solicitudes con el estado deseado.
         if(selId.value != 't'){
             for(var i = 1; i < numRows; ++i){
                 if( tabId.rows[i].cells[9].innerHTML != selId.value )
@@ -51,16 +54,18 @@
 </script>
 
 <div class="requests index large-9 medium-8 columns content text-grid">
-    <h3><?= __('Solicitudes') ?></h3>
+    <h3><?= __('Solicitudes de la ronda actual') ?></h3>
 
     <br><br>
 
+    <!-- Nos permite filtrar las solicitudes dependiendo del estado de las que queremos buscar. -->
     <div class="row justify-content-between" >
         <div class="col-0">
             <label> 
-                Filtrar por:
+                Buscar por:
             </label>
 
+            <!-- Elija el estado que se desea mostrar o elija todas para mostrar todas las solicitudes. -->
             <select id = 'request_' name='request_' onchange='hideRequest(this.id, "requesttable")' style='border-style: inset;'>
                 <option value = 't'>Todas</option>
                 <option value = 'a'>Aprobado</option>
@@ -106,8 +111,39 @@
                 <td><?= h($request->curso) ?></td>
                 <td><?= $this->Number->format($request->grupo) ?></td>
                 <td><?= $this->Number->format($request->ronda) ?></td>
-				
-                <td><?= h($request->estado) ?></td>
+                
+                <?php if ($request->estado === 'p'): ?>
+                    <td> Pendiente </td>
+				<?php else: ?>
+                    <?php if ($request->estado === 'a'): ?>
+                        <td> Aceptada </td>
+                    <?php else: ?>
+                        <?php if ($request->estado === 'e'): ?>
+                            <td> Elegible </td>
+                        <?php else: ?>
+                            <?php if ($request->estado === 'r'): ?>
+                                <td> Rechazada </td>
+                            <?php else: ?>
+                                <?php if ($request->estado === 'i'): ?>
+                                    <td> Elegible por inopia </td>
+                                <?php else: ?>
+                                    <?php if ($request->estado === 'n'): ?>
+                                        <td> No elegible </td>
+                                    <?php else: ?>
+                                        <?php if ($request->estado === 'x'): ?>
+                                            <td> Anulada </td>
+                                        <?php else: ?>
+                                            <?php if ($request->estado === 'c'): ?>
+                                                <td> Aceptada por inopia </td>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+				<?php endif; ?>
 
                 <?php if ($request->otras_horas === true): ?>
 					<td> SI </td>

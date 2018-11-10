@@ -55,7 +55,7 @@
 		<?= $this->Form->end() ?>
 	</div>
 
-	<?php if($request_stage > 0): ?>
+	<?php if($load_requirements_review): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
@@ -141,7 +141,8 @@
 						</table>
 					</div>
 				</div>
-				<div class='row-btn container' id='BtnDiv'>
+				<div class="container">
+				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
@@ -161,12 +162,13 @@
 						
 					?>
 				</div>
+				</div>
 			<?= $this->Form->end() ?>
 		</div>
 	<?php endif; ?>
 
 
-	<?php if($request_stage > 1):?>
+	<?php if($load_preliminar_review):?>
 		<div id="divPreliminar" class="form-section">
 			<?= $this->Form->create(false) ?>
 				<legend>
@@ -182,7 +184,8 @@
 						]
 					);
 				?>
-				<div class='row-btn container' id='BtnDiv'>
+				<div class="container">
+				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
 						['controller'=>'requests','action'=>'index'],
@@ -199,8 +202,10 @@
 						]);
 							
 					?>
+				</div>
+				</div>
 			<?= $this->Form->end() ?>
-		</div>
+		
 		</div>
 	<?php endif;?>
 
@@ -222,7 +227,7 @@
 			}
 		}
 	?>
-	<?php $approved = $request_stage > 2 && ($default_index == 1 || $default_index >= 3)?> 
+	<?php $approved = $load_final_review && ($default_index == 1 || $default_index >= 3)?> 
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
 			<?= $this->Form->create(false,['id'=>'endForm']) ?>
@@ -307,7 +312,6 @@
 							$this->Form->unlockField('hours');
 							$this->Form->unlockField('type');
 							$this->Form->unlockField('AceptarFin');
-							//$this->Form->unlockField('End-Classification');
 						?>
 					</div>
 				</fieldset>
@@ -404,11 +408,6 @@ $(document).ready( function () {
 			byId('student').focus();
 
 			byId('hsdLabel').style.visibility = 'visible';
-			/*var tsh = <?= $last[5]; ?>;
-			var ash = <?= $last[7]; ?>;
-			var tot = tsh-ash;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
-			// debe de alterar las horas actuales de la tabla ronda con esos calculos
-			byId('hsd').value = tot;*/
 			byId('hsd').style.visibility = 'visible';
 			byId('hadLabel').style.visibility = 'hidden';
 			byId('had').style.visibility = 'hidden';
@@ -446,11 +445,6 @@ $(document).ready( function () {
 			byId('assistant').focus();
 
 			byId('hadLabel').style.visibility = 'visible';
-			/*var tah = <?= $last[6]; ?>;
-			var aah = <?= $last[8]; ?>;
-			var tot = tah-aah;// a este total se le debe de sumar la diferencia si se está revisitando la revisión y se le asignaron horas
-			// debe de alterar las horas actuales de la tabla ronda con esos calculos
-			byId('had').value = tot;*/
 			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
 			byId('hsd').style.visibility = 'hidden';
@@ -467,22 +461,7 @@ $(document).ready( function () {
 			byId('endButtons').style.visibility = 'hidden';
 		}
 	}
-	/** Función assistantHours
-	  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
-	  * 	 para que no existan incongruencias
-	  **/
-	function finishEndForm(){
-		if(byId('type').value != null){
-			var field;
-			if(byId('type').value == "hs"){
-				field = byId('student');
-			}else {
-				field = byId('assistant');
-			}
-			if(field.value > parseInt(field.max)) field.value = field.max;
-			else if(field.value < parseInt(field.min)) field.value = field.min;
-		}
-	}
+
 	/** Función byId
 	  * EFE: Función wrapper de getElementById
 	  * REQ: Id del elemento a obtener.

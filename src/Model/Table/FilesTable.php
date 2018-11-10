@@ -68,12 +68,12 @@ class FilesTable extends Table
 
         return $validator;
     }
-
+    //Borra el archivo y su carpeta de la base
     public function deleteFiles(){
         $connection = ConnectionManager::get('default');
         $connection->execute("DELETE FROM files");
     }
-
+    //Si hay un archivo subido retirna su nombre y carpeta, sino retorna null
     public function getDir(){
         $connection = ConnectionManager::get('default');
         $data = $connection->execute("select * from files") ->fetchAll();
