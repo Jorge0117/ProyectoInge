@@ -46,7 +46,7 @@ class RolesController extends AppController
         }    
         $this->set(compact('administrator_permissions'));
         $this->set(compact('administrator_permissions_matrix'));
-        debug($administrator_permissions);
+        //debug($administrator_permissions);
 
         //Assistant permissions
         $assistant_permissions = $this->Permissions->getPermissions('Asistente');

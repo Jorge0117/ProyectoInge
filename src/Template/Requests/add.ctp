@@ -193,7 +193,7 @@
 <div class="form-size requests form large-9 medium-8 columns content" >
     <?= $this->Form->create($request) ?>
     <fieldset>
-        <center><legend><?= __('Añadir Solicitud') ?></legend></center>
+        <center><legend><?= __('Agregar Solicitud') ?></legend></center>
         <?php
 			//debug(($classes->execute())[1]);
 

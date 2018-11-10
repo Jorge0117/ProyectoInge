@@ -77,7 +77,7 @@ class CoursesClassesVwController extends AppController
             $classTable=$this->loadmodel('Classes');
             $classTable->addClass($code, $group, $semester, $year, 1, $prof);
 
-
+            //Muestra mensaje de confirmación y redirecciona al index
             $this->Flash->success(__('Se agregó el curso correctamente.'));
             return $this->redirect(['action' => 'index']);
 
@@ -91,34 +91,39 @@ class CoursesClassesVwController extends AppController
     public function addClass(){
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
+            //Lee los datos del form
             $coursesClassesVw = $this->CoursesClassesVw->patchEntity($coursesClassesVw, $this->request->getData());
             
+            //Guarda los datos en variables
             $code=$coursesClassesVw->Curso;
             $group=$coursesClassesVw->Grupo;
             $semester=$coursesClassesVw->Semestre;
             $year=$coursesClassesVw->Año;
             $indexProf=$coursesClassesVw->Profesor;
 
+            //Obtiene el array de profesores del controlador de usuarios
             $usersController = new UsersController;
             $prof = $usersController->getProfessors();
-
+            //Divide el nombre del profesor por nombre y apellido
             $prof = preg_split('/\s+/', $prof[$indexProf]);
+            //Obtien la cedula del profesor
             $prof = $usersController->getId($prof[0], $prof[1]);
 
             //Agrega el grupo al a base
             $classTable=$this->loadmodel('Classes');
             $classTable->addClass($code, $group, $semester, $year, 1, $prof);
 
+            //Muestra mensaje de confirmación y redirecciona al index
+            $this->Flash->success(__('Se agregó el grupo correctamente.'));
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
-
+        //Consigue la lista de cursos para el drop down del form
         $courseTable=$this->loadmodel('Courses');
         $courses = $courseTable->find('list', ['limit' => 1000]);
-
+        //Consigue la lista de profesores para el drop down del form
         $usersController = new UsersController;
         $professors = $usersController->getProfessors();
 
-        //$professors = $this->Classes->Professors->find('list', ['limit' => 200]);
         $this->set(compact('coursesClassesVw', 'courses', 'professors'));
     }
 
@@ -267,6 +272,7 @@ class CoursesClassesVwController extends AppController
         return $result;
     }
 
+    //Método encargado de leer el archivo de excel y mostrar la vista previa
     public function importExcelfile (){
         $this->loadModel('CoursesClassesVw');
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
@@ -274,12 +280,11 @@ class CoursesClassesVwController extends AppController
         //Quita el límite de la memoria, ya que los archivos la pueden gastar
         ini_set('memory_limit', '-1');
 
-        //Lee el archivo que se va a subir
-
+        //Obtiene la carpeta y el nombre del archivo guardado en la base de datos
         $fileDir = $this->getDir();
+        //Con los datos obtenidos indica el directorio del archivo
         $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
 
-        //$inputFileName = TESTS. DS. 'archPrueba.xlsx';
         //Identifica el tipo de archivo
         $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
         //Crea un nuevo reader para el tipo de archivo
@@ -334,7 +339,7 @@ class CoursesClassesVwController extends AppController
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
         }
-        //Se cambia el nombre de las llaves del array si no es post
+        //Se cambia el nombre de las llaves del array si no es post ya que es para la vista previa
         if(!$this->request->is('post')){
             $table = array_map(function($tag) {
                 return array(
@@ -369,6 +374,7 @@ class CoursesClassesVwController extends AppController
         $this->set(compact('coursesClassesVw'));
     }
 
+    //Este método se usa para agregar cada fila del archivo una vez se preciona aceptar
     public function addFromFile ($parameters, $profId){
         //Si la fila está vacía no hace nada
         if($parameters[0] != null){
@@ -378,51 +384,61 @@ class CoursesClassesVwController extends AppController
             //Agrega el curso
             $courseTable->addCourse($parameters[1], $parameters[0], 0);
 
-            //Agrega el grupo
+            //Selecciona un smestre según la fecha actual
             if(date("m") > 6){
                 $semester = 2;
             }else{
                 $semester = 1;
             }
-
+            //Agrega el grupo
             $classTable->addClass($parameters[1], $parameters[2], $semester, date("Y"), 1, $profId);
 
         }
     }
 
-
+    //Se llama al precionar el botón cancelar.
+    //Es necesario ya que hay que eliminar los archivos del sistema
     public function cancelExcel(){
         $this->deleteFiles();
         return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
     }
 
+    //Metodo encargado de subir el archivo
     public function uploadFile()
     {
+        //El modelo files tiene una única tupla con el nombre y la carpeta del archivo
         $this->loadmodel('Files');
+        //Si en la vista previa se preciona la flecha para regresar del navegador, los archivos se mantienen cargados, por lo que es necesario llamar a este método
         $this->deleteFiles();
         $file = $this->Files->newEntity();
         if ($this->request->is('post')) {
+            //Recupera el nombre del archivo
             $file = $this->Files->patchEntity($file, $this->request->getData());
 
+            //Se sube el archivo
             if ($this->Files->save($file)) {
-                //$this->Flash->success(__('The file has been saved.'));
+                //Una vez subido, llama el método importExcelFile
                 return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'importExcelfile']);
             }
+            //En caso de error, es importante redireccionar al index, ya que este método no tiene vista
             $this->Flash->error(__('Error subiendo el archivo'));
             return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
         }
         $this->set(compact('file'));
+        //Si se logra entrar a este método sin ser post, simplemente redirecciona al index
         return $this->redirect(['controller' => 'CoursesClassesVW', 'action' => 'index']);
     }
-
+    //Retorna el directorio de el archivo subido (nombre y carpeta). Retorna nulo si no existe
     public function getDir(){
         $fileTable = $this->loadmodel('Files');
         return $fileTable->getDir();
     }
 
+    //Borra el archivo subido, tanto del sistema como de la base
     public function deleteFiles(){
         //Obtiene las direcciones
         $fileDir = $this->getDir();
+        //Revisa si el directorio existe antes de borrar
         if($fileDir != null){
             //Borra el folder
             $path = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1];
