@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="cursos-grupos-tab" data-toggle="tab" href="#cursos-grupos" role="tab" aria-controls="cursos-grupos" aria-selected="true">Cursos-Grupos</a>
@@ -125,12 +125,132 @@
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="cursos-grupos" role="tabpanel" aria-labelledby="cursos-grupos-tab">cursos-grupos</div>
-                <div class="tab-pane fade" id="reportes" role="tabpanel" aria-labelledby="reportes-tab">reportes</div>
-                <div class="tab-pane fade" id="requisitos" role="tabpanel" aria-labelledby="requisitos-tab">requisitos</div>
-                <div class="tab-pane fade" id="rondas" role="tabpanel" aria-labelledby="rondas-tab">rondas</div>
-                <div class="tab-pane fade" id="solicitudes" role="tabpanel" aria-labelledby="solicitudes-tab">solicitudes</div>
-                <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">usuarios</div>
+                <div class="tab-pane fade show active" id="cursos-grupos" role="tabpanel" aria-labelledby="cursos-grupos-tab">
+                    <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['CoursesClassesVw'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="reportes" role="tabpanel" aria-labelledby="reportes-tab">
+                <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['Reports'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="requisitos" role="tabpanel" aria-labelledby="requisitos-tab">
+                <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['Requirements'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="rondas" role="tabpanel" aria-labelledby="rondas-tab">
+                <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['Rounds'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="solicitudes" role="tabpanel" aria-labelledby="solicitudes-tab">
+                <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['Requests'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
+                <table class='table text-center'>
+                        <?php
+                            
+                            echo ("<tr class='bg-white'>
+                                \t<th style='width:70%; text-align: left;'>Permiso</th> 
+                                \t<th style='width:30%'>Conceder</th>
+                                </tr>");
+                            foreach ($all_permissions_by_module['Users'] as $key => $value) {
+                                echo('<tr class="bg-white">'."\n");
+                                echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$value.'</td>'."\n"); 
+                                echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+                                        'Editar',
+                                        ['checked' => false,
+                                        'name' => 'CoursesClassesVw-'.$key]
+                                    ).'</td>'."\n");
+                                echo('</tr>'."\n");
+                            }
+                        ?>		  
+                    </table>
+                </div>
             </div>
         <?= $this->Form->end() ?>
     </div>

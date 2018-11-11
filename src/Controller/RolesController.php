@@ -40,8 +40,8 @@ class RolesController extends AppController
         $professor_permissions = $this->Permissions->getPermissionsByModule('Profesor');
         $this->set(compact('professor_permissions'));
 
-        $all_permissions = $this->Permissions->getAllPermissionsByModule();
-        $this->set(compact('all_permissions'));
+        $all_permissions_by_module = $this->Permissions->getAllPermissionsByModule();
+        $this->set(compact('all_permissions_by_module'));
     }
 
     /**
