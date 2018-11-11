@@ -104,7 +104,34 @@
                 </div>
             </div>
 
-           
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="cursos-grupos-tab" data-toggle="tab" href="#cursos-grupos" role="tab" aria-controls="cursos-grupos" aria-selected="true">Cursos-Grupos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="reportes-tab" data-toggle="tab" href="#reportes" role="tab" aria-controls="reportes" aria-selected="false">Reportes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="requisitos-tab" data-toggle="tab" href="#requisitos" role="tab" aria-controls="requisitos" aria-selected="false">Requisitos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="rondas-tab" data-toggle="tab" href="#rondas" role="tab" aria-controls="rondas" aria-selected="false">Rondas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="solicitudes-tab" data-toggle="tab" href="#solicitudes" role="tab" aria-controls="solicitudes" aria-selected="false">Solicitudes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="usuarios-tab" data-toggle="tab" href="#usuarios" role="tab" aria-controls="usuarios" aria-selected="false">Usuarios</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="cursos-grupos" role="tabpanel" aria-labelledby="cursos-grupos-tab">cursos-grupos</div>
+                <div class="tab-pane fade" id="reportes" role="tabpanel" aria-labelledby="reportes-tab">reportes</div>
+                <div class="tab-pane fade" id="requisitos" role="tabpanel" aria-labelledby="requisitos-tab">requisitos</div>
+                <div class="tab-pane fade" id="rondas" role="tabpanel" aria-labelledby="rondas-tab">rondas</div>
+                <div class="tab-pane fade" id="solicitudes" role="tabpanel" aria-labelledby="solicitudes-tab">solicitudes</div>
+                <div class="tab-pane fade" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">usuarios</div>
+            </div>
         <?= $this->Form->end() ?>
     </div>
 </div>
