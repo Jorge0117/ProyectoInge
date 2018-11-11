@@ -107,22 +107,22 @@
             <?= $this->Form->create(false) ?>
         
                 <ul class="nav nav-tabs" id="administrador-myTab" role="tablist">
-                    <li class="nav-item item-tab">
+                    <li class="nav-item">
                         <a class="nav-link active item-tab" id="administrador-cursos-grupos-tab" data-toggle="tab" href="#administrador-cursos-grupos" role="tab" aria-controls="administrador-cursos-grupos" aria-selected="true">Cursos-Grupos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link item-tab" id="administrador-reportes-tab" data-toggle="tab" href="#administrador-reportes" role="tab" aria-controls="administrador-reportes" aria-selected="false">Reportes</a>
                     </li>
-                    <li class="nav-item item-tab">
+                    <li class="nav-item">
                         <a class="nav-link item-tab" id="administrador-requisitos-tab" data-toggle="tab" href="#administrador-requisitos" role="tab" aria-controls="administrador-requisitos" aria-selected="false">Requisitos</a>
                     </li>
-                    <li class="nav-item item-tab">
+                    <li class="nav-item">
                         <a class="nav-link item-tab" id="administrador-rondas-tab" data-toggle="tab" href="#administrador-rondas" role="tab" aria-controls="administrador-rondas" aria-selected="false">Rondas</a>
                     </li>
-                    <li class="nav-item item-tab">
+                    <li class="nav-item">
                         <a class="nav-link item-tab" id="administrador-solicitudes-tab" data-toggle="tab" href="#administrador-solicitudes" role="tab" aria-controls="administrador-solicitudes" aria-selected="false">Solicitudes</a>
                     </li>
-                    <li class="nav-item item-tab">
+                    <li class="nav-item">
                         <a class="nav-link item-tab" id="administrador-usuarios-tab" data-toggle="tab" href="#administrador-usuarios" role="tab" aria-controls="administrador-usuarios" aria-selected="false">Usuarios</a>
                     </li>
                 </ul>
