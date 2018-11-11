@@ -11,3 +11,7 @@
     padding: 2%;
     margin: 2%;
 }
+
+html {
+    overflow-y: scroll;
+}
