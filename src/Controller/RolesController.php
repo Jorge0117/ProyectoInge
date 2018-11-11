@@ -12,15 +12,6 @@ use App\Controller\AppController;
  */
 class RolesController extends AppController
 {
-
-    public $permissions_id_matrix = [['Requests-add', 'CoursesClassesVw-add', 'Requirements-add', 'Rounds-add', 'Users-add'], // 'RO-AG'],
-                                     ['Requests-edit', 'CoursesClassesVw-edit', 'Requirements-edit', 'Rounds-edit', 'Users-edit'], // 'RO-MO'],
-                                     ['Requests-delete', 'CoursesClassesVw-delete', 'Requirements-delete', 'Rounds-delete', 'Users-delete'], // 'RO-EL'],
-                                     ['Requests-view', 'CoursesClassesVw-view', 'Requirements-view', 'Rounds-view', 'Users-view'], //, 'RO-CO']];
-                                     ['Requests-index','CoursesClassesVw-index','Requirements-index','Rounds-index','Users-index']]; 
-
-    public $permission_types = ['Agregar', 'Modificar', 'Eliminar', 'Consultar', 'Listar'];
-
     /**
      * Index method.
      *
@@ -30,56 +21,27 @@ class RolesController extends AppController
     {
         $this->loadModel('Permissions');
 
-        $n_permission_types = count($this->permission_types);
-        $this->set(compact('n_permission_types'));
-
         $roles_array = $this->Roles->find('list');
         $this->set(compact('roles_array'));
 
         //Administrator permissions
-        $administrator_permissions = $this->Permissions->getPermissions('Administrador');
-        for ($i = 0; $i < $n_permission_types; $i++) {
-            $administrator_permissions_matrix[$i][0] = $this->permission_types[$i];
-            for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                $administrator_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $administrator_permissions);
-            }
-        }    
+        $administrator_permissions = $this->Permissions->getPermissionsByModule('Administrador');
         $this->set(compact('administrator_permissions'));
-        $this->set(compact('administrator_permissions_matrix'));
-        //debug($administrator_permissions);
 
         //Assistant permissions
-        $assistant_permissions = $this->Permissions->getPermissions('Asistente');
-        for ($i = 0; $i < $n_permission_types; $i++) {
-            $assistant_permissions_matrix[$i][0] = $this->permission_types[$i];
-            for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                $assistant_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $assistant_permissions);
-            }
-        }
+        $assistant_permissions = $this->Permissions->getPermissionsByModule('Asistente');
         $this->set(compact('assistant_permissions'));
-        $this->set(compact('assistant_permissions_matrix'));
 
         //Student permissions
-        $student_permissions = $this->Permissions->getPermissions('Estudiante');
-        for ($i = 0; $i < $n_permission_types; $i++) {
-            $student_permissions_matrix[$i][0] = $this->permission_types[$i];
-            for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                $student_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $student_permissions);
-            }
-        }
+        $student_permissions = $this->Permissions->getPermissionsByModule('Estudiante');
         $this->set(compact('student_permissions'));
-        $this->set(compact('student_permissions_matrix'));
 
         //Professor permissions
-        $professor_permissions = $this->Permissions->getPermissions('Profesor');
-        for ($i = 0; $i < $n_permission_types; $i++) {
-            $professor_permissions_matrix[$i][0] = $this->permission_types[$i];
-            for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                $professor_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $professor_permissions);
-            }
-        }
+        $professor_permissions = $this->Permissions->getPermissionsByModule('Profesor');
         $this->set(compact('professor_permissions'));
-        $this->set(compact('professor_permissions_matrix'));
+
+        $all_permissions = $this->Permissions->getAllPermissionsByModule();
+        $this->set(compact('all_permissions'));
     }
 
     /**

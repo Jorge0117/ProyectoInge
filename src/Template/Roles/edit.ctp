@@ -5,13 +5,6 @@
  */
 ?>
 
-<?php  
-    $urlUpdate = $this->Url->build([
-        "controller" => "Roles",
-        "action" => "updatePermissions"
-    ]);
-?>
-
 <script type="text/javascript">
     $(document).ready(function(){
         $('#BtnDiv').hide();
@@ -75,7 +68,7 @@
 
 <div class='form-size container'>
     <div class='form-section'>
-        <?= $this->Form->create(false,['url' => '/roles/updatePermissions']) ?>
+        <?= $this->Form->create(false) ?>
             <div class='row-right' >
                 <div class='input-group mb-3 mr-1' style='width:30%' id='SelectR'>
                     <div class="input-group-prepend">
@@ -111,161 +104,7 @@
                 </div>
             </div>
 
-            <div id='assistant_permission_table' class='container' style="display: none;">
-                <table id='assistant_table' class='table text-center'>
-                    <?php
-                        echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-                            'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
-
-                            for ($i = 0; $i < $n_permission_types; $i++) {
-                                $perm_row = $assistant_permissions_matrix[$i];
-                                $permission_row[] = $perm_row[0];
-                                for ($j = 1; $j < count($perm_row); $j++) {
-                                    $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'assistant_'.$i.$j,
-                                        'checked' => true,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'assistant['.$i.']['.$j.']']
-                                    ) : $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'assistant_'.$i.$j,
-                                        'checked' => false,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'assistant['.$i.']['.$j.']']
-                                    );
-                                }
-                                echo $this->Html->tableCells([$permission_row]);
-                                $permission_row = [];
-                            }
-                    ?>
-                </table>
-            </div>
-
-            <div id='administrator_permission_table' class='container' style="display: none;">
-                <table id='administrator_table'  class='table text-center'>
-                    <?php
-                        echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-                            'Requisitos', 'Ronda', 'Usuarios']); //, 'Roles']);
-
-                            for ($i = 0; $i < $n_permission_types; $i++) {
-                                $perm_row = $administrator_permissions_matrix[$i];
-                                $permission_row[] = $perm_row[0];
-                                for ($j = 1; $j < count($perm_row); $j++) {
-                                    $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'administrator_'.$i.$j,
-                                        'checked' => true,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'administrator['.$i.']['.$j.']']
-                                    ) : $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'administrator_'.$i.$j,
-                                        'checked' => false,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'administrator['.$i.']['.$j.']']
-                                    );
-                                }
-                                echo $this->Html->tableCells([$permission_row]);
-                                $permission_row = [];
-                            }
-                    ?>
-                </table>
-            </div>
-
-            <div id='student_permission_table' class='container' style="display: none;">
-                <table id='student_table'  class='table text-center'>
-                    <?php
-                        echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-                            'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
-
-                        for ($i = 0; $i < $n_permission_types; $i++) {
-                            $perm_row = $student_permissions_matrix[$i];
-                            $permission_row[] = $perm_row[0];
-                            for ($j = 1; $j < count($perm_row); $j++) {
-                                $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'student_'.$i.$j,
-                                        'checked' => true,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'student['.$i.']['.$j.']']
-                                    ) : $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'student_'.$i.$j,
-                                        'checked' => false,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox',
-                                        'name' => 'student['.$i.']['.$j.']']
-                                    );
-                            }
-                            echo $this->Html->tableCells([$permission_row]);
-                            $permission_row = [];
-                        }
-                    ?>
-                </table>
-            </div>
-
-            <div id='professor_permission_table' class='container' style="display: none;">
-                <table id='professor_table'  class='table text-center'>
-                    <?php
-                        echo $this->Html->tableHeaders(['Permiso', 'Solicitudes', 'Cursos-Grupo',
-                            'Requisitos', 'Ronda', 'Usuarios']);//, 'Roles']);
-
-                            for ($i = 0; $i < $n_permission_types; $i++) {
-                                $perm_row = $professor_permissions_matrix[$i];
-                                $permission_row[] = $perm_row[0];
-                                for ($j = 1; $j < count($perm_row); $j++) {
-                                    $permission_row[] = $perm_row[$j] ? $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'professor_'.$i.$j,
-                                        'checked' => true,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox align-middle',
-                                        'name' => 'professor['.$i.']['.$j.']']
-                                    ) : $this->Form->checkbox(
-                                        'Editar',
-                                        ['id' => 'professor_'.$i.$j,
-                                        'checked' => false,
-                                        'disabled' => true,
-                                        'class' => 'checkbox_perm checkbox ',
-                                        'name' => 'professor['.$i.']['.$j.']']
-                                    );
-                                    
-                                }
-                                echo $this->Html->tableCells([$permission_row],['class'=>'align-middle']);
-                                $permission_row = [];
-                            }
-
-                    ?>
-                </table>
-            </div>
-
-            <div class='row-btn container' id='BtnDiv'>
-                <?php 
-                    echo $this->Html->link(__('Cancelar'), '/roles/index', ['class'=>'btn btn-secondary btn-cancelar',
-                                                                                'id' => 'CancelarBtn']); 
-                ?>
-                <?php
-                    echo $this->Form->button(
-                        'Aceptar',
-                        [
-                            'id' => 'AceptarBtn1',
-                            'type' => 'submit',
-                            'class' => 'btn btn-primary btn-aceptar'
-                        ]);
-                ?>
-            </div>
-
-            <?php $this->Form->unlockField('administrator');
-                $this->Form->unlockField('assistant');
-                $this->Form->unlockField('student');
-                $this->Form->unlockField('professor');
-            ?>
+           
         <?= $this->Form->end() ?>
     </div>
 </div>
