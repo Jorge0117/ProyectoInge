@@ -25,19 +25,19 @@ class RolesController extends AppController
         $this->set(compact('roles_array'));
 
         //Administrator permissions
-        $administrator_permissions = $this->Permissions->getPermissionsByModule('Administrador');
+        $administrator_permissions = $this->Permissions->getPermissions('Administrador');
         $this->set(compact('administrator_permissions'));
 
         //Assistant permissions
-        $assistant_permissions = $this->Permissions->getPermissionsByModule('Asistente');
+        $assistant_permissions = $this->Permissions->getPermissions('Asistente');
         $this->set(compact('assistant_permissions'));
 
         //Student permissions
-        $student_permissions = $this->Permissions->getPermissionsByModule('Estudiante');
+        $student_permissions = $this->Permissions->getPermissions('Estudiante');
         $this->set(compact('student_permissions'));
 
         //Professor permissions
-        $professor_permissions = $this->Permissions->getPermissionsByModule('Profesor');
+        $professor_permissions = $this->Permissions->getPermissions('Profesor');
         $this->set(compact('professor_permissions'));
 
         $all_permissions_by_module = $this->Permissions->getAllPermissionsByModule();
