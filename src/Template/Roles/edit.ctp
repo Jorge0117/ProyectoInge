@@ -145,6 +145,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('CoursesClassesVw-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -167,6 +168,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Reports-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -189,6 +191,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requirements-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -211,6 +214,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Rounds-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -233,6 +237,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requests-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -255,6 +260,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Users-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -330,6 +336,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('CoursesClassesVw-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -352,6 +359,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Reports-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -374,6 +382,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requirements-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -396,6 +405,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Rounds-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -419,6 +429,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requests-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -441,6 +452,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Users-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -515,6 +527,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('CoursesClassesVw-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -537,6 +550,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Reports-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -559,6 +573,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requirements-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -581,6 +596,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Rounds-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -603,6 +619,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requests-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -625,6 +642,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Users-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -698,6 +716,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('CoursesClassesVw-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -720,6 +739,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Reports-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -742,6 +762,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requirements-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -764,6 +785,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Rounds-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -786,6 +808,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Requests-'.$action);
                                 }
                             ?>		  
                         </table>
@@ -808,6 +831,7 @@
                                             'disabled' => true]
                                         ).'</td>'."\n");
                                     echo('</tr>'."\n");
+                                    $this->Form->unlockField('Users-'.$action);
                                 }
                             ?>		  
                         </table>

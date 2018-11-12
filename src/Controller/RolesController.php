@@ -20,28 +20,139 @@ class RolesController extends AppController
     public function edit()
     {
         $this->loadModel('Permissions');
+        $this->loadModel('PermissionsRoles');
 
         $roles_array = $this->Roles->find('list');
         $this->set(compact('roles_array'));
 
-        //Administrator permissions
+        // Administrator permissions
         $administrator_permissions = $this->Permissions->getPermissions('Administrador');
         $this->set(compact('administrator_permissions'));
 
-        //Assistant permissions
+        // Assistant permissions
         $assistant_permissions = $this->Permissions->getPermissions('Asistente');
         $this->set(compact('assistant_permissions'));
 
-        //Student permissions
+        // Student permissions
         $student_permissions = $this->Permissions->getPermissions('Estudiante');
         $this->set(compact('student_permissions'));
-
-        //Professor permissions
+ 
+        // Professor permissions
         $professor_permissions = $this->Permissions->getPermissions('Profesor');
         $this->set(compact('professor_permissions'));
 
         $all_permissions_by_module = $this->Permissions->getAllPermissionsByModule();
         $this->set(compact('all_permissions_by_module'));
+
+        // Manejo la solicitud del cliente
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            $completed = true;
+            if(array_key_exists('AceptarAdministrador',$data)){
+                unset($data['AceptarAdministrador']);
+                $permissions_to_add = array_diff_key($data, $administrator_permissions);
+                $permissions_to_delete = array_diff_key($administrator_permissions, $data);
+                unset($permissions_to_delete['Roles-edit']);
+                unset($permissions_to_delete['Mainpage-index']);
+
+                foreach ($permissions_to_add as $permission => $value) {
+                    $permission_to_add = $this->PermissionsRoles->newEntity();
+                    $permission_to_add->permission_id = $permission;
+                    $permission_to_add->role_id= 'Administrador';
+                    if(!$this->PermissionsRoles->save($permission_to_add)){
+                        $complete = false;
+                    }
+                }
+
+                foreach ($permissions_to_delete as $permission => $value) {
+                    $permission_to_delete = $this->PermissionsRoles->get(
+                        ['role_id' => 'Administrador',
+                            'permission_id' => $permission]);
+                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
+                        $complete = false;
+                    }
+                }
+                
+            }else if(array_key_exists('AceptarEstudiante',$data)){
+                unset($data['AceptarEstudiante']);
+                $permissions_to_add = array_diff_key($data, $student_permissions);
+                $permissions_to_delete = array_diff_key($student_permissions, $data);
+                unset($permissions_to_delete['Mainpage-index']);
+
+                foreach ($permissions_to_add as $permission => $value) {
+                    $permission_to_add = $this->PermissionsRoles->newEntity();
+                    $permission_to_add->permission_id = $permission;
+                    $permission_to_add->role_id= 'Estudiante';
+                    if(!$this->PermissionsRoles->save($permission_to_add)){
+                        $complete = false;
+                    }
+                }
+
+                foreach ($permissions_to_delete as $permission => $value) {
+                    $permission_to_delete = $this->PermissionsRoles->get(
+                        ['role_id' => 'Estudiante',
+                            'permission_id' => $permission]);
+                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
+                        $complete = false;
+                    }
+                }
+                
+            }else if(array_key_exists('AceptarAsistente',$data)){
+                unset($data['AceptarAsistente']);
+                $permissions_to_add = array_diff_key($data, $assistant_permissions);
+                $permissions_to_delete = array_diff_key($assistant_permissions, $data);
+                unset($permissions_to_delete['Mainpage-index']);
+
+                foreach ($permissions_to_add as $permission => $value) {
+                    $permission_to_add = $this->PermissionsRoles->newEntity();
+                    $permission_to_add->permission_id = $permission;
+                    $permission_to_add->role_id= 'Asistente';
+                    if(!$this->PermissionsRoles->save($permission_to_add)){
+                        $complete = false;
+                    }
+                }
+
+                foreach ($permissions_to_delete as $permission => $value) {
+                    $permission_to_delete = $this->PermissionsRoles->get(
+                        ['role_id' => 'Asistente',
+                            'permission_id' => $permission]);
+                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
+                        $complete = false;
+                    }
+                }
+
+            }else if(array_key_exists('AceptarProfesor',$data)){
+                unset($data['AceptarAsistente']);
+                $permissions_to_add = array_diff_key($data, $professor_permissions);
+                $permissions_to_delete = array_diff_key($professor_permissions, $data);
+                unset($permissions_to_delete['Mainpage-index']);
+
+                foreach ($permissions_to_add as $permission => $value) {
+                    $permission_to_add = $this->PermissionsRoles->newEntity();
+                    $permission_to_add->permission_id = $permission;
+                    $permission_to_add->role_id= 'Profesor';
+                    if(!$this->PermissionsRoles->save($permission_to_add)){
+                        $complete = false;
+                    }
+                }
+
+                foreach ($permissions_to_delete as $permission => $value) {
+                    $permission_to_delete = $this->PermissionsRoles->get(
+                        ['role_id' => 'Profesor',
+                            'permission_id' => $permission]);
+                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
+                        $complete = false;
+                    }
+                }
+            }
+
+            if($completed){
+                $this->Flash->success(__('Se modificaron los permisos del rol correctamente.'));
+            }else{
+                $this->Flash->error(__('Error: no se lograron modificar los permisos del usuario.'));
+            }
+            return $this->redirect('/roles/index');
+        }
     }
 
     /**
