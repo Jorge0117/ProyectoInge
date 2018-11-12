@@ -34,3 +34,9 @@ h1{
     font-size: 1.5em;
     color: #999999;
 }
+
+.item-tab{
+    font-size: 0.96em;
+    color: gray;
+    font-weight: bold;
+}
