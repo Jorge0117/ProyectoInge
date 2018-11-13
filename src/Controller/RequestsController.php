@@ -367,17 +367,17 @@ class RequestsController extends AppController
         //$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
 
         $c2[0] = "Seleccione un Curso";
+        $c3[0] = "Seleccione un Curso";
         //foreach($aux as $c) //Recorre cada tupla de curso
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
             //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
-           /* $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
+            $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
             $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
-            $i = $i + 1;*/
-            
+           
             //autor: Daniel Marín
-            $c2[$i + 1] = $c['code'].' - '.$c['name']; //Almacena el codigo junto al nombre del curso
-            $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
+            $c3[$i + 1] = $c['code'].' - '.$c['name']; //Almacena el codigo junto al nombre del curso
+
             $i = $i + 1;
         }
 
@@ -400,7 +400,7 @@ class RequestsController extends AppController
         //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 
         //debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
+        $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
 
     }
     /**
