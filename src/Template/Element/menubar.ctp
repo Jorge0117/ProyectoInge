@@ -51,27 +51,20 @@
         <?php endif ?>
 
     </div>
-
+    <!-- Element/menubar.ctp -->
     <?php $round = $this->Rounds->getLastRound() ?>
     <?php if($round == null): ?>
         <div style="width:200px">
         </div>
     <?php else: ?>
-        <div style="height:69px; width:200px ">
+        <div style="width:200px ">
             <div>  
-                <h6 style='color:red; font-size:19px; margin-top:0px'><strong> 
+                <h6 style='color:red; font-size:19px;'><strong> 
                     <?= $round[0] ?><br>
                     <?= $round[1] ?><br>
                     <?= $round[2] ?><br>
                 </strong></h6>
             </div>
-            <?php if($current_user['role_id'] === 'Administrador'): ?>
-                <div style="position:absolute; margin-top:35px ; right: 15px;  background-color:white"> 
-                    <h6 style='color:red;'><strong> 
-                        <?= $round[3] . ' | ' . $round[4] ?>
-                    </strong></h6>
-                </div>
-            <?php endif; ?>
         </div>        
     <?php endif; ?>
 </nav>

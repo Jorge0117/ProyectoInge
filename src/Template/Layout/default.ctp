@@ -146,8 +146,20 @@ echo $this->Html->css('grid-index');
           <span class="navbar-text"><?php if (isset($title)) {echo h($title);} else {echo " ";}?></span>
         </nav>
     </div>
-
     <?=$this->Flash->render()?>
+
+      <!-- Layout/default.ctp
+        FIXME: Mover declaración de variable a AppController-->
+    <?php $round = $this->Rounds->getLastRound()?> 
+    <?php if($current_user['role_id'] === 'Administrador'): ?>
+        <div class="row">
+        <div class="col" align="right"> 
+            <h6 style='color:red;'><strong> 
+                <?= $round[3] . ' | ' . $round[4] ?>
+            </strong></h6>
+        </div>
+        </div>
+    <?php endif; ?>
 
     <div class="container pt-5">
       <?=$this->fetch('content')?>
