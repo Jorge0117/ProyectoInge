@@ -40,7 +40,7 @@
 
 
 <div class='rounds index large-9 menium-8 columns content'>
-    <h3><?= 'Rondas' ?></h3>
+    <h3><?= 'Gestión de Rondas' ?></h3>
 </div>
 <div>
     <table cellspacing="0" cellpadding="0" class="table">
