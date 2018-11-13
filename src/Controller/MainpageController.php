@@ -17,6 +17,7 @@ class MainpageController extends AppController
         parent::initialize();
         $this->modelClass = false;
     }
+
     /**
      * Index method
      *

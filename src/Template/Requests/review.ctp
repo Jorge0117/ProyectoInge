@@ -145,7 +145,7 @@
 				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
-						['controller'=>'requests','action'=>'index'],
+						['controller'=>'Requests','action'=>'index'],
 						['class'=>'btn btn-secondary btn-cancelar radioRequirements']
 					)?>
 

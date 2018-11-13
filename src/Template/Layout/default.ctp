@@ -138,8 +138,8 @@ echo $this->Html->css('grid-index');
     </style> -->
 </head>
 <body>
-    <div style='position: sticky; position: -webkit-sticky; top:0;z-index:10'> 
-        <?=$this->element('titlebar')?>
+<?=$this->element('titlebar')?>
+<div style='position: sticky; position: -webkit-sticky; top:0;z-index:10'> 
         <?=$this->element('menubar')?>
 
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
