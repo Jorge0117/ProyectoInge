@@ -302,22 +302,14 @@
 	 * EFE: activa o desactiva el requerir el campo otras horas estudiante 
 	 **/
 	function unrequireStudent(){
-		if(byId('another-assistant-hours').required){
-			byId('another-student-hours').required = false;
-		}else{
-			byId('another-assistant-hours').required = true;
-		}
+		byId('another-student-hours').required = false;
 	}
 
 	/** Función unrequireAssitant
 	 * EFE: activa o desactiva el requerir el campo otras horas asistente
 	 **/
 	function unrequireAssitant(){
-		if(byId('another-student-hours').required){
-			byId('another-assistant-hours').required = false;
-		}else{
-			byId('another-student-hours').required = true;
-		}
+		byId('another-assistant-hours').required = false;
 	}
 
 	/** Función send
