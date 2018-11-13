@@ -238,7 +238,7 @@
 					<?= $this->Form->control('Clasificación Final',[
 						'id' => 'End-Classification',
 						'name' => 'End-Classification',
-						'options' => ['-No Clasificado-', 'Aprobado', 'Rechazado'],
+						'options' => ['-No Clasificado-', 'Aceptado', 'Rechazado'],
 						'default' => $default_indexf,
 						'onchange'=>"approve()",
 					]);?>
@@ -324,7 +324,6 @@
 							'class'=>'btn btn-secondary btn-cancelar'
 						]);?>
 						<?= $this->Form->button('Aceptar',[
-							'onclick' => "finishEndForm()",
 							'id' => 'AceptarFin',
 							'name' => 'AceptarFin',
 							'type' => 'submit',
