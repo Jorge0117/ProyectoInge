@@ -145,7 +145,7 @@
 				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
-						['controller'=>'Requests','action'=>'index'],
+						['controller'=>'requests','action'=>'index'],
 						['class'=>'btn btn-secondary btn-cancelar radioRequirements']
 					)?>
 
@@ -259,7 +259,7 @@
 									'id'=>'student',
 									'type'=>'number',
 									'min' => '3',
-									'max' => '12',
+									'max' => 12-$request['another_student_hours'],
 									'label' => false,
 									'disabled'
 								]);?>
@@ -291,7 +291,7 @@
 									'id'=>'assistant',
 									'type'=>'number',
 									'min' => '3',
-									'max' => '20',
+									'max' => 20-$request['another_assistant_hours'],
 									'label' => false,
 									'disabled',		
 								]);?>
@@ -347,14 +347,14 @@ $(document).ready( function () {
 		}
     });
 	if('<?= $approved ?>'){
-		var tsh = '<?= $last[5]; ?>';
-		var ash = '<?= $last[7]; ?>';
-		var totS = tsh-ash;
-		if(totS < 12)byId('student').max = totS;
-		var tah = '<?= $last[6]; ?>';
-		var aah = '<?= $last[8]; ?>';
-		var totA = tah-aah;
-		if(totA < 20)byId('assistant').max = totA;
+		var tsh = <?= $last[5]; ?>;
+		var ash = <?= $last[7]; ?>;
+		var totS = tsh-ash + <?= $hsCnt ?>;
+		if(totS < parseInt(byId('student').max))byId('student').max = totS;
+		var tah = <?= $last[6]; ?>;
+		var aah = <?= $last[8]; ?>;
+		var totA = tah-aah + <?= $haCnt ?>;
+		if(totA < parseInt(byId('assistant').max))byId('assistant').max = totA;
 		approve();
     }
 });
