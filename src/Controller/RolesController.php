@@ -13,7 +13,7 @@ use App\Controller\AppController;
 class RolesController extends AppController
 {
     /**
-     * Index method.
+     * Se encarga de la logica de modificar permisos de rol.
      *
      * @return \Cake\Http\Response|void
      */
@@ -22,221 +22,139 @@ class RolesController extends AppController
         $this->loadModel('Permissions');
         $this->loadModel('PermissionsRoles');
 
+        // Se solicitan los roles existentes en el sistema para mostrarlos en la vista
         $roles_array = $this->Roles->find('list');
         $this->set(compact('roles_array'));
 
-        // Administrator permissions
+        // Se solicitan los permisos de administrador
         $administrator_permissions = $this->Permissions->getPermissions('Administrador');
         $this->set(compact('administrator_permissions'));
 
-        // Assistant permissions
+        // Se solicitan los permisos de asistente
         $assistant_permissions = $this->Permissions->getPermissions('Asistente');
         $this->set(compact('assistant_permissions'));
 
-        // Student permissions
+        // Se solicitan los permisos de estudiante
         $student_permissions = $this->Permissions->getPermissions('Estudiante');
         $this->set(compact('student_permissions'));
  
-        // Professor permissions
+        // Se solicitan los permisos de profesor
         $professor_permissions = $this->Permissions->getPermissions('Profesor');
         $this->set(compact('professor_permissions'));
 
+        /*
+         * Se solicitan todos los permisos del sistema categorizados por modulo(Para más información, revisar el metodo
+         * getAllPermissionsByModule del modelo Permissions).
+         */
         $all_permissions_by_module = $this->Permissions->getAllPermissionsByModule();
         $this->set(compact('all_permissions_by_module'));
 
         // Manejo la solicitud del cliente
         if ($this->request->is('post')) {
+            // Se guardan los datos enviados por el cliente
             $data = $this->request->getData();
+            // Variable usada para verificar que todas las operaciones fueron ejecutadas correctamente
             $completed = true;
+
+            /*
+             * Dependiendo del rol que se estaba modificando se oprime un boton aceptar diferente.
+             * En este if se verifica que boton fue oprimido, y con esto saber que rol esta siendo modificado.
+             * 
+             * Para aumentar la velocidad, algunos campos que no son indispensables del array son borrados, 
+             * para asi no tener que sacar uno a uno los que si son indispensables.
+             */ 
             if(array_key_exists('AceptarAdministrador',$data)){
                 unset($data['AceptarAdministrador']);
-                $permissions_to_add = array_diff_key($data, $administrator_permissions);
-                $permissions_to_delete = array_diff_key($administrator_permissions, $data);
-                unset($permissions_to_delete['Roles-edit']);
-                unset($permissions_to_delete['Mainpage-index']);
-
-                foreach ($permissions_to_add as $permission => $value) {
-                    $permission_to_add = $this->PermissionsRoles->newEntity();
-                    $permission_to_add->permission_id = $permission;
-                    $permission_to_add->role_id= 'Administrador';
-                    if(!$this->PermissionsRoles->save($permission_to_add)){
-                        $complete = false;
-                    }
-                }
-
-                foreach ($permissions_to_delete as $permission => $value) {
-                    $permission_to_delete = $this->PermissionsRoles->get(
-                        ['role_id' => 'Administrador',
-                            'permission_id' => $permission]);
-                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
-                        $complete = false;
-                    }
-                }
-                
+                $role = 'Administrador';
+                $role_permissions = $administrator_permissions;
             }else if(array_key_exists('AceptarEstudiante',$data)){
                 unset($data['AceptarEstudiante']);
-                $permissions_to_add = array_diff_key($data, $student_permissions);
-                $permissions_to_delete = array_diff_key($student_permissions, $data);
-                unset($permissions_to_delete['Mainpage-index']);
-
-                foreach ($permissions_to_add as $permission => $value) {
-                    $permission_to_add = $this->PermissionsRoles->newEntity();
-                    $permission_to_add->permission_id = $permission;
-                    $permission_to_add->role_id= 'Estudiante';
-                    if(!$this->PermissionsRoles->save($permission_to_add)){
-                        $complete = false;
-                    }
-                }
-
-                foreach ($permissions_to_delete as $permission => $value) {
-                    $permission_to_delete = $this->PermissionsRoles->get(
-                        ['role_id' => 'Estudiante',
-                            'permission_id' => $permission]);
-                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
-                        $complete = false;
-                    }
-                }
-                
+                $role = 'Estudiante';
+                $role_permissions = $student_permissions;
             }else if(array_key_exists('AceptarAsistente',$data)){
                 unset($data['AceptarAsistente']);
-                $permissions_to_add = array_diff_key($data, $assistant_permissions);
-                $permissions_to_delete = array_diff_key($assistant_permissions, $data);
-                unset($permissions_to_delete['Mainpage-index']);
-
-                foreach ($permissions_to_add as $permission => $value) {
-                    $permission_to_add = $this->PermissionsRoles->newEntity();
-                    $permission_to_add->permission_id = $permission;
-                    $permission_to_add->role_id= 'Asistente';
-                    if(!$this->PermissionsRoles->save($permission_to_add)){
-                        $complete = false;
-                    }
-                }
-
-                foreach ($permissions_to_delete as $permission => $value) {
-                    $permission_to_delete = $this->PermissionsRoles->get(
-                        ['role_id' => 'Asistente',
-                            'permission_id' => $permission]);
-                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
-                        $complete = false;
-                    }
-                }
-
+                $role = 'Asistente';
+                $role_permissions = $assistant_permissions;
             }else if(array_key_exists('AceptarProfesor',$data)){
-                unset($data['AceptarAsistente']);
-                $permissions_to_add = array_diff_key($data, $professor_permissions);
-                $permissions_to_delete = array_diff_key($professor_permissions, $data);
-                unset($permissions_to_delete['Mainpage-index']);
+                unset($data['AceptarProfesor']);
+                $role = 'Profesor';
+                $role_permissions = $professor_permissions;
+            }
 
-                foreach ($permissions_to_add as $permission => $value) {
-                    $permission_to_add = $this->PermissionsRoles->newEntity();
-                    $permission_to_add->permission_id = $permission;
-                    $permission_to_add->role_id= 'Profesor';
-                    if(!$this->PermissionsRoles->save($permission_to_add)){
-                        $complete = false;
-                    }
-                }
 
-                foreach ($permissions_to_delete as $permission => $value) {
-                    $permission_to_delete = $this->PermissionsRoles->get(
-                        ['role_id' => 'Profesor',
-                            'permission_id' => $permission]);
-                    if(!$this->PermissionsRoles->delete($permission_to_delete)){
-                        $complete = false;
-                    }
+            /*
+             * Para aumentar la velocidad, se usa la operacion diferencia(es una operación de conjuntos, que devuelve
+             * los elementos que estan en el primer conjunto pero no en el segundo). Esto es necesario ya que en 
+             * $data estan los permisos que el usuario espera que esten concedidos al rol, pero algunos ya estan en la 
+             * base, por lo que no hay que guardarlos. 
+             * 
+             * Con la operacion diferencia, se buscan en $data los permisos que no esten en la base (en este caso 
+             * representada por $role_permissions) para crear el array $permissions_to_add, para despues ser agregados. 
+             * 
+             * Por otro lado, para saber cuales hay que borrar, se deben buscar los permisos que estan en la
+             * base ($role_permissions) y que no esten en $data, debido a que como se menciono anteriormente, si no 
+             * estan en $data significa que el usuario no los concedio. Estos permisos son guardados en 
+             * $permissions_to_delete, para despues ser borrados.
+             */
+            $permissions_to_add = array_diff_key($data, $role_permissions);
+            $permissions_to_delete = array_diff_key($role_permissions, $data);
+
+            /*
+             * Para aumentar la velocidad, algunos campos que no son indispensables del array son borrados, 
+             * para asi no tener que sacar uno a uno los que si son indispensables.
+             * 
+             * Estos (en este caso 'Mainpage-index' y 'Roles-edit') deben ser borrados ya que son permisos que no se deben modificar,
+             * o sea los roles siempre deben tenerlos sin importa que. En caso de que no se borren de este array, 
+             * seran puestos en el array de permisos a borrar ya que en la interfaz no hay un campo para ellos, 
+             * por lo que en el array recibido de checks del usuario nunca van a estar. 
+             */ 
+            if ($role == 'Administrador'){
+                // Este requiere de un if ya que solo el administrador tiene este permiso
+                unset($permissions_to_delete['Roles-edit']);
+            }
+            unset($permissions_to_delete['Mainpage-index']);
+
+            /*
+             * Se recorre y se agregan los permisos que estan en $permissions_to_add
+             */ 
+            foreach ($permissions_to_add as $permission => $value) {
+                $permission_to_add = $this->PermissionsRoles->newEntity();
+                $permission_to_add->permission_id = $permission;
+                $permission_to_add->role_id= $role;
+
+                // Se verifica que la operacion se completo correctamente
+                if(!$this->PermissionsRoles->save($permission_to_add)){
+                    $complete = false;
                 }
             }
 
+            /*
+             * Se recorre y se borran los permisos que estan en $permissions_to_delete
+             */
+            foreach ($permissions_to_delete as $permission => $value) {
+                $permission_to_delete = $this->PermissionsRoles->get(
+                    ['role_id' => $role,
+                        'permission_id' => $permission]);
+
+                // Se verifica que la operacion se completo correctamente
+                if(!$this->PermissionsRoles->delete($permission_to_delete)){
+                    $complete = false;
+                }
+            }
+
+            /*
+             * Si se completaron todas las operaciones se muestra un mensaje de exito, en caso contrario
+             * se muestra un mensaje de error.
+             */
             if($completed){
                 $this->Flash->success(__('Se modificaron los permisos del rol correctamente.'));
             }else{
                 $this->Flash->error(__('Error: no se lograron modificar los permisos del usuario.'));
             }
+
+            //Se recarga la pagina para que se muestren los cambios.
             return $this->redirect('/roles/index');
         }
-    }
-
-    /**
-     * Agrega o borra los permisos seleccionados del rol seleccionado en la vista. 
-     *
-     * @return void
-     */
-    public function updatePermissions()
-    {
-        $updates_completed = true;
-        $n_permission_types = count($this->permission_types);
-        $this->render(false);
-        $this->loadModel('PermissionsRoles');
-        $this->loadModel('Permissions');
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
-
-            if ($data['role_select'] == 'Administrador') {
-                $role_selected = 'administrator';
-                $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
-                    return $q->where(['Roles.role_id' => 'Administrador']);
-                })->toArray();
-
-            } else if ($data['role_select'] == 'Asistente') {
-                $role_selected = 'assistant';
-                $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
-                    return $q->where(['Roles.role_id' => 'Asistente']);
-                })->toArray();
-
-            } else if ($data['role_select'] == 'Estudiante') {
-                $role_selected = 'student';
-                $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
-                    return $q->where(['Roles.role_id' => 'Estudiante']);
-                })->toArray();
-
-            } else if ($data['role_select'] == 'Profesor') {
-                $role_selected = 'professor';
-                $old_permissions = $this->Permissions->find('list')->matching('Roles', function ($q) {
-                    return $q->where(['Roles.role_id' => 'Profesor']);
-                })->toArray();
-
-            }
-
-            for ($i = 0; $i < $n_permission_types; $i++) {
-                $old_permissions_matrix[$i][0] = $this->permission_list[$i];
-                for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                    $old_permissions_matrix[$i][$j] = in_array($this->permissions_id_matrix[$i][$j - 1], $old_permissions);
-                }
-            }
-
-            for ($i = 0; $i < $n_permission_types; $i++) {
-                for ($j = 1; $j <= count($this->permissions_id_matrix[$i]); $j++) {
-                    if (array_key_exists($role_selected, $data) &&
-                        array_key_exists($i, $data[$role_selected]) &&
-                        array_key_exists($j, $data[$role_selected][$i])) {
-                        if (!$old_permissions_matrix[$i][$j]) {
-                            $permission_role = $this->PermissionsRoles->newEntity();
-                            $permission_role->role_id = $data['role_select'];
-                            $permission_role->permission_id = $this->permissions_id_matrix[$i][$j - 1];
-                            echo (var_dump('' . $permission_role->role_id . $permission_role->permission_id));
-                            if (!$this->PermissionsRoles->save($permission_role)) {
-                                $updates_completed = false;
-                            }
-                        }
-                    } else {
-                        if ($old_permissions_matrix[$i][$j]) {
-                            $permission_role = $this->PermissionsRoles->get(
-                                ['role_id' => $data['role_select'],
-                                    'permission_id' => $this->permissions_id_matrix[$i][$j - 1]]);
-                            if (!$this->PermissionsRoles->delete($permission_role)) {
-                                $updates_completed = false;
-                            }
-                        }
-                    }
-                }
-            }
-            if($updates_completed){
-                $this->Flash->success(__('Se han actualizado los permisos del rol.'));
-            }else{
-                $this->Flash->error(__('Los permisos del rol no han sido ser actualizados.'));
-            }
-        }
-
-        return $this->redirect('/roles/index');
     }
 
     /**
