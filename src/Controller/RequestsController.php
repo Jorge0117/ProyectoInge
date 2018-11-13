@@ -371,10 +371,14 @@ class RequestsController extends AppController
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
             //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
-            $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
+           /* $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
+            $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
+            $i = $i + 1;*/
+            
+            //autor: Daniel Marín
+            $c2[$i + 1] = $c['code'].' - '.$c['name']; //Almacena el codigo junto al nombre del curso
             $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
             $i = $i + 1;
-
         }
 
         //Funcionalidad Solicitada: Agregar datos del usuario
