@@ -218,7 +218,7 @@
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
 			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
 			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
-			echo $this->Form->control('average', ['label' => 'Promedio Ponderado', 'type' => 'text']);
+			echo $this->Form->control('average', ['label' => 'Promedio Ponderado', 'type' => 'number', 'step' => '0.01', 'max' => '10', 'min' => '0']);
 		?>
 		</div>
 		<div class="form-section">
@@ -227,16 +227,16 @@
 		<?php
 			echo $this->Form->control('wants_student_hours', ['label' => 'Deseo Solicitar Horas Estudiante', 'type' => 'checkbox']);
 			echo $this->Form->control('wants_assistant_hours', ['label' => 'Deseo Solicitar Horas Asistente', 'type' => 'checkbox']);
-			echo $this->Form->control('has_another_hours', ['label' => 'Tengo otras Horas Asignadas']);
-            echo $this->Form->control('another_student_hours', ['label' => 'Cantidad de horas estudiante ya asignadas: ']);
-            echo $this->Form->control('another_assistant_hours', ['label' => 'Cantidad de horas asistente ya asignadas: ']);
+			echo $this->Form->control('has_another_hours', ['label' => 'Tengo Horas Asignadas o por asignar en otra Unidad Académica u oficina de la Universidad','onclick'=>"toggleAnother()"]);
+            echo $this->Form->control('another_student_hours', ['label' => 'Cantidad de horas estudiante ya asignadas: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Cantidad de horas asistente ya asignadas: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
 
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			?>
 			</div>
 			
 
-			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar']) ?>
+			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
 			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
 			
 			<?php
@@ -272,3 +272,60 @@
 	
 </div>
 
+<script>
+
+	// función inicial 
+	$(document).ready( function () {			
+		byId('another-student-hours').disabled = true;
+		byId('another-assistant-hours').disabled = true;
+	});
+	/** Función toggleAnother
+	 * EFE: activa o desactiva los campos de otras horas
+	 **/
+	function toggleAnother(){
+		if(byId('has-another-hours').checked){
+			byId('another-student-hours').disabled = false;
+			byId('another-student-hours').required = true;
+			byId('another-assistant-hours').disabled = false;
+			byId('another-assistant-hours').required = true;
+		}else{
+			byId('another-student-hours').disabled = true;
+			byId('another-student-hours').value = null;
+			byId('another-student-hours').required = false;
+			byId('another-assistant-hours').disabled = true;
+			byId('another-assistant-hours').value = null;
+			byId('another-assistant-hours').required = false;
+		}
+	}
+
+	/** Función unrequireStudent
+	 * EFE: activa o desactiva el requerir el campo otras horas estudiante 
+	 **/
+	function unrequireStudent(){
+		byId('another-student-hours').required = false;
+	}
+
+	/** Función unrequireAssitant
+	 * EFE: activa o desactiva el requerir el campo otras horas asistente
+	 **/
+	function unrequireAssitant(){
+		byId('another-assistant-hours').required = false;
+	}
+
+	/** Función send
+	 * EFE: habilita los campos de otras horas para enviarlos en el form
+	 **/
+	function send(){
+		byId('another-student-hours').disabled = false;
+		byId('another-assistant-hours').disabled = false;
+	}
+
+	/** Función byId
+	 * EFE: Función wrapper de getElementById
+	 * REQ: Id del elemento a obtener.
+	 * RET: Elemento requerido.
+	 **/
+	function byId(id) {
+		return document.getElementById(id);
+	}
+</script>
