@@ -283,10 +283,13 @@ class RequestsController extends AppController
                 //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
                 $request->set('wants_assistant_hours',true);
             }
-            
-            //die();
+           
             //debug($request);
-            if ($this->Requests->save($request)) {
+            //die();
+            if($request['average'] < 7){
+                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
+                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
+            }else if ($this->Requests->save($request)) {
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
