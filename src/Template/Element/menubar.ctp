@@ -66,7 +66,7 @@
                 </strong></h6>
             </div>
             <?php if($current_user['role_id'] === 'Administrador'): ?>
-                <div style="position:absolute; margin-top:40px ; right: 15px;"> 
+                <div style="position:absolute; margin-top:35px ; right: 15px;  background-color:white"> 
                     <h6 style='color:red;'><strong> 
                         <?= $round[3] . ' | ' . $round[4] ?>
                     </strong></h6>
