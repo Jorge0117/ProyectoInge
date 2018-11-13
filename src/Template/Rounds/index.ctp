@@ -102,9 +102,11 @@
                     <?= $this->Form->end() ?>
                 <!-- Botones de accion -->                
                 <td style = 'width:79px' ><div>
-                    <button id='add' class='btn-x float-left' style='padding:0px 2px' onclick='startAdd()' >
-                        <i class="fa fa-calendar-plus-o"></i>
-                    </button>
+                    <?php if(true): ?>
+                        <button id='add' class='btn-x float-left' style='padding:0px 2px' onclick='startAdd()' >
+                            <i class="fa fa-calendar-plus-o"></i>
+                        </button>
+                    <?php endif; ?>
                     <button id='edit' class='btn-x float-left' style='padding:0px 2px' onclick='startEdit()' >
                         <i class="fa fa-pencil"></i>
                     </button>
@@ -236,21 +238,29 @@ function sensitiveRange(first){
 calendar.attachEvent("onClick", function(date){
     var start = byId('start-date').value;
     var end = byId('end-date').value;
+    console.log(byId('flag').value);
     if(compareDates(start,end)>0){
         byId('end-date').value = start;
     }
     if(last){
-        if( byId('flag').value != '2'){
+        if( byId('flag').value == '1'){
             var startDate = splitDate(start);
             var year = startDate['y'];
             if(startDate['m'] == 12) year = parseInt(year)+1;
             if(year != last[4] || (last[3] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (last[3] == 'II' && parseInt(startDate['m']) > 11)){
                 byId('tshHeader').style.display = "table-cell";
                 byId('tshData').style.display = "table-cell";
-                byId('tshData').value = 0;
+                byId('total-student-hours').value = 0;
                 byId('tahHeader').style.display = "table-cell";
                 byId('tahData').style.display = "table-cell";
-                byId('tahData').value = 0;
+                byId('total-assistant-hours').value = 0;
+            }else{
+                byId('tshHeader').style.display = 'none';
+                byId('tshData').style.display = 'none';
+                byId('total-student-hours').value = '<?= $tsh ?>';
+                byId('tahHeader').style.display = 'none';
+                byId('tahData').style.display = 'none';
+                byId('total-assistant-hours').value =  '<?= $tah ?>';
             }
         }else if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0) && byId('flag').value != '1'){
             startEdit();
