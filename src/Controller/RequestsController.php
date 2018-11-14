@@ -770,8 +770,7 @@ class RequestsController extends AppController
         $list = ' '; //Inicializa la lista de los requisitos rechazados
         foreach($requirements as $r) //Aquí se van concatenando los requisitos recuperados
         {
-            $list .= '
-            ' . $r['description'];
+            $list .= "*" . $r['description'] . "\v \r \r";
         }
         return $list; //Se devuelve la lista de requisitos rechazados del estudiante
     }
@@ -800,44 +799,37 @@ class RequestsController extends AppController
 
         //Indica que si el estado es 1, se debe enviar mensaje de estudiante no elegible.
         if($state == 1){
-        $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud de horas fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
+        $text = "Estudiante $name:" . "\v \r \v \r" .
+        "Por este medio se le comunica que su solicitud de horas fue RECHAZADA debido a que no cumplió con el(los) siguiente(s) requisito(s):" . "\v \r \v \r";
         $list = $this->reprovedMessage($id);
-        $text .= ' 
-        ' . $list;
-        $text .= '
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        $text .= $list;
+        $text .= "\r \r" . "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'.";
         }
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
         if($state == 2){
-        $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud de horas no fue Aceptada por el(la) profesor(a) ' . $professor .
-        ' en el curso ' . $course . ' y grupo ' . $group . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
-        
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto".';
+            $text = "Estudiante $name:" . "\v \r \v \r" .
+            "Por este medio se le comunica que su solicitud de horas NO FUE ACEPTADA por el(la) profesor(a) $professor en el curso $course y grupo $group. Sin embargo, usted se mantiene como ELEGIBLE y puede participar en la próxima ronda." . "\v \r \v \r" .
+            "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'.";
         }
 
         //Si el estado es 3, se debe enviar mensaje de estudiante aceptado.
         if($state == 3){
-        $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
-        'fue ACEPTADA.
-        
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+            $text = "Estimado Estudiante $name:" . "\v \r \v \r" .
+            "Su solicitud de horas al curso con el(la) profesor(a) $professor, curso $course y grupo $group, fue ACEPTADA." . "\v \r \v \r" .
+            "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'.";
         }
 
         if($state == 4){
-        $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
-        'fue ACEPTADA POR INOPIA.
-        
-        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+            $text = "Estimado estudiante $name:" . "\v \r \v \r" .
+            "Su solicitud de horas al curso con el(la) profesor(a) $professor, curso $course y grupo $group, fue ACEPTADA POR INOPIA." . "\v \r \v \r" .
+            "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'.";
         }
 
         if($state == 5){
-            $text = nl2br('Estimado Estudiante ' . $name . ' : \n Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
-            'fue enviada con éxito. \n Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"',false); 
+            $text = "Estimado estudiante $name:" . "\v \r \v \r" .
+            "Su solicitud de horas al curso con el(la) profesor(a) $professor, curso $course y grupo $group, fue enviada con éxito." . "\v \r \v \r" .
+            "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'."; 
         }
 
         //Se envía el correo.
