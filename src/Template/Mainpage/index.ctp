@@ -35,10 +35,9 @@ ul.ins {
                 <li>Haber aprobado el curso en el cual va a prestar la colaboración.</li>
                 <li>Tener un promedio ponderado anual igual o superior a 8,0.*</li>
                 <li>Se les designa un mínimo de 3 horas y un máximo de 20 horas.</li>
-                <li>*El requisito del promedio ponderado anual se podrá considerar como inopia siempre que el mismo no sea inferior a 7.0.</li>
-                <li>**Sólo se exceptúan los estudiantes con Investigación Dirigida matriculada.</li>
             </ul>
-        
+        <p>*El requisito del promedio ponderado anual se podrá considerar como inopia siempre que el mismo no sea inferior a 7.0.<br>
+        **Sólo se exceptúan los estudiantes con Investigación Dirigida matriculada.</p>
 </body>
 </html>
 

@@ -283,10 +283,13 @@ class RequestsController extends AppController
                 //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
                 $request->set('wants_assistant_hours',true);
             }
-            
-            //die();
+           
             //debug($request);
-            if ($this->Requests->save($request)) {
+            //die();
+            if($request['average'] < 7){
+                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
+                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
+            }else if ($this->Requests->save($request)) {
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -364,14 +367,18 @@ class RequestsController extends AppController
         //$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
 
         $c2[0] = "Seleccione un Curso";
+        $c3[0] = "Seleccione un Curso";
         //foreach($aux as $c) //Recorre cada tupla de curso
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
             //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
             $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
             $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
-            $i = $i + 1;
+           
+            //autor: Daniel Marín
+            $c3[$i + 1] = $c['code'].' - '.$c['name']; //Almacena el codigo junto al nombre del curso
 
+            $i = $i + 1;
         }
 
         //Funcionalidad Solicitada: Agregar datos del usuario
@@ -393,7 +400,7 @@ class RequestsController extends AppController
         //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 
         //debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
+        $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
 
     }
     /**
@@ -527,7 +534,9 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 1 || $default_index >=3)) {
             $load_final_review = true;
             $default_indexf = 0;
-            if($default_index == 4)$default_indexf = 1;
+            $inopia = 0;
+            if($default_index == 3 || $default_index == 6) $inopia = 1;
+            if($default_index == 4 || $default_index == 6) $default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
 
@@ -679,7 +688,11 @@ class RequestsController extends AppController
                 $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:
-                        $status_new_val = 'a';
+                        if($inopia){
+                            $status_new_val = 'c';
+                        }else{
+                            $status_new_val = 'a';
+                        }
                         break;
                     case 2:
                         $status_new_val = 'r';
@@ -688,17 +701,23 @@ class RequestsController extends AppController
                 if($status_new_val == 'a'){
                     $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
                     $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,3);
+                }else if($status_new_val == 'c'){
+                    $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
+                    $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,4);
                 }else if($status_new_val == 'r'){
                     $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,2);
                 }
                 
                 //Si el estado es rechazado, se envía correo con el tipo de mensaje 2
                 if($status_index == 'r'){
-                    $this->sendMail($id,2);
+                    //$this->sendMail($id,2);
                 }
                 //Si el estado es aceptado, se envía correo con el tipo de mensaje 3
                 else if($status_index == 'a'){
-                    $this->sendMail($id,3);
+                    //$this->sendMail($id,3);
                 }
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 return $this->redirect(['action' => 'index']);
@@ -776,9 +795,17 @@ class RequestsController extends AppController
         'fue ACEPTADA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        }
+
+        if($state == 4){
+        $text = 'Estimado Estudiante ' . $name . ' :
+        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
+        'fue ACEPTADA POR INOPIA.
+        
+        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        }
 
         //Se envía el correo.
-        }
         try {
             $res = $email->from('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->to($mail)

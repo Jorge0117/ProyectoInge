@@ -89,6 +89,14 @@ class CoursesClassesVwController extends AppController
     }
 
     public function addClass(){
+        $this->loadModel('CoursesClassesVw');
+        $allCourses = $this->CoursesClassesVw->fetchCourses();
+        $acr[0] = "Seleccione un Curso";
+        $i = 1;
+        foreach($allCourses as $ac){
+            $acr[$i] = $ac[0].' - '.$ac[1];
+            $i++;
+        }
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();
         if ($this->request->is('post')) {
             //Lee los datos del form
@@ -124,7 +132,7 @@ class CoursesClassesVwController extends AppController
         $usersController = new UsersController;
         $professors = $usersController->getProfessors();
 
-        $this->set(compact('coursesClassesVw', 'courses', 'professors'));
+        $this->set(compact('coursesClassesVw', 'courses', 'professors', 'acr'));
     }
 
     /**

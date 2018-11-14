@@ -58,8 +58,16 @@ class RoundsHelper extends Helper
     //obtiene la ultima ronda creada.
     public function getLastRound() {
         $last = $this->getLastRow();
+        $dsh = (int)$last[5]-(int)$last[7];
+        $dah = (int)$last[6]-(int)$last[8];
         if($last!= null){
-            return ["Ronda #" . $last[2] .' '. $last[3] . ' ciclo ' . $last[4], "Inicio: " . $last[0], "Fin: " . $last[1]]; 
+            return [
+                "Ronda #" . $last[2] .' '. $last[3] . ' ciclo ' . $last[4],
+                "Inicio: " . $last[0],
+                "Fin: " . $last[1],
+                "Horas estudiante disponibles: ".(string)$dsh,
+                "Horas asistente disponibles: ".(string)$dah
+            ]; 
         }
         return "";
     }
