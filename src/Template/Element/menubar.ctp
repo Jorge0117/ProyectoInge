@@ -3,10 +3,9 @@
  * Barra del menú de navegación, ingluye el logo de la ECCI e información de las rondas.
  */
 ?>
-
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
-    <a class="navbar-brand">
-        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
+    <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/">
+        <?= $this->Html->image('logoEcci.png', ['style' => 'width:200px'])?>
     </a>
 
     <div>
@@ -25,21 +24,7 @@
                         <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                         <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
-                        <li class="nav-item dropdown item-menu">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownSol" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Solicitudes
-                            </a>
-
-                            <div class="dropdown-menu" aria-labeledby="dropdownSol">
-    
-                                <?php if($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                                    <?= $this->Html->link('Listar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                <?php elseif($current_user['role_id'] === 'Profesor'): ?>
-                                    <?= $this->Html->link('Revisar',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                    <?= $this->Html->link('Asistentes pasados',['controller'=>'Requests','action'=>'index'],['class'=>'dropdown-item']) ?>
-                                <?php endif ?>
-                            </div>   
-                        </li>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>
@@ -61,20 +46,25 @@
                 </ul>
             </div>
         <?php else: ?>
-
             <span class="navbar-text">
             </span>
         <?php endif ?>
 
     </div>
-
+    <!-- Element/menubar.ctp -->
     <?php $round = $this->Rounds->getLastRound() ?>
     <?php if($round == null): ?>
         <div style="width:200px">
         </div>
     <?php else: ?>
-        <div style="height:69px">  
-            <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
-        </div>
+        <div style="width:200px ">
+            <div>  
+                <h6 style='color:red; font-size:19px;'><strong> 
+                    <?= $round[0] ?><br>
+                    <?= $round[1] ?><br>
+                    <?= $round[2] ?><br>
+                </strong></h6>
+            </div>
+        </div>        
     <?php endif; ?>
 </nav>

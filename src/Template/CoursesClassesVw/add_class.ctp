@@ -12,7 +12,7 @@
         <div class="form-section">
             <div class="form-group text">
                 <label class="control-label" for="Curso"> Nombre del curso </label>
-                <?= $this->Form->select('Curso',$courses) ?>
+                <?= $this->Form->select('Curso',$acr) ?>
             </div>
             <?php
                 echo $this->Form->control('Grupo',['label'=>['text'=>'Numero de clase'],'type'=>'number']);
