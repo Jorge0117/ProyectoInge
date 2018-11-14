@@ -573,37 +573,66 @@ class RequestsController extends AppController
             if (array_key_exists('AceptarRequisitos', $data)) {
 
                 // Actualizar el estado de los requisitos opcionales
-                for ($i = 0; $i < count($requirements['Opcional']); $i++) {
-                    $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
-                    $optional_requirement = $this->RequestsRequirements->newEntity();
-                    $optional_requirement->request_id = intval($id);
-                    $optional_requirement->requirement_number = $requirement_number;
-                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                for ($i = 0; $i < count($requirements['Estudiante']); $i++) {
+                    $requirement_number = intval($requirements['Estudiante'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     
                     // Guarda si fue aprovado por inopia
-                    if(array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
-                        $optional_requirement->acepted_inopia = 1;
+                    if($requirements['Estudiante'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                        $student_requirement->acepted_inopia = 1;
                     }else{
-                        $optional_requirement->acepted_inopia = 0;
+                        $student_requirement->acepted_inopia = 0;
                     }
 
                     // Verifica que todos los requisitos hayan sido guardados correctamente
-                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
                         $requirements_review_completed = false;
                         return;
                     }
                 }
                 
-                // Actualizar el estado de los requisitos obligatorios
-                for ($i = 0; $i < count($requirements['Obligatorio']); $i++) {
-                    $requirement_number = intval($requirements['Obligatorio'][$i]['requirement_number']);
-                    $optional_requirement = $this->RequestsRequirements->newEntity();
-                    $optional_requirement->request_id = intval($id);
-                    $optional_requirement->requirement_number = $requirement_number;
-                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                // Actualizar el estado de los requisitos opcionales
+                for ($i = 0; $i < count($requirements['Asistente']); $i++) {
+                    $requirement_number = intval($requirements['Asistente'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    
+                    // Guarda si fue aprovado por inopia
+                    if($requirements['Asistente'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                        $student_requirement->acepted_inopia = 1;
+                    }else{
+                        $student_requirement->acepted_inopia = 0;
+                    }
 
                     // Verifica que todos los requisitos hayan sido guardados correctamente
-                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
+                        $requirements_review_completed = false;
+                        return;
+                    }
+                }
+
+                // Actualizar el estado de los requisitos opcionales
+                for ($i = 0; $i < count($requirements['Ambos']); $i++) {
+                    $requirement_number = intval($requirements['Ambos'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    
+                    // Guarda si fue aprovado por inopia
+                    if($requirements['Ambos'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                        $student_requirement->acepted_inopia = 1;
+                    }else{
+                        $student_requirement->acepted_inopia = 0;
+                    }
+
+                    // Verifica que todos los requisitos hayan sido guardados correctamente
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
                         $requirements_review_completed = false;
                         return;
                     }

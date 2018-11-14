@@ -116,42 +116,60 @@ class RequirementsTable extends Table
         // Solicita a la base los requisitos opcionales, esto devuelve un array con toda la informacion
         $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
             return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
-        })->where(['type' => 'Opcional'])->toArray();
+        })->where(['hour_type' => 'Estudiante'])->toArray();
 
         /* En el array que se retorna, solo se guarda los campos necesarios(para disminuir el trafico en la red)
          * En el caso de los opcionales se guarda el estado, numero de requisito, si fue aceptado por inopia
          * y su descripcion
          */
-        $optional_requirements = [];
+        $student_requirements = [];
         for ($i = 0; $i < count($requirements); $i++){
-            $optional_requirements[$i] = [];
-            $optional_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
-            $optional_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
-            $optional_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
-            $optional_requirements[$i]['description'] = $requirements[$i]['description'];
+            $student_requirements[$i] = [];
+            $student_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
+            $student_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
+            $student_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
+            $student_requirements[$i]['description'] = $requirements[$i]['description'];
+            $student_requirements[$i]['type'] = $requirements[$i]['type'];
         }
 
         // Solicita a la base los requisitos obligatorios
         $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
             return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
-        })->where(['type' => 'Obligatorio'])->toArray();
+        })->where(['hour_type' => 'Asistente'])->toArray();
 
         /*
          * En el array que se retorna, solo se guarda los campos necesarios(para disminuir el trafico en la red)
          * En el caso de los obligatorios se guarda el estado, numero de requisito y su descripcion
          */
-		$compulsory_requirements = [];
+		$assistant_requirements = [];
         for ($i = 0; $i < count($requirements); $i++){
-            $compulsory_requirements[$i] = [];
-            $compulsory_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
-            $compulsory_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
-            $compulsory_requirements[$i]['description'] = $requirements[$i]['description'];
+            $assistant_requirements[$i] = [];
+            $assistant_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
+            $assistant_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
+            $assistant_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
+            $assistant_requirements[$i]['description'] = $requirements[$i]['description'];
+            $assistant_requirements[$i]['type'] = $requirements[$i]['type'];
+        }
+
+        // Solicita a la base los requisitos obligatorios
+        $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
+            return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
+        })->where(['hour_type' => 'Ambos'])->toArray();
+
+        $general_requirements = [];
+        for ($i = 0; $i < count($requirements); $i++){
+            $general_requirements[$i] = [];
+            $general_requirements[$i]['state'] = $requirements[$i]['_matchingData']['RequestsRequirements']['state'];
+            $general_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
+            $general_requirements[$i]['description'] = $requirements[$i]['description'];
+            $general_requirements[$i]['type'] = $requirements[$i]['type'];
         }
         
+
         /*
          * En el array final, los requisitos se separan en opcionales y obligatorios
          */
-        $requirements = ['Obligatorio' => $compulsory_requirements, 'Opcional' => $optional_requirements];
+        $requirements = ['Estudiante' => $student_requirements, 'Asistente' => $assistant_requirements, 'Ambos' => $general_requirements];
 		return $requirements;
     }
 }

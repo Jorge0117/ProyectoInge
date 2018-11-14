@@ -8,15 +8,17 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between bg-ecci-blue">
-    <a class="navbar-brand">
-        <?= $this->Html->image('logoUcr.png', ['style' => 'width:100px', 'align' => 'left'])?>
-    </a>
+    <div class="col-2"
+        <a class="navbar-brand">
+            <?= $this->Html->image('logoUcr.png', ['style' => 'width:100px', 'align' => 'left'])?>
+        </a>
+    </div>
 
     <span class="navbar-text">
         <h1>Sistema de control de asistencias</h1>
     </span>
 
-    <div class='dropdown'>
+    <div class='dropdown col-2'>
         <?php if ( $current_user ): ?>
             <div class="float-right mr-4">
                 <div class="row justify-content-center">
