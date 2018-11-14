@@ -247,54 +247,6 @@ class RequestsController extends AppController
     {
         $request = $this->Requests->newEntity();
 
-        if ($this->request->is('post')) {
-
-            $request = $this->Requests->patchEntity($request, $this->request->getData());
-
-            $RequestsTable = $this->loadmodel('Requests');
-            //$round almacena datos originales
-
-            //Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
-            $request->set('status', 'p'); //Toda solicitud esta pendiente
-            //$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
-
-            $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
-            
-            //Se trae la ronda actusl
-            $ronda = $this->get_round();
-            
-            //---------------------------------
-            if($ronda[0]['semester'] == 'II')
-                $nuevoSemestre = "2";
-            else
-                $nuevoSemestre = "1";
-            
-            $nuevoAño = $ronda[0]['year'];
-            $request->set('round_start', $ronda[0]['start_date']);
-            //---------------------------------
-            
-            $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
-            $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
-            $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
-
-            
-            if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
-            {
-                //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
-                $request->set('wants_assistant_hours',true);
-            }
-           
-            //debug($request);
-            //die();
-            if($request['average'] < 7){
-                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
-                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
-            }else if ($this->Requests->save($request)) {
-                $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('Error: No se logró agregar la solicitud'));
-        }
         $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
         /*Este codigo solo se ejecuta al iniciar el formulario del agregar solicitud
         Por lo tanto, lo que se hara aqui es traerse toda la información útil de la base de datos:
@@ -402,6 +354,55 @@ class RequestsController extends AppController
         //debug($nombreEstudiante);
         $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
 
+        if ($this->request->is('post')) {
+
+            $request = $this->Requests->patchEntity($request, $this->request->getData());
+
+            $RequestsTable = $this->loadmodel('Requests');
+            //$round almacena datos originales
+
+            //Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
+            $request->set('status', 'p'); //Toda solicitud esta pendiente
+            //$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
+
+            $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
+            
+            //Se trae la ronda actusl
+            $ronda = $this->get_round();
+            
+            //---------------------------------
+            if($ronda[0]['semester'] == 'II')
+                $nuevoSemestre = "2";
+            else
+                $nuevoSemestre = "1";
+            
+            $nuevoAño = $ronda[0]['year'];
+            $request->set('round_start', $ronda[0]['start_date']);
+            //---------------------------------
+            
+            $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
+            $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
+            $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
+
+            
+            if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
+            {
+                //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
+                $request->set('wants_assistant_hours',true);
+            }
+           
+            //debug($request);
+            //die();
+            if($request['average'] < 7){
+                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
+                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
+            }else if ($this->Requests->save($request)) {
+                $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
+                $this->sendMail($request['id'],5);
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('Error: No se logró agregar la solicitud'));
+        }
     }
     /**
      * Edit method
@@ -771,7 +772,7 @@ class RequestsController extends AppController
         //Indica que si el estado es 1, se debe enviar mensaje de estudiante no elegible.
         if($state == 1){
         $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
+        Por este medio se le comunica que su solicitud de horas fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
         $list = $this->reprovedMessage($id);
         $text .= ' 
         ' . $list;
@@ -782,7 +783,7 @@ class RequestsController extends AppController
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
         if($state == 2){
         $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $professor .
+        Por este medio se le comunica que su solicitud de horas no fue Aceptada por el(la) profesor(a) ' . $professor .
         ' en el curso ' . $course . ' y grupo ' . $group . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto".';
@@ -791,7 +792,7 @@ class RequestsController extends AppController
         //Si el estado es 3, se debe enviar mensaje de estudiante aceptado.
         if($state == 3){
         $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
+        Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
         'fue ACEPTADA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
@@ -799,10 +800,15 @@ class RequestsController extends AppController
 
         if($state == 4){
         $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
+        Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
         'fue ACEPTADA POR INOPIA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        }
+
+        if($state == 5){
+            $text = nl2br('Estimado Estudiante ' . $name . ' : \n Su solicitud de horas al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
+            'fue enviada con éxito. \n Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"',false); 
         }
 
         //Se envía el correo.
