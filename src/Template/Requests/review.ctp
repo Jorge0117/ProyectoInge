@@ -185,8 +185,7 @@
 									echo('</tr>'."\n"); 
 									$this->Form->unlockField('requirement_'.$requirements['Ambos'][$i]['requirement_number']);
 								}
-							?>		  
-
+							?>
 						</table>
 					</div>
 				</div>
