@@ -39,15 +39,18 @@
 			echo $this->Form->control('El estudiante ya tiene esta cantidad de horas estudiante: ',array('value' => $request['another_student_hours'], 'disabled'));
 			if($request['first_time'] == 1)
 			{
-				echo "Es la primera vez que el estudiante presenta una solicitud de asistencia";
+				echo  "Es la primera vez que el estudiante presenta una solicitud de asistencia";
+				?><br> </br> <?php
 			}
 			if($request['wants_assistant_hours'] == 1)
 			{
-				echo "El estudiante solicito horas Asistente";
+				echo "El estudiante solicitó horas asistente";
+				?><br> </br> <?php
 			}
 			if($request['wants_student_hours'] == 1)
 			{
-				echo "El estudiante solicito horas Asistente";
+				echo "El estudiante solicitó horas estudiante";
+				?><br> </br> <?php
 			}
 		?>	
 		</div>
