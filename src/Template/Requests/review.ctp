@@ -44,12 +44,12 @@
 			}
 			if($request['wants_assistant_hours'] == 1)
 			{
-				echo "solicitó horas asistente.";
+				echo "Solicitó horas asistente.";
 				?><br> </br> <?php
 			}
 			if($request['wants_student_hours'] == 1)
 			{
-				echo "solicitó horas estudiante.";
+				echo "Solicitó horas estudiante.";
 				?><br> </br> <?php
 			}
 		?>	
