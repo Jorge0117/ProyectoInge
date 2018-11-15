@@ -17,37 +17,40 @@
 		<legend> Datos del estudiante </legend>
 		
 		<?php
-			echo $this->Form->control('Cédula: ',array('value' => $user['identification_number'], 'disabled'));
-			echo $this->Form->control('Carnet: ',array('value' => $user['carne'], 'disabled'));
-			echo $this->Form->control('Nombre: ',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
+			echo $this->Form->control('Cédula ',array('value' => $user['identification_number'], 'disabled'));
+			echo $this->Form->control('Carnet ',array('value' => $user['carne'], 'disabled'));
+			echo $this->Form->control('Nombre ',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
 			//Tal vez no deberia ir este?
-			echo $this->Form->control('Correo Electronico: ',array('value' => $user['email_personal'], 'disabled'));
-			echo $this->Form->control('Promedio Ponderado: ',array('value' => $request['average'], 'disabled'));
+			echo $this->Form->control('Correo',array('value' => $user['email_personal'], 'disabled'));
+			echo $this->Form->control('Promedio',array('value' => $request['average'], 'disabled'));
 		?>
 		</div>
 		
 		<div id="divSolicitud" class="form-section">
 		<legend> Datos de la solicitud </legend>
 		<?php
-			echo $this->Form->control('Sigla del Curso: ',array('value' => $request['course_id'], 'disabled'));
-			echo $this->Form->control('Nombre del Curso: ',array('value' => $class['name'], 'disabled'));
+			echo $this->Form->control('Sigla del curso ',array('value' => $request['course_id'], 'disabled'));
+			echo $this->Form->control('Nombre del Curso ',array('value' => $class['name'], 'disabled'));
 			echo $this->Form->control('Grupo: ',array('value' => $request['class_number'], 'disabled'));
 			//Esta solo imprime el nombre por que todo el nombre y los apellidos de un profesor va en el campo nombre, de acuerdo con la profe y Jorge
-			echo $this->Form->control('Nombre del Profesor: ',array('value' => $professor['name'], 'disabled'));
+			echo $this->Form->control('Profesor: ',array('value' => $professor['name'], 'disabled'));
 			//Supongo que el semestre y el año es información inutil
-			echo $this->Form->control('El estudiante ya tiene esta cantidad de horas asistente: ',array('value' => $request['another_assistant_hours'], 'disabled'));
-			echo $this->Form->control('El estudiante ya tiene esta cantidad de horas estudiante: ',array('value' => $request['another_student_hours'], 'disabled'));
+			echo $this->Form->control('Horas asistente ',array('value' => $request['another_assistant_hours'], 'disabled'));
+			echo $this->Form->control('Horas estudiante ',array('value' => $request['another_student_hours'], 'disabled'));
 			if($request['first_time'] == 1)
 			{
-				echo "Es la primera vez que el estudiante presenta una solicitud de asistencia";
+				echo  "Primera vez que solicita una asistencia.";
+				?><br> </br> <?php
 			}
 			if($request['wants_assistant_hours'] == 1)
 			{
-				echo "El estudiante solicito horas Asistente";
+				echo "solicitó horas asistente.";
+				?><br> </br> <?php
 			}
 			if($request['wants_student_hours'] == 1)
 			{
-				echo "El estudiante solicito horas Asistente";
+				echo "solicitó horas estudiante.";
+				?><br> </br> <?php
 			}
 		?>	
 		</div>
@@ -76,45 +79,50 @@
 						</div>
 					<?php endif; ?>
 					<legend>
-						Opcional
+					Requisitos de horas estudiante
 					</legend>
 
 					<div>
 						<table class='table text-center'>
 							<?php
-								
 								echo ("<tr class='bg-white'>
-									\t<th style='width:70%; text-align: left;'>Requisito</th> 
+									\t<th style='width:60%; text-align: left;'>Requisito</th> 
+									\t<th style='width:10%'>Tipo</th>
 									\t<th style='width:10%'>Aprobado</th> 
 									\t<th style='width:10%'>Rechazado</th> 
 									\t<th style='width:10%'>Inopia</th>
 									</tr>");
-								for ($i = 0; $i < count($requirements['Opcional']); $i++){
-									$checkedApproved = $requirements['Opcional'][$i]['state'] == 'a'?'checked':'';
-									$checkedRejected = $requirements['Opcional'][$i]['state'] == 'r'?'checked':'';
-									$checkedInopia = $requirements['Opcional'][$i]['acepted_inopia'] == 0? false : true;
+								for ($i = 0; $i < count($requirements['Estudiante']); $i++){
+									$checkedApproved = $requirements['Estudiante'][$i]['state'] == 'a'?'checked':'';
+									$checkedRejected = $requirements['Estudiante'][$i]['state'] == 'r'?'checked':'';
+									$checkedInopia = $requirements['Estudiante'][$i]['acepted_inopia'] == 0? false : true;
 									$disable_radios = $requirements['stage'] > 1? 'disabled':''; 
 									echo('<tr class="bg-white">'."\n");
-									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Opcional'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Opcional'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
-									echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
-											'Editar',
-											['checked' => $checkedInopia,
-											'name' => 'inopia_op_'.$requirements['Opcional'][$i]['requirement_number'],
-											'class'=> "radioRequirements",
-											'disabled' => $requirements['stage'] > 1]
-										).'</td>'."\n");
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['description'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['type'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
+										echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+												'Editar',
+												['checked' => $checkedInopia,
+												'name' => 'inopia_op_'.$requirements['Estudiante'][$i]['requirement_number'],
+												'class'=> "radioRequirements",
+												'disabled' => $requirements['stage'] > 1]
+											).'</td>'."\n");
+									}else{
+										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
+									}
 									echo('</tr>'."\n");
-									$this->Form->unlockField('inopia_op_'.$requirements['Opcional'][$i]['requirement_number']);
-									$this->Form->unlockField('requirement_'.$requirements['Opcional'][$i]['requirement_number']);
+									$this->Form->unlockField('inopia_op_'.$requirements['Estudiante'][$i]['requirement_number']);
+									$this->Form->unlockField('requirement_'.$requirements['Estudiante'][$i]['requirement_number']);
 								}
 							?>		  
 						</table>
 					</div>
 
 					<legend>
-						Obligatorio
+						Requisitos de horas asistente
 					</legend>
 
 					<div>
@@ -122,22 +130,65 @@
 							<?php
 								echo ("<tr class='bg-white'>
 									\t<th style='width:70%; text-align: left;'>Requisito</th> 
+									\t<th style='width:10%'>Tipo</th>
 									\t<th style='width:10%'>Aprobado</th>
 									\t<th style='width:10%'>Rechazado</th> 
+									\t<th style='width:10%'>Inopia</th>
 									</tr>");
-								for ($i = 0; $i < count($requirements['Obligatorio']); $i++){
-									$checkedApproved = $requirements['Obligatorio'][$i]['state'] == 'a'?'checked':'';
-									$checkedRejected = $requirements['Obligatorio'][$i]['state'] == 'r'?'checked':'';
+								for ($i = 0; $i < count($requirements['Asistente']); $i++){
+									$checkedApproved = $requirements['Asistente'][$i]['state'] == 'a'?'checked':'';
+									$checkedRejected = $requirements['Asistente'][$i]['state'] == 'r'?'checked':'';
 									$disable_radios = $requirements['stage'] > 1? 'disabled':''; 
 									echo('<tr class="bg-white">'."\n");
-									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Obligatorio'][$i]['description'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Obligatorio'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['description'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['type'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
+										echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
+												'Editar',
+												['checked' => $checkedInopia,
+												'name' => 'inopia_op_'.$requirements['Asistente'][$i]['requirement_number'],
+												'class'=> "radioRequirements",
+												'disabled' => $requirements['stage'] > 1]
+											).'</td>'."\n");
+									}else{
+										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
+									}
 									echo('</tr>'."\n"); 
-									$this->Form->unlockField('requirement_'.$requirements['Obligatorio'][$i]['requirement_number']);
+									$this->Form->unlockField('requirement_'.$requirements['Asistente'][$i]['requirement_number']);
 								}
 							?>		  
 
+						</table>
+					</div>
+
+					<legend>
+						Requisitos generales
+					</legend>
+
+					<div>
+						<table class='table text-center '>
+							<?php
+								echo ("<tr class='bg-white'>
+									\t<th style='width:70%; text-align: left;'>Requisito</th> 
+									\t<th style='width:10%'>Tipo</th>
+									\t<th style='width:10%'>Aprobado</th>
+									\t<th style='width:10%'>Rechazado</th> 
+									</tr>");
+								for ($i = 0; $i < count($requirements['Ambos']); $i++){
+									$checkedApproved = $requirements['Ambos'][$i]['state'] == 'a'?'checked':'';
+									$checkedRejected = $requirements['Ambos'][$i]['state'] == 'r'?'checked':'';
+									$disable_radios = $requirements['stage'] > 1? 'disabled':''; 
+									echo('<tr class="bg-white">'."\n");
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['description'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['type'].'</td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo('</tr>'."\n"); 
+									$this->Form->unlockField('requirement_'.$requirements['Ambos'][$i]['requirement_number']);
+								}
+							?>
 						</table>
 					</div>
 				</div>

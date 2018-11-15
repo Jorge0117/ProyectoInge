@@ -102,12 +102,6 @@ class RequestsTable extends Table
 
     public function validationDefault(Validator $validator)
     {
-        
-        //Valida que el promedio ponderado se encuentre entre 0 y 10
-        $validator
-            ->notEmpty('average')
-            ->lessThanOrEqual('average', 10, '* El valor máximo del promedio ponderado es 10')
-            ->GreaterThanOrEqual('average', 0, '* El valor minimo del promedio ponderado es 0');
             
         //Valida que la cantidad de horas asistente se encuentre entre 0 y 20
         $validator
@@ -143,14 +137,7 @@ class RequestsTable extends Table
             ]
         ]);
         
-        //Valida que no se ingrese una solicitud repetida
-        /*$validator->add('class_number',[
-        'validarSolicitudRepetida'=>[
-        'rule'=>'validarSolicitudRepetida', ["contexto"],
-        'provider'=>'table',
-        'message'=>'La solicitud a este curso/grupo ya existe'
-         ]
-        ]);*/
+
         
         //Los demas elementos no es necesario validarlos, ya que los checkboxs pueden guardarse como nulos en la DB
         
