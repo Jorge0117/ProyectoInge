@@ -17,9 +17,9 @@
 		<legend> Datos del estudiante </legend>
 		
 		<?php
-			echo $this->Form->control('Cédula ',array('value' => $user['identification_number'], 'disabled'));
-			echo $this->Form->control('Carnet ',array('value' => $user['carne'], 'disabled'));
-			echo $this->Form->control('Nombre ',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
+			echo $this->Form->control('Cédula',array('value' => $user['identification_number'], 'disabled'));
+			echo $this->Form->control('Carné',array('value' => $user['carne'], 'disabled'));
+			echo $this->Form->control('Nombre',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
 			//Tal vez no deberia ir este?
 			echo $this->Form->control('Correo',array('value' => $user['email_personal'], 'disabled'));
 			echo $this->Form->control('Promedio',array('value' => $request['average'], 'disabled'));
@@ -29,14 +29,14 @@
 		<div id="divSolicitud" class="form-section">
 		<legend> Datos de la solicitud </legend>
 		<?php
-			echo $this->Form->control('Sigla del curso ',array('value' => $request['course_id'], 'disabled'));
-			echo $this->Form->control('Nombre del Curso ',array('value' => $class['name'], 'disabled'));
-			echo $this->Form->control('Grupo: ',array('value' => $request['class_number'], 'disabled'));
+			echo $this->Form->control('Sigla del curso',array('value' => $request['course_id'], 'disabled'));
+			echo $this->Form->control('Nombre del Curso',array('value' => $class['name'], 'disabled'));
+			echo $this->Form->control('Grupo',array('value' => $request['class_number'], 'disabled'));
 			//Esta solo imprime el nombre por que todo el nombre y los apellidos de un profesor va en el campo nombre, de acuerdo con la profe y Jorge
-			echo $this->Form->control('Profesor: ',array('value' => $professor['name'], 'disabled'));
+			echo $this->Form->control('Profesor',array('value' => $professor['name'], 'disabled'));
 			//Supongo que el semestre y el año es información inutil
-			echo $this->Form->control('Horas asistente ',array('value' => $request['another_assistant_hours'], 'disabled'));
-			echo $this->Form->control('Horas estudiante ',array('value' => $request['another_student_hours'], 'disabled'));
+			echo $this->Form->control('Horas asistente',array('value' => $request['another_assistant_hours'], 'disabled'));
+			echo $this->Form->control('Horas estudiante',array('value' => $request['another_student_hours'], 'disabled'));
 			if($request['first_time'] == 1)
 			{
 				echo  "Primera vez que solicita una asistencia.";
