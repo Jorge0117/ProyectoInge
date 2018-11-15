@@ -237,7 +237,6 @@
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
 			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
 			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
-			echo $this->Form->control('average', ['label' => 'Promedio Ponderado', 'type' => 'number', 'step' => '0.01', 'max' => '10', 'min' => '0']);
 		?>
 		</div>
 		<div class="form-section">
