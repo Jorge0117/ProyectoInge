@@ -369,6 +369,9 @@ class RequestsTable extends Table
             case 'r':
                 $result = 5;
                 break;
+            case 'c':
+                $result = 6;
+                break;
         }
         return $result;
     }

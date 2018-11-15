@@ -283,10 +283,13 @@ class RequestsController extends AppController
                 //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
                 $request->set('wants_assistant_hours',true);
             }
-            
-            //die();
+           
             //debug($request);
-            if ($this->Requests->save($request)) {
+            //die();
+            if($request['average'] < 7){
+                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
+                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
+            }else if ($this->Requests->save($request)) {
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -364,14 +367,18 @@ class RequestsController extends AppController
         //$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
 
         $c2[0] = "Seleccione un Curso";
+        $c3[0] = "Seleccione un Curso";
         //foreach($aux as $c) //Recorre cada tupla de curso
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
             //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
             $c2[$i + 1] = $c['code']; //Almacena el codigo de curso
             $nombre[$i + 1] = $c['name']; //Almacena el nombre del curso
-            $i = $i + 1;
+           
+            //autor: Daniel Marín
+            $c3[$i + 1] = $c['code'].' - '.$c['name']; //Almacena el codigo junto al nombre del curso
 
+            $i = $i + 1;
         }
 
         //Funcionalidad Solicitada: Agregar datos del usuario
@@ -393,7 +400,7 @@ class RequestsController extends AppController
         //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
 
         //debug($nombreEstudiante);
-        $this->set(compact('request', 'c2', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
+        $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
 
     }
     /**
@@ -527,7 +534,9 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 1 || $default_index >=3)) {
             $load_final_review = true;
             $default_indexf = 0;
-            if($default_index == 4)$default_indexf = 1;
+            $inopia = 0;
+            if($default_index == 3 || $default_index == 6) $inopia = 1;
+            if($default_index == 4 || $default_index == 6) $default_indexf = 1;
             else if($default_index == 5)$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
 
@@ -679,7 +688,11 @@ class RequestsController extends AppController
                 $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:
-                        $status_new_val = 'a';
+                        if($inopia){
+                            $status_new_val = 'c';
+                        }else{
+                            $status_new_val = 'a';
+                        }
                         break;
                     case 2:
                         $status_new_val = 'r';
@@ -688,17 +701,23 @@ class RequestsController extends AppController
                 if($status_new_val == 'a'){
                     $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
                     $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,3);
+                }else if($status_new_val == 'c'){
+                    $this->Requests->approveRequest($id,$data["type"],$data["hours"]);
+                    $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,4);
                 }else if($status_new_val == 'r'){
                     $this->Requests->updateRequestStatus($id, $status_new_val);
+                    $this->sendMail($id,2);
                 }
                 
                 //Si el estado es rechazado, se envía correo con el tipo de mensaje 2
                 if($status_index == 'r'){
-                    $this->sendMail($id,2);
+                    //$this->sendMail($id,2);
                 }
                 //Si el estado es aceptado, se envía correo con el tipo de mensaje 3
-                else{
-                    $this->sendMail($id,3);
+                else if($status_index == 'a'){
+                    //$this->sendMail($id,3);
                 }
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 return $this->redirect(['action' => 'index']);
@@ -717,31 +736,31 @@ class RequestsController extends AppController
     {
         $s = 'r'; //Es el valor que tienen los requisitos rechazados
         $in = '0'; //Para indicar que no sean por inopia
-        $requisitos = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
-        $lista = ' '; //Inicializa la lista de los requisitos rechazados
-        foreach($requisitos as $r) //Aquí se van concatenando los requisitos recuperados
+        $requirements = $this->Requests->getRequirements($id,$s,$in); //Llama al método que está en el modelo
+        $list = ' '; //Inicializa la lista de los requisitos rechazados
+        foreach($requirements as $r) //Aquí se van concatenando los requisitos recuperados
         {
-            $lista .= '
+            $list .= '
             ' . $r['description'];
         }
-        return $lista; //Se devuelve la lista de requisitos rechazados del estudiante
+        return $list; //Se devuelve la lista de requisitos rechazados del estudiante
     }
 
     //Método para enviar correo electrónico al estudiante, dando algún aviso.
     //Recibe el id de la solicitud y un estado para indicar si es no elegible, aceptado o rechazado.
-    public function sendMail($id,$estado)
+    public function sendMail($id,$state)
     {
         //Aquí se obtienen datos de la solicitud, nombre de profesor, curso, grupo y nombre de estudiante, 
         // necesarios para el correo
         $request = $this->Requests->get($id);
-        $estudiante = $this->Requests->getStudentInfo($request['student_id']);
-        $clase = $this->Requests->getClass($request['course_id'], $request['class_number']);
+        $student = $this->Requests->getStudentInfo($request['student_id']);
+        $class = $this->Requests->getClass($request['course_id'], $request['class_number']);
         $prof = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
-        $profesor = $prof[0]['name'];
-        $curso = $clase[0]['name'];
-        $grupo = $request['class_number'];
-        $mail = $estudiante[0]['email_personal'];
-        $name = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
+        $professor = $prof[0]['name'];
+        $course = $class[0]['name'];
+        $group = $request['class_number'];
+        $mail = $student[0]['email_personal'];
+        $name = $student[0]['name'] . " " . $student[0]['lastname1'] . " " . $student[0]['lastname2'];
         
         //Se crea una nueva instancia de correo de cakephp
         $email = new Email();
@@ -750,35 +769,43 @@ class RequestsController extends AppController
         //En todos los mensajes se debe cambiar la parte "correo de contacto" por el correo utilizado para atender dudas con respecto al tema de solicitudes de horas
 
         //Indica que si el estado es 1, se debe enviar mensaje de estudiante no elegible.
-        if($estado == 1){
+        if($state == 1){
         $text = 'Estudiante ' . $name . ' :
         Por este medio se le comunica que su solicitud del concurso fue RECHAZADA debido a que no cumplió el(los) siguiente(s) requisito(s):';
-        $lista = $this->reprovedMessage($id);
+        $list = $this->reprovedMessage($id);
         $text .= ' 
-        ' . $lista;
+        ' . $list;
         $text .= '
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
         }
 
         // Si el estado es 2, se debe enviar mensaje de estudiante rechazado.
-        if($estado == 2){
+        if($state == 2){
         $text = 'Estudiante ' . $name . ' :
-        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $profesor .
-        ' en el curso ' . $curso . ' y grupo ' . $grupo . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
+        Por este medio se le comunica que su solicitud del concurso no fue Aceptada por el(la) profesor(a) ' . $professor .
+        ' en el curso ' . $course . ' y grupo ' . $group . '. ' . 'Sin embargo, usted se mantiene como Elegible y puede participar en la próxima ronda.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto".';
         }
 
         //Si el estado es 3, se debe enviar mensaje de estudiante aceptado.
-        if($estado == 3){
+        if($state == 3){
         $text = 'Estimado Estudiante ' . $name . ' :
-        Su solicitud del concurso al curso con el(la) profesor(a) ' . $profesor . ', curso ' . $curso .  ' y grupo' . $grupo . ', ' . 
+        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
         'fue ACEPTADA.
         
         Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        }
+
+        if($state == 4){
+        $text = 'Estimado Estudiante ' . $name . ' :
+        Su solicitud del concurso al curso con el(la) profesor(a) ' . $professor . ', curso ' . $course .  ' y grupo' . $group . ', ' . 
+        'fue ACEPTADA POR INOPIA.
+        
+        Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o "correo de contacto"';
+        }
 
         //Se envía el correo.
-        }
         try {
             $res = $email->from('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->to($mail)

@@ -140,7 +140,7 @@
 
 
 
-<div id="Subir archivo" class="modal">
+<div id="Subir archivo" class="modal", style = "z-index:20">
     <div class="modal-content">
         <div class="files form large-9 medium-8 columns content">
             <?= $this->Form->create(null, ['type' => 'file', 'url' => '/CoursesClassesVw/uploadFile']) ?>

@@ -3,10 +3,9 @@
  * Barra del menú de navegación, ingluye el logo de la ECCI e información de las rondas.
  */
 ?>
-
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
-    <a class="navbar-brand">
-        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
+    <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/">
+        <?= $this->Html->image('logoEcci.png', ['style' => 'width:200px'])?>
     </a>
 
     <div>
@@ -47,20 +46,25 @@
                 </ul>
             </div>
         <?php else: ?>
-
             <span class="navbar-text">
             </span>
         <?php endif ?>
 
     </div>
-
+    <!-- Element/menubar.ctp -->
     <?php $round = $this->Rounds->getLastRound() ?>
     <?php if($round == null): ?>
         <div style="width:200px">
         </div>
     <?php else: ?>
-        <div style="height:69px">  
-            <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
-        </div>
+        <div style="width:200px ">
+            <div>  
+                <h6 style='color:red; font-size:19px;'><strong> 
+                    <?= $round[0] ?><br>
+                    <?= $round[1] ?><br>
+                    <?= $round[2] ?><br>
+                </strong></h6>
+            </div>
+        </div>        
     <?php endif; ?>
 </nav>

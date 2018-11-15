@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CoursesClassesVw Model
@@ -75,6 +76,12 @@ class CoursesClassesVwTable extends Table
             ->notEmpty('Año');
 
         return $validator;
+    }
+
+    public function fetchCourses(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT * from courses;")->fetchAll();
+        return $query;
     }
 
     /**
