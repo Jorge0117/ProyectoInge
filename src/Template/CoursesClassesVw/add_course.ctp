@@ -12,10 +12,10 @@
 
         <div class="form-section">
             <?php
-                echo $this->Form->control('Sigla');
+                echo $this->Form->control('Sigla', ['pattern' => "[A-Z]{2}[0-9]{4}"]);
                 echo $this->Form->control('Curso', ['requiered']);
                 echo $this->Form->control('Creditos', ['type' => 'number','max' => 8, 'min' => 1]);
-                echo $this->Form->control('Grupo', ['type' => 'number']);
+                echo $this->Form->control('Grupo', ['type' => 'number','max' => 20, 'min' => 1]);
                 echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => false]);
                 echo $this->Form->control('Semestre', ['type' => 'number','max' => 2, 'min' => 1]);
                 echo $this->Form->control('Año', ['type' => 'number','max' => 9999, 'min' => 1900]);
