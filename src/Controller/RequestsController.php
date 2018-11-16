@@ -676,14 +676,14 @@ class RequestsController extends AppController
                 //--------------------------------------------------------------------------
                 $status_new_val = $data['Clasificación'];
                 
-                $requirements = $this->Requirements->getRequestRequirements($id);
+                $requirements = $this->Requirements->getOptRecRequirements($id);
                 //--------------------------------------------------------------------------
                 // Comunication with other controllers
                 $requirementsController = new RequirementsController();
                 //--------------------------------------------------------------------------
                 // This counts the  amount of mandatory requirements in the reqirements table
                 // and the amount of them in this request
-                $mandatory_requirements_count = $this->Requirements->getRequestRequirements($id)['Obligatorio'];
+                $mandatory_requirements_count = $this->Requirements->getOptRecRequirements($id)['Obligatorio'];
                 $total_of_mandatories_requirements = sizeof($mandatory_requirements_count);
                 $total_of_aproved_req = 0;
                 for ($index = 0; $index < $total_of_mandatories_requirements; $index++) {
@@ -692,7 +692,7 @@ class RequestsController extends AppController
                     }
                 }
 
-                $optional_requirement_count = $this->Requirements->getRequestRequirements($id)['Opcional'];
+                $optional_requirement_count = $this->Requirements->getOptRecRequirements($id)['Opcional'];
                 $total_optional_requirements = sizeof($optional_requirement_count);
                 for ($index = 0; $index < $total_optional_requirements; $index++) {
                     if ('a' == $optional_requirement_count[$index]['state']) {
