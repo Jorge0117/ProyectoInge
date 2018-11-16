@@ -7,7 +7,7 @@
 
 
 <div class="container">
-    <div class="mt-3 mb-3 text-center"><h4><strong>Solicitud de concurso para asistencia</strong></h4></div>
+    <div class="mt-3 mb-3 text-center"><h4><strong>Solicitud de concurso para asistencias</strong></h4></div>
 
     <div class="mb-3">
         <h4>Datos del estudiante:</h4>
@@ -179,7 +179,7 @@
     </div>
 
     <div class="mt-4 mb-5">
-        <div class="row justify-content-start">
+        <div class="row justify-content-end">
             <div class="col-3 text-right">
                 <strong>Firma del estudiante:</strong>
             </div>
@@ -187,7 +187,7 @@
         </div>
     <div>
 
-    <div class="mt-5 mb-3"><h4><strong>Uso exclusivo del docente</strong></h4></div>
+    <div class="mt-5 mb-3"><h4><strong>Uso exclusivo del Docente</strong></h4></div>
 
     <div class="mb-3"
         <h5><strong>Justificación (en ambos casos, aceptado o rechazado):</strong></h5>
@@ -205,10 +205,9 @@
 
     <div class="mb-3">
         <div class="row justify-content-start">
-            <div class="col-2 offset-2">
-                <strong>Rechazado</strong>
-                <input type="checkbox" aria-label="rechazado">
-            </div>
+            <div class="col-2">
+                <strong>Px: </strong> <?= $request->has('average') ? '&nbsp &nbsp ' . h($request->average) : '______' ?>
+            </div> 
             <div class="col-2">
                 <strong>Aceptado</strong>
                 <input type="checkbox" aria-label="aceptado">
@@ -216,16 +215,25 @@
             <div class="col-2 text-right">
                 <strong>Horas asignadas:</strong>
             </div>
-            <div class="col-2 border-bottom border-dark">&nbsp</div>
+            <div class="col-1 border-bottom border-dark">&nbsp</div>
+            <div class="col-1"></div>
+            <div class="col-2">
+                <strong>Rechazado</strong>
+                <input type="checkbox" aria-label="rechazado">
+            </div>
+
         </div>
     </div>
 
     <div class="mt-4">
         <div class="row justify-content-start">
-            <div class="col-3 text-right">
+            <div class="col-2 text-right">
                 <strong>Firma del docente:</strong>
             </div>
             <div class="col-4 border-bottom border-dark">&nbsp</div>
+            <div class="col">
+                <strong>(en ambos casos: aceptado o rechazado)</strong>
+            </div>
         </div>
     <div>
 </div>
