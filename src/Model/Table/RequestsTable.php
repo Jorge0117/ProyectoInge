@@ -376,6 +376,12 @@ class RequestsTable extends Table
         return $result;
     }
 
+    public function getStatus($id){
+        $connection = ConnectionManager::get('default');
+        $request = $this->get($id);
+        return $request['status'];
+    }
+
     public function approveRequest($req_id,$h_type,$cnt){
         $connet = ConnectionManager::get('default');
         $connet->execute(
@@ -418,6 +424,16 @@ class RequestsTable extends Table
     public function isOwnedBy($id, $student_id)
     {
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
+    }
+
+    public function isInopia($id){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select count(*) from requests_requirements where acepted_inopia = 1 and request_id = '$id'")->fetchAll();
+        if($query[0][0] > 0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
