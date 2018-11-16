@@ -71,6 +71,10 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
+        $this->loadModel('Rounds');
+        $round = $this->Rounds->getLastRound();
+        //debug($round);
+        $this->set(compact('round'));
 
         /*
          * Enable the following component for recommended CakePHP security settings.

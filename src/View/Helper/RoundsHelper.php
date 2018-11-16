@@ -55,22 +55,7 @@ class RoundsHelper extends Helper
         return $this->YmdtodmY($today);
     }
 
-    //obtiene la ultima ronda creada.
-    public function getLastRound() {
-        $last = $this->getLastRow();
-        $dsh = (int)$last[5]-(int)$last[7];
-        $dah = (int)$last[6]-(int)$last[8];
-        if($last!= null){
-            return [
-                "Ronda #" . $last[2] .' '. $last[3] . ' ciclo ' . $last[4],
-                "Inicio: " . $last[0],
-                "Fin: " . $last[1],
-                "Horas estudiante disponibles: ".(string)$dsh,
-                "Horas asistente disponibles: ".(string)$dah
-            ]; 
-        }
-        return "";
-    }
+   
 
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
     public function between(){
