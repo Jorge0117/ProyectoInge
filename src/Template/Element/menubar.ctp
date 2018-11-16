@@ -28,7 +28,7 @@
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>
-                    <li class="nav-item item-menu"><?= $this->Html->link('Histórico de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>

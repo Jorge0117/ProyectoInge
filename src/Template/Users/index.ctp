@@ -28,7 +28,7 @@
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
                 <td><?= h($user->identification_number) ?></td>
                 <td><?= h($user->name.' '.$user->lastname1. ' '.$user->lastname2 )  ?></td>
-                <td><?=  h($user->role->role_id) ?></td>
+                <td><?=  h($user->role_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-eye"></i>', ['action' => 'view', $user->identification_number], ['escape'=>false]) ?>
                     <?= $this->Html->link('<i class="fa fa-pencil"></i>', ['action' => 'edit', $user->identification_number], ['escape'=>false]) ?>
