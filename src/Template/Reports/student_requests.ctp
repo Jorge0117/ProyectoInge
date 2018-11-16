@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
-echo $this->Html->css('buttons');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
@@ -36,7 +35,7 @@ echo $this->Html->css('buttons');
 				<td align = center><?= h($studentRequests->hour_ammount) ?></td>
 				<td align = center><?= h($studentRequests->tipo_hora) ?></td>
 
-					<td class="actions">
+					<td class="actions" align = center>
 						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id], ['escape'=>false]) ?>
 
 					</td>
