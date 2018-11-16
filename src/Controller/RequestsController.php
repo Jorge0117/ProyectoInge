@@ -284,14 +284,23 @@ class RequestsController extends AppController
                 $request->set('wants_assistant_hours',true);
             }
            
-            //debug($request);
-            //die();
-            if($request['average'] < 7){
-                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
-                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
-            }else if ($this->Requests->save($request)) {
+            debug($request);
+			$nuevoCurso = substr($request['course_id'],0,6);
+			$nuevoGrupo = substr($request['class_number'],0,1);
+			$nuevoId = $request['student_id'];
+			$nuevaRonda = $request['round_start'];
+			
+
+			if ($this->Requests->save($request)) {
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
+				
+				//Obtiene el id de la nueva solicitud
+				$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
+
+				/*return $this->redirect(array("controller" => "Requests", 
+                      "action" => "view",
+                      "param1" => $id));*/
             }
             $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
@@ -847,5 +856,11 @@ class RequestsController extends AppController
 
          }
     }
+	
+	public function changeRequestHours()
+	{
+		debug("xdxd");
+		//die();
+	}
 
 }
