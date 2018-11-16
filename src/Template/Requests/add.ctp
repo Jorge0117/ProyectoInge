@@ -265,11 +265,11 @@
 		<div class="form-section">
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
-			echo $this->Form->Control('Nombre:',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id2',['label' => 'Carnet:','disabled', 'value' => $carnet]);
-			echo $this->Form->Control('Cédula:',['disabled', 'value' => $cedula]);
-			echo $this->Form->Control('Correo electrónico: ',['disabled', 'value' => $correo]);
-			echo $this->Form->Control('Teléfono: ',['disabled', 'value' => $telefono]);
+			echo $this->Form->Control('Nombre',['disabled', 'value' => $nombreEstudiante]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => $carnet]);
+			echo $this->Form->Control('Cédula',['disabled', 'value' => $cedula]);
+			echo $this->Form->Control('Correo electrónico ',['disabled', 'value' => $correo]);
+			echo $this->Form->Control('Teléfono ',['disabled', 'value' => $telefono]);
 		?>
 		</div>
 		
@@ -277,10 +277,10 @@
 		<legend><?= __('Datos del Curso y del Grupo de la Solicitud') ?></legend>
 		<?php		
 			
-            echo $this->Form->control('course_id', ['label' => 'Curso:', 'options' => $c3, 'onChange' => 'updateClass()']);
+            echo $this->Form->control('course_id', ['label' => 'Curso', 'options' => $c3, 'onChange' => 'updateClass()']);
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
-			echo $this->Form->input('Nombre del curso: ', ['id' => 'nc', 'disabled']);
-			echo $this->Form->input('Profesor: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
+			echo $this->Form->input('Nombre curso ', ['id' => 'nc', 'disabled']);
+			echo $this->Form->input('Profesor ', ['id' => 'prof', 'disabled', 'type' =>'text']);
 		?>
 		</div>
 		<div class="form-section">
@@ -290,8 +290,8 @@
 			echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
 			echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
 			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
-            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
-            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
+            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			
 			?>
@@ -326,7 +326,7 @@
 			
 			
 			
-			<!--<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>-->
+			<!--<?php echo $this->Form->button(__('Agregar solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>-->
 			<?php 
 						echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); 
 			echo $this->Form->control('Agregar Solicitud',['type' => 'button', 'onclick' =>'confirmar()', 'id' => 'btnConfirmacion', 'label' => '','value' => 'Agregar solicitud', 'class'=>'btn-aceptar']);
