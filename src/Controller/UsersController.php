@@ -274,17 +274,14 @@ class UsersController extends AppController
         $userTable=$this->loadmodel('Users');
         return $userTable->getProfessors();
     }
-
+     /** 
+     * Autor: Mayquely
+     */
     public function getNameUser ($id) {
 
         $userTable=$this->loadmodel('Users');
         return $userTable->getNameUser($id);
     }
     
-    public function getContactInfo ($id) {
-
-        $userTable=$this->loadmodel('Users');
-        return $userTable->getContactInfo($id);
-    }
 
 }

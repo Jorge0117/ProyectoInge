@@ -40,9 +40,9 @@ class ReportsController extends AppController
     */
 
     public function studentRequests(){
-        $table = $this->loadModel('InfoRequests');
+        $table = $this->loadModel('ProfessorAssistants');
 
-        $studentRequests = $table->find()->where(['cedula'=>$this->viewVars['current_user']['identification_number']]);
+        $studentRequests = $table->find()->where(['id_student'=>$this->viewVars['current_user']['identification_number']]);
         if(count($studentRequests->toArray()) > 0){
             $user= new UsersController;
             $idProf = $studentRequests->toArray()[0]->id_prof;
@@ -51,20 +51,24 @@ class ReportsController extends AppController
         $this->set(compact('studentRequests', 'ProfessorName'));
     }
     
+
+    /** 
+     * Autor: Mayquely
+     */
     public function professorAssistants(){
         $table = $this->loadModel('ProfessorAssistants');
          $professorAssistants= $table->find()->where(['id_prof'=>$this->viewVars['current_user']['identification_number']]);
+         $ProfessorName = ' '; 
 
         if(count($professorAssistants->toArray()) > 0){
            
             $user= new UsersController;
-            $contactInfo = $user-> getContactInfo($professorAssistants->toArray()[0]->id_student);
             $idProf = $professorAssistants->toArray()[0]->id_prof;
             $ProfessorName = $user->getNameUser($idProf);
 
         }
         
-        $this->set(compact('professorAssistants', 'contactInfo','ProfessorName' ));
+        $this->set(compact('professorAssistants',   'ProfessorName' ));
     }
 
     
