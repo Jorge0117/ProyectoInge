@@ -38,21 +38,20 @@
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-
+<h3><?= __('Cursos activos') ?></h3>
  <?= $this->Html->link(
         'Agregar grupo',
         ['controller'=>'CoursesClassesVw','action'=>'addClass'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary  btn-agregar-index btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'addCourse'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary  btn-agregar-index btn-space']
     )?>
-<button id="butExcel" class="btn btn-primary float-right btn-space">Cargar Archivo</button>
+<button id="butExcel" class="btn btn-primary btn-agregar-index btn-space">Cargar Archivo</button>
 
 <div class="courses index large-9 medium-8 columns content">
-    <h3><?= __('Cursos-Grupos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewCoursesClassesDatagrid'>
         <thead>
             <tr>
