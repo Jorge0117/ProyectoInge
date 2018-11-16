@@ -32,7 +32,7 @@
                     <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Cursos',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                         <li class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
 
@@ -40,7 +40,7 @@
                         
                         <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Permisos',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>
@@ -52,7 +52,7 @@
 
     </div>
     <!-- Element/menubar.ctp -->
-    <?php $round = $this->Rounds->getLastRound() ?>
+    
     <?php if($round == null): ?>
         <div style="width:200px">
         </div>
@@ -62,7 +62,11 @@
                 <h6 style='color:red; font-size:19px;'><strong> 
                     <?= $round[0] ?><br>
                     <?= $round[1] ?><br>
-                    <?= $round[2] ?><br>
+                    <?php if($current_user['role_id'] === 'Administrador'): ?>
+                        <?= $round[2] ?><br>
+                        <?= $round[3] ?><br>
+                    <?php endif; ?>
+
                 </strong></h6>
             </div>
         </div>        
