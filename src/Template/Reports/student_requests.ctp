@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
-echo $this->Html->css('buttons');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
@@ -30,16 +29,46 @@ echo $this->Html->css('buttons');
 			<tbody>
 				<?php foreach ($studentRequests as $studentRequests): ?>
 				<tr> <!-- Aquí se ve que se pone en el datagrid-->
-					<td><?= h($studentRequests->fecha) ?></td>
-					<td><?= h($studentRequests->promedio) ?></td>
-					<td><?= h($studentRequests->anno) ?></td>
-					<td><?= h($studentRequests->semestre) ?></td>
+					<td align = center><?= h($studentRequests->fecha) ?></td>
+					<td align = center><?= h($studentRequests->promedio) ?></td>
+					<td align = center><?= h($studentRequests->anno) ?></td>
+					<td align = center><?= h($studentRequests->semestre) ?></td>
 					<td><?= h($studentRequests->curso)  ?></td>
-					<td><?= h($studentRequests->grupo) ?></td>
+					<td align = center><?= h($studentRequests->grupo) ?></td>
 					<td><?= h($ProfessorName) ?></td>
-					<td><?= h($studentRequests->estado) ?></td>
+					<?php if ($studentRequests->estado === 'p'): ?>
+                    <td align = center> Pendiente </td>
+					<?php else: ?>
+						<?php if ($studentRequests->estado === 'a'): ?>
+							<td align = center> Aceptada </td>
+						<?php else: ?>
+							<?php if ($studentRequests->estado === 'e'): ?>
+								<td align = center> Elegible </td>
+							<?php else: ?>
+								<?php if ($studentRequests->estado === 'r'): ?>
+									<td align = center> Rechazada </td>
+								<?php else: ?>
+									<?php if ($studentRequests->estado === 'i'): ?>
+										<td align = center> Elegible por inopia </td>
+									<?php else: ?>
+										<?php if ($studentRequests->estado === 'n'): ?>
+											<td align = center> No elegible </td>
+										<?php else: ?>
+											<?php if ($studentRequests->estado === 'x'): ?>
+												<td align = center> Anulada </td>
+											<?php else: ?>
+												<?php if ($studentRequests->estado === 'c'): ?>
+													<td align = center> Aceptada por inopia </td>
+												<?php endif; ?>
+											<?php endif; ?>
+										<?php endif; ?>
+									<?php endif; ?>
+								<?php endif; ?>
+							<?php endif; ?>
+						<?php endif; ?>
+				<?php endif; ?>
 
-					<td class="actions">
+					<td class="actions" align = center>
 						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id], ['escape'=>false]) ?>
 
 					</td>
