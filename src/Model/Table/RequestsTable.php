@@ -278,6 +278,15 @@ class RequestsTable extends Table
         $result = $result->fetchAll('assoc');
         return $result;
     }
+	
+	//Obtiene el id de la solicitud en base a los datos de dicha solicitud
+	public function getNewRequest($curso,$grupo,$cedula,$ronda)
+    {
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select id from requests where student_id = '$cedula' AND round_start = '$ronda' AND course_id = '$curso' AND class_number = '$grupo' AND status = 'p'  ");
+        $result = $result->fetchAll('assoc');
+        return $result;
+    }
     
     //Obtiene informacion del curso y grupo según el numero de grupo y la sigla del curso
     public function getClass($curso, $grupo)
