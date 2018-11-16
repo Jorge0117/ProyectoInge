@@ -203,6 +203,50 @@
 	}
 
 </script>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Fondo del modal */
+    .modal {
+        display: none; 
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px; /*Posición del modal */
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; /* En caso de ser necesario se puede hacer scroll */
+        background-color: rgb(0,0,0); /* Color del fondo */
+        background-color: rgba(0,0,0,0.4); /* Color con transparencia */
+    }
+
+    /* Contenido del modal */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
     <ul class="side-nav">
 		
@@ -248,14 +292,45 @@
 			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
             echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
             echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente: ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
-
             echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+			
 			?>
 			</div>
 			
+			
+			
+						<div id="confirmacion" class="modal", style = "z-index:20">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
 
-			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
-			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+            <fieldset>
+                <legend><?= __('Agregar solicitud') ?></legend>
+				
+				<br>
+									<br> </br>
+
+
+				¿Esta seguro que desea agregar la solicitud?
+				
+
+            </fieldset>
+            <!--<button type="submit" class="btn btn-primary float-right">Aceptar</button>-->
+			 <button id="butCanc" type="reset" class="btn btn-secondary float-right btn-space" onclick="cancelarModal()">Cancelar</button>
+			<?php echo $this->Form->button(__('Aceptar'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
+	
+        
+
+        </div>
+    </div>
+</div>
+			
+			
+			
+			<!--<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>-->
+			<?php 
+						echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); 
+			echo $this->Form->control('Agregar Solicitud',['type' => 'button', 'onclick' =>'confirmar()', 'id' => 'btnConfirmacion', 'label' => '','value' => 'Agregar solicitud', 'class'=>'btn-aceptar']);
+?>
 			
 			<?php
 			/*echo $this->Form->Label("Datos adicionales Solicitud: ");
@@ -277,12 +352,22 @@
 			//echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
 
 
+			
+			
+			
+			
+			
+			
+			
+			?>
+			
+			
 
-		?>
+
+		
     </fieldset>
 
-   <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
-
+	
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
     <?= $this->Form->end() ?>
 	   <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
@@ -290,6 +375,8 @@
 	
 	
 </div>
+
+
 
 <script>
 
@@ -301,6 +388,7 @@
 	/** Función toggleAnother
 	 * EFE: activa o desactiva los campos de otras horas
 	 **/
+
 	function toggleAnother(){
 		if(byId('has-another-hours').checked){
 			byId('another-student-hours').disabled = false;
@@ -337,6 +425,7 @@
 	function send(){
 		byId('another-student-hours').disabled = false;
 		byId('another-assistant-hours').disabled = false;
+	
 	}
 
 	/** Función byId
@@ -346,5 +435,21 @@
 	 **/
 	function byId(id) {
 		return document.getElementById(id);
+	}
+	
+	function confirmar()
+	{
+		var modal = byId("confirmacion");
+		modal.style.display = "block";
+	}
+	
+	function cancelarModal()
+	{
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+		
+		byId('has-another-hours').checked = false;
+		byId('another-student-hours').disabled = true;
+		byId('another-assistant-hours').disabled = true;
 	}
 </script>
