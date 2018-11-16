@@ -10,34 +10,31 @@ echo $this->Html->css('buttons');
 
  
 <div class="users index large-9 medium-8 columns content">
-	<div class="row justify-content-between" >
-		<h3><?= __('Histórico de asistencias') ?></h3>
-		<table cellpadding="0" cellspacing="0" id= datagridUsers> 
-			<thead>
-				<tr>
-					<th scope="col"><?= $this->Paginator->sort('Fecha de solicitud') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
-					<th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-					<th scope="col" class="actions"><?= __('Opciones') ?></th>
-				
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($studentRequests as $studentRequests): ?>
-				<tr> <!-- Aquí se ve que se pone en el datagrid-->
-					<td><?= h($studentRequests->fecha) ?></td>
-					<td><?= h($studentRequests->promedio) ?></td>
-					<td><?= h($studentRequests->anno) ?></td>
-					<td><?= h($studentRequests->semestre) ?></td>
-					<td><?= h($studentRequests->curso)  ?></td>
-					<td><?= h($studentRequests->grupo) ?></td>
-					<td><?= h($ProfessorName) ?></td>
-					<td><?= h($studentRequests->estado) ?></td>
+    <h3><?= __('Histórico de asistencias') ?></h3>
+    <table cellpadding="0" cellspacing="0" id= datagridUsers> 
+        <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('Cantidad de horas') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('Tipo de horas') ?></th>
+                <th scope="col" class="actions"><?= __('Opciones') ?></th>
+             
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($studentRequests as $studentRequests): ?>
+            <tr> <!-- Aquí se ve que se pone en el datagrid-->
+				<td align = center><?= h($studentRequests->anno) ?></td>
+				<td align = center><?= h($studentRequests->semestre) ?></td>
+                <td align = center><?= h($studentRequests->curso)  ?></td>
+				<td align = center><?= h($studentRequests->grupo) ?></td>
+				<td align = center><?= h($ProfessorName) ?></td>
+				<td align = center><?= h($studentRequests->hour_ammount) ?></td>
+				<td align = center><?= h($studentRequests->tipo_hora) ?></td>
 
 					<td class="actions">
 						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id], ['escape'=>false]) ?>
