@@ -165,6 +165,14 @@ class RequestsTable extends Table
 
         return $rules;
     }
+	
+	public function updateRequestHours($id, $ha, $he)
+	{
+		$connet = ConnectionManager::get('default');
+		$connet->execute("update requests set wants_assistant_hours = '$ha', wants_student_hours = '$he' WHERE id = '$id'");
+        return 1;
+
+    }
 
     public function getRequests()
     {

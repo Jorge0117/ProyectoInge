@@ -52,9 +52,34 @@
 				echo "Solicitó horas estudiante.";
 				?><br> </br> <?php
 			}
+			
+
+			echo $this->Form->control('modify_hours', ['id' => 'hours_change','label' => 'Cambiar horas', 'type' => 'checkbox', 'onchange' => 'allowUpdateHours()']);
+
+			?> <div id="divChangeHours" style="display:none;">
+			<?php
+			echo $this->Form->control('modify_hours', ['id' => 'new_ha', 'label' => 'Horas asistente', 'type' => 'checkbox']);
+			echo $this->Form->control('modify_hours', ['id' => 'new_he', 'label' => 'Horas estudiante', 'type' => 'checkbox']);
+			
+			echo $this->Form->control(
+			'Aceptar',
+			[
+				'id' => 'AceptarCambioHoras',
+				'name' => 'AceptarCambioHora',
+				'type' => 'button',
+				'class' => 'btn btn-primary btn-aceptar',
+				'onclick' => 'cambiarhoras()'
+				
+			]);
+		
+			?> </div>
+			<?php
+		
+			?><br> </br> <?php
+			
+
 		?>	
 		</div>
-			
 		<?= $this->Form->end() ?>
 	</div>
 
@@ -511,6 +536,26 @@ $(document).ready( function () {
 			byId('endButtons').style.visibility = 'hidden';
 		}
 	}
+	
+	function allowUpdateHours()
+	{
+		if(byId("hours_change").checked)
+		{
+			/*byId("AceptarCambioHoras").style.visibility = 'visible';
+			byId("new_ha").style.visibility = 'visible';
+			byId("new_he").style.visibility = 'visible';*/
+			byId("divChangeHours").style.display = 'block';
+		}
+		else
+		{
+			/*byId("AceptarCambioHoras").style.visibility = 'hidden';
+			byId("new_ha").style.visibility = 'hidden';
+			byId("new_ha").value = 'xdxd';
+			byId("new_he").style.visibility = 'hidden';*/
+			
+			byId("divChangeHours").style.display = 'none';
+		}
+	}
 
 	/** Función byId
 	  * EFE: Función wrapper de getElementById
@@ -519,6 +564,27 @@ $(document).ready( function () {
 	  **/
   	function byId(id) {
 		return document.getElementById(id);
+	}
+	
+	function cambiarhoras()
+	{
+		
+			$.ajax({
+		url:"<?php echo \Cake\Routing\Router::url(array('controller'=>'Requests','action'=>'changeRequestHours'));?>" ,   cache: false,
+		type: 'GET',
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'text',
+		async: false,
+		data: {},
+		success: function (data,response) {
+
+		},
+		error: function(jqxhr, status, exception)
+		{
+			alert(exception);
+
+		}
+			});
 	}
 
 </script>

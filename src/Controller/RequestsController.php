@@ -856,5 +856,11 @@ class RequestsController extends AppController
 
          }
     }
+	
+	public function changeRequestHours()
+	{
+		debug("xdxd");
+		//die();
+	}
 
 }
