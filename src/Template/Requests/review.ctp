@@ -128,13 +128,7 @@
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
-												'Editar',
-												['checked' => $checkedInopia,
-												'name' => 'inopia_op_'.$requirements['Estudiante'][$i]['requirement_number'],
-												'class'=> "radioRequirements",
-												'disabled' => $requirements['stage'] > 1]
-											).'</td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="inopia"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -169,14 +163,8 @@
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['type'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
-									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td>'.$this->Form->checkbox(
-												'Editar',
-												['checked' => $checkedInopia,
-												'name' => 'inopia_op_'.$requirements['Asistente'][$i]['requirement_number'],
-												'class'=> "radioRequirements",
-												'disabled' => $requirements['stage'] > 1]
-											).'</td>'."\n");
+									if($requirements['Asistente'][$i]['type'] == 'Opcional'){
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="inopia"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -196,10 +184,11 @@
 						<table class='table text-center '>
 							<?php
 								echo ("<tr class='bg-white'>
-									\t<th style='width:70%; text-align: left;'>Requisito</th> 
+									\t<th style='width:60%; text-align: left;'>Requisito</th> 
 									\t<th style='width:10%'>Tipo</th>
 									\t<th style='width:10%'>Aprobado</th>
 									\t<th style='width:10%'>Rechazado</th> 
+									\t<th style='width:10%'>Inopia</th>
 									</tr>");
 								for ($i = 0; $i < count($requirements['Ambos']); $i++){
 									$checkedApproved = $requirements['Ambos'][$i]['state'] == 'a'?'checked':'';
@@ -210,6 +199,11 @@
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['type'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
 									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									if($requirements['Ambos'][$i]['type'] == 'Opcional'){
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="inopia"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									}else{
+										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
+									}
 									echo('</tr>'."\n"); 
 									$this->Form->unlockField('requirement_'.$requirements['Ambos'][$i]['requirement_number']);
 								}
