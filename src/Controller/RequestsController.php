@@ -284,14 +284,23 @@ class RequestsController extends AppController
                 $request->set('wants_assistant_hours',true);
             }
            
-            //debug($request);
-            //die();
-            if($request['average'] < 7){
-                $this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
-                return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
-            }else if ($this->Requests->save($request)) {
+            debug($request);
+			$nuevoCurso = substr($request['course_id'],0,6);
+			$nuevoGrupo = substr($request['class_number'],0,1);
+			$nuevoId = $request['student_id'];
+			$nuevaRonda = $request['round_start'];
+			
+
+			if ($this->Requests->save($request)) {
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 return $this->redirect(['action' => 'index']);
+				
+				//Obtiene el id de la nueva solicitud
+				$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
+
+				/*return $this->redirect(array("controller" => "Requests", 
+                      "action" => "view",
+                      "param1" => $id));*/
             }
             $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
@@ -577,42 +586,71 @@ class RequestsController extends AppController
             // Se guarda los datos del request
             $data = $this->request->getData();
             $requirements_review_completed = true;
-
+            
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
 
-                // Actualizar el estado de los requisitos opcionales
-                for ($i = 0; $i < count($requirements['Opcional']); $i++) {
-                    $requirement_number = intval($requirements['Opcional'][$i]['requirement_number']);
-                    $optional_requirement = $this->RequestsRequirements->newEntity();
-                    $optional_requirement->request_id = intval($id);
-                    $optional_requirement->requirement_number = $requirement_number;
-                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                // Actualizar el estado de los requisitos de estudiante
+                for ($i = 0; $i < count($requirements['Estudiante']); $i++) {
+                    $requirement_number = intval($requirements['Estudiante'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     
                     // Guarda si fue aprovado por inopia
-                    if(array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
-                        $optional_requirement->acepted_inopia = 1;
+                    if($requirements['Estudiante'][$i]['type'] == 'Opcional' &&  $data['requirement_' . $requirement_number] == 'inopia'){
+                        $student_requirement->acepted_inopia = 1;
                     }else{
-                        $optional_requirement->acepted_inopia = 0;
+                        $student_requirement->acepted_inopia = 0;
                     }
 
                     // Verifica que todos los requisitos hayan sido guardados correctamente
-                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
                         $requirements_review_completed = false;
                         return;
                     }
                 }
                 
-                // Actualizar el estado de los requisitos obligatorios
-                for ($i = 0; $i < count($requirements['Obligatorio']); $i++) {
-                    $requirement_number = intval($requirements['Obligatorio'][$i]['requirement_number']);
-                    $optional_requirement = $this->RequestsRequirements->newEntity();
-                    $optional_requirement->request_id = intval($id);
-                    $optional_requirement->requirement_number = $requirement_number;
-                    $optional_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                // Actualizar el estado de los requisitos asistente
+                for ($i = 0; $i < count($requirements['Asistente']); $i++) {
+                    $requirement_number = intval($requirements['Asistente'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    
+                    // Guarda si fue aprovado por inopia
+                    if($requirements['Asistente'][$i]['type'] == 'Opcional' && $data['requirement_' . $requirement_number] == 'inopia'){
+                        $student_requirement->acepted_inopia = 1;
+                    }else{
+                        $student_requirement->acepted_inopia = 0;
+                    }
 
                     // Verifica que todos los requisitos hayan sido guardados correctamente
-                    if (!$this->RequestsRequirements->save($optional_requirement)) {
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
+                        $requirements_review_completed = false;
+                        return;
+                    }
+                }
+
+                // Actualizar el estado de los requisitos generales
+                for ($i = 0; $i < count($requirements['Ambos']); $i++) {
+                    $requirement_number = intval($requirements['Ambos'][$i]['requirement_number']);
+                    $student_requirement = $this->RequestsRequirements->newEntity();
+                    $student_requirement->request_id = intval($id);
+                    $student_requirement->requirement_number = $requirement_number;
+                    $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
+                    
+                    // Guarda si fue aprovado por inopia
+                    if($requirements['Ambos'][$i]['type'] == 'Opcional' && $data['requirement_' . $requirement_number] == 'inopia'){
+                        $student_requirement->acepted_inopia = 1;
+                    }else{
+                        $student_requirement->acepted_inopia = 0;
+                    }
+
+                    // Verifica que todos los requisitos hayan sido guardados correctamente
+                    if (!$this->RequestsRequirements->save($student_requirement)) {
                         $requirements_review_completed = false;
                         return;
                     }
@@ -826,5 +864,11 @@ class RequestsController extends AppController
 
          }
     }
+	
+	public function changeRequestHours()
+	{
+		debug("xdxd");
+		//die();
+	}
 
 }
