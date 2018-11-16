@@ -197,4 +197,6 @@ class RolesController extends AppController
 
         return in_array($module.'-'.$action, $role_permissions);
     }
+
+    
 }

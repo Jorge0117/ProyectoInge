@@ -29,11 +29,14 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
+      /*  $this->paginate = [
             'contain' => ['Roles']
         ];
         $users = $this->paginate($this->Users);
+        */ 
+         $table = $this->loadmodel('Users');
 
+        $users = $table->find();
         $this->set(compact('users'));
     }
 
