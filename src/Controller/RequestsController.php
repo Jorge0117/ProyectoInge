@@ -629,11 +629,11 @@ class RequestsController extends AppController
             // Se guarda los datos del request
             $data = $this->request->getData();
             $requirements_review_completed = true;
-
+            
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
 
-                // Actualizar el estado de los requisitos opcionales
+                // Actualizar el estado de los requisitos de estudiante
                 for ($i = 0; $i < count($requirements['Estudiante']); $i++) {
                     $requirement_number = intval($requirements['Estudiante'][$i]['requirement_number']);
                     $student_requirement = $this->RequestsRequirements->newEntity();
@@ -642,7 +642,7 @@ class RequestsController extends AppController
                     $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     
                     // Guarda si fue aprovado por inopia
-                    if($requirements['Estudiante'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                    if($requirements['Estudiante'][$i]['type'] == 'Opcional' &&  $data['requirement_' . $requirement_number] == 'inopia'){
                         $student_requirement->acepted_inopia = 1;
                     }else{
                         $student_requirement->acepted_inopia = 0;
@@ -655,7 +655,7 @@ class RequestsController extends AppController
                     }
                 }
                 
-                // Actualizar el estado de los requisitos opcionales
+                // Actualizar el estado de los requisitos asistente
                 for ($i = 0; $i < count($requirements['Asistente']); $i++) {
                     $requirement_number = intval($requirements['Asistente'][$i]['requirement_number']);
                     $student_requirement = $this->RequestsRequirements->newEntity();
@@ -664,7 +664,7 @@ class RequestsController extends AppController
                     $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     
                     // Guarda si fue aprovado por inopia
-                    if($requirements['Asistente'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                    if($requirements['Asistente'][$i]['type'] == 'Opcional' && $data['requirement_' . $requirement_number] == 'inopia'){
                         $student_requirement->acepted_inopia = 1;
                     }else{
                         $student_requirement->acepted_inopia = 0;
@@ -677,7 +677,7 @@ class RequestsController extends AppController
                     }
                 }
 
-                // Actualizar el estado de los requisitos opcionales
+                // Actualizar el estado de los requisitos generales
                 for ($i = 0; $i < count($requirements['Ambos']); $i++) {
                     $requirement_number = intval($requirements['Ambos'][$i]['requirement_number']);
                     $student_requirement = $this->RequestsRequirements->newEntity();
@@ -686,7 +686,7 @@ class RequestsController extends AppController
                     $student_requirement->state = $data['requirement_' . $requirement_number] == 'rejected' ? 'r' : 'a';
                     
                     // Guarda si fue aprovado por inopia
-                    if($requirements['Ambos'][$i]['type'] == 'Opcional' && array_key_exists('inopia_op_' . $requirement_number,$data) && $data['inopia_op_' . $requirement_number] == '1'){
+                    if($requirements['Ambos'][$i]['type'] == 'Opcional' && $data['requirement_' . $requirement_number] == 'inopia'){
                         $student_requirement->acepted_inopia = 1;
                     }else{
                         $student_requirement->acepted_inopia = 0;
