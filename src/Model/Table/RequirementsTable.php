@@ -163,6 +163,7 @@ class RequirementsTable extends Table
             $general_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
             $general_requirements[$i]['description'] = $requirements[$i]['description'];
             $general_requirements[$i]['type'] = $requirements[$i]['type'];
+            $general_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
         }
         
 
