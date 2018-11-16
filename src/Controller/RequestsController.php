@@ -295,15 +295,14 @@ class RequestsController extends AppController
                 $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
                 //Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
                 $this->sendMail($request['id'],5);
-                return $this->redirect(['action' => 'index']);
+               // return $this->redirect(['action' => 'index']);
                 
 				
 				//Obtiene el id de la nueva solicitud
 				$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
 
-				/*return $this->redirect(array("controller" => "Requests", 
-                      "action" => "view",
-                      "param1" => $id));*/
+				return $this->redirect(array("controller" => "Requests", 
+                      "action" => "view",$id[0]['id']));
             }
             $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
