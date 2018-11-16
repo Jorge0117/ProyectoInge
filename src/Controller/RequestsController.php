@@ -589,20 +589,30 @@ class RequestsController extends AppController
         //Revisión preliminar
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
-            $default_index = $this->Requests->getStatusIndexOutOfId($id);
+            $default_index = $this->Requests->getStatus($id);
         }
-
+        //debug($request_stage);
+        //debug($default_index);die();
         //Revisión final
-        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 1 || $default_index >=3)) {
+        if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 'e' || $default_index =='i' || $default_index == 'a' || $default_index == 'r' || $default_index == 'c')) {
             $load_final_review = true;
             $default_indexf = 0;
             $inopia = 0;
-            if($default_index == 3 || $default_index == 6) $inopia = 1;
-            if($default_index == 4 || $default_index == 6) $default_indexf = 1;
-            else if($default_index == 5)$default_indexf = 2;
+            if($default_index == 'i' || $default_index == 'c') $inopia = 1;
+            if($default_index == 'a' || $default_index == 'c') $default_indexf = 1;
+            else if($default_index == 'r')$default_indexf = 2;
             $this->set('default_indexf', $default_indexf);
 
         }
+
+
+        $hasInopia = $this->Requests->isInopia($id);
+        if($hasInopia){
+            $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
+        }else{
+            $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
+        }
+
 
         //--------------------------------------------------------------------------
         //Datos de la solicitud
@@ -614,7 +624,7 @@ class RequestsController extends AppController
         $class = $class[0];
         $professor = $this->Requests->getTeacher($request['course_id'], $request['class_number'], $request['class_semester'], $request['class_year']);
         $professor = $professor[0];
-        $this->set(compact('request', 'user', 'class', 'professor'));
+        $this->set(compact('request', 'user', 'class', 'professor', 'preeliminarOptions'));
 
         //--------------------------------------------------------------------------
         // Sending the value of the boolean that says whether the preliminar review
@@ -708,43 +718,41 @@ class RequestsController extends AppController
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
                 }
+
             }
+            //EMPIEZA JOE
 
             //--------------------------------------------------------------------------
             // When the user says 'aceptar', we only have to change a request status
             // if the loaded view was the preliminar one and not the last one
             if (array_key_exists('AceptarPreliminar', $data)) {
                 //--------------------------------------------------------------------------
-                $status_index = $data['Clasificación'];
-                switch ($status_index) {
-                    case 0:
-                        $status_new_val = 'p';
-                        break;
-                    case 1:
-                        $status_new_val = 'e';
-                        break;
-                    case 2:
-                        $status_new_val = 'n';
-                        break;
-                    case 3:
-                        $status_new_val = 'i';
-                        break;
-                }
-                $requirements = $this->Requirements->getRequestRequirements($id);
+                $status_new_val = $data['Clasificación'];
+                
+                $requirements = $this->Requirements->getOptRecRequirements($id);
                 //--------------------------------------------------------------------------
                 // Comunication with other controllers
                 $requirementsController = new RequirementsController();
                 //--------------------------------------------------------------------------
                 // This counts the  amount of mandatory requirements in the reqirements table
                 // and the amount of them in this request
-                $mandatory_requirements_count = $this->Requirements->getRequestRequirements($id)['Obligatorio'];
-                $total_of_mandatories_requirements = sizeof($mandatory_requirements_count); # $requirementsController->countmandatoryRequirements();
+                $mandatory_requirements_count = $this->Requirements->getOptRecRequirements($id)['Obligatorio'];
+                $total_of_mandatories_requirements = sizeof($mandatory_requirements_count);
                 $total_of_aproved_req = 0;
-                for ($index = 0; $index < sizeof($mandatory_requirements_count); $index++) {
+                for ($index = 0; $index < $total_of_mandatories_requirements; $index++) {
                     if ('a' == $mandatory_requirements_count[$index]['state']) {
                         $total_of_aproved_req++;
                     }
                 }
+
+                $optional_requirement_count = $this->Requirements->getOptRecRequirements($id)['Opcional'];
+                $total_optional_requirements = sizeof($optional_requirement_count);
+                for ($index = 0; $index < $total_optional_requirements; $index++) {
+                    if ('a' == $optional_requirement_count[$index]['state']) {
+                        $total_of_aproved_req++;
+                    }
+                }
+
                 //--------------------------------------------------------------------------
                 // if this request was the same amount of mandatory requirements approved 
                 // as the ones in the table and whether the administrator wants to 
@@ -753,7 +761,7 @@ class RequestsController extends AppController
                 if (('p' == $status_new_val) || ('n' == $status_new_val)) {
                     $update_bool = true; 
                 }
-                if (($total_of_mandatories_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
+                if (($total_of_mandatories_requirements + $total_optional_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
                     $update_bool = true;
                     //Redirecciona al index:
                 } else {
@@ -768,7 +776,7 @@ class RequestsController extends AppController
                     $request_reviewed = $this->Requests->get($id);
                     $request_reviewed->stage = 3;
                     $this->Requests->save($request_reviewed);
-                }
+                }//TERMINA JOE
                 //Si el estado es no aceptado, se envía el tipo de mensaje 1
                 if($status_new_val == 'n') {
                     $this->sendMail($request['id'], 1);
