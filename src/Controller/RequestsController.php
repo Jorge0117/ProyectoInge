@@ -850,6 +850,7 @@ class RequestsController extends AppController
         $this->set('load_final_review', $load_final_review);
     }
 
+    //Empieza ESTIVEN
     //Método para recuperar los requisitos que no fueron cumplidos por el estudiante
     //Recibe el id de la solicitud
     public function reprovedMessage($id)
@@ -936,6 +937,7 @@ class RequestsController extends AppController
 
          }
     }
+    //Termina ESTIVEN
 	
 	public function changeRequestHours()
 	{
