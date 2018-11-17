@@ -168,6 +168,7 @@ class RequestsController extends AppController
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
         $this->set('request', $request);
+        $this->getRequest()->getSession()->write('created_request',0);
     }
     
     /**
