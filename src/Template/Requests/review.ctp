@@ -53,28 +53,30 @@
 				?><br> </br> <?php
 			}
 			
-
+			//Impide que se activen los campos si la solicitud no esta pendiente
+			if($request['status'] == 'p')
 			echo $this->Form->control('modify_hours', ['id' => 'hours_change','label' => 'Cambiar horas', 'type' => 'checkbox', 'onchange' => 'allowUpdateHours()']);
 
+			{
 			?> <div id="divChangeHours" style="display:none;">
 			<?php
-			echo $this->Form->control('modify_hours', ['id' => 'new_ha', 'label' => 'Horas asistente', 'type' => 'checkbox']);
-			echo $this->Form->control('modify_hours', ['id' => 'new_he', 'label' => 'Horas estudiante', 'type' => 'checkbox']);
-			
+			echo $this->Form->control('modify_hours_ha', ['id' => 'new_ha', 'label' => 'Asignar horas asistente', 'type' => 'checkbox']);
+			echo $this->Form->control('modify_hours_he', ['id' => 'new_he', 'label' => 'Asignar horas estudiante', 'type' => 'checkbox']);
+			echo $this->Form->control('reqId', ['id' => 'requId', 'label' => '', 'type' => 'text', 'value' => $id, 'hidden']);
 			echo $this->Form->control(
 			'Aceptar',
 			[
 				'id' => 'AceptarCambioHoras',
-				'name' => 'AceptarCambioHora',
-				'type' => 'button',
-				'class' => 'btn btn-primary btn-aceptar',
-				'onclick' => 'cambiarhoras()'
-				
+				'name' => 'AceptarCambioHoras',
+				'type' => 'submit',
+				'class' => 'btn btn-primary btn-aceptar'			
 			]);
+			
+			
 		
 			?> </div>
 			<?php
-		
+			}
 			?><br> </br> <?php
 			
 
@@ -103,6 +105,8 @@
 							</div>
 						</div>
 					<?php endif; ?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> true, 'class' => 'radioRequirements']);?>
+					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
 					</legend>

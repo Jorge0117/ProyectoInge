@@ -151,6 +151,12 @@ public function active(){
         return $query[0][0];   
     }
 
+    public function getEndActualRound(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT max(end_date) from rounds;")->fetchAll();
+        return $query[0][0];   
+    }
+
 
 
     //Autor: Esteban Rojas
@@ -165,6 +171,23 @@ public function active(){
         $result = $result->fetchAll('assoc');
         return $result;
     }
-	
+    
+     //obtiene la ultima ronda creada.
+     public function getLastRound() {
+        $last = $this->getLastRow();
+        $dsh = (int)$last[5]-(int)$last[7];
+        $dah = (int)$last[6]-(int)$last[8];
+
+        if($last!= null){
+            return [
+                "Ronda #" . $last[2] .' '. $last[3] . '-' . substr($last[4], -2),
+                "Del: " . substr($last[0], 5).
+                " al: " . substr($last[1], 5),
+                "HE-ECCI: ".(string)$dsh,
+                "HA-ECCI: ".(string)$dah
+            ]; 
+        }
+        return "";
+    }
 	
 }
