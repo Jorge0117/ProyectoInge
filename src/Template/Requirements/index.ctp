@@ -9,7 +9,7 @@
 
 <div class="courses index large-9 medium-8 columns content">
     
-    <h3><?= __('Requisitos') ?></h3> <!--Título arriba del grid que indica la vista en la que se está-->
+    <h3><?= __('Requisitos para asistencias') ?></h3> <!--Título arriba del grid que indica la vista en la que se está-->
     <br><br>
 
     <div class='container'>

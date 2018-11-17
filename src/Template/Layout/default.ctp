@@ -138,8 +138,8 @@ echo $this->Html->css('grid-index');
     </style> -->
 </head>
 <body>
-<?=$this->element('titlebar')?>
-<div style='position: sticky; position: -webkit-sticky; top:0;z-index:10'> 
+    <?=$this->element('titlebar')?>
+    <div style='position: sticky; position: -webkit-sticky; top:0;z-index:10' class="shadow"> 
         <?=$this->element('menubar')?>
 
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark justify-content-center bg-ecci-green">
@@ -147,19 +147,6 @@ echo $this->Html->css('grid-index');
         </nav>
     </div>
     <?=$this->Flash->render()?>
-
-      <!-- Layout/default.ctp
-        FIXME: Mover declaración de variable a AppController-->
-    <?php $round = $this->Rounds->getLastRound()?> 
-    <?php if($current_user['role_id'] === 'Administrador'): ?>
-        <div class="row">
-        <div class="col" align="right"> 
-            <h6 style='color:red;'><strong> 
-                <?= $round[3] . ' | ' . $round[4] ?>
-            </strong></h6>
-        </div>
-        </div>
-    <?php endif; ?>
 
     <div class="container pt-5">
       <?=$this->fetch('content')?>
