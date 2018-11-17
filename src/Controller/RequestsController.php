@@ -245,8 +245,9 @@ class RequestsController extends AppController
 
     public function add()
     {
+		
         $request = $this->Requests->newEntity();
-
+		
         if ($this->request->is('post')) {
 
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -301,6 +302,9 @@ class RequestsController extends AppController
 					
 					//Obtiene el id de la nueva solicitud
 					$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
+					
+					//Declara la variable para indicarle al view que debe desplegar el mensaje de la impresión de esta solicitud
+					$this->getRequest()->getSession()->write('created_request',1);
 
 					return $this->redirect(array("controller" => "Requests", 
 						  "action" => "view",$id[0]['id']));
