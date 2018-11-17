@@ -130,7 +130,7 @@ $(function() {
 					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
 					y una fotocopia legible de la cédula de identidad por ambos lados.
 					<br>
-					<b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
+					<b>Fecha límite: <?php echo $fecha; ?></b>
 					<br>
 			</fieldset>
 			<fieldset>

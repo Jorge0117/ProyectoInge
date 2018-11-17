@@ -131,15 +131,21 @@ class RequestsController extends AppController
     {
         $this->loadModel('Users');
         $this->loadModel('Classes');
+        $rounds_c = new RoundsController;
+        $rounds = $this->loadModel('Rounds');
+        $fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
+        //$ronda_actual = $rounds->getEndActualRound();
 
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students'],
         ]);
 
         $user = $this->Users->get($request->student->user_id);
-
-        $visto = true;
+        
+        //Falta variable de verdad que se cambie cuando envía solicitud
+        $visto = false;
         $this->set('YaVisto', $visto);
+        $this->set('fecha', $fechaFin);
 
         $query = $this->Classes
             ->find()
