@@ -103,6 +103,8 @@
 							</div>
 						</div>
 					<?php endif; ?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> true, 'class' => 'radioRequirements']);?>
+					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
 					</legend>
