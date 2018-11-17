@@ -138,6 +138,9 @@ class RequestsController extends AppController
 
         $user = $this->Users->get($request->student->user_id);
 
+        $visto = true;
+        $this->set('YaVisto', $visto);
+
         $query = $this->Classes
             ->find()
             ->select('professor_id')

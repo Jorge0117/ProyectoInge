@@ -114,24 +114,30 @@
 
 <script>
 $(function() {
-    $("#myModal").modal();
+    var YaVisto = '<?php echo $YaVisto;?>'
+    if(YaVisto == false)
+        $("#MensajeInformativo").modal();
 });
 </script>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div id="MensajeInformativo" class="modal center-block text-center">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel"> Atención </h4>
-      </div>
-      <div class="modal-body">
-        Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
-	    Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
-		y una fotocopia legible de la cédula de identidad por ambos lados. 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-      </div>
-    </div> 
-  </div>
+        <div class="files form large-9 medium-8 columns content">
+			
+            <fieldset>
+					<legend><?= __('Atención') ?></legend>
+					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+					y una fotocopia legible de la cédula de identidad por ambos lados.
+					<br>
+					<b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
+					<br>
+			</fieldset>
+			<fieldset>
+            <button type="button" class="btn btn-primary float-middle btn-space" data-dismiss="modal">Aceptar</button>
+			</fieldset>
+        
+            
+        </div>
+    </div>
 </div>
