@@ -57,7 +57,7 @@ class AppController extends Controller
                 'controller' => 'Security',
                 'action' => 'login',
             ],
-            'authError' => 'Ingrese al sistema',
+            'authError' => 'No tiene permisos para ingresar a esta pagina.',
             'flash' => [
                 'element' => 'error'
             ],
@@ -71,6 +71,10 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
+        $this->loadModel('Rounds');
+        $round = $this->Rounds->getLastRound();
+        //debug($round);
+        $this->set(compact('round'));
 
         /*
          * Enable the following component for recommended CakePHP security settings.
