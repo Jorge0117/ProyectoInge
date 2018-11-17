@@ -277,33 +277,35 @@ class RequestsController extends AppController
             $request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
             $request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
 
-            
+            //Si no se selecciono ningun tipo de hora
             if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
             {
-                //Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
-                $request->set('wants_assistant_hours',true);
+                //
+                //$request->set('wants_assistant_hours',true);
             }
-           
-            debug($request);
-			$nuevoCurso = substr($request['course_id'],0,6);
-			$nuevoGrupo = substr($request['class_number'],0,1);
-			$nuevoId = $request['student_id'];
-			$nuevaRonda = $request['round_start'];
-			
-
-			if ($this->Requests->save($request)) {
-                $this->Flash->success(__('Se agrego la Solicitud Correctamente'));
-                //Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
-                $this->sendMail($request['id'],5);
-               // return $this->redirect(['action' => 'index']);
-                
+            else
+			{
+				//debug($request);
+				$nuevoCurso = substr($request['course_id'],0,6);
+				$nuevoGrupo = substr($request['class_number'],0,1);
+				$nuevoId = $request['student_id'];
+				$nuevaRonda = $request['round_start'];
 				
-				//Obtiene el id de la nueva solicitud
-				$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
 
-				return $this->redirect(array("controller" => "Requests", 
-                      "action" => "view",$id[0]['id']));
-            }
+				if ($this->Requests->save($request)) {
+					$this->Flash->success(__('Se agrego la Solicitud Correctamente'));
+					//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
+					//$this->sendMail($request['id'],5);
+				   // return $this->redirect(['action' => 'index']);
+					
+					
+					//Obtiene el id de la nueva solicitud
+					$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
+
+					return $this->redirect(array("controller" => "Requests", 
+						  "action" => "view",$id[0]['id']));
+				}
+			}
             $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         }
         $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
@@ -412,7 +414,7 @@ class RequestsController extends AppController
 
         //debug($nombreEstudiante);
         $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
-
+/*
         if ($this->request->is('post')) {
 
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -462,7 +464,7 @@ class RequestsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('Error: No se logró agregar la solicitud'));
-        }
+        }*/
     }
     /**
      * Edit method
