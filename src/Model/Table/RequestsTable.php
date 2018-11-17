@@ -392,7 +392,7 @@ class RequestsTable extends Table
             "CALL approve_request('$req_id', '$h_type', '$cnt')"
         );
     }
-        
+    
     public function getApproved($id) {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
@@ -409,6 +409,8 @@ class RequestsTable extends Table
         )->fetchAll()[0][0];
         return $query;
     }
+
+    //Empieza ESTIVEN
     //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
     //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
     // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si
@@ -424,6 +426,7 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result; // Se devuelve la lista de requisitos.
     }
+    //Termina ESTIVEN
     
     public function isOwnedBy($id, $student_id)
     {

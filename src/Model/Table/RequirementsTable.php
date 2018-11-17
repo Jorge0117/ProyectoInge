@@ -52,7 +52,8 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_number'
         ]);
     }
-    //Función para eliminar un requisito, llamada por el controlador Empieza ESTIVEN
+    //Empieza ESTIVEN
+    //Función para eliminar un requisito, llamada por el controlador
     public function deleteRequirement($requirement_number)
     {
         //------------------------------------------------
