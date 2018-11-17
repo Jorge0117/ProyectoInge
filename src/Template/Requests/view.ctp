@@ -112,14 +112,16 @@
     </div>
 </div>
 
+<!-- Muestra mensaje informativo si variable created_request es igual a 1 -->
 <script>
 $(function() {
-    var YaVisto = '<?php echo $YaVisto;?>'
-    if(YaVisto == false)
+    var YaCreado = '<?php echo $created_request;?>'
+    if(YaCreado == 1)
         $("#MensajeInformativo").modal();
 });
 </script>
 
+<!-- Mensaje informativo con información importante para el usuario -->
 <div id="MensajeInformativo" class="modal center-block text-center">
     <div class="modal-content">
         <div class="files form large-9 medium-8 columns content">
