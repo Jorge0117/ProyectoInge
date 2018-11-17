@@ -53,9 +53,11 @@
 				?><br> </br> <?php
 			}
 			
-
+			//Impide que se activen los campos si la solicitud no esta pendiente
+			if($request['status'] == 'p')
 			echo $this->Form->control('modify_hours', ['id' => 'hours_change','label' => 'Cambiar horas', 'type' => 'checkbox', 'onchange' => 'allowUpdateHours()']);
 
+			{
 			?> <div id="divChangeHours" style="display:none;">
 			<?php
 			echo $this->Form->control('modify_hours_ha', ['id' => 'new_ha', 'label' => 'Asignar horas asistente', 'type' => 'checkbox']);
@@ -69,10 +71,12 @@
 				'type' => 'submit',
 				'class' => 'btn btn-primary btn-aceptar'			
 			]);
+			
+			
 		
 			?> </div>
 			<?php
-		
+			}
 			?><br> </br> <?php
 			
 
