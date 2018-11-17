@@ -638,7 +638,25 @@ class RequestsController extends AppController
             // Se guarda los datos del request
             $data = $this->request->getData();
             $requirements_review_completed = true;
-            
+        
+
+			//Entra en este if si el boton oprimido fue el de cambiar el tipo de horas
+			if (array_key_exists('AceptarCambioHoras', $data))
+			{
+
+				//Solo cambia las horas si se asigna al menos un tipo de hora
+				if($data['modify_hours_ha'] != 0 || $data['modify_hours_he'] != 0)
+				{
+					$this->Requests->updateRequestHours($data['reqId'], $data['modify_hours_ha'], $data['modify_hours_he']);
+					$this->Flash->success(__('Se han modificado las horas correctamente.'));
+				}
+				else
+				{
+					$this->Flash->error(__('Error: No se logro modificar las horas'));
+				}
+
+			}
+		
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
 

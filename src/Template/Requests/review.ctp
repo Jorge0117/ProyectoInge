@@ -58,18 +58,16 @@
 
 			?> <div id="divChangeHours" style="display:none;">
 			<?php
-			echo $this->Form->control('modify_hours', ['id' => 'new_ha', 'label' => 'Horas asistente', 'type' => 'checkbox']);
-			echo $this->Form->control('modify_hours', ['id' => 'new_he', 'label' => 'Horas estudiante', 'type' => 'checkbox']);
-			
+			echo $this->Form->control('modify_hours_ha', ['id' => 'new_ha', 'label' => 'Asignar horas asistente', 'type' => 'checkbox']);
+			echo $this->Form->control('modify_hours_he', ['id' => 'new_he', 'label' => 'Asignar horas estudiante', 'type' => 'checkbox']);
+			echo $this->Form->control('reqId', ['id' => 'requId', 'label' => '', 'type' => 'text', 'value' => $id, 'hidden']);
 			echo $this->Form->control(
 			'Aceptar',
 			[
 				'id' => 'AceptarCambioHoras',
-				'name' => 'AceptarCambioHora',
-				'type' => 'button',
-				'class' => 'btn btn-primary btn-aceptar',
-				'onclick' => 'cambiarhoras()'
-				
+				'name' => 'AceptarCambioHoras',
+				'type' => 'submit',
+				'class' => 'btn btn-primary btn-aceptar'			
 			]);
 		
 			?> </div>
