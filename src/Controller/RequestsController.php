@@ -170,6 +170,11 @@ class RequestsController extends AppController
         $this->set('request', $request);
         $this->getRequest()->getSession()->write('created_request',0);
     }
+
+    public function updateMessageVariable($newValue)
+    {
+        $this->getRequest()->getSession()->write('created_request',$newValue);
+    }
     
     /**
      * Muestra una solicitud en formato de impresión.

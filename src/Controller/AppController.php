@@ -91,7 +91,6 @@ class AppController extends Controller
 
         $current_user = $this->Auth->user();
         $this->set('current_user', $current_user);
-
     }
 
     public function forceSSL($error = '', SecurityException $exception = null)
