@@ -47,6 +47,9 @@
 <div class='rounds index large-9 menium-8 columns content'>
     <h3 id='title' ><?= 'Gestión de Rondas' ?></h3>
 </div>
+<!--FIXME: insertar en un container -->
+<?= $this->Form->button('Iniciar Nueva Ronda', ['onclick' => "startAdd()",'id'=>'add', 'class' => 'btn btn-primary btn-aceptar']) ?>    
+<?= $this->Form->button('Editar Ronda', ['onclick' => "startEdit()",'id'=>'edit', 'class' => 'btn btn-primary btn-aceptar']) ?>    
 <div>
     <table cellspacing="0" cellpadding="0" class="table">
         <thead>
@@ -124,11 +127,10 @@
     </table>
 </div>
 
+
 <div class="submit">
     <?= $this->Form->postbutton('Aceptar',['action' => 'index'],['id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary btn-aceptar','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
     <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary btn-cancelar','style' => "display:none;"]) ?>    
-    <?= $this->Form->button('Iniciar Nueva Ronda', ['onclick' => "startAdd()",'id'=>'add', 'class' => 'btn btn-primary btn-aceptar']) ?>    
-    <?= $this->Form->button('Editar Ronda', ['onclick' => "startEdit()",'id'=>'edit', 'class' => 'btn btn-primary btn-aceptar']) ?>    
     <?= $this->Form->end() ?>
 </div>
 
