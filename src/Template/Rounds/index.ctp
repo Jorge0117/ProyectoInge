@@ -116,25 +116,19 @@
                     </fieldset>
                     <?= $this->Form->end() ?>
                 <!-- Botones de accion -->                
-                <td style = 'width:79px' ><div>
-                    <?php if(true): ?>
-                        <button id='add' class='btn-x float-left' style='padding:0px 2px' onclick='startAdd()' >
-                            <i class="fa fa-calendar-plus-o"></i>
-                        </button>
-                    <?php endif; ?>
-                    <button id='edit' class='btn-x float-left' style='padding:0px 2px' onclick='startEdit()' >
-                        <i class="fa fa-pencil"></i>
-                    </button>
+                <td>
                     <?= $this->Form->postbutton('<i class="fa fa-trash-o"></i>',[ 'action' => 'delete', $s_date],['style' => 'padding:0px 2px','class'=>'btn-x float-left','id' => 'trash','confirm' =>__('¿Está seguro de que desea borrar la ronda de solicitudes #{0} del {1} ciclo {2}?', $rn, $sem,$year)]);?>
-                </div></td>
+                </td>
             </div></tr>
         </tbody>
     </table>
 </div>
 
 <div class="submit">
-    <?= $this->Form->postbutton('Aceptar',['action' => 'index'],['id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
-    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>    
+    <?= $this->Form->postbutton('Aceptar',['action' => 'index'],['id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary btn-aceptar','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
+    <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary btn-cancelar','style' => "display:none;"]) ?>    
+    <?= $this->Form->button('Iniciar Nueva Ronda', ['onclick' => "startAdd()",'id'=>'add', 'class' => 'btn btn-primary btn-aceptar']) ?>    
+    <?= $this->Form->button('Editar Ronda', ['onclick' => "startEdit()",'id'=>'edit', 'class' => 'btn btn-primary btn-aceptar']) ?>    
     <?= $this->Form->end() ?>
 </div>
 
@@ -178,7 +172,13 @@ $(document).ready( function () {
         byId('tahHeader').style.display = "table-cell";
         byId('tahData').style.display = "table-cell";
         byId('tahData').value = 0;
-        
+    }else{
+        // Comentar bloque para poder agregar una ronda.
+        // Si hay una ronda activa, no se pueden agregar rondas.
+        // Una ronda activa es aquella en la que su último día es mayor a hoy.
+        if(compareDates(last['end_date'],getToday())>=0){
+           byId('add').style.display = 'none';
+        }
     }
 });
 
@@ -253,7 +253,7 @@ function sensitiveRange(first){
 }    
 
 // cambia el estado de neutro a editar, verifica que al agregar una nueva ronda esta sea el el semestre actual o de uno nuevo,
-calendar.attachEvent("onClick", function(date){
+calendar.attachEvent("onClick", function(date){    
     var start = byId('start-date').value;
     var end = byId('end-date').value;
     if(compareDates(start,end)>0){
@@ -265,25 +265,13 @@ calendar.attachEvent("onClick", function(date){
             var year = startDate['y'];
             if(startDate['m'] == 12) year = parseInt(year)+1;
             if(year != last['year'] || (last['semester'] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (last['semester'] == 'II' && parseInt(startDate['m']) > 11)){
-                byId('tshHeader').style.display = "table-cell";
-                byId('tshData').style.display = "table-cell";
                 byId('total-student-hours').value = 0;
-                byId('tdhHeader').style.display = "table-cell";
-                byId('tdhData').style.display = "table-cell";
-                byId('total-student-hours_d').value = 0;
-                byId('tahHeader').style.display = "table-cell";
-                byId('tahData').style.display = "table-cell";
+                byId('total-student-hours-d').value = 0;
                 byId('total-assistant-hours').value = 0;
             }else{
-                byId('tshHeader').style.display = 'none';
-                byId('tshData').style.display = 'none';
-                byId('total-student-hours').value = '<?= $tsh ?>';
-                byId('tdhHeader').style.display = 'none';
-                byId('tdhData').style.display = 'none';
-                byId('total-student-hours_d').value = '<?= $tdh ?>';
-                byId('tahHeader').style.display = 'none';
-                byId('tahData').style.display = 'none';
-                byId('total-assistant-hours').value =  '<?= $tah ?>';
+                byId('total-student-hours').value = last['total_student_hours']-last['actual_student_hours'];
+                byId('total-student-hours-d').value = last['total_student_hours_d']-last['actual_student_hours_d'];
+                byId('total-assistant-hours').value =  last['total_assistant_hours']-last['actual_assistant_hours'];
             }
         }else if((compareDates(start,last['start_date'])!=0 || compareDates(end,last['end_date'])!=0) && byId('flag').value != '1'){
             startEdit();
@@ -430,6 +418,7 @@ function startAdd(){
             byId('total-student-hours-d').value = 0;
             byId('total-assistant-hours').value = 0;
         }
+
     }
     byId('title').innerText = 'Añadiendo Ronda';
 }
@@ -439,12 +428,14 @@ function startAdd(){
   * REQ: flag: bandera que indica la acción requerida.
   **/
 function start(flag){
-    byId('trash').style.display = "none";
+    
+    byId('edit').style.display = "none";
+    byId('add').style.display = "none"
     if(flag == '1'){
         byId('RoundnumberHeader').style.display = "none";
         byId('RoundnumberData').style.display = "none";
-        byId('edit').style.display = "none";
-    }else if(flag == '2') byId('add').style.display = "none";
+        byId('trash').style.display = "none";
+    }
     if(last){
         byId('cancelar').style.display = "inline";
     }
@@ -491,7 +482,9 @@ function end() {
     //Botones
     byId('trash').style.display = "table-cell";
     byId('edit').style.display = "table-cell";
-    byId('add').style.display = "table-cell";
+    if(compareDates(last['end_date'],getToday())<0){
+        byId('add').style.display = "table-cell";
+    }
     byId('cancelar').style.display = "none";
     byId('aceptar').style.display = "none";
     byId('title').innerText = 'Gestión de Rondas';

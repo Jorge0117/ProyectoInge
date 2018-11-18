@@ -127,16 +127,30 @@ class RequestsController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = null, $backLocation = 'index', $backController = 'requests')
     {
         $this->loadModel('Users');
         $this->loadModel('Classes');
+
+
+        //Se le dice a que vista debe regresar al precionar atras. Por defecto al index
+        $this->set('backLocation', $backLocation);
+        $this->set('backController', $backController);
+
+        //Se obtiene la fecha de fin de la ronda actual
+        $rounds_c = new RoundsController;
+        $rounds = $this->loadModel('Rounds');
+        $fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
 
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students'],
         ]);
 
         $user = $this->Users->get($request->student->user_id);
+        
+        //Se pasan las variables de created_request y fechaFin para mostrar un mensaje
+        $this->set('created_request', $this->getRequest()->getSession()->read('created_request'));
+        $this->set('fecha', $fechaFin);
 
         $query = $this->Classes
             ->find()
@@ -159,6 +173,12 @@ class RequestsController extends AppController
         // $docente = $this->Users->get($query);
         $request['user'] = $user;
         $this->set('request', $request);
+        $this->getRequest()->getSession()->write('created_request',0);
+    }
+
+    public function updateMessageVariable($newValue)
+    {
+        $this->getRequest()->getSession()->write('created_request',$newValue);
     }
     
     /**
@@ -245,8 +265,9 @@ class RequestsController extends AppController
 
     public function add()
     {
+		
         $request = $this->Requests->newEntity();
-
+		
         if ($this->request->is('post')) {
 
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -301,6 +322,9 @@ class RequestsController extends AppController
 					
 					//Obtiene el id de la nueva solicitud
 					$id = $this->Requests->getNewRequest($nuevoCurso,$nuevoGrupo,$nuevoId,$nuevaRonda);
+					
+					//Declara la variable para indicarle al view que debe desplegar el mensaje de la impresión de esta solicitud
+					$this->getRequest()->getSession()->write('created_request',1);
 
 					return $this->redirect(array("controller" => "Requests", 
 						  "action" => "view",$id[0]['id']));
@@ -750,54 +774,52 @@ class RequestsController extends AppController
                 //--------------------------------------------------------------------------
                 $status_new_val = $data['Clasificación'];
                 
-                $requirements = $this->Requirements->getOptRecRequirements($id);
                 //--------------------------------------------------------------------------
                 // Comunication with other controllers
                 $requirementsController = new RequirementsController();
                 //--------------------------------------------------------------------------
                 // This counts the  amount of mandatory requirements in the reqirements table
                 // and the amount of them in this request
-                $mandatory_requirements_count = $this->Requirements->getOptRecRequirements($id)['Obligatorio'];
-                $total_of_mandatories_requirements = sizeof($mandatory_requirements_count);
-                $total_of_aproved_req = 0;
-                for ($index = 0; $index < $total_of_mandatories_requirements; $index++) {
-                    if ('a' == $mandatory_requirements_count[$index]['state']) {
-                        $total_of_aproved_req++;
+
+                //Empieza JORGE
+                $requirementList = $this->Requirements->getRequestRequirements($id);
+                //Se asume que puede aplicar para ambos
+                $hourType = 'a';
+                for ($index = 0; $index < sizeof($requirementList['Asistente']); $index++){
+                    if($requirementList['Asistente'][$index]['state'] == 'r'){
+                        //Si se rechaza algun requerimiento de asistente, se asume que puede aplicar para estudiante
+                        $hourType = 'e';
                     }
                 }
-
-                $optional_requirement_count = $this->Requirements->getOptRecRequirements($id)['Opcional'];
-                $total_optional_requirements = sizeof($optional_requirement_count);
-                for ($index = 0; $index < $total_optional_requirements; $index++) {
-                    if ('a' == $optional_requirement_count[$index]['state']) {
-                        $total_of_aproved_req++;
+                //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
+                if($hourType != 'a'){
+                    for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
+                        if($requirementList['Estudiante'][$index]['state'] == 'r'){
+                            //Si se rechaza algun requerimiento de estudiante, no puede aplicar para ningun tipo de horas
+                            $hourType = 'n';
+                        }
                     }
                 }
-
-                //--------------------------------------------------------------------------
-                // if this request was the same amount of mandatory requirements approved 
-                // as the ones in the table and whether the administrator wants to 
-                // classified this as 'i' or 'e', the change can be seen in the DB.
-                $update_bool = false;
-                if (('p' == $status_new_val) || ('n' == $status_new_val)) {
-                    $update_bool = true; 
-                }
-                if (($total_of_mandatories_requirements + $total_optional_requirements == $total_of_aproved_req) && (('e' == $status_new_val) || ('i' == $status_new_val))) {
-                    $update_bool = true;
-                    //Redirecciona al index:
-                } else {
-                    if (('e' == $status_new_val) || ('i' == $status_new_val)) {
-                        $this->Flash->error(__('El estudiante no cumple con los requisitos obligatorios'));
+                //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
+                if($hourType != 'n'){
+                    for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
+                        if($requirementList['Ambos'][$index]['state'] == 'r'){
+                            //Si se rechaza alguno de estos requerimientos generales, no puede aplicar para horas
+                            $hourType = 'n';
+                        }
                     }
                 }
-
-                if ($update_bool) {
+                //Se guarda en la base para que tipo de horas puede aplicar
+                $this->Requests->setRequestScope($id, $hourType);
+                //Si es posible aplicar para horas, actualiza los estados necesarios
+                if ($hourType != 'n') {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
                     $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                     $request_reviewed = $this->Requests->get($id);
                     $request_reviewed->stage = 3;
                     $this->Requests->save($request_reviewed);
-                }//TERMINA JOE
+                }
+                //TERMINA JORGE
                 //Si el estado es no aceptado, se envía el tipo de mensaje 1
                 if($status_new_val == 'n') {
                     $this->sendMail($request['id'], 1);

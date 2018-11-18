@@ -36,7 +36,7 @@
 				<td align = center><?= h($studentRequests->tipo_hora) ?></td>
 
 					<td class="actions" align = center>
-						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id], ['escape'=>false]) ?>
+						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id, 'studentRequests', 'Reports'], ['escape'=>false]) ?>
 
 					</td>
 					

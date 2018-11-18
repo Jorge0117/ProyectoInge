@@ -150,6 +150,12 @@ public function active(){
         return $query[0][0];   
     }
 
+    public function getEndActualRound(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT max(end_date) from rounds;")->fetchAll();
+        return $query[0][0];   
+    }
+
 
 
     //Autor: Esteban Rojas
