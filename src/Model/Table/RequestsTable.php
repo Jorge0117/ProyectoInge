@@ -433,6 +433,8 @@ class RequestsTable extends Table
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
     }
 
+    //EMPIEZA JORGE
+    //Retorna si una solicitud tiene inopia
     public function isInopia($id){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("select count(*) from requests_requirements where acepted_inopia = 1 and request_id = '$id'")->fetchAll();
@@ -441,6 +443,12 @@ class RequestsTable extends Table
         }else{
             return false;
         }
+    }
+    
+    //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
+    public function setRequestScope($id, $scope){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
 }
