@@ -85,8 +85,8 @@
                         <div class = 'row'>
                             <h6 style='color:red; font-size:16px;margin-bottom:0'><b> 
                                 <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . ' ' . substr($roundData['year'],2); ?><br>
-                                <?= "del: " . substr($roundData['start_date'], 5).'-'.substr($roundData['start_date'], 2,2) ?><br>
-                                <?=" al: " . substr($roundData['end_date'], 5).'-'.substr($roundData['end_date'], 2,2); ?>
+                                <?= "del: " . substr($roundData['start_date'], 8,2).'-'. substr($roundData['start_date'], 5,2).'-'.substr($roundData['start_date'], 2,2) ?><br>
+                                <?=" al: " . substr($roundData['end_date'], 8,2).'-'. substr($roundData['end_date'], 5,2).'-'.substr($roundData['end_date'], 2,2); ?>
                             </b></h6>
                         </div>
                     </div>
