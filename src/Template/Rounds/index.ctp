@@ -26,21 +26,26 @@
 
 <!--Variables utilizadas para el primer display-->
 <?php 
-    $last = $this->Rounds->getLastRow();
-    $s_date = $last[0];
-    $e_date = $last[1];
-    $tsh = $last[5];
-    $tah = $last[6];
-    $ash = $last[7];
-    $aah = $last[8];
-    if(!$last){
-        $ash = $aah = 0;
+    $penultimateRound = $this->Rounds->getPenultimateRow();
+    $s_date = $this->Rounds->YmdtodmY($roundData['start_date']);
+    $e_date = $this->Rounds->YmdtodmY($roundData['end_date']);
+    $rn = $roundData['round_number'];
+    $sem = $roundData['semester'];
+    $year = $roundData['year'];
+    $tsh = $roundData['total_student_hours'];
+    $tdh = $roundData['total_student_hours_d'];
+    $tah = $roundData['total_assistant_hours'];
+    $ash = $roundData['actual_student_hours'];
+    $adh = $roundData['actual_student_hours_d'];
+    $aah = $roundData['actual_assistant_hours'];
+    if(!$roundData){
+        $tsh = $tdh = $tah = $ash = $adh = $aah = 0;
     }
 ?>
 
 
 <div class='rounds index large-9 menium-8 columns content'>
-    <h3><?= 'Gestión de Rondas' ?></h3>
+    <h3 id='title' ><?= 'Gestión de Rondas' ?></h3>
 </div>
 <div>
     <table cellspacing="0" cellpadding="0" class="table">
@@ -49,14 +54,15 @@
                 <th id='RoundnumberHeader'><?= '#' ?></th>
                 <th><?= 'Fecha Inicio' ?></th>    
                 <th><?= 'Fecha Fin' ?></th>
-                <th id = 'tshHeader' style = 'width:110px; display:none'><?= 'Total de Horas Estudiante' ?></th>
-                <th id = 'tahHeader' style = 'width:110px; display:none'><?= 'Total de Horas Asistente' ?></th>
+                <th id = 'tshHeader' style = 'width:100px; display:none'><?= "HE ECCI" ?></th>
+                <th id = 'tdhHeader' style = 'width:100px; display:none'><?= "HE DOC" ?></th>
+                <th id = 'tahHeader' style = 'width:100px; display:none'><?= "HA ECCI" ?></th>
                 <th style = 'width:80px;'> </th>
             </tr>
         </thead>
         <tbody>
             <tr><div class='rounds form large-9 medium-8 columns content'>
-                <td id= 'RoundnumberData'><p style = 'padding:6px 0px'><?= $last[2] ?></p></td>
+                <td id= 'RoundnumberData'><p style = 'padding:6px 0px'><?= $rn ?></p></td>
                     <?= $this->Form->create($round ,['id'=>'mainRoundsIndexform']) ?>
                     <fieldset>
                         <div>
@@ -85,6 +91,15 @@
                                     'max' => '99999',
                                     'required'
                                 ]);?></td>
+                            <td id = 'tdhData' style = 'display:none'>
+                                <?= $this->Form->control('total_student_hours_d',[
+                                    'type'=>'number',
+                                    'value'=> $tdh,
+                                    'label' => false,
+                                    'min' => $adh,
+                                    'max' => '99999',
+                                    'required'
+                                ]);?></td>
                             <td id = 'tahData' style = 'display:none'>
                                 <?= $this->Form->control('total_assistant_hours',[
                                     'type'=>'number',
@@ -110,7 +125,7 @@
                     <button id='edit' class='btn-x float-left' style='padding:0px 2px' onclick='startEdit()' >
                         <i class="fa fa-pencil"></i>
                     </button>
-                    <?= $this->Form->postbutton('<i class="fa fa-trash-o"></i>',[ 'action' => 'delete', $s_date],['style' => 'padding:0px 2px','class'=>'btn-x float-left','id' => 'trash','confirm' =>__('¿Está seguro de que desea borrar la ronda de solicitudes #{0} del {1} ciclo {2}?', $last[2],$last[3],$last[4])]);?>
+                    <?= $this->Form->postbutton('<i class="fa fa-trash-o"></i>',[ 'action' => 'delete', $s_date],['style' => 'padding:0px 2px','class'=>'btn-x float-left','id' => 'trash','confirm' =>__('¿Está seguro de que desea borrar la ronda de solicitudes #{0} del {1} ciclo {2}?', $rn, $sem,$year)]);?>
                 </div></td>
             </div></tr>
         </tbody>
@@ -118,12 +133,13 @@
 </div>
 
 <div class="submit">
-    <?= $this->Form->button('Aceptar',['onclick' => "end()",'id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
+    <?= $this->Form->postbutton('Aceptar',['action' => 'index'],['id'=>'aceptar','type' => 'submit','form' => 'mainRoundsIndexform', 'class' => 'btn btn-primary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>
     <?= $this->Form->button('Cancelar', ['onclick' => "cancel()",'id'=>'cancelar', 'class' => 'btn btn-secondary float-right','style' => "display:none; margin-right:3px; margin-left:3px"]) ?>    
     <?= $this->Form->end() ?>
 </div>
 
 <script>
+
 // configuración para un nuevo lenguaje del calendario (Español)
 dhtmlXCalendarObject.prototype.langData["es"] = {
     dateformat: "%d.%m.%Y",
@@ -152,12 +168,13 @@ $(document).ready( function () {
     if(!last){                
         startAdd();
         byId('start-date').value = getToday();
-
         byId('end-date').value = byId('start-date').value;
-        byId('tshHeader').style.display = "table-cell";
         byId('tshHeader').style.display = "table-cell";
         byId('tshData').style.display = "table-cell";
         byId('tshData').value = 0;
+        byId('tdhHeader').style.display = "table-cell";
+        byId('tdhData').style.display = "table-cell";
+        byId('tdhData').value = 0;
         byId('tahHeader').style.display = "table-cell";
         byId('tahData').style.display = "table-cell";
         byId('tahData').value = 0;
@@ -166,55 +183,56 @@ $(document).ready( function () {
 });
 
 function sensitiveRange(first){
+    var today = getToday();
     if(first){// start_date
-        var today = getToday();
         var min = today;
         var max = null;
         if(byId('flag').value == '1' && last){// añadir
-            if(last[2] == 3){
-                var sem1ds = '01-07-'.concat(last[4]);
-                var sem2ds = '01-12-'.concat(last[4]);
-                if(last[3] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
-                else if(last[3] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+            if(last['round_number'] == 3){
+                var sem1ds = '01-07-'.concat(last['year']);
+                var sem2ds = '01-12-'.concat(last['year']);
+                if(last['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
+                else if(last['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
             }
-            if(compareDates(last[0],last[1]) == 0 && compareDates(last[1],min) > 0){
-                min = alterDate(last[1],1);
-            }else if(compareDates(last[1],min) > 0){
-                min = last[1];
+            if(compareDates(last['start_date'],last['end_date']) == 0 && compareDates(last['end_date'],min) > 0){
+                min = alterDate(last['end_date'],1);
+            }else if(compareDates(last['end_date'],min) > 0){
+                min = last['end_date'];
             }
         }else{ // editar
-            var penultimateStart = '<?= $this->Rounds->getPenultimateRow()[0] ?>';
-            var penultimateEnd = '<?= $this->Rounds->getPenultimateRow()[1] ?>';
+            var penultimateStart = '<?= $penultimateRound['start_date'] ?>';
+            var penultimateEnd = '<?= $penultimateRound['end_date'] ?>';
             if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
                 min = alterDate(penultimateEnd,1);
             }else if(compareDates(penultimateEnd,min) > 0){
                 min = penultimateEnd;
             }
-            var sem1ds = '01-12-'.concat(last[4]-1);
-            var sem2ds = '01-07-'.concat(last[4]);
-            if(last[3] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
-            else if(last[3] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+
+            var sem1ds = '01-12-'.concat(last['year']-1);
+            var sem2ds = '01-07-'.concat(last['year']);
+            if(last['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
+            else if(last['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+
             if(last){
-                if(compareDates(last[0],today)<0){
-                    max = min = last[0];
+                if(compareDates(last['start_date'],today)<0){
+                    max = min = last['start_date'];
                 }else{
-                    if(last[3] == 'I') max = '30-06-';                              //primer semestre
+                    if(last['semester'] == 'I') max = '30-06-';                              //primer semestre
                     else max = '30-11-';                                            //segundo semestre
-                    max = max.concat(last[4]);                                      // agrega el año
+                    max = max.concat(last['year']);                                      // agrega el año
                 }   
             }
 
-        }
+        }        
         calendar.setSensitiveRange(min,max);
     }else{// end_date
         var min = byId('start-date').value
-        var yesterday = alterDate(getToday(),-1);
-        if(compareDates(min,yesterday) < 0) min = yesterday;  //Para poder cerrar la ronda sin eliminarla
+        if(compareDates(min,today) < 0) min = today;  //Para poder cerrar la ronda sin eliminarla
         var max = null;
         if(last){
-            if(last[3] == 'I') max = '30-06-';                              //primer semestre
+            if(last['semester'] == 'I') max = '30-06-';                              //primer semestre
             else max = '30-11-';                                            //segundo semestre
-            max = max.concat(last[4]);                                      // agrega el año
+            max = max.concat(last['year']);                                      // agrega el año
             if(byId('flag').value != '2'){                                  // Añadir
                 if(compareDates(max,min)<0){
                     var minDate = splitDate(min);
@@ -238,7 +256,6 @@ function sensitiveRange(first){
 calendar.attachEvent("onClick", function(date){
     var start = byId('start-date').value;
     var end = byId('end-date').value;
-    console.log(byId('flag').value);
     if(compareDates(start,end)>0){
         byId('end-date').value = start;
     }
@@ -247,10 +264,13 @@ calendar.attachEvent("onClick", function(date){
             var startDate = splitDate(start);
             var year = startDate['y'];
             if(startDate['m'] == 12) year = parseInt(year)+1;
-            if(year != last[4] || (last[3] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (last[3] == 'II' && parseInt(startDate['m']) > 11)){
+            if(year != last['year'] || (last['semester'] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (last['semester'] == 'II' && parseInt(startDate['m']) > 11)){
                 byId('tshHeader').style.display = "table-cell";
                 byId('tshData').style.display = "table-cell";
                 byId('total-student-hours').value = 0;
+                byId('tdhHeader').style.display = "table-cell";
+                byId('tdhData').style.display = "table-cell";
+                byId('total-student-hours_d').value = 0;
                 byId('tahHeader').style.display = "table-cell";
                 byId('tahData').style.display = "table-cell";
                 byId('total-assistant-hours').value = 0;
@@ -258,11 +278,14 @@ calendar.attachEvent("onClick", function(date){
                 byId('tshHeader').style.display = 'none';
                 byId('tshData').style.display = 'none';
                 byId('total-student-hours').value = '<?= $tsh ?>';
+                byId('tdhHeader').style.display = 'none';
+                byId('tdhData').style.display = 'none';
+                byId('total-student-hours_d').value = '<?= $tdh ?>';
                 byId('tahHeader').style.display = 'none';
                 byId('tahData').style.display = 'none';
                 byId('total-assistant-hours').value =  '<?= $tah ?>';
             }
-        }else if((compareDates(start,last[0])!=0 || compareDates(end,last[1])!=0) && byId('flag').value != '1'){
+        }else if((compareDates(start,last['start_date'])!=0 || compareDates(end,last['end_date'])!=0) && byId('flag').value != '1'){
             startEdit();
         }
     }
@@ -351,8 +374,17 @@ function startEdit(){
     start('2');
     byId('tshHeader').style.display = "table-cell";
     byId('tshData').style.display = "table-cell";
+    byId('tdhHeader').style.display = "table-cell";
+    byId('tdhData').style.display = "table-cell";
     byId('tahHeader').style.display = "table-cell";
     byId('tahData').style.display = "table-cell";
+    byId('total-student-hours').value = last['total_student_hours'];
+    byId('total-student-hours-d').value = last['total_student_hours_d'];
+    byId('total-assistant-hours').value = last['total_assistant_hours'];
+    byId('total-student-hours').min = last['actual_student_hours'];
+    byId('total-student-hours-d').min = last['actual_student_hours_d'];
+    byId('total-assistant-hours').min = last['actual_assistant_hours'];
+    byId('title').innerText = 'Editando Ronda';
 }
 
 /** Función startAdd
@@ -363,29 +395,43 @@ function startEdit(){
 function startAdd(){
     start('1');
     if(last){
-        if(last[2] == 3){
+        if(last['round_number'] == 3){
             var newRoundStart = '';
-            if(last[3] == 'I')newRoundStart = newRoundStart.concat('01-07-', last[4]);
-            else newRoundStart = newRoundStart.concat('01-12-', last[4]);
+            if(last['semester'] == 'I')newRoundStart = newRoundStart.concat('01-07-', last['year']);
+            else newRoundStart = newRoundStart.concat('01-12-', last['year']);
             byId('start-date').value = newRoundStart;            
-            byId('tshHeader').style.display = "table-cell";
-            byId('tshData').style.display = "table-cell";
-            byId('tshData').value = 0;
-            byId('tahHeader').style.display = "table-cell";
-            byId('tahData').style.display = "table-cell";
-            byId('tahData').value = 0;
-        }else if(compareDates(byId('start-date').value,last[1])<=0){
-            if(compareDates(last[0],last[1])==0){
-                byId('start-date').value = alterDate(last[1],1);
+        }else if(compareDates(byId('start-date').value,last['end_date'])<=0){
+            if(compareDates(last['start_date'],last['end_date'])==0){
+                byId('start-date').value = alterDate(last['end_date'],1);
             }else{
-                byId('start-date').value = last[1];
+                byId('start-date').value = last['end_date'];
             }
         }
         var end = byId('start-date').value;
         if(compareDates(byId('end-date').value,end)<0){
             byId('end-date').value = end;
         }   
+        byId('tshHeader').style.display = "table-cell";
+        byId('tshData').style.display = "table-cell";
+        byId('tdhHeader').style.display = "table-cell";
+        byId('tdhData').style.display = "table-cell";
+        byId('tahHeader').style.display = "table-cell";
+        byId('tahData').style.display = "table-cell";
+        if(last['round_numer'] != 3){
+            byId('total-student-hours').value = last['total_student_hours'] - last['actual_student_hours'] ;
+            byId('total-student-hours-d').value = last['total_student_hours_d'] - last['actual_student_hours_d'];
+            byId('total-assistant-hours').value = last['total_assistant_hours'] - last['actual_assistant_hours'];
+            byId('total-student-hours').min = byId('total-student-hours').value;
+            byId('total-student-hours-d').min = byId('total-student-hours-d').value;
+            byId('total-assistant-hours').min = byId('total-assistant-hours').value;
+            
+        }else{
+            byId('total-student-hours').value = 0;
+            byId('total-student-hours-d').value = 0;
+            byId('total-assistant-hours').value = 0;
+        }
     }
+    byId('title').innerText = 'Añadiendo Ronda';
 }
 
 /** Función start
@@ -410,8 +456,8 @@ function start(flag){
   * EFE: Vuelve a colocar los datos iniciales en lo campos del form
   **/
 function cancel() {
-    byId('start-date').value = last[0];
-    byId('end-date').value = last[1];
+    byId('start-date').value = last['start_date'];
+    byId('end-date').value = last['end_date'];
     byId('flag').value = "0"; 
     end();
 }
@@ -421,11 +467,13 @@ function cancel() {
   * Es llamada al presionar el botón aceptar.
   **/
 function end() {
-    if(last && last[2] != 3){
+    if(last && last['round_number'] != 3){
         var tsh = byId('total-student-hours').value;
+        var tdh = byId('total-student-hours-d').value;
         var tah = byId('total-assistant-hours').value;
-        if(tsh < parseInt(last[7]))byId('total-student-hours').value = last[7];
-        if(tah < parseInt(last[8]))byId('total-assistant-hours').value = last[8];
+        if(tsh < parseInt(last['actual_student_hours']))byId('total-student-hours').value = last['actual_student_hours'];
+        if(tdh < parseInt(last['actual_student_hours_d']))byId('total-student-hours-d').value = last['actual_student_hours_d'];
+        if(tah < parseInt(last['actual_assistant_hours']))byId('total-assistant-hours').value = last['actual_assistant_hours'];
     }else{
         if(!byId('total-student-hours').value)byId('total-student-hours').value = 0;
         if(!byId('total-assistant-hours').value)byId('total-assistant-hours').value = 0;
@@ -436,6 +484,8 @@ function end() {
     // Horas por asignar
     byId('tshHeader').style.display = "none";
     byId('tshData').style.display = "none";
+    byId('tdhHeader').style.display = "none";
+    byId('tdhData').style.display = "none";
     byId('tahHeader').style.display = "none";
     byId('tahData').style.display = "none";
     //Botones
@@ -444,16 +494,20 @@ function end() {
     byId('add').style.display = "table-cell";
     byId('cancelar').style.display = "none";
     byId('aceptar').style.display = "none";
+    byId('title').innerText = 'Gestión de Rondas';
 }
 
 /** Función getLast
-  * EFE: avoid the use of php tags inside js scritps when the $last var is required
-  * RET: Array conatining all the elements of $last, or null if it is null.
+  * EFE: avoid the use of php tags inside js scritps when the $roundData var is required
+  * RET: Array conatining all the elements of $roundData, or null if it is null.
   **/
 function getLast(){
-    if('<?= $last != null ?>')
-        return {0:"<?= $last[0]; ?>", 1:"<?= $last[1]; ?>", 2:"<?= $last[2]; ?>", 3:"<?= $last[3]; ?>", 4:"<?= $last[4]; ?>",
-                5:"<?= $last[5]; ?>", 6:"<?= $last[6]; ?>", 7:"<?= $last[7]; ?>", 8:"<?= $last[8]; ?>"};
+    if(<?= $roundData != null ?>){
+        <?= "var resultArray = ". json_encode($roundData) . ";\n"?>
+        resultArray["start_date"] = '<?= $this->Rounds->YmdtodmY($roundData['start_date']) ?>'
+        resultArray["end_date"] = '<?= $this->Rounds->YmdtodmY($roundData['end_date']) ?>'
+        return resultArray;
+    }
     return null;
 }
 
