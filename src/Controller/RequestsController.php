@@ -819,4 +819,44 @@ class RequestsController extends AppController
          }
     }
 
+    //Nathan
+    public function indexReview(){
+        //$request = $this->Requests->newEntity();
+        //debug("Mae no sirve2");
+        //die();
+        $requestsTable = $this->loadModel('Requests');
+        $query = $requestsTable->traerElegibles();
+
+        //Si la nueva entidad de requerimientos fue realizada correctamente, haga
+        if ($this->request->is('post')) {
+            //$data = $this->request->getData();
+            debug("pene");
+            //die();
+
+            //Pasa los datos de la entidad hecha en la vista a la entidad hecha en el controlador.
+            /*$request = $this->Requests->patchEntity($request, $this->request->getData());
+
+            //Si la entidad fue almacenada en la base de datos, haga
+            if ($this->Requests->save($request)) {
+
+                //Redireccione a la vista de index y muestre un mensaje de exito.
+                $this->redirect(['action' => 'index']);
+                return $this->Flash->success(__('Se agregó el requisito correctamente'));
+
+            }
+
+            //Redireccione a la vista de index y muestre un mensaje de error.
+            $this->redirect(['action' => 'index']);
+            $this->Flash->error(__('No se logró agregar el requisito'));*/
+            $this->set('query',$query); 
+        }
+
+        //$request_reviewed = $this->request->get($id);
+        
+        $this->set('query',$query);
+
+        //Recolecte el conjunto de todos los requisitos para ser mostrados por el index.
+        
+    }
+    //Nathan
 }

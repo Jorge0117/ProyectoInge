@@ -420,6 +420,19 @@ class RequestsTable extends Table
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
     }
 
+    public function traerElegibles()
+    {
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+        "SELECT r.student_id, u.username, r.average, r.course_id, r.class_number, ro.round_number, r.status, r.has_another_hours
+         FROM requests r, students s, users u, rounds ro
+         WHERE ro.start_date = r.round_start
+         AND (r.status = 'e' OR r.status = 'o')
+         AND r.student_id = s.user_id 
+         AND s.user_id = u.identification_number"
+        )->fetchAll();
+        return $query;
+    }
 }
 
 

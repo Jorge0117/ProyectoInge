@@ -19,12 +19,19 @@
                     <li class="nav-item item-menu"><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                     
+                    <?php $between = $this->Rounds->between() ?>
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                    
+                        <?php if($between == true): ?> 
+                            <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
+                            <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php endif ?>
+
                         <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
-                    <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php if($between == true): ?> 
+                            <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php endif ?>
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>
