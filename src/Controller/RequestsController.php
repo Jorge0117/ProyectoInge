@@ -127,10 +127,15 @@ class RequestsController extends AppController
      * @return \Cake\Http\Response|void
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = null, $backLocation = 'index', $backController = 'requests')
     {
         $this->loadModel('Users');
         $this->loadModel('Classes');
+
+
+        //Se le dice a que vista debe regresar al precionar atras. Por defecto al index
+        $this->set('backLocation', $backLocation);
+        $this->set('backController', $backController);
 
         //Se obtiene la fecha de fin de la ronda actual
         $rounds_c = new RoundsController;
