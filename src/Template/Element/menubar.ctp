@@ -3,10 +3,12 @@
  * Barra del menú de navegación, ingluye el logo de la ECCI e información de las rondas.
  */
 ?>
-<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
-    <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/">
-        <?= $this->Html->image('logoEcci.png', ['style' => 'width:200px'])?>
-    </a>
+<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white" >    
+    <div style = 'width:218px'>
+        <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/" >
+            <?= $this->Html->image('logoEcci.png', ['style' => 'width:200px'])?>
+        </a>
+    </div>
 
     <div>
         <?php if ($current_user): ?>
@@ -53,22 +55,43 @@
     </div>
     <!-- Element/menubar.ctp -->
     
-    <?php if($round == null): ?>
-        <div style="width:200px">
+    <?php if(!$roundData): ?>
+        <div style="width:300px">
         </div>
     <?php else: ?>
-        <div style="width:200px ">
-            <div>  
-                <h6 style='color:red; font-size:19px;'><strong> 
-                    <?= $round[0] ?><br>
-                    <?= $round[1] ?><br>
+        <div style="width:218px">
+            <div class = 'container'>
+                <div class = 'row justify-content-end'>
                     <?php if($current_user['role_id'] === 'Administrador'): ?>
-                        <?= $round[2] ?><br>
-                        <?= $round[3] ?><br>
+                        <div class = 'col-auto align-self-center'  >
+                            <div class = 'row'>
+                                <h6 style='color:red; font-size:12px;margin-bottom:0'><b>
+                                    <?php
+                                        $dsh = (int)$roundData['total_student_hours']-(int)$roundData['actual_student_hours'];
+                                        $ddh = (int)$roundData['total_student_hours_d']-(int)$roundData['actual_student_hours_d'];
+                                        $dah = (int)$roundData['total_assistant_hours']-(int)$roundData['actual_assistant_hours'];
+                                    ?>
+                                    <?= "Horas vacantes" ?><br>
+                                    <?= "HE-ECCI: ".(string)$dsh ?><br>
+                                    <?= "HE-DOC: ".(string)$ddh ?><br>
+                                    <?= "HA-ECCI: ".(string)$dah ?>
+                                </b></h6>
+                            </div>    
+                        </div>        
+                        <div class = 'col-auto align-self-center'>
+                        </div>
                     <?php endif; ?>
-
-                </strong></h6>
-            </div>
+                    <div class = 'col-auto align-self-center'>
+                        <div class = 'row'>
+                            <h6 style='color:red; font-size:16px;margin-bottom:0'><b> 
+                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . ' ' . substr($roundData['year'],2); ?><br>
+                                <?= "del: " . substr($roundData['start_date'], 5).'-'.substr($roundData['start_date'], 2,2) ?><br>
+                                <?=" al: " . substr($roundData['end_date'], 5).'-'.substr($roundData['end_date'], 2,2); ?>
+                            </b></h6>
+                        </div>
+                    </div>
+                </div>        
+            </div>        
         </div>        
     <?php endif; ?>
 </nav>
