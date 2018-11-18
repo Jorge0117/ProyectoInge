@@ -17,7 +17,7 @@ class SecurityController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('register');
+        $this->Auth->allow('logout');
     }
 
     /**
@@ -51,6 +51,8 @@ class SecurityController extends AppController
             }
 
         }
+        $request_c = new RequestsController;
+        $request_c->updateMessageVariable(1);
     }
 
     // public function register(string $username)

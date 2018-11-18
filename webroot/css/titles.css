@@ -1,0 +1,42 @@
+h3{
+    float: center;
+    display: block;
+    width: 100%;
+    line-height:2em;
+    font-size: 2em;
+    text-align: center;
+}
+
+h4{
+    font-size: 1.3em;
+}
+
+
+h1{
+    font-size: 2em;
+    color: white;
+    border-bottom: 2px solid #ceb92bff;
+}
+
+.user-icon:hover{
+    cursor: pointer;
+}
+
+.bg-ecci-blue {
+    background-color:#015b96ff;
+}
+
+.bg-ecci-green {
+    background-color:#ceb92bff;
+}
+
+.item-menu{
+    font-size: 1.5em;
+    color: #999999;
+}
+
+.item-tab{
+    font-size: 0.96em;
+    color: gray;
+    font-weight: bold;
+}

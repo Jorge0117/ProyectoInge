@@ -47,7 +47,7 @@ class CoursesTable extends Table
             'foreignKey' => 'course_id'
         ]);
     }
-
+    //Agrega el curso a la base si no está
     public function addCourse($courseCode, $courseName, $courseCredits)
     {
         $return = false;
@@ -74,12 +74,16 @@ class CoursesTable extends Table
         $validator
             ->scalar('code')
             ->maxLength('code', 7)
-            ->allowEmpty('code', 'create');
+            ->notEmpty('code')
+            ->add('code', 'validFormat',[
+                'rule' => '/^[A-Z]{2}[0-9]{4}$/i',
+                'message' => 'El formato de curso no es correcto'
+            ]);
 
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
-            ->allowEmpty('name');
+            ->notEmpty('name');
 
         $validator
             ->allowEmpty('credits');

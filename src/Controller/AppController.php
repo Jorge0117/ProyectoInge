@@ -57,7 +57,7 @@ class AppController extends Controller
                 'controller' => 'Security',
                 'action' => 'login',
             ],
-            'authError' => 'Ingrese al sistema',
+            'authError' => 'No tiene permisos para ingresar a esta pagina.',
             'flash' => [
                 'element' => 'error'
             ],
@@ -71,6 +71,10 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
+        $this->loadModel('Rounds');
+        $round = $this->Rounds->getLastRound();
+        //debug($round);
+        $this->set(compact('round'));
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -85,6 +89,8 @@ class AppController extends Controller
         parent::beforeFilter($event);
         $this->Security->requireSecure();
 
+        $current_user = $this->Auth->user();
+        $this->set('current_user', $current_user);
     }
 
     public function forceSSL($error = '', SecurityException $exception = null)
@@ -110,8 +116,6 @@ class AppController extends Controller
         $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
-        //echo($action);
-        //echo($module);
-        return $role_c->is_Authorized($user['role_id'], $module, $action);
+        return $role_c->is_Authorized($user['role_id'], $module, $action); 
     }
 }

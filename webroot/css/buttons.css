@@ -1,0 +1,40 @@
+.btn-aceptar {
+    background-color: #015b96ff;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+    margin-right: 2%;
+}
+
+.btn-cancelar {
+    background-color: #999999;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+    margin-right: 10px;
+}
+
+.btn-agregar-index {
+    background-color: #015b96ff;
+    color: #ffffff;
+    border: none;
+    text-align: center;
+    float: right;
+    margin-bottom: 2%;
+}
+
+.row-btn {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: 72.25%;
+}
+
+.row-right{
+    display: flex;
+    -ms-flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: 0%;
+}

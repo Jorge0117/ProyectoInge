@@ -18,13 +18,16 @@ class RequirementsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-    /*Función que redireccina a la vista index*/
+    //Empieza ESTIVEN
+    /*Función que redireccina a la vista index*/ 
     public function index()
     {
-        $requirements = $this->paginate($this->Requirements);
+        $table = $this->loadModel('Requirements');
+        $requirements = $table->find();
         $this->set(compact('requirements'));
-        $this->checkDate();
+        //$this->checkDate();
     }
+    //Termina ESTIVEN
 
     /**
      * View method
@@ -121,7 +124,8 @@ class RequirementsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    /*Función para eliminar requisito*/
+    //Empieza Estiven
+    /*Función para eliminar requisito*/ 
     public function delete($requirement_number)
     {
         //------------------------------------------------
@@ -157,21 +161,7 @@ class RequirementsController extends AppController
         $this->redirect(['action' => 'index']);
         $this->Flash->error(__('No se logró eliminar el requisito'));
     }
-
-    //Función que verifica si ya la ronda empezo o no para así bloquear el sistema.
-    public function checkDate(){
-
-        //Comentado mientras se realiza la función necesaria.
-        //$onDate = $this->requestAction('/rounds/nombredelafuncion/');
-
-        //Temporal para que la función sirva.
-        $onDate = 0;
-
-        /* Guarda en la variable show el valor de el onDate,
-           es decir, nos dirá si ya empezamos la ronda o no. */
-        $this->set('show', $onDate);
-    
-    }
+    //Termina ESTIVEN
 
     //Función que relacionará a una solicitud con los requisitos.
     public function addRequest($requestId){
@@ -189,4 +179,19 @@ class RequirementsController extends AppController
         }
 
     }
+
+    /**
+     * This method was added by Joseph Rementería.
+     * 
+     * To validate whether a request can be classified as 'e', 'i' 
+     * or not, we need to count all of the mandatory requirements.
+     * 
+     * 
+     */
+    public function countMandatoryRequirements()
+    {
+        $requirementsCount = $this->Requirements->find('all')->where(['type' => 'Obligatorio'])->toArray();
+        return sizeof($requirementsCount);
+    }
+
 }

@@ -1,0 +1,17 @@
+.form-size{
+    width: 70%;
+    min-width: 200px;
+    padding-left: 50px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.form-section{
+    background-color: #e4e4e4;
+    padding: 2%;
+    margin: 2%;
+}
+
+html {
+    overflow-y: scroll;
+}

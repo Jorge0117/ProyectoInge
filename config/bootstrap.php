@@ -198,3 +198,5 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 \Cake\Core\Plugin::load('BootstrapUI');
+
+\Cake\Core\Plugin::load('Proffer');
