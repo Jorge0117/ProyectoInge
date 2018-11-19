@@ -624,6 +624,7 @@ class RequestsController extends AppController
         $this->set(compact('load_requirements_review'));
 
         //Revisión preliminar
+        //EMPIEZA JORGE
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatus($id);
@@ -659,12 +660,12 @@ class RequestsController extends AppController
             if($hourType != 'n'){
                 $hasInopia = $this->Requests->isInopia($id);
                 if($hasInopia){
-                    $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible", "x" => "Anulado");
                 }else{
-                    $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible", "x" => "Anulado");
                 }
             }else{
-                $preeliminarOptions = array("p" => "-No Clasificado-", "n" => "No elegible");
+                $preeliminarOptions = array("p" => "-No Clasificado-", "n" => "No elegible", "x" => "Anulado");
             }
 
         }
@@ -803,7 +804,7 @@ class RequestsController extends AppController
                 if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
 
                     $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
-
+                    (new RoundsController)->updateGlobal();// actualiza los datos de rondas
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
@@ -827,13 +828,13 @@ class RequestsController extends AppController
                 // and the amount of them in this request
 
                 //Empieza JORGE
-                
-                
+
                 //Se guarda en la base para que tipo de horas puede aplicar
                 $this->Requests->setRequestScope($id, $hourType);
                 //Si es posible aplicar para horas, actualiza los estados necesarios
-                if ($hourType != 'n') {
+                if ($hourType != 'n' || $status_new_val == 'x') {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                    (new RoundsController)->updateGlobal();// actualiza los datos de rondas
                     $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                     $request_reviewed = $this->Requests->get($id);
                     $request_reviewed->stage = 3;

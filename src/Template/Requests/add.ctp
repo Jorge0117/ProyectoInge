@@ -426,6 +426,11 @@
 		byId('another-student-hours').disabled = false;
 		byId('another-assistant-hours').disabled = false;
 		
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+
+		$('html,body').scrollTop(0);		
+		
 	}
 
 	/** Función byId
@@ -442,6 +447,10 @@
 		var modal = byId("confirmacion");
 		modal.style.display = "block";
 	}
+	
+
+	
+
 	
 	function cancelarModal()
 	{
