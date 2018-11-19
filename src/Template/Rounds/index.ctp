@@ -179,7 +179,7 @@ $(document).ready( function () {
         // Si hay una ronda activa, no se pueden agregar rondas.
         // Una ronda activa es aquella en la que su último día es mayor a hoy.
         if(compareDates(last['end_date'],getToday())>=0){
-           byId('add').style.display = 'none';
+         //  byId('add').style.display = 'none';
         }
     }
 });
