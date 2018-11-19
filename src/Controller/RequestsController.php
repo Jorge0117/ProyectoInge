@@ -628,8 +628,8 @@ class RequestsController extends AppController
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatus($id);
         }
-        //debug($request_stage);
-        //debug($default_index);die();
+
+        // Kevin y Daniel M
         //Revisión final
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Final') && $request_stage > 2 && ($default_index == 'e' || $default_index =='i' || $default_index == 'a' || $default_index == 'r' || $default_index == 'c')) {
             $load_final_review = true;
@@ -638,7 +638,36 @@ class RequestsController extends AppController
             if($default_index == 'i' || $default_index == 'c') $inopia = 1;
             if($default_index == 'a' || $default_index == 'c') $default_indexf = 1;
             else if($default_index == 'r')$default_indexf = 2;
+
+            /* 
+             * Kevin
+             * Dependiendo de la fases anteriores, se podran asignar horas estudiante o asistente.
+             * Con la variable $hourTypeAsignable, en la vista podemos verificar que tipo de hora se le debe
+             * permitir al usuario asignar. 
+             * 
+             * Si $hourTypeAsignable es igual a n, significa que el estudiante no es eligible, por lo 
+             * tanto no se le debe asignar ningun tipo de hora.
+             * Si $hourTypeAsignable es igual a e, significa que al estudiante solo se le pueden asignar horas 
+             * estudiante.
+             * Si $hourTypeAsignable es igual a a, significa que al estudiante se le pueden asignar horas estudiante o asistente.
+             * 
+             * No hay un estado en el que solo se le puedan asignar horas asistente, ya que si cumple con los requisitos de estas, 
+             * tambien cumple con los de estudiante.
+             */
+            $hourTypeAsignable = $this->Requests->getScope($id);
+
+            /*
+             * Kevin
+             * Se cargan las horas del estudiante ya asignadas, para verificar que no se le asignen una cantidad mayor a 
+             * las horas definidas por el reglamento. 
+             */
+            if($hourTypeAsignable == 'e'){
+
+            }else if($hourTypeAsignable == 'a'){
+
+            }
             $this->set('default_indexf', $default_indexf);
+            $this->set('hourTypeAsignable', $hourTypeAsignable);
 
         }
 

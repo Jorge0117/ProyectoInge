@@ -1,0 +1,66 @@
+<?php
+namespace App\Model\Table;
+
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
+
+/**
+ * ApprovedRequests Model
+ *
+ * @method \App\Model\Entity\ApprovedRequest get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ApprovedRequest newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ApprovedRequest[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ApprovedRequest|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ApprovedRequest|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ApprovedRequest patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ApprovedRequest[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ApprovedRequest findOrCreate($search, callable $callback = null, $options = [])
+ */
+class ApprovedRequestsTable extends Table
+{
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('approved_requests');
+        $this->setDisplayField('request_id');
+        $this->setPrimaryKey('request_id');
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('request_id')
+            ->allowEmpty('request_id', 'create');
+
+        $validator
+            ->scalar('hour_type')
+            ->requirePresence('hour_type', 'create')
+            ->notEmpty('hour_type');
+
+        $validator
+            ->requirePresence('hour_ammount', 'create')
+            ->notEmpty('hour_ammount');
+
+        return $validator;
+    }
+
+    public function getAsignedHours($student_id){
+
+    }
+}
