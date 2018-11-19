@@ -309,6 +309,7 @@
 	?>
 	<?php $reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c' ?>
 	<?php $approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed) ?> 
+
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
 			<?= $this->Form->create(false,['id'=>'endForm']) ?>
@@ -325,70 +326,72 @@
 					]);?>
 					
 					<div class="container" id = 'hoursDiv'>
-						<div class="row justify-content-center" id = 'studentRow'>
-							<div class="col-auto">
-								<?= $this->Form->checkbox('checkbox',[
-									'id'=>'tsh',
-									'value' => 'HEE',
-									'label' => false,
-									'onclick'=>"studentHours()",
-								]);?>
+						<?php if($hourTypeAsignableb == 'e' || $hourTypeAsignableb == 'a'):?>
+							<div class="row justify-content-center" id = 'studentRow'>
+								<div class="col-auto">
+									<?= $this->Form->checkbox('checkbox',[
+										'id'=>'tsh',
+										'value' => 'HEE',
+										'label' => false,
+										'onclick'=>"studentHours()",
+									]);?>
+								</div>
+								<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hours',[
+										'id'=>'student',
+										'type'=>'number',
+										'min' => '3',
+										'max' => $student_max_hours['HEE'],
+										'label' => false,
+										'disabled'
+									]);?>
+								</div>
+								<div class="col-auto" id ='hsdLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hsd',[
+										'type'=>'number',
+										'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
+										'label' => false,
+										'disabled',
+										'visibility'=>'hidden'
+									]);?>
+								</div>
 							</div>
-							<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hours',[
-									'id'=>'student',
-									'type'=>'number',
-									'min' => '3',
-									'max' => 12-$request['another_student_hours'],
-									'label' => false,
-									'disabled'
-								]);?>
-							</div>
-							<div class="col-auto" id ='hsdLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hsd',[
-									'type'=>'number',
-									'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
-									'label' => false,
-									'disabled',
-									'visibility'=>'hidden'
-								]);?>
-							</div>
-						</div>
 
-						<div class="row justify-content-center" id = 'studentDRow'>
-							<div class="col-auto">
-								<?= $this->Form->checkbox('checkbox',[
-									'id'=>'tdh',
-									'value' => 'HED',
-									'label' => false,
-									'onclick'=>"studentDHours()",
-								]);?>
+							<div class="row justify-content-center" id = 'studentDRow'>
+								<div class="col-auto">
+									<?= $this->Form->checkbox('checkbox',[
+										'id'=>'tdh',
+										'value' => 'HED',
+										'label' => false,
+										'onclick'=>"studentDHours()",
+									]);?>
+								</div>
+								<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hours',[
+										'id'=>'studentD',
+										'type'=>'number',
+										'min' => '3',
+										'max' => $student_max_hours['HED'],
+										'label' => false,
+										'disabled'
+									]);?>
+								</div>
+								<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hdd',[
+										'type'=>'number',
+										'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
+										'label' => false,
+										'disabled',
+										'visibility'=>'hidden'
+									]);?>
+								</div>
 							</div>
-							<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hours',[
-									'id'=>'studentD',
-									'type'=>'number',
-									'min' => '3',
-									'max' => 12-$request['another_student_hours'],
-									'label' => false,
-									'disabled'
-								]);?>
-							</div>
-							<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hdd',[
-									'type'=>'number',
-									'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
-									'label' => false,
-									'disabled',
-									'visibility'=>'hidden'
-								]);?>
-							</div>
-						</div>
-
+						<?php endif;?>
+						<?php if($hourTypeAsignableb == 'a'):?>
 						<div class="row justify-content-center" id = 'assistantRow'>
 							<div class="col-auto">
 								<?= $this->Form->checkbox('checkbox',[
@@ -404,7 +407,7 @@
 									'id'=>'assistant',
 									'type'=>'number',
 									'min' => '3',
-									'max' => 20-$request['another_assistant_hours'],
+									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
 								]);?>
@@ -420,6 +423,7 @@
 								]);?>
 							</div>
 						</div>
+						<?php endif;?>
 						<?php
 							echo $this->Form->control('type',['type'=>'hidden',]);
 							$this->Form->unlockField('hours');
@@ -524,10 +528,11 @@ $(document).ready( function () {
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			byId('tah').checked = false;
-			byId('assistant').value = null;
-			byId('assistant').disabled = true;
-
+			<?php if($hourTypeAsignableb == 'a'):?>
+				byId('tah').checked = false;	
+				byId('assistant').value = null;
+				byId('assistant').disabled = true;
+			<?php endif;?>
 			if('<?= $hsCnt == 0 ?>'){
 				byId('student').value = 3;
 			}else{
@@ -540,8 +545,10 @@ $(document).ready( function () {
 			byId('hsd').style.visibility = 'visible';
 			byId('hddLabel').style.visibility = 'hidden';
 			byId('hdd').style.visibility = 'hidden';
-			byId('hadLabel').style.visibility = 'hidden';
-			byId('had').style.visibility = 'hidden';
+			<?php if($hourTypeAsignableb == 'a'):?>
+				byId('hadLabel').style.visibility = 'hidden';
+				byId('had').style.visibility = 'hidden';
+			<?php endif;?>
 
 			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
@@ -568,9 +575,11 @@ $(document).ready( function () {
 			byId('tsh').checked = false;
 			byId('student').value = null;
 			byId('student').disabled = true;
-			byId('tah').checked = false;
-			byId('assistant').value = null;
-			byId('assistant').disabled = true;
+			<?php if($hourTypeAsignableb == 'a'):?>
+				byId('tah').checked = false;
+				byId('assistant').value = null;
+				byId('assistant').disabled = true;
+			<?php endif;?>
 
 			if('<?= $hsCnt == 0 ?>'){
 				byId('studentD').value = 3;
@@ -584,8 +593,11 @@ $(document).ready( function () {
 			byId('hdd').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
 			byId('hsd').style.visibility = 'hidden';
-			byId('hadLabel').style.visibility = 'hidden';
-			byId('had').style.visibility = 'hidden';
+			<?php if($hourTypeAsignableb == 'a'):?>
+				byId('hadLabel').style.visibility = 'hidden';
+				byId('had').style.visibility = 'hidden';
+			<?php endif;?>
+
 
 			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';

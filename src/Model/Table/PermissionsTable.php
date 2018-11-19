@@ -92,13 +92,13 @@ class PermissionsTable extends Table
     public function getAllPermissionsByModule()
     {
         /*
-         * Esta es la forma general de array que sera devuelto.
-         * Cada campo (que representa cada modulo) contendra 
+         * Esta es la forma general del array que sera devuelto.
+         * Cada campo (que representa cada modulo) contendrá 
          * un array cuyas llaves seran la acciones relacionadas con ese modulo.
-         * Para ilustrar esto observe el siguiente ejemplo de un permiso guardado en esta estructura:
+         * Para ilustrar esto, observe el siguiente ejemplo de un permiso guardado en esta estructura:
          *      $permissions_by_module['Users']['add'] = 'Agregar un usuario';
          * En este caso, el permiso es 'Agregar un usuario', que se referencia como una 
-         * accion 'add' del modulo 'Users'.
+         * acción 'add' del modulo 'Users'.
          */
         $permissions_by_module = [
             'CoursesClassesVw' => [],

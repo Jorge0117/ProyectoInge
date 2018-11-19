@@ -34,6 +34,8 @@ class ApprovedRequestsTable extends Table
         $this->setTable('approved_requests');
         $this->setDisplayField('request_id');
         $this->setPrimaryKey('request_id');
+        $this->belongsTo('Requests')
+            ->setForeignKey('request_id');
     }
 
     /**
@@ -61,6 +63,20 @@ class ApprovedRequestsTable extends Table
     }
 
     public function getAsignedHours($student_id){
+        $student_hours_by_student = $this->find('all')->matching('Requests', function ($q) use ($student_id) {
+            return $q->where(['ApprovedRequests.hour_type' => 'HEE', 'student_id' => $student_id]);
+        })->select(['count' => $this->find()->func()->sum('hour_ammount')])->toArray();
 
+        $student_doc_hours_by_student = $this->find('all')->matching('Requests', function ($q) use ($student_id) {
+            return $q->where(['ApprovedRequests.hour_type' => 'HED', 'student_id' => $student_id]);
+        })->select(['count' => $this->find()->func()->sum('hour_ammount')])->toArray();
+
+        $assistant_hours_by_student = $this->find('all')->matching('Requests', function ($q) use ($student_id) {
+            return $q->where(['ApprovedRequests.hour_type' => 'HAE', 'student_id' => $student_id]);
+        })->select(['count' => $this->find()->func()->sum('hour_ammount')])->toArray();
+        
+        return ['HEE' => $student_hours_by_student[0]['count'] == null? 0: $student_hours_by_student[0]['count'], 
+                'HED' => $student_doc_hours_by_student[0]['count'] == null? 0: $student_doc_hours_by_student[0]['count'],
+                'HAE' => $assistant_hours_by_student[0]['count'] == null? 0: $assistant_hours_by_student[0]['count']];
     }
 }
