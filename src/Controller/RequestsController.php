@@ -324,7 +324,7 @@ class RequestsController extends AppController
 				
 
 				if ($this->Requests->save($request)) {
-					$this->Flash->success(__('Se agrego la Solicitud Correctamente. Se le envió un mensaje al correo de confirmación'));
+					$this->Flash->success(__('Se agregó la solicitud correctamente. Se envió un mensaje de confirmación a su correo electrónico.'));
 					//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
 					//$this->sendMail($request['id'],5);
 				   // return $this->redirect(['action' => 'index']);
@@ -627,6 +627,46 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatus($id);
+
+            $requirementList = $this->Requirements->getRequestRequirements($id);
+            //Se asume que puede aplicar para ambos
+            $hourType = 'a';
+            for ($index = 0; $index < sizeof($requirementList['Asistente']); $index++){
+                if($requirementList['Asistente'][$index]['state'] == 'r'){
+                    //Si se rechaza algun requerimiento de asistente, se asume que puede aplicar para estudiante
+                    $hourType = 'e';
+                }
+            }
+            //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
+            if($hourType != 'a'){
+                for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
+                    if($requirementList['Estudiante'][$index]['state'] == 'r'){
+                        //Si se rechaza algun requerimiento de estudiante, no puede aplicar para ningun tipo de horas
+                        $hourType = 'n';
+                    }
+                }
+            }
+            //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
+            if($hourType != 'n'){
+                for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
+                    if($requirementList['Ambos'][$index]['state'] == 'r'){
+                        //Si se rechaza alguno de estos requerimientos generales, no puede aplicar para horas
+                        $hourType = 'n';
+                    }
+                }
+            }
+
+            if($hourType != 'n'){
+                $hasInopia = $this->Requests->isInopia($id);
+                if($hasInopia){
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
+                }else{
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
+                }
+            }else{
+                $preeliminarOptions = array("p" => "-No Clasificado-", "n" => "No elegible");
+            }
+
         }
         //debug($request_stage);
         //debug($default_index);die();
@@ -641,15 +681,6 @@ class RequestsController extends AppController
             $this->set('default_indexf', $default_indexf);
 
         }
-
-
-        $hasInopia = $this->Requests->isInopia($id);
-        if($hasInopia){
-            $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
-        }else{
-            $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
-        }
-
 
         //--------------------------------------------------------------------------
         //Datos de la solicitud
@@ -770,6 +801,9 @@ class RequestsController extends AppController
                 $request_reviewed->stage = 2;
                 $request_reviewed->average = $data['ponderado'];
                 if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
+
+                    $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
+
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
@@ -793,33 +827,8 @@ class RequestsController extends AppController
                 // and the amount of them in this request
 
                 //Empieza JORGE
-                $requirementList = $this->Requirements->getRequestRequirements($id);
-                //Se asume que puede aplicar para ambos
-                $hourType = 'a';
-                for ($index = 0; $index < sizeof($requirementList['Asistente']); $index++){
-                    if($requirementList['Asistente'][$index]['state'] == 'r'){
-                        //Si se rechaza algun requerimiento de asistente, se asume que puede aplicar para estudiante
-                        $hourType = 'e';
-                    }
-                }
-                //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
-                if($hourType != 'a'){
-                    for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
-                        if($requirementList['Estudiante'][$index]['state'] == 'r'){
-                            //Si se rechaza algun requerimiento de estudiante, no puede aplicar para ningun tipo de horas
-                            $hourType = 'n';
-                        }
-                    }
-                }
-                //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
-                if($hourType != 'n'){
-                    for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
-                        if($requirementList['Ambos'][$index]['state'] == 'r'){
-                            //Si se rechaza alguno de estos requerimientos generales, no puede aplicar para horas
-                            $hourType = 'n';
-                        }
-                    }
-                }
+                
+                
                 //Se guarda en la base para que tipo de horas puede aplicar
                 $this->Requests->setRequestScope($id, $hourType);
                 //Si es posible aplicar para horas, actualiza los estados necesarios
