@@ -79,4 +79,9 @@ class ApprovedRequestsTable extends Table
                 'HED' => $student_doc_hours_by_student[0]['count'] == null? 0: $student_doc_hours_by_student[0]['count'],
                 'HAE' => $assistant_hours_by_student[0]['count'] == null? 0: $assistant_hours_by_student[0]['count']];
     }
+
+    public function getThisRequestAsignedHours($request_id){
+        $request_hours = $this->get($request_id);
+        return [$request_hours->hour_type => $request_hours->hour_ammount];
+    }
 }

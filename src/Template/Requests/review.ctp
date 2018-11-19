@@ -341,7 +341,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'student',
 										'type'=>'number',
-										'min' => $student_max_hours['HEE'] == 0? 0:3,
+										'min' => $student_max_hours['HEE'] < 3? 0:3,
 										'max' => $student_max_hours['HEE'],
 										'label' => false,
 										'disabled'
@@ -373,7 +373,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'studentD',
 										'type'=>'number',
-										'min' => $student_max_hours['HEE'] == 0? 0:3,
+										'min' => $student_max_hours['HED'] < 3? 0:3,
 										'max' => $student_max_hours['HED'],
 										'label' => false,
 										'disabled'
@@ -406,7 +406,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => $student_max_hours['HEE'] == 0? 0:3,
+									'min' => $student_max_hours['HED'] < 3? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		

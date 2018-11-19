@@ -661,16 +661,31 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
              * las horas definidas por el reglamento.
              */
             $student_asigned_hours = $this->ApprovedRequests->getAsignedHours($request->student_id);
-            debug($student_asigned_hours);
-            $student_max_hours['HEE'] = min(12 - $student_asigned_hours['HED'] - $student_asigned_hours['HEE'],
-                                            20  - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
-                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']);
-            $student_max_hours['HED'] = min(12 - $student_asigned_hours['HED']- $student_asigned_hours['HEE'],
-                                            20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HAE'], 
-                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']);
-            $student_max_hours['HAE'] = min(20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HED'], 
-                                            $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']);
-            debug($student_max_hours);
+            $student_asigned_hours_request = $this->ApprovedRequests->getThisRequestAsignedHours($id);
+            
+            $student_max_hours['HEE'] = max(
+                                            array_key_exists('HEE', $student_asigned_hours_request)? $student_asigned_hours_request['HEE']:0, 
+                                            min(
+                                                12 - $student_asigned_hours['HED'] - $student_asigned_hours['HEE'],
+                                                20  - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
+                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                            )
+                                        );
+            $student_max_hours['HED'] = max(
+                                            array_key_exists('HED', $student_asigned_hours_request)? $student_asigned_hours_request['HED']:0, 
+                                            min(
+                                                 12 - $student_asigned_hours['HED']- $student_asigned_hours['HEE'],
+                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HAE'], 
+                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                            )
+                                        );
+            $student_max_hours['HAE'] = max(
+                                            array_key_exists('HAD', $student_asigned_hours_request)? $student_asigned_hours_request['HAD']:0,
+                                            min(
+                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HED'], 
+                                                $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
+                                            )
+                                        );
             $this->set('student_max_hours', $student_max_hours);
             $this->set('default_indexf', $default_indexf);
             $this->set('hourTypeAsignableb', $hourTypeAsignableb);
