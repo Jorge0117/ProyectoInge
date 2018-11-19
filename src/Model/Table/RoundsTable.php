@@ -169,24 +169,5 @@ public function active(){
         $result = $connet->execute("select * from rounds where start_date <= '$fechaActual' AND '$fechaActual'  <= end_date");
         $result = $result->fetchAll('assoc');
         return $result;
-    }
-    
-     //obtiene la ultima ronda creada.
-     public function getLastRound() {
-        $last = $this->getLastRow();
-        $dsh = (int)$last['total_student_hours']-(int)$last['actual_student_hours'];
-        $ddh = (int)$last['total_student_hours_d']-(int)$last['actual_student_hours_d'];
-        $dah = (int)$last['total_assistant_hours']-(int)$last['actual_assistant_hours'];
-
-        if($last!= null){
-            return [
-                "Ronda #" . $last['round_number'] .' '. $last['semester'] . '-' . substr($last['year'], -2),
-                "Del: " . substr($last['start_date'], 5).
-                " al: " . substr($last['end_date'], 5),
-                "HE-ECCI: ".(string)$dsh . ' ' . "HE-DOC: ".(string)$ddh . ' ' . "HA-ECCI: ".(string)$dah
-            ]; 
-        }
-        return "";
-    }
-	
+    }	
 }

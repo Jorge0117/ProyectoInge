@@ -345,7 +345,7 @@
 							<div class="col-2">
 								<?= $this->Form->control('hsd',[
 									'type'=>'number',
-									'value'=> $last[5]-$last[7] + $hsCnt,
+									'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
 									'label' => false,
 									'disabled',
 									'visibility'=>'hidden'
@@ -377,7 +377,7 @@
 							<div class="col-2">
 								<?= $this->Form->control('had',[
 									'type'=>'number',
-									'value'=> $last[6]-$last[8] + $haCnt,
+									'value'=> $roundData['total_assistant_hours']-$roundData['actual_assistant_hours'] + $haCnt,
 									'label' => false,
 									'disabled',
 									'visibility'=>'hidden'
@@ -423,12 +423,12 @@ $(document).ready( function () {
 		}
     });
 	if('<?= $approved ?>'){
-		var tsh = <?= $last[5]; ?>;
-		var ash = <?= $last[7]; ?>;
+		var tsh = <?= $roundData['total_student_hours']; ?>;
+		var ash = <?= $roundData['actual_student_hours']; ?>;
 		var totS = tsh-ash + <?= $hsCnt ?>;
 		if(totS < parseInt(byId('student').max))byId('student').max = totS;
-		var tah = <?= $last[6]; ?>;
-		var aah = <?= $last[8]; ?>;
+		var tah = <?= $roundData['total_assistant_hours']; ?>;
+		var aah = <?= $roundData['actual_assistant_hours']; ?>;
 		var totA = tah-aah + <?= $haCnt ?>;
 		if(totA < parseInt(byId('assistant').max))byId('assistant').max = totA;
 		approve();
