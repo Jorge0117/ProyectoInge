@@ -533,10 +533,10 @@ $(document).ready( function () {
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
 			<?php endif;?>
-			if('<?= $hsCnt == 0 ?>'){
+			if('<?= $student_max_hours['HEE'] > 2 ?>'){
 				byId('student').value = 3;
 			}else{
-				byId('student').value = '<?= $hsCnt ?>';
+				byId('student').value = 0;
 			}
 			byId('student').disabled = false;
 			byId('student').focus();
@@ -581,10 +581,10 @@ $(document).ready( function () {
 				byId('assistant').disabled = true;
 			<?php endif;?>
 
-			if('<?= $hdCnt == 0 ?>'){
+			if('<?= $student_max_hours['HED'] > 2 ?>'){
 				byId('studentD').value = 3;
 			}else{
-				byId('studentD').value = '<?= $hdCnt ?>';
+				byId('studentD').value = 0;
 			}
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
@@ -627,10 +627,10 @@ $(document).ready( function () {
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $haCnt == 0 ?>'){
+			if('<?= $student_max_hours['HAE'] > 2 ?>'){
 				byId('assistant').value = 3;
 			}else{
-				byId('assistant').value = '<?= $haCnt ?>';
+				byId('assistant').value = 0;
 			}
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
