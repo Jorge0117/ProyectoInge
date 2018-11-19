@@ -326,7 +326,6 @@
 					]);?>
 					
 					<div class="container" id = 'hoursDiv'>
-						<?php if($hourTypeAsignableb == 'e' || $hourTypeAsignableb == 'a'):?>
 							<div class="row justify-content-center" id = 'studentRow'>
 								<div class="col-auto">
 									<?= $this->Form->checkbox('checkbox',[
@@ -390,8 +389,7 @@
 									]);?>
 								</div>
 							</div>
-						<?php endif;?>
-						<?php if($hourTypeAsignableb == 'a'):?>
+
 						<div class="row justify-content-center" id = 'assistantRow'>
 							<div class="col-auto">
 								<?= $this->Form->checkbox('checkbox',[
@@ -423,7 +421,6 @@
 								]);?>
 							</div>
 						</div>
-						<?php endif;?>
 						<?php
 							echo $this->Form->control('type',['type'=>'hidden',]);
 							$this->Form->unlockField('hours');
@@ -466,6 +463,16 @@ $(document).ready( function () {
 		if('<?= $reviewed ?>'){
 			byId('divPreliminar').style.display = 'none';
 		}
+
+		// Esconde campos en base al tipo de horas asignables
+		if('<?= $hourTypeAsignableb != 'a' ?>'){
+			byId('assistantRow').style.display = 'none';
+		}
+		if('<?= $hourTypeAsignableb != 'a' && $hourTypeAsignableb != 'e' ?>'){
+			byId('studentDRow').style.display = 'none';
+			byId('studentRow').style.display = 'none';
+		}
+
 		// calcula el tope de horas que se le puede asignar al estudiante
 		var tsh = <?= $roundData['total_student_hours']; ?>;
 		var ash = <?= $roundData['actual_student_hours']; ?>;
@@ -480,6 +487,18 @@ $(document).ready( function () {
 		var totA = tah-aah + <?= $haCnt ?>;
 		if(totA < parseInt(byId('assistant').max))byId('assistant').max = totA;
 		approve();
+		if('<?= $hsCnt ?>'){
+			byId('tsh').checked = true;
+			studentHours();
+		}
+		if('<?= $hdCnt ?>'){
+			byId('tdh').checked = true;
+			studentDHours();
+		}	
+		if('<?= $haCnt ?>'){
+			byId('tah').checked = true;
+			assistantHours();
+		}
     }
 });
 	/** Función approve
