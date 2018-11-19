@@ -71,7 +71,7 @@
                                         $ddh = (int)$roundData['total_student_hours_d']-(int)$roundData['actual_student_hours_d'];
                                         $dah = (int)$roundData['total_assistant_hours']-(int)$roundData['actual_assistant_hours'];
                                     ?>
-                                    <?= "Horas vacantes" ?><br>
+                                    <?= "Disponibles" ?><br>
                                     <?= "HE-ECCI: ".(string)$dsh ?><br>
                                     <?= "HE-DOC: ".(string)$ddh ?><br>
                                     <?= "HA-ECCI: ".(string)$dah ?>
@@ -84,7 +84,7 @@
                     <div class = 'col-auto align-self-center'>
                         <div class = 'row'>
                             <h6 style='color:red; font-size:16px;margin-bottom:0'><b> 
-                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . ' ' . substr($roundData['year'],2); ?><br>
+                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . '-' . substr($roundData['year'],2); ?><br>
                                 <?= "del: " . substr($roundData['start_date'], 8,2).'-'. substr($roundData['start_date'], 5,2).'-'.substr($roundData['start_date'], 2,2) ?><br>
                                 <?=" al: " . substr($roundData['end_date'], 8,2).'-'. substr($roundData['end_date'], 5,2).'-'.substr($roundData['end_date'], 2,2); ?>
                             </b></h6>
