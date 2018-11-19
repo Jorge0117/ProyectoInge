@@ -324,7 +324,7 @@ class RequestsController extends AppController
 				
 
 				if ($this->Requests->save($request)) {
-					$this->Flash->success(__('Se agrego la Solicitud Correctamente. Se le envió un mensaje al correo de confirmación'));
+					$this->Flash->success(__('Se agregó la solicitud correctamente. Se envió un mensaje de confirmación a su correo electrónico.'));
 					//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
 					//$this->sendMail($request['id'],5);
 				   // return $this->redirect(['action' => 'index']);
