@@ -307,8 +307,16 @@
 			}
 		}
 	?>
-	<?php $reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c' ?>
-	<?php $approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed) ?> 
+	<?php 
+		$reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c';
+		$approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed);
+		if($default_index =='i'||$default_index == 'c'){
+			$inopia = ' por inopia';
+		}else{
+			$inopia = '';
+		}
+		
+	?> 
 
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
@@ -320,7 +328,7 @@
 					<?= $this->Form->control('Clasificación Final',[
 						'id' => 'End-Classification',
 						'name' => 'End-Classification',
-						'options' => ['-No Clasificado-', 'Aceptado', 'Rechazado'],
+						'options' => ['-No Clasificado-', 'Aceptado'.$inopia, 'Rechazado'],
 						'default' => $default_indexf,
 						'onchange'=>"approve()",
 					]);?>
