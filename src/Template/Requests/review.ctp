@@ -89,7 +89,7 @@
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
-					<?php if($requirements['stage'] > 1): ?>
+					<?php if($requirements['stage'] > 1 && $requirements['stage'] < 3): ?>
 						<div class='input-group mb-2' id='modificar_tag'>
 							<span style="width:13%" class="input-group-text" >Modificar</span>     
 							<div class="input-group-append" >
@@ -105,7 +105,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> true, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
@@ -341,7 +341,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'student',
 										'type'=>'number',
-										'min' => '3',
+										'min' => $student_max_hours['HEE'] == 0? 0:3,
 										'max' => $student_max_hours['HEE'],
 										'label' => false,
 										'disabled'
@@ -373,7 +373,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'studentD',
 										'type'=>'number',
-										'min' => '3',
+										'min' => $student_max_hours['HEE'] == 0? 0:3,
 										'max' => $student_max_hours['HED'],
 										'label' => false,
 										'disabled'
@@ -406,7 +406,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => '3',
+									'min' => $student_max_hours['HEE'] == 0? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		

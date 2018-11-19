@@ -662,10 +662,10 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
              */
             $student_asigned_hours = $this->ApprovedRequests->getAsignedHours($request->student_id);
             debug($student_asigned_hours);
-            $student_max_hours['HEE'] = min(12 - $student_asigned_hours['HED'],
+            $student_max_hours['HEE'] = min(12 - $student_asigned_hours['HED'] - $student_asigned_hours['HEE'],
                                             20  - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
                                             $roundData['total_student_hours'] - $roundData['actual_student_hours']);
-            $student_max_hours['HED'] = min(12 - $student_asigned_hours['HEE'],
+            $student_max_hours['HED'] = min(12 - $student_asigned_hours['HED']- $student_asigned_hours['HEE'],
                                             20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HAE'], 
                                             $roundData['total_student_hours'] - $roundData['actual_student_hours']);
             $student_max_hours['HAE'] = min(20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HED'], 
