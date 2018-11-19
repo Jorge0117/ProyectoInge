@@ -803,7 +803,7 @@ class RequestsController extends AppController
                 if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
 
                     $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
-
+                    (new RoundsController)->updateGlobal();// actualiza los datos de rondas
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
@@ -834,6 +834,7 @@ class RequestsController extends AppController
                 //Si es posible aplicar para horas, actualiza los estados necesarios
                 if ($hourType != 'n') {
                     $this->Requests->updateRequestStatus($request['id'], $status_new_val); //llama al metodo para actualizar el estado
+                    (new RoundsController)->updateGlobal();// actualiza los datos de rondas
                     $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                     $request_reviewed = $this->Requests->get($id);
                     $request_reviewed->stage = 3;
