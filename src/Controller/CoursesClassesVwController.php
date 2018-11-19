@@ -94,7 +94,7 @@ class CoursesClassesVwController extends AppController
         $acr[0] = "Seleccione un Curso";
         $i = 1;
         foreach($allCourses as $ac){
-            $acr[$i] = $ac[0].' - '.$ac[1];
+            $acr[$ac[0]] = $ac[0].' - '.$ac[1];
             $i++;
         }
         $coursesClassesVw = $this->CoursesClassesVw->newEntity();

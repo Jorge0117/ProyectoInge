@@ -295,16 +295,20 @@
 		$last = $this->Rounds->getLastRow(); 
 		$approved_request = $this->Requests->getApproved($id); 
 		$hsCnt = 0;
+		$hdCnt = 0;
 		$haCnt = 0;
 		if($approved_request){
-			if($approved_request[0][1] == 'hs'){
+			if($approved_request[0][1] == 'HEE'){
 				$hsCnt = $approved_request[0][2];
+			}else if($approved_request[0][1] == 'HED'){
+				$hdCnt = $approved_request[0][2];
 			}else{
 				$haCnt = $approved_request[0][2];
 			}
 		}
 	?>
-	<?php $approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $default_index == 'a' || $default_index == 'r' || $default_index == 'c')?> 
+	<?php $reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c' ?>
+	<?php $approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed) ?> 
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
 			<?= $this->Form->create(false,['id'=>'endForm']) ?>
@@ -325,12 +329,12 @@
 							<div class="col-auto">
 								<?= $this->Form->checkbox('checkbox',[
 									'id'=>'tsh',
-									'value' => 'hs',
+									'value' => 'HEE',
 									'label' => false,
 									'onclick'=>"studentHours()",
 								]);?>
 							</div>
-							<div class="col-3"><p> <?= "Horas Estudiante: " ?></p></div>
+							<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
 							<div class="col-2">
 								<?= $this->Form->control('hours',[
 									'id'=>'student',
@@ -345,19 +349,51 @@
 							<div class="col-2">
 								<?= $this->Form->control('hsd',[
 									'type'=>'number',
-									'value'=> $last[5]-$last[7] + $hsCnt,
+									'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
 									'label' => false,
 									'disabled',
 									'visibility'=>'hidden'
 								]);?>
 							</div>
-						</div>		
+						</div>
+
+						<div class="row justify-content-center" id = 'studentDRow'>
+							<div class="col-auto">
+								<?= $this->Form->checkbox('checkbox',[
+									'id'=>'tdh',
+									'value' => 'HED',
+									'label' => false,
+									'onclick'=>"studentDHours()",
+								]);?>
+							</div>
+							<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
+							<div class="col-2">
+								<?= $this->Form->control('hours',[
+									'id'=>'studentD',
+									'type'=>'number',
+									'min' => '3',
+									'max' => 12-$request['another_student_hours'],
+									'label' => false,
+									'disabled'
+								]);?>
+							</div>
+							<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
+							<div class="col-2">
+								<?= $this->Form->control('hdd',[
+									'type'=>'number',
+									'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
+									'label' => false,
+									'disabled',
+									'visibility'=>'hidden'
+								]);?>
+							</div>
+						</div>
 
 						<div class="row justify-content-center" id = 'assistantRow'>
 							<div class="col-auto">
 								<?= $this->Form->checkbox('checkbox',[
 									'id'=>'tah',
-									'value' => 'ha',
+									'value' => 'HAE',
 									'label' => false,	
 									'onclick'=>"assistantHours()",						
 								]);?>
@@ -377,7 +413,7 @@
 							<div class="col-2">
 								<?= $this->Form->control('had',[
 									'type'=>'number',
-									'value'=> $last[6]-$last[8] + $haCnt,
+									'value'=> $roundData['total_assistant_hours']-$roundData['actual_assistant_hours'] + $haCnt,
 									'label' => false,
 									'disabled',
 									'visibility'=>'hidden'
@@ -423,12 +459,20 @@ $(document).ready( function () {
 		}
     });
 	if('<?= $approved ?>'){
-		var tsh = <?= $last[5]; ?>;
-		var ash = <?= $last[7]; ?>;
+		if('<?= $reviewed ?>'){
+			byId('divPreliminar').style.display = 'none';
+		}
+		// calcula el tope de horas que se le puede asignar al estudiante
+		var tsh = <?= $roundData['total_student_hours']; ?>;
+		var ash = <?= $roundData['actual_student_hours']; ?>;
 		var totS = tsh-ash + <?= $hsCnt ?>;
 		if(totS < parseInt(byId('student').max))byId('student').max = totS;
-		var tah = <?= $last[6]; ?>;
-		var aah = <?= $last[8]; ?>;
+		var tdh = <?= $roundData['total_student_hours_d']; ?>;
+		var adh = <?= $roundData['actual_student_hours_d']; ?>;
+		var totD = tdh-adh + <?= $hdCnt ?>;
+		if(totS < parseInt(byId('studentD').max))byId('studentD').max = totD;
+		var tah = <?= $roundData['total_assistant_hours']; ?>;
+		var aah = <?= $roundData['actual_assistant_hours']; ?>;
 		var totA = tah-aah + <?= $haCnt ?>;
 		if(totA < parseInt(byId('assistant').max))byId('assistant').max = totA;
 		approve();
@@ -440,14 +484,19 @@ $(document).ready( function () {
 	  **/
 	function approve(){
 		byId('tsh').checked = false;
+		byId('tdh').checked = false;
 		byId('tah').checked = false;
 		
 		byId('student').disabled = true;
 		byId('student').value = null;
+		byId('studentD').disabled = true;
+		byId('studentD').value = null;
 		byId('assistant').disabled = true;
 		byId('assistant').value = null;
 		byId('hsdLabel').style.visibility = 'hidden';
 		byId('hsd').style.visibility = 'hidden';
+		byId('hddLabel').style.visibility = 'hidden';
+		byId('hdd').style.visibility = 'hidden';
 		byId('hadLabel').style.visibility = 'hidden';
 		byId('had').style.visibility = 'hidden';
 
@@ -470,11 +519,15 @@ $(document).ready( function () {
 	function studentHours(){
 		if(byId('tsh').checked){
 
-			byId('type').value = "hs";
+			byId('type').value = "HEE";
 
+			byId('tdh').checked = false;
+			byId('studentD').value = null;
+			byId('studentD').disabled = true;
 			byId('tah').checked = false;
 			byId('assistant').value = null;
 			byId('assistant').disabled = true;
+
 			if('<?= $hsCnt == 0 ?>'){
 				byId('student').value = 3;
 			}else{
@@ -485,6 +538,8 @@ $(document).ready( function () {
 
 			byId('hsdLabel').style.visibility = 'visible';
 			byId('hsd').style.visibility = 'visible';
+			byId('hddLabel').style.visibility = 'hidden';
+			byId('hdd').style.visibility = 'hidden';
 			byId('hadLabel').style.visibility = 'hidden';
 			byId('had').style.visibility = 'hidden';
 
@@ -500,6 +555,51 @@ $(document).ready( function () {
 			byId('endButtons').style.visibility = 'hidden';
 		}
 	}
+
+	/** Función studentDHours
+	  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
+	  * 	 para que no existan incongruencias
+	  **/
+	  function studentDHours(){
+		if(byId('tdh').checked){
+
+			byId('type').value = "HED";
+
+			byId('tsh').checked = false;
+			byId('student').value = null;
+			byId('student').disabled = true;
+			byId('tah').checked = false;
+			byId('assistant').value = null;
+			byId('assistant').disabled = true;
+
+			if('<?= $hsCnt == 0 ?>'){
+				byId('studentD').value = 3;
+			}else{
+				byId('studentD').value = '<?= $hsCnt ?>';
+			}
+			byId('studentD').disabled = false;
+			byId('studentD').focus();
+
+			byId('hddLabel').style.visibility = 'visible';
+			byId('hdd').style.visibility = 'visible';
+			byId('hsdLabel').style.visibility = 'hidden';
+			byId('hsd').style.visibility = 'hidden';
+			byId('hadLabel').style.visibility = 'hidden';
+			byId('had').style.visibility = 'hidden';
+
+			byId('endButtons').style.display = 'table';
+			byId('endButtons').style.visibility = 'visible';
+		}else{
+			byId('studentD').value = null;
+			byId('studentD').disabled = true;
+
+			byId('hddLabel').style.visibility = 'hidden';
+			byId('hdd').style.visibility = 'hidden';
+
+			byId('endButtons').style.visibility = 'hidden';
+		}
+	}
+
 	/** Función assistantHours
 	  * EFE: Se activa con el checkbox correspondiente, altera los campos en el div de Revisión final
 	  * 	 para que no existan incongruencias
@@ -508,10 +608,13 @@ $(document).ready( function () {
 		if(byId('tah').checked){
 			byId('tah').style.disabled = true;
 			byId('tsh').style.disabled = false;
-			byId('type').value = "ha";
+			byId('type').value = "HAE";
 			byId('tsh').checked = false;
 			byId('student').value = null;
 			byId('student').disabled = true;
+			byId('tdh').checked = false;
+			byId('studentD').value = null;
+			byId('studentD').disabled = true;
 			if('<?= $haCnt == 0 ?>'){
 				byId('assistant').value = 3;
 			}else{
@@ -524,6 +627,8 @@ $(document).ready( function () {
 			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
 			byId('hsd').style.visibility = 'hidden';
+			byId('hddLabel').style.visibility = 'hidden';
+			byId('hdd').style.visibility = 'hidden';
 
 			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';

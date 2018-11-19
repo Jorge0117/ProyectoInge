@@ -106,7 +106,12 @@
                 <td><?= h($request->carne) ?></td>
                 <td><?= h($request->nombre) ?></td>
 
+                <?php if ($this->Number->format($request->promedio) == 0): ?>
+                <td> Pendiente </td>
+                <?php else: ?>
                 <td><?= $this->Number->format($request->promedio) ?></td>
+                <?php endif; ?>
+
                 <td><?= h($request->anno) ?></td>
                 <td><?= $this->Number->format($request->semestre) ?></td>
                 <td><?= h($request->curso) ?></td>

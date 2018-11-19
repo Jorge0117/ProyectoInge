@@ -51,6 +51,8 @@ class SecurityController extends AppController
             }
 
         }
+        $request_c = new RequestsController;
+        $request_c->updateMessageVariable(1);
     }
 
     // public function register(string $username)

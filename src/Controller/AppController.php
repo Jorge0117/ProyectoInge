@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Controller\Exception\SecurityException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -71,10 +72,6 @@ class AppController extends Controller
             ],
             'storage' => 'Session'
         ]);
-        $this->loadModel('Rounds');
-        $round = $this->Rounds->getLastRound();
-        //debug($round);
-        $this->set(compact('round'));
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -91,6 +88,18 @@ class AppController extends Controller
 
         $current_user = $this->Auth->user();
         $this->set('current_user', $current_user);
+
+        // author: Daniel Marín
+        // convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+        if(!$current_user){
+            $this->loadModel('Rounds');
+            $roundData = $this->Rounds->getLastRow();
+            $this->set(compact('roundData'));
+            $this->request->session()->write('roundData',$roundData);
+        }else{
+            $roundData = $this->request->session()->read('roundData');
+            $this->set(compact('roundData'));
+        }
 
     }
 
