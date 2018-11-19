@@ -90,6 +90,8 @@
                             </b></h6>
                         </div>
                     </div>
+                <h6 style='color:black; font-size:12px;'>
+                <?php echo "Fecha y Hora ".date('d-M-Y H:i') ?>
                 </div>        
             </div>        
         </div>        

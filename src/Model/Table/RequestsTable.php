@@ -434,7 +434,7 @@ class RequestsTable extends Table
     }
 
     //EMPIEZA JORGE
-    //Retorna si una solicitud tiene inopia
+    //Retorna si una solicitud tiene inopia en un array
     public function isInopia($id){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("select count(*) from requests_requirements where acepted_inopia = 1 and request_id = '$id'")->fetchAll();

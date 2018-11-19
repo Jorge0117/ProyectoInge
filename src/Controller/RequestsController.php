@@ -81,11 +81,15 @@ class RequestsController extends AppController
     public function index()
     {
         $table = $this->loadModel('InfoRequests');
-        $rounds = $this->loadModel('Rounds');
+        //$rounds = $this->loadModel('Rounds');
+        $roundData = $this->viewVars['roundData'];
         $rol_usuario = $this->Auth->user('role_id');
         $id_usuario = $this->Auth->user('identification_number');
-        $ronda_actual = $rounds->getStartActualRound();
+        //$ronda_actual = $rounds->getStartActualRound();
+        $ronda_actual = $roundData["start_date"];
 
+
+        // FIXME: Está mal usar consultas a la base de datos en los controladores
         //Si es un administrativo (Jefe Administrativo o Asistente Asministrativo) muestra todas las solicitudes.
         if ($rol_usuario === 'Administrador' || $rol_usuario === 'Asistente') { //muestra todos
             $query = $table->find('all', [
@@ -139,9 +143,10 @@ class RequestsController extends AppController
 
         //Se obtiene la fecha de fin de la ronda actual
         $rounds_c = new RoundsController;
-        $rounds = $this->loadModel('Rounds');
-        $fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
-
+        //$rounds = $this->loadModel('Rounds');
+        $roundData = $this->viewVars['roundData'];
+        //$fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
+        $fechaFin = $rounds_c->mirrorDate($roundData['end_date']);
         $request = $this->Requests->get($id, [
             'contain' => ['Courses', 'Students'],
         ]);
@@ -267,7 +272,8 @@ class RequestsController extends AppController
     {
 		
         $request = $this->Requests->newEntity();
-		
+        $roundData = $this->viewVars['roundData'];
+        
         if ($this->request->is('post')) {
 
             $request = $this->Requests->patchEntity($request, $this->request->getData());
@@ -282,16 +288,20 @@ class RequestsController extends AppController
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
             
             //Se trae la ronda actusl
-            $ronda = $this->get_round();
+            //$ronda = $this->get_round();
+            // $roundData = $this->viewVars['roundData']; se llama fuera del post
             
             //---------------------------------
-            if($ronda[0]['semester'] == 'II')
+            //if($ronda[0]['semester'] == 'II')
+            if($roundData['semester'] == 'II')
                 $nuevoSemestre = "2";
             else
                 $nuevoSemestre = "1";
             
-            $nuevoAño = $ronda[0]['year'];
-            $request->set('round_start', $ronda[0]['start_date']);
+            //$nuevoAño = $ronda[0]['year'];
+            $nuevoAño = $roundData['year'];
+            //$request->set('round_start', $ronda[0]['start_date']);
+            $request->set('round_start', $roundData['start_date']);
             //---------------------------------
             
             $request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
@@ -314,7 +324,7 @@ class RequestsController extends AppController
 				
 
 				if ($this->Requests->save($request)) {
-					$this->Flash->success(__('Se agrego la Solicitud Correctamente. Se le envió un mensaje al correo de confirmación'));
+					$this->Flash->success(__('Se agregó la solicitud correctamente. Se envió un mensaje de confirmación a su correo electrónico.'));
 					//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
 					$this->sendMail($request['id'],5);
 				   // return $this->redirect(['action' => 'index']);
@@ -346,16 +356,17 @@ class RequestsController extends AppController
         $año = 2018;
 
         //Se trae la ronda actusl
-        $ronda = $this->get_round();
+        //$ronda = $this->get_round();
 
                 //debug($ronda);
         //---------------------------------
-        if($ronda[0]['semester'] == 'II')
+        //if($ronda[0]['semester'] == 'II')
+        if($roundData['semester'] == 'II')
             $semestre = "2";
         else
             $semestre = "1";
         
-        $año = $ronda[0]['year'];
+        $año = $roundData['year'];
         //---------------------------------
         
         //Modifica las clases para dejar los datos requeridos de curso y grupo
@@ -616,6 +627,46 @@ class RequestsController extends AppController
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Preliminary') && $request_stage > 1) {
             $load_preliminar_review = true; // $load_review_requirements
             $default_index = $this->Requests->getStatus($id);
+
+            $requirementList = $this->Requirements->getRequestRequirements($id);
+            //Se asume que puede aplicar para ambos
+            $hourType = 'a';
+            for ($index = 0; $index < sizeof($requirementList['Asistente']); $index++){
+                if($requirementList['Asistente'][$index]['state'] == 'r'){
+                    //Si se rechaza algun requerimiento de asistente, se asume que puede aplicar para estudiante
+                    $hourType = 'e';
+                }
+            }
+            //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
+            if($hourType != 'a'){
+                for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
+                    if($requirementList['Estudiante'][$index]['state'] == 'r'){
+                        //Si se rechaza algun requerimiento de estudiante, no puede aplicar para ningun tipo de horas
+                        $hourType = 'n';
+                    }
+                }
+            }
+            //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
+            if($hourType != 'n'){
+                for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
+                    if($requirementList['Ambos'][$index]['state'] == 'r'){
+                        //Si se rechaza alguno de estos requerimientos generales, no puede aplicar para horas
+                        $hourType = 'n';
+                    }
+                }
+            }
+
+            if($hourType != 'n'){
+                $hasInopia = $this->Requests->isInopia($id);
+                if($hasInopia){
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
+                }else{
+                    $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
+                }
+            }else{
+                $preeliminarOptions = array("p" => "-No Clasificado-", "n" => "No elegible");
+            }
+
         }
         //debug($request_stage);
         //debug($default_index);die();
@@ -630,15 +681,6 @@ class RequestsController extends AppController
             $this->set('default_indexf', $default_indexf);
 
         }
-
-
-        $hasInopia = $this->Requests->isInopia($id);
-        if($hasInopia){
-            $preeliminarOptions = array("p" => "-No Clasificado-", "i" =>"Elegible por inopia", "n" => "No elegible");
-        }else{
-            $preeliminarOptions = array("p" => "-No Clasificado-", "e" =>"Elegible", "n" => "No elegible");
-        }
-
 
         //--------------------------------------------------------------------------
         //Datos de la solicitud
@@ -759,6 +801,9 @@ class RequestsController extends AppController
                 $request_reviewed->stage = 2;
                 $request_reviewed->average = $data['ponderado'];
                 if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
+
+                    $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
+
                     $this->Flash->success(__('Se ha guardado la revision de requerimientos.'));
                 } else {
                     $this->Flash->error(__('No se ha logrado guardar la revision de requerimientos.'));
@@ -782,33 +827,8 @@ class RequestsController extends AppController
                 // and the amount of them in this request
 
                 //Empieza JORGE
-                $requirementList = $this->Requirements->getRequestRequirements($id);
-                //Se asume que puede aplicar para ambos
-                $hourType = 'a';
-                for ($index = 0; $index < sizeof($requirementList['Asistente']); $index++){
-                    if($requirementList['Asistente'][$index]['state'] == 'r'){
-                        //Si se rechaza algun requerimiento de asistente, se asume que puede aplicar para estudiante
-                        $hourType = 'e';
-                    }
-                }
-                //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
-                if($hourType != 'a'){
-                    for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
-                        if($requirementList['Estudiante'][$index]['state'] == 'r'){
-                            //Si se rechaza algun requerimiento de estudiante, no puede aplicar para ningun tipo de horas
-                            $hourType = 'n';
-                        }
-                    }
-                }
-                //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
-                if($hourType != 'n'){
-                    for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
-                        if($requirementList['Ambos'][$index]['state'] == 'r'){
-                            //Si se rechaza alguno de estos requerimientos generales, no puede aplicar para horas
-                            $hourType = 'n';
-                        }
-                    }
-                }
+                
+                
                 //Se guarda en la base para que tipo de horas puede aplicar
                 $this->Requests->setRequestScope($id, $hourType);
                 //Si es posible aplicar para horas, actualiza los estados necesarios
@@ -826,15 +846,13 @@ class RequestsController extends AppController
                 }
             }
             //--------------------------------------------------------------------------
+            // Inicia Daniel Marín
             if (array_key_exists('AceptarFin', $data)) {
                 $status_index = $data['End-Classification'];
                 switch ($status_index) {
                     case 1:
-                        if($inopia){
-                            $status_new_val = 'c';
-                        }else{
-                            $status_new_val = 'a';
-                        }
+                        if( $inopia ) $status_new_val = 'c';
+                        else $status_new_val = 'a';
                         break;
                     case 2:
                         $status_new_val = 'r';
@@ -852,19 +870,11 @@ class RequestsController extends AppController
                     $this->Requests->updateRequestStatus($id, $status_new_val);
                     $this->sendMail($id,2);
                 }
-                
-                //Si el estado es rechazado, se envía correo con el tipo de mensaje 2
-                if($status_index == 'r'){
-                    //$this->sendMail($id,2);
-                }
-                //Si el estado es aceptado, se envía correo con el tipo de mensaje 3
-                else if($status_index == 'a'){
-                    //$this->sendMail($id,3);
-                }
+                (new RoundsController)->updateGlobal();
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 return $this->redirect(['action' => 'index']);
-                
             }
+            //termina Daniel Marín
 
             // Se recarga la vista para que se actualicen los estados de revision
             $this->redirect('/requests/review/'.$id);
