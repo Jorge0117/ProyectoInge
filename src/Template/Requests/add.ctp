@@ -292,7 +292,10 @@
 			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
             echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
             echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
-            echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+        ?>
+			<font color="red">* Si no cuenta con un tipo de horas, deje el campo en blanco</font>
+		<?php
+			echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			
 			?>
 			</div>
