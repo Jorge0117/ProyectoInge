@@ -572,10 +572,10 @@ $(document).ready( function () {
 			byId('assistant').value = null;
 			byId('assistant').disabled = true;
 
-			if('<?= $hsCnt == 0 ?>'){
+			if('<?= $hdCnt == 0 ?>'){
 				byId('studentD').value = 3;
 			}else{
-				byId('studentD').value = '<?= $hsCnt ?>';
+				byId('studentD').value = '<?= $hdCnt ?>';
 			}
 			byId('studentD').disabled = false;
 			byId('studentD').focus();

@@ -861,6 +861,7 @@ class RequestsController extends AppController
                     $this->Requests->updateRequestStatus($id, $status_new_val);
                     $this->sendMail($id,2);
                 }
+                (new RoundsController)->updateGlobal();
                 $this->Flash->success(__('Se ha cambiado el estado de la solicitud correctamente'));
                 return $this->redirect(['action' => 'index']);
             }
