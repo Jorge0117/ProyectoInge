@@ -316,7 +316,7 @@ class RequestsController extends AppController
 				if ($this->Requests->save($request)) {
 					$this->Flash->success(__('Se agrego la Solicitud Correctamente. Se le envió un mensaje al correo de confirmación'));
 					//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
-					//$this->sendMail($request['id'],5);
+					$this->sendMail($request['id'],5);
 				   // return $this->redirect(['action' => 'index']);
 					
 					
@@ -948,7 +948,7 @@ class RequestsController extends AppController
 
         //Se envía el correo.
         try {
-            $res = $email->from('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
+            $res = $email->from('asistenciaucr12@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->to($mail)
                   ->subject('Resultado del concurso de asistencia')                  
                   ->send($text);
