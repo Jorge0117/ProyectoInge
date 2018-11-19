@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\Exception\RecordNotFoundException;
 
 /**
  * ApprovedRequests Model
@@ -81,7 +82,11 @@ class ApprovedRequestsTable extends Table
     }
 
     public function getThisRequestAsignedHours($request_id){
-        $request_hours = $this->get($request_id);
+        try{
+            $request_hours = $this->get($request_id);
+        }catch(\Exception $e){
+            return [];
+        }
         return [$request_hours->hour_type => $request_hours->hour_ammount];
     }
 }
