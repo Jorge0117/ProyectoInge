@@ -451,6 +451,11 @@ class RequestsTable extends Table
         $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
+    public function getScope($id){
+        $request = $this->get($id);
+        return $request->scope;
+    }
+
 }
 
 
