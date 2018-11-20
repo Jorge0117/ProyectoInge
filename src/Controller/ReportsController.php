@@ -52,5 +52,13 @@ class ReportsController extends AppController
         $this->set(compact('professorAssistants',   'ProfessorName' ));
     }
 
+    public function CreateExcel($type){
+        $fileName = "Reporte".$type.".xls";
+        $headerRow = array("Curso","Semestre","Grupo","Carné","Estudiante","Tipo de horas","Cantidad de horas");
+        $fileContent = implode("\t ", $headerRow);
+        echo $fileContent;
+        exit;
+    }
+
     
 }

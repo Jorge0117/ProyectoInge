@@ -47,6 +47,12 @@ echo $this->Html->css('buttons');
     </table>
 </div>
 
+<?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
+                        'Generar excel',
+                        ['controller'=>'Reports','action'=>'CreateExcel'],
+                        ['class'=>'btn btn-primary float-right btn-space btn-agregar-index']
+                    )?>
+
 <script type="text/javascript">
 	$(document).ready( function () {
     	$("#datagridUsers").DataTable(
