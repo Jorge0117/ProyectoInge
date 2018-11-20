@@ -126,6 +126,10 @@ class AppController extends Controller
         $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
+        debug($module.'-'.$action);
+        if(!$role_c->is_Authorized($user['role_id'], $module, $action)){
+            die();
+        }
         return $role_c->is_Authorized($user['role_id'], $module, $action); 
     }
 }
