@@ -220,6 +220,14 @@ return [
             'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
             'className' => 'Smtp'
         ],
+        'gmail' => [
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => 465,
+            'timeout' => 60,
+            'username' => 'asistenciaucr12@gmail.com',
+            'password' => 'Contra1234',
+            'className' => 'Smtp'
+        ]
     ],
 
     /**
