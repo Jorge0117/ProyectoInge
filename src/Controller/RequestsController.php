@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Network\Email\Email;
+use Cake\Mailer\Email;
 
 /**
  * Requests Controller
@@ -146,7 +146,7 @@ class RequestsController extends AppController
      */
     function print($id = null) {
         
-        $this->layout = 'request';
+        $this->viewBuilder()->setLayout('request');
 
         $request = $this->Requests->getAllRequestInfo($id);
 
@@ -899,7 +899,7 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
 
         //Se crea una nueva instancia de correo de cakephp
         $email = new Email();
-        $email->transport('mailjet'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
+        $email->setTransport('mailjet'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
 
         //En todos los mensajes se debe cambiar la parte "correo de contacto" por el correo utilizado para atender dudas con respecto al tema de solicitudes de horas
 
@@ -941,9 +941,9 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
 
         //Se envía el correo.
         try {
-            $res = $email->from('asistenciaucr12@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
-                  ->to($mail)
-                  ->subject('Resultado del concurso de asistencia')                  
+            $res = $email->setFrom('asistenciaucr12@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
+                  ->setTo($mail)
+                  ->setSubject('Resultado del concurso de asistencia')                  
                   ->send($text);
 
         } catch (Exception $e) {
