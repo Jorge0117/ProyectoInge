@@ -17,39 +17,19 @@ class RequestsController extends AppController
     public function isAuthorized($user)
     {
 
-        // Un estudiante puede ver sus propias solicitudes y nada más
         if (in_array($this->request->getParam('action'), ['view', 'print'])) {
 
             $request_id = (int) $this->request->getParam('pass.0');
 
             if ($user['role_id'] === 'Estudiante') {
+                // Un estudiante puede ver sus propias solicitudes y nada más
 
                 return $this->Requests->isOwnedBy($request_id, $user['identification_number']);
 
             } elseif ($user['role_id'] === 'Profesor') {
+                // Un profesor puede ver solicitudes de los cursos que imparte
 
-                /**
-                 * FIXME:
-                 * Encapsular esta consulta, se repite en print y view
-                 */
-                $submission = $this->Requests->get($request_id);
-
-                $this->loadModel('Classes');
-
-                $query = $this->Classes->find()
-                    ->select('professor_id')
-                    ->where([
-                        'course_id' => $submission->course_id,
-                        'class_number' => $submission->class_number,
-                        'semester' => $submission->class_semester,
-                        'year' => $submission->class_year,
-                    ]);
-
-                $professor = $query->first();
-                //debug($submission);
-                //debug($professor['professor_id']);
-                // die();
-                return $professor['professor_id'] === $user['identification_number'];
+                return $this->Requests->isTaughtBy($request_id, $user['identification_number']);
             }
         }
 
@@ -130,8 +110,6 @@ class RequestsController extends AppController
      */
     public function view($id = null, $backLocation = 'index', $backController = 'requests')
     {
-        $this->loadModel('Users');
-        $this->loadModel('Classes');
 
         //Se le dice a que vista debe regresar al precionar atras. Por defecto al index
         $this->set('backLocation', $backLocation);
@@ -143,37 +121,11 @@ class RequestsController extends AppController
         $roundData = $this->viewVars['roundData'];
         //$fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
         $fechaFin = $rounds_c->mirrorDate($roundData['end_date']);
-        $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students'],
-        ]);
 
-        $user = $this->Users->get($request->student->user_id);
+        $request = $this->Requests->getAllRequestInfo($id);
 
-        //Se pasan las variables de created_request y fechaFin para mostrar un mensaje
-        $this->set('created_request', $this->getRequest()->getSession()->read('created_request'));
-        $this->set('fecha', $fechaFin);
-
-        $query = $this->Classes
-            ->find()
-            ->select('professor_id')
-            ->where(
-                [
-                    'course_id' => $request->course_id,
-                    'class_number' => $request->class_number,
-                    'semester' => $request->class_semester,
-                    'year' => $request->class_year,
-                ]
-            );
-
-        $profesor = $query->first();
-
-        if ($profesor) {
-            $request['docente'] = $this->Users->get($profesor['professor_id']);
-        }
-        $this->set('profesor', $profesor);
-        // $docente = $this->Users->get($query);
-        $request['user'] = $user;
         $this->set('request', $request);
+        
         $this->getRequest()->getSession()->write('created_request', 0);
     }
 
@@ -193,37 +145,11 @@ class RequestsController extends AppController
      * que se debe presentar en secretaría.
      */
     function print($id = null) {
-        // $this->viewBuilder()->setClassName('CakePdf.Pdf');
+        
         $this->layout = 'request';
-        $this->loadModel('Users');
-        $this->loadModel('Classes');
 
-        $request = $this->Requests->get($id, [
-            'contain' => ['Courses', 'Students'],
-        ]);
+        $request = $this->Requests->getAllRequestInfo($id);
 
-        $user = $this->Users->get($request->student->user_id);
-
-        $query = $this->Classes
-            ->find()
-            ->select('professor_id')
-            ->where(
-                [
-                    'course_id' => $request->course_id,
-                    'class_number' => $request->class_number,
-                    'semester' => $request->class_semester,
-                    'year' => $request->class_year,
-                ]
-            );
-
-        $profesor = $query->first();
-
-        if ($profesor) {
-            $request['docente'] = $this->Users->get($profesor['professor_id']);
-        }
-        $this->set('profesor', $profesor);
-        // $docente = $this->Users->get($query);
-        $request['user'] = $user;
         $this->set('request', $request);
     }
 
