@@ -138,7 +138,7 @@ class RoundsController extends AppController
         return $third . "-" . $second . "-" . $first;
     }
 
-    private function updateGlobal(){
+    public function updateGlobal(){
         $roundData = $this->Rounds->getLastRow();
         $this->request->session()->write('roundData',$roundData);
         $this->set(compact('roundData'));

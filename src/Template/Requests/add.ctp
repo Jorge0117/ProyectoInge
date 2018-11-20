@@ -290,9 +290,12 @@
 			echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
 			echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
 			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
-            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
-            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
-            echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"requireStudent()",'onclick'=>"requireStudent()"]);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '20','onchange'=>"requireAssistant()",'onclick'=>"requireAssistant()"]);
+        ?>
+			<font color="red">* Si no cuenta con un tipo de horas, deje el campo en blanco</font>
+		<?php
+			echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			
 			?>
 			</div>
@@ -379,7 +382,7 @@
 
 
 <script>
-
+	// Inicia Daniel Marín
 	// función inicial 
 	$(document).ready( function () {			
 		byId('another-student-hours').disabled = true;
@@ -388,13 +391,14 @@
 	/** Función toggleAnother
 	 * EFE: activa o desactiva los campos de otras horas
 	 **/
-
 	function toggleAnother(){
 		if(byId('has-another-hours').checked){
 			byId('another-student-hours').disabled = false;
 			byId('another-student-hours').required = true;
+			byId('another-student-hours').max = 12;
 			byId('another-assistant-hours').disabled = false;
 			byId('another-assistant-hours').required = true;
+			byId('another-assistant-hours').max = 20;
 		}else{
 			byId('another-student-hours').disabled = true;
 			byId('another-student-hours').value = null;
@@ -408,15 +412,42 @@
 	/** Función unrequireStudent
 	 * EFE: activa o desactiva el requerir el campo otras horas estudiante 
 	 **/
-	function unrequireStudent(){
-		byId('another-student-hours').required = false;
+	function requireStudent(){
+		byId('another-student-hours').required = true;
+		if(!byId('another-assistant-hours').value){
+			byId('another-assistant-hours').required = false;
+		}
+		if(20 > 20 - byId('another-student-hours').value){
+			console.log('cambio assitant')
+			byId('another-assistant-hours').max = 20 - byId('another-student-hours').value;
+			if(20-byId('another-student-hours').value<3)byId('another-assistant-hours').value = ''; 
+		}else{
+			byId('another-assistant-hours').max = 20;
+		}
+		
 	}
 
 	/** Función unrequireAssitant
 	 * EFE: activa o desactiva el requerir el campo otras horas asistente
 	 **/
-	function unrequireAssitant(){
-		byId('another-assistant-hours').required = false;
+	function requireAssistant(){
+		byId('another-assistant-hours').required = true;
+		if(!byId('another-student-hours').value){
+			byId('another-student-hours').required = false;
+		}
+		if(12 > 20 - byId('another-assistant-hours').value){
+			byId('another-student-hours').max = 20-byId('another-assistant-hours').value;
+		}else{
+			byId('another-student-hours').max = 12;
+		}
+		if(byId('another-assistant-hours').value>17){
+			byId('another-student-hours').disabled = true;
+			byId('another-student-hours').value = null;
+		}else{
+			byId('another-student-hours').disabled = false;
+		}
+		
+		
 	}
 
 	/** Función send
@@ -425,6 +456,11 @@
 	function send(){
 		byId('another-student-hours').disabled = false;
 		byId('another-assistant-hours').disabled = false;
+		// autor: ...
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+
+		$('html,body').scrollTop(0);		
 		
 	}
 
@@ -436,12 +472,16 @@
 	function byId(id) {
 		return document.getElementById(id);
 	}
-	
+	//termina Daniel M
 	function confirmar()
 	{
 		var modal = byId("confirmacion");
 		modal.style.display = "block";
 	}
+	
+
+	
+
 	
 	function cancelarModal()
 	{

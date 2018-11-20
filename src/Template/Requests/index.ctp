@@ -84,7 +84,14 @@
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Fecha de solicitud') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id', array(
+                'asc' => __('Número de solicitud') . ' <i class="icon-chevron-up text-info pull-right"></i>',
+                'desc' => __('Número de solicitud') . ' <i class="icon-chevron-down text-info pull-right"></i>'
+                ),
+                array(
+                    'escape' => false
+                )) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fecha', 'Fecha de solicitud') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
@@ -94,13 +101,15 @@
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Tiene otras horas') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('otras_horas','Tiene otras horas') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($query as $request): ?>
             <tr>
+                <td><?= h($request->id) ?></td>
+                
                 <td><?= h($request->fecha) ?></td>
                 
                 <td><?= h($request->carne) ?></td>
@@ -171,3 +180,4 @@
         </tbody>
     </table>
 </div>
+
