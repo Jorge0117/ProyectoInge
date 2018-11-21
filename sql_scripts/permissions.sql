@@ -84,7 +84,12 @@ insert into permissions_roles values('Users-edit', 'Administrador');
 insert into permissions_roles values('Users-view', 'Administrador');
 
 
+##Historicos
+insert into permissions values('Reports-professorAssistants', 'Historico de asistentes de un profesor');
+insert into permissions values('Reports-studentRequests', 'Historico de asistencias de un estudiante');
 
+insert into permissions_roles values('Reports-professorAssistants', 'Profesor');
+insert into permissions_roles values('Reports-studentRequests', 'Estudiante');
 
 
 
