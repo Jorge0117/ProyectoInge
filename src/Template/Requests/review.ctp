@@ -18,7 +18,7 @@
 		
 		<?php
 			echo $this->Form->control('Cédula',array('value' => $user['identification_number'], 'disabled'));
-			echo $this->Form->control('Carné',array('value' => $user['carne'], 'disabled'));
+			echo $this->Form->control('Carné',array('value' => strtoupper($user['carne']), 'disabled'));
 			echo $this->Form->control('Nombre',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
 			//Tal vez no deberia ir este?
 			echo $this->Form->control('Correo',array('value' => $user['email_personal'], 'disabled'));

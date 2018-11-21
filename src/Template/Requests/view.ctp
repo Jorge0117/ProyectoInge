@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th scope="row">Carné</th>
-                <td><?= $request->has('student') ? h($request->student->carne) : '' ?></td>
+                <td><?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Teléfono</th>
