@@ -105,9 +105,6 @@ class AppController extends Controller
 
     public function forceSSL($error = '', SecurityException $exception = null)
     {
-        // debug($error);
-        // debug($exception);
-        // die();
         if ($exception instanceof SecurityException && $exception->getType() === 'secure') {
             return $this->redirect('https://' . env('SERVER_NAME') . Router::url($this->request->getRequestTarget()));
         }

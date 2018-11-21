@@ -85,21 +85,7 @@ class RequestsTable extends Table
     {
         return ($check != "Seleccione un Grupo");
     }
-    
-    /*public function validarSolicitudRepetida($check,  $datos)
-    {
-        $curso = debug($datos['data']['course_id']);
-        $grupo = debug($datos['data']['class_number']);
-        
-        //Si encuentro una sola tupla de solicitudes pendientes con el mismo curso y grupo, entonces de una vez indico que 
-        //la solicitud ya existe
-        //$estudiante = $this->get_student_id();
-        $tuplas = $this->getSameRequests($curso,$grupo);
-        debug($datos);
-        
-        return true;
-        //return (count($tuplas) == 0);
-    }*/
+
 
     public function validationDefault(Validator $validator)
     {
@@ -146,11 +132,6 @@ class RequestsTable extends Table
 
         return $validator;
     }
-
-
-
-
-
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -217,19 +198,6 @@ class RequestsTable extends Table
         return $result;
 
 	}
-
-
-	/*
-	public function getStudentInfo($student_id)
-	{
-		$connet = ConnectionManager::get('default');
-		      //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
-		$result = $connet->execute("select * from users u, students s where u.identification_number = '$student_id' and u.identification_number = s.user_id");
-		$result = $result->fetchAll('assoc');
-        return $result;
-
-	}
-	*/
 	
 	//Obtiene todas las solicitudes pendientes que coincidan con el curso y grupo actual.
 	/*
@@ -502,6 +470,13 @@ class RequestsTable extends Table
         $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
+    /**
+     * Devuelve el tipo de horas que se le pueden asignar a un estudiante basado en la revision de requisistos.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Id de la solicitud
+     * @return String Devuelve n para ninguno, e para horas estudiante y a para ambos
+     */
     public function getScope($id){
         $request = $this->get($id);
         return $request->scope;
