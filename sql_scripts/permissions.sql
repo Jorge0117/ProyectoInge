@@ -4,17 +4,17 @@ insert into roles values('Estudiante');
 insert into roles values('Asistente');
 insert into roles values('Profesor');
 
-##Ingresar permisos no modificables del sistema
-insert into permissions values('Mainpage-index', 'Ingresar a la pagina principal');
-insert into permissions values('Roles-edit', 'Modificar los permisos de los roles');
-
 ##Asignar permisos no modificables a los roles
+insert into permissions values('Mainpage-index', 'Ingresar a la pagina principal');
+
 insert into permissions_roles values('Mainpage-index', 'Administrador');
 insert into permissions_roles values('Mainpage-index', 'Estudiante');
 insert into permissions_roles values('Mainpage-index', 'Asistente');
 insert into permissions_roles values('Mainpage-index', 'Profesor');
 
 ##Solo un administrador puede conceder y revocar permisos
+insert into permissions values('Roles-edit', 'Modificar los permisos de los roles');
+
 insert into permissions_roles values('Roles-edit', 'Administrador');
 
 ##Permisos modificables: solicitudes
@@ -30,10 +30,20 @@ insert into permissions values('Requests-add', 'Agregar una solicitud');
 insert into permissions_roles values('Requests-index', 'Administrador');
 insert into permissions_roles values('Requests-view', 'Administrador');
 insert into permissions_roles values('Requests-review', 'Administrador');
-insert into permissions_roles values('Requests-reviewFinal', 'Administrador');
-insert into permissions_roles values('Requests-reviewPreliminary', 'Administrador');
 insert into permissions_roles values('Requests-reviewRequirements', 'Administrador');
+insert into permissions_roles values('Requests-reviewPreliminary', 'Administrador');
+insert into permissions_roles values('Requests-reviewFinal', 'Administrador');
 insert into permissions_roles values('Requests-indexReview', 'Administrador');
+
+insert into permissions_roles values('Requests-index', 'Asistente');
+insert into permissions_roles values('Requests-view', 'Asistente');
+insert into permissions_roles values('Requests-review', 'Asistente');
+insert into permissions_roles values('Requests-reviewRequirements', 'Asistente');
+
+insert into permissions_roles values('Requests-index', 'Estudiante');
+insert into permissions_roles values('Requests-view', 'Estudiante');
+
+
 
 
 ##Cursos-grupos
@@ -67,8 +77,15 @@ insert into permissions_roles values('Requirements-edit', 'Administrador');
 
 ##Rondas
 insert into permissions values('Rounds-index', 'Listar rondas');
+insert into permissions values('Rounds-add', 'Agregar un ronda');
+insert into permissions values('Rounds-edit', 'Modificar una ronda');
+insert into permissions values('Rounds-delete', 'Eliminar una ronda');
 
 insert into permissions_roles values('Rounds-index', 'Administrador');
+insert into permissions_roles values('Rounds-add', 'Administrador');
+insert into permissions_roles values('Rounds-edit', 'Administrador');
+insert into permissions_roles values('Rounds-delete', 'Administrador');
+
 
 ##Usuarios
 insert into permissions values('Users-index', 'Listar usuarios');
