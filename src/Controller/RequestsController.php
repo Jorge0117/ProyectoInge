@@ -121,10 +121,13 @@ class RequestsController extends AppController
         $roundData = $this->viewVars['roundData'];
         //$fechaFin = $rounds_c->mirrorDate($rounds->getEndActualRound());
         $fechaFin = $rounds_c->mirrorDate($roundData['end_date']);
+        
 
         $request = $this->Requests->getAllRequestInfo($id);
 
         $this->set('request', $request);
+        $this->set('fecha', $fechaFin);
+        $this->set('yc', $this->getRequest()->getSession()->read('created_request'));
         
         $this->getRequest()->getSession()->write('created_request', 0);
     }
@@ -941,7 +944,7 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
 
         //Se envía el correo.
         try {
-            $res = $email->setFrom('asistenciaucr12@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
+            $res = $email->setFrom('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->setTo($mail)
                   ->setSubject('Resultado del concurso de asistencia')                  
                   ->send($text);
