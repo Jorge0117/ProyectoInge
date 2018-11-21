@@ -25,6 +25,7 @@ insert into permissions values('Requests-reviewFinal', 'Asignar estado final de 
 insert into permissions values('Requests-reviewPreliminary', 'Asignar estado de la solicitud según el cumplimiento de requisitos');
 insert into permissions values('Requests-reviewRequirements', 'Revisar los requerimientos de una solicitud');
 insert into permissions values('Requests-indexReview', 'Revision final de solicitudes en index');
+insert into permissions values('Requests-add', 'Agregar una solicitud');
 
 insert into permissions_roles values('Requests-index', 'Administrador');
 insert into permissions_roles values('Requests-view', 'Administrador');
