@@ -49,6 +49,11 @@ class StudentsTable extends Table
         $this->hasMany('RequestsBackup', [
             'foreignKey' => 'student_id'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'bindingKey' => 'identification_number',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**

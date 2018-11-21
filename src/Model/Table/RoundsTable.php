@@ -71,36 +71,35 @@ class RoundsTable extends Table
         return $validator;
     }
   // inserta la ronda correspondiente a la tabla ronda.
-  public function insertRound($start_d,$end_d,$tsh,$tah){
+  public function insertRound($start_d,$end_d,$tsh,$tdh,$tah){
     $connet = ConnectionManager::get('default');
     $connet->execute(
-        "CALL insert_round('$start_d','$end_d','$tsh','$tah')"
+        "CALL insert_round('$start_d','$end_d','$tsh','$tdh','$tah')"
     );
 }
 // edita la ronda correspondiente.
-public function editRound($start_d,$end_d,$old_start_d,$tsh,$tah){
+public function editRound($start_d,$end_d,$old_start_d,$tsh,$tdh,$tah){
     $connet = ConnectionManager::get('default');
     $connet->execute(
-        "CALL update_round('$start_d','$end_d', '$old_start_d', '$tsh', '$tah')"
+        "CALL update_round('$start_d','$end_d', '$old_start_d', '$tsh', '$tdh', '$tah')"
     );
 }
 // obtiene la ultima tupla ingresada.
 public function getLastRow(){
     $connet = ConnectionManager::get('default');
-    $last = $connet->execute(
+    $query = $connet->execute(
        "SELECT * 
         FROM rounds 
-        WHERE start_date = (SELECT MAX(start_date)
-                            FROM rounds)"
-    )->fetchAll();
-    if($last != null){
-        return $last[0];
+        WHERE start_date = (SELECT MAX(start_date) FROM rounds)"
+    )->fetchAll('assoc');
+    if($query != null){
+        return $query[0];
     }
     return null;
 }
 
 public function getPenultimateRow(){
-    $last = $this->getLastRow()[0];
+    $last = $this->getLastRow()['start_date'];
     $connet = ConnectionManager::get('default');
     $penultimate = $connet->execute(
         "SELECT * 
@@ -108,7 +107,7 @@ public function getPenultimateRow(){
          WHERE start_date = (SELECT MAX(start_date)
                              FROM rounds
                              WHERE start_date < '$last')"
-     )->fetchAll();
+     )->fetchAll('assoc');
     if($penultimate != null){
         return $penultimate[0];
     }
@@ -151,6 +150,12 @@ public function active(){
         return $query[0][0];   
     }
 
+    public function getEndActualRound(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT max(end_date) from rounds;")->fetchAll();
+        return $query[0][0];   
+    }
+
 
 
     //Autor: Esteban Rojas
@@ -164,7 +169,5 @@ public function active(){
         $result = $connet->execute("select * from rounds where start_date <= '$fechaActual' AND '$fechaActual'  <= end_date");
         $result = $result->fetchAll('assoc');
         return $result;
-    }
-	
-	
+    }	
 }

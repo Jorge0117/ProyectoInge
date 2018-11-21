@@ -52,6 +52,7 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_number'
         ]);
     }
+    //Empieza ESTIVEN
     //Función para eliminar un requisito, llamada por el controlador
     public function deleteRequirement($requirement_number)
     {
@@ -71,7 +72,7 @@ class RequirementsTable extends Table
         //Se envía el resultado de la operación
         return $result;
     }
-
+    // Termina ESTIVEN 
     /**
      * Default validation rules.
      *
@@ -163,6 +164,7 @@ class RequirementsTable extends Table
             $general_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
             $general_requirements[$i]['description'] = $requirements[$i]['description'];
             $general_requirements[$i]['type'] = $requirements[$i]['type'];
+            $general_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
         }
         
 
@@ -172,4 +174,6 @@ class RequirementsTable extends Table
         $requirements = ['Estudiante' => $student_requirements, 'Asistente' => $assistant_requirements, 'Ambos' => $general_requirements];
 		return $requirements;
     }
+
+    
 }

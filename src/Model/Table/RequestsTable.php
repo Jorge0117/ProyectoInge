@@ -52,7 +52,8 @@ class RequestsTable extends Table
         ]);
 
         $this->belongsTo('Classes', [
-            'foreignKey' => 'class_number',
+            'foreignKey' => ['class_year', 'course_id', 'class_semester', 'class_number'],
+            'bindingKey' => ['year', 'course_id', 'semester', 'class_number'],
             'joinType' => 'INNER'
 		]);
 		
@@ -380,13 +381,19 @@ class RequestsTable extends Table
         return $result;
     }
 
+    public function getStatus($id){
+        $connection = ConnectionManager::get('default');
+        $request = $this->get($id);
+        return $request['status'];
+    }
+
     public function approveRequest($req_id,$h_type,$cnt){
         $connet = ConnectionManager::get('default');
         $connet->execute(
             "CALL approve_request('$req_id', '$h_type', '$cnt')"
         );
     }
-        
+    
     public function getApproved($id) {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
@@ -403,6 +410,8 @@ class RequestsTable extends Table
         )->fetchAll()[0][0];
         return $query;
     }
+
+    //Empieza ESTIVEN
     //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
     //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
     // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si
@@ -418,10 +427,84 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result; // Se devuelve la lista de requisitos.
     }
+    //Termina ESTIVEN
     
+    /**
+     * Determina si un estudiante es dueño de una solicitud.
+     * 
+     * Retorna verdadero si la socilitud $id fue realizada por el estudiante $student_id.
+     * 
+     * @param string $id
+     * @param string $student_id
+     * @return bool 
+     */
     public function isOwnedBy($id, $student_id)
     {
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
+    }
+
+    /**
+     * Determina si un profesor está a cargo del curso para el cual se solicita una
+     * asistencia.
+     * 
+     * Retorna verdadero si el profesor $professor_id imparte el curso de la solicitud $id.
+     * 
+     * @param string $id
+     * @param string $professor_id
+     * @return bool
+     */
+    public function isTaughtBy($id, $professor_id)
+    {
+        $submission = $this->get($id,[
+            'contain' => [
+                'Classes'
+            ]
+        ]);
+        return $submission->class->professor_id === $professor_id;  
+    }
+
+    /**
+     * Retorna toda la información asociada a una solicitud, incluyendo el estudiante
+     * que hizo la solicitud, el curso-grupo que solicita y el profesor que lo imparte.
+     * 
+     * @param string $id
+     * @return array Arreglo con toda la información.
+     */
+    public function getAllRequestInfo($id)
+    {
+
+        $submission = $this->get($id, [
+            'contain' => [
+                'Classes' => ['Professors' => ['Users'], 'Courses'],
+                'Students' => ['Users']
+            ],
+        ]);
+
+        return $submission;
+    }
+
+
+    //EMPIEZA JORGE
+    //Retorna si una solicitud tiene inopia en un array
+    public function isInopia($id){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("select count(*) from requests_requirements where acepted_inopia = 1 and request_id = '$id'")->fetchAll();
+        if($query[0][0] > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
+    public function setRequestScope($id, $scope){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
+    }
+
+    public function getScope($id){
+        $request = $this->get($id);
+        return $request->scope;
     }
 
 }

@@ -39,11 +39,14 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
+      /*  $this->paginate = [
             'contain' => ['Roles']
         ];
         $users = $this->paginate($this->Users);
+        */ 
+         $table = $this->loadmodel('Users');
 
+        $users = $table->find();
         $this->set(compact('users'));
     }
 
@@ -283,26 +286,25 @@ class UsersController extends AppController
         $userTable=$this->loadmodel('Users');
         return $userTable->getProfessors();
     }
-
+     /** 
+     * Autor: Mayquely
+     */
     public function getNameUser ($id) {
 
         $userTable=$this->loadmodel('Users');
         return $userTable->getNameUser($id);
     }
-    
-    public function getContactInfo ($id) {
-
+	
+	   public function getContactInfo ($id) {
         $userTable=$this->loadmodel('Users');
         return $userTable->getContactInfo($id);
     }
 	
 	//Obtiene toda la información de un usuario según su id
 	public function getStudentInfo ($id) {
-
         $userTable=$this->loadmodel('Users');
         return $userTable->getStudentInfo($id);
     }
-	
-
+    
 
 }
