@@ -3,6 +3,17 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Cake\ORM\TableRegistry;
+use Cake\Datasource\ConnectionManager;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Helper;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
+use Cake\Database\Exception;
+//require ROOT.DS.'vendor' .DS. 'phpoffice/phpspreadsheet/src/Bootstrap.php';
+
 /**
  * Requirements Controller
  *
@@ -25,6 +36,7 @@ class RequirementsController extends AppController
         $table = $this->loadModel('Requirements');
         $requirements = $table->find();
         $this->set(compact('requirements'));
+        $this->createExcel();
         //$this->checkDate();
     }
     //Termina ESTIVEN
@@ -192,6 +204,22 @@ class RequirementsController extends AppController
     {
         $requirementsCount = $this->Requirements->find('all')->where(['type' => 'Obligatorio'])->toArray();
         return sizeof($requirementsCount);
+    }
+
+    public function createExcel(){
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValue('A1', 'Hello World !');
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
+        
+        #Descarga el archivo excel
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. "archivo" .'.xls"'); /*-- $filename is  xsl filename ---*/
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
     }
 
 }
