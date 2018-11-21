@@ -33,8 +33,6 @@ class SecurityController extends AppController
             $user = $this->Auth->identify();
             if($user)
             {
-                // debug("Se logro autenticar");
-
                 if ($user['identification_number'] == 'NEW_USER') {
                     // Caso en que los credenciales fueron válidos pero el usuario no existe!
                     // Cambiar la siguiente línea por la accion de agregar usuario
@@ -47,20 +45,12 @@ class SecurityController extends AppController
                 }
             } else {
                 $this->Flash->error('Credenciales inválidos.');
-                // debug("No se logro autenticar");
             }
 
         }
         $request_c = new RequestsController;
         $request_c->updateMessageVariable(1);
     }
-
-    // public function register(string $username)
-    // {
-    //     debug('Se ingresaron datos válidos para ' . $username . ' pero el usuario no existe en la BD');
-    //     debug('Sustituir por llamado a User add');
-    //     die();
-    // }
 
     /**
      * Limpia la sesión activa.
@@ -69,10 +59,4 @@ class SecurityController extends AppController
     {
         return $this->redirect($this->Auth->logout());
     }
-
-    // public function checkUsername($username){
-    //     return $this->Auth->validateUser($username);
-    // }
-
-
 }
