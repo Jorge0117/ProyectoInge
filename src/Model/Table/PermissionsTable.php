@@ -63,6 +63,13 @@ class PermissionsTable extends Table
         return $validator;
     }
 
+    /**
+     * Devuelve los permisos concedidos a un rol
+     * 
+     * @author Kevin Jimenez <kevinja9608@gmail.com>
+     * @param String $rol
+     * @return Array Permisos concedidos a un rol
+     */
     public function getPermissions($rol)
     {
         return $this->find('list')->matching('Roles', function ($q) use ($rol) {
@@ -70,25 +77,12 @@ class PermissionsTable extends Table
         })->toArray();
     }
 
-    public function getPermissionsByModule($rol)
-    {
-        $permissions_by_module = [
-            'CoursesClassesVw' => [],
-            'Mainpage' => [],
-            'Reports' => [],
-            'Requests' => [],
-            'Requirements' => [],
-            'Roles' => [],
-            'Rounds' => [],
-            'Users' => [],
-        ];
-
-        $permissions = $this->find('all')->matching('Roles', function ($q) use ($rol) {
-            return $q->where(['Roles.role_id' => $rol]);
-        })->toArray();
-
-    }
-
+    /**
+     * Devuelve todos los permisos del sistema ordenados por modulo 
+     *
+     * @author Kevin Jimenez <kevinja9608@gmail.com>
+     * @return Array Permisos ordenados por modulo
+     */
     public function getAllPermissionsByModule()
     {
         /*

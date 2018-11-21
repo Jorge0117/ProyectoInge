@@ -14,6 +14,12 @@ use Cake\Mailer\Email;
 class RequestsController extends AppController
 {
 
+    /**
+     * Devuelve verdadero si el usuario tiene permiso para ingresar al view o print.
+     *
+     * @param String $user
+     * @return boolean Verdadero si el usuario tiene permiso para ingresar al view o print, falso si no
+     */
     public function isAuthorized($user)
     {
 
@@ -41,21 +47,6 @@ class RequestsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
-
-    /*public function validarFecha()
-    {
-    $resultado = false;
-    $inicio = "2009-10-25"; //CAMBIAR POR FUNCION DE RONDA
-    $final = "2019-10-25"; //CAMBIAR POR FUNCION DE RONDA
-
-    if (strtotime(date("y-m-d")) < strtotime($final) && strtotime(date("y-m-d")) > strtotime($inicio)) {
-    $resultado = true;
-    }
-
-    return $resultado;
-
-    }*/
-
     public function index()
     {
         $table = $this->loadModel('InfoRequests');
@@ -212,8 +203,7 @@ class RequestsController extends AppController
             $request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
 
             //Se trae la ronda actusl
-            //$ronda = $this->get_round();
-            // $roundData = $this->viewVars['roundData']; se llama fuera del post
+
 
             //---------------------------------
             //if($ronda[0]['semester'] == 'II')
@@ -306,7 +296,7 @@ class RequestsController extends AppController
         $grupos = $this->Requests->getGroups($this->get_student_id(), $semestre, $año);
 
         $aux;
-        //$aux[0] = "Seleccione un Curso";
+
         //Se trae todos los grupos de la base de datos y los almacena en un vector
         $i = 0;
         $course_counter = 0;
@@ -340,11 +330,8 @@ class RequestsController extends AppController
 
         $i = 0;
         //Esta parte se encarga de controlar los codigos y nombres de cursos
-        //$cursos = $this->Requests->getCourses(); //Llama a la función encargada de traerse el codigo y nombre de cada curso en el sistema
-
         $c2[0] = "Seleccione un Curso";
         $c3[0] = "Seleccione un Curso";
-        //foreach($aux as $c) //Recorre cada tupla de curso
         foreach ($aux as $c) //Recorre cada tupla de curso
         {
             //Dado que la primer opcion ya tiene un valor por default, los campos deben modifcar el valor proximo a i
@@ -363,7 +350,6 @@ class RequestsController extends AppController
         $estudiante = $this->get_student_id();
 
         //En base al carnet del estudiante actual, se trae la tupla de usuario respectiva a ese estudiante
-        //$estudiante = $this->Requests->getStudentInfo($estudiante);
         $estudiante = $this->getStudentInfo($estudiante);
         //Las keys de los arrays deben corresponder al nombre del campo de la tabla que almacene los usuarios
         $nombreEstudiante = $estudiante[0]['name'] . " " . $estudiante[0]['lastname1'] . " " . $estudiante[0]['lastname2'];
@@ -372,61 +358,7 @@ class RequestsController extends AppController
         $carnet = $estudiante[0]['carne'];
         $cedula = $estudiante[0]['identification_number'];
 
-        //$año = date('Y'); //obtiene el año actual de la solicitud
-        //$semestre = $this->get_semester(); //obtiene el semestre actual de la solicitud
-
-        //debug($nombreEstudiante);
         $this->set(compact('request', 'c2', 'c3', 'students', 'class', 'course', 'teacher', 'nombre', 'id', 'nombreEstudiante', 'carnet', 'correo', 'telefono', 'cedula', 'año', 'semestre', 'profesor'));
-/*
-if ($this->request->is('post')) {
-
-$request = $this->Requests->patchEntity($request, $this->request->getData());
-
-$RequestsTable = $this->loadmodel('Requests');
-//$round almacena datos originales
-
-//Modifica los datos que debe extraer de las otras controladoras o que van por defecto:
-$request->set('status', 'p'); //Toda solicitud esta pendiente
-//$request->set('round_start', $this->get_round_start_date()); //obtiene llave de ronda
-
-$request->set('student_id', $this->get_student_id()); //obtiene el id del estudiante logueado
-
-//Se trae la ronda actusl
-$ronda = $this->get_round();
-
-//---------------------------------
-if($ronda[0]['semester'] == 'II')
-$nuevoSemestre = "2";
-else
-$nuevoSemestre = "1";
-
-$nuevoAño = $ronda[0]['year'];
-$request->set('round_start', $ronda[0]['start_date']);
-//---------------------------------
-
-$request->set('class_year', $nuevoAño); //obtiene el año actual de la solicitud
-$request->set('class_semester', $nuevoSemestre); //obtiene el semestre actual de la solicitud
-$request->set('reception_date', date('Y-m-d')); //obtiene fecha actual
-
-if(($request->get('wants_student_hours') || $request->get('wants_assistant_hours')) == false)
-{
-//Si el estudiante no marco ningun tipo de hora, entonces deja las horas asistente por defecto
-$request->set('wants_assistant_hours',true);
-}
-
-//debug($request);
-//die();
-if($request['average'] < 7){
-$this->Flash->error(__('Error: No se logró agregar la solicitud, su promedio es inferior a 7, por favor lea los requisitos'));
-return $this->redirect(['controller'=>'Mainpage','action'=>'index']);
-}else if ($this->Requests->save($request)) {
-$this->Flash->success(__('Se agrego la Solicitud Correctamente'));
-//Se envía correo con mensaje al estudiante de que la solicitud fue enviada.
-$this->sendMail($request['id'],5);
-return $this->redirect(['action' => 'index']);
-}
-$this->Flash->error(__('Error: No se logró agregar la solicitud'));
-}*/
     }
     /**
      * Edit method
