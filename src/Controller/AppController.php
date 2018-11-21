@@ -137,6 +137,6 @@ class AppController extends Controller
               "\t\tAcción: ".$module.'-'.$action);
             die();
         }
-        return $role_c->is_Authorized($user['role_id'], $module, $action); 
+        return $role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }
