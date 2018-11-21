@@ -5,7 +5,7 @@
  */
 ?>
 
-<div class="coursesClassesVw form large-9 medium-8 columns content">
+<div class="coursesClassesVw form large-9 medium-8 columns content form-size">
     <?= $this->Form->create($coursesClassesVw) ?>
     <fieldset>
         <h3><?= __('Agregar curso') ?></h3>
@@ -14,20 +14,16 @@
             <?php
                 echo $this->Form->control('Sigla', ['pattern' => "[A-Z]{2}[0-9]{4}"]);
                 echo $this->Form->control('Curso', ['requiered']);
-                echo $this->Form->control('Creditos', ['type' => 'number','max' => 8, 'min' => 1]);
-                echo $this->Form->control('Grupo', ['type' => 'number','max' => 20, 'min' => 1]);
-                echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => false]);
-                echo $this->Form->control('Semestre', ['type' => 'number','max' => 2, 'min' => 1]);
-                echo $this->Form->control('Año', ['type' => 'number','max' => 9999, 'min' => 1900]);
+                
             ?>
         </div>
     </fieldset>
 
-    <button type="submit" class="btn btn-primary float-right">Aceptar</button>
+    <button type="submit" class="btn btn-primary btn-aceptar">Aceptar</button>
     <?= $this->Html->link(
         'Cancelar',
         ['controller'=>'CoursesClassesVw','action'=>'index'],
-        ['class'=>'btn btn-secondary float-right btn-space']
+        ['class'=>'btn btn-secondary btn-cancelar btn-space']
     )?>
     <?= $this->Form->end() ?> 
 </div>
