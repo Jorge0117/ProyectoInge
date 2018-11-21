@@ -22,6 +22,12 @@ class UsersController extends AppController
         $this->Auth->allow('register');
     }
 
+    /**
+     * Devuelve verdadero si el usuario tiene permiso para ingresar al view.
+     *
+     * @param String $user
+     * @return boolean Verdadero si el usuario tiene permiso para ingresar al view, falso si no
+     */
     public function isAuthorized($user)
     {
         // Cualquier usuario puede acceder a las acciones view y edit de su propio usuario

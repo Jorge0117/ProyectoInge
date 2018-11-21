@@ -20,9 +20,6 @@ class RoundsController extends AppController
      * @return null
      */
     public function index(){   
-        //$this->viewVars['roundData']['round_number']++;
-        //debug($this->viewVars['roundData']['round_number']);
-        //die();
         $round = $this->Rounds->newEntity();
         // Recibe el form y con base a los datos recibidos elige si agregar o editar una ronda
         if ($this->request->is('post')) {
