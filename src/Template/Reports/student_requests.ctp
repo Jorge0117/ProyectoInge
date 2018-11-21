@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
@@ -29,7 +29,7 @@
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
 				<td align = center><?= h($studentRequests->anno) ?></td>
 				<td align = center><?= h($studentRequests->semestre) ?></td>
-                <td align = center><?= h($studentRequests->curso)  ?></td>
+                <td align = left><?= h($studentRequests->curso . " - " . $studentRequests->course_name)  ?></td>
 				<td align = center><?= h($studentRequests->grupo) ?></td>
 				<td align = center><?= h($ProfessorName) ?></td>
 				<td align = center><?= h($studentRequests->hour_ammount) ?></td>
