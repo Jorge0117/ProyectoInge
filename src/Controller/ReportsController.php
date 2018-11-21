@@ -71,5 +71,54 @@ class ReportsController extends AppController
         $this->set(compact('professorAssistants',   'ProfessorName' ));
     }
 
+    public function getRoundByValues($round,$semester,$year)
+    {
+        //Debe comunicarse con rondas. Por ahora solo agarra un valor por default
+        return '2018-11-06';
+    }
+
+    public function reportsView($report = null){
+        if ($this->request->is('post')){
+        }
+
+        $this->set(compact('report'));
+           
+    }
+
+
+    public function reportsAdmin(){
+        if ($this->request->is('post')){
+            $data= $this->request ->getData();
+            $semester = $data['semester'] + 1;
+            $year = $data['year'];
+            $round = $data['round'] +1;
+
+            $round_key = $this->getRoundByValues($round,$semester, $year);
+
+            if ($data['report_type'] = 'Elegibles aceptados' ){
+                
+                 $table = $this->loadModel('info_requests');  
+                 $estado = ' \'a\'';
+                 $report= $table->find()->where(['' . $round. ' = ronda AND ' . $semester . '= semestre AND anno = ' . $year . ' and estado = ' . $estado]);
+                 
+                 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $report]);
+                }
+            
+            if ($data['report_type'] = 'Elegibles rechazados' ){
+
+                $table = $this->loadModel('info_requests');  
+               //$report= $table->find()->where(['semestre'=> $data['semester'] and 'anno'=> $data['year'] and 'ronda'=> $data['round'] and 'estado' => 'r' ]);
+           }
+
+           if ($data['report_type'] = 'No elegibles' ){
+
+            $table = $this->loadModel('info_requests');  
+            //$report= $table->find()->where(['semestre'=> $data['semester'] and 'anno'=> $data['year'] and 'ronda'=> $data['round'] and 'estado' => 'n' ]);
+       }
+           
+    }
+    
+    $this->set(compact('report' ));
+    }
     
 }
