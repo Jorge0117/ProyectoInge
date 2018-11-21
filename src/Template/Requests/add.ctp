@@ -266,7 +266,7 @@
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
 			echo $this->Form->Control('Nombre',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => $carnet]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => strtoupper($carnet)]);
 			echo $this->Form->Control('Cédula',['disabled', 'value' => $cedula]);
 			echo $this->Form->Control('Correo electrónico ',['disabled', 'value' => $correo]);
 			echo $this->Form->Control('Teléfono ',['disabled', 'value' => $telefono]);

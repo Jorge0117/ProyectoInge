@@ -116,7 +116,7 @@
                 
 
                 <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
-                    <td><?= h($request->carne) ?></td>
+                    <td><?= h(strtoupper($request->carne)) ?></td>
                     <td><?= h($request->nombre) ?></td>
 
                     <?php if ($this->Number->format($request->promedio) == 0): ?>
