@@ -169,6 +169,7 @@
 		
 		cursos = document.getElementById("a2").options;
 		grupos  = document.getElementById("a1").options;
+		nombreCurso = document.getElementById("nc").value;
 		
 		//cursoActual = selCourse.options[selCourse.selectedIndex].text;
 		cursoActual = document.getElementById("c2").options[selCourse.selectedIndex].text;
@@ -200,6 +201,10 @@
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
+		
+		confirm = document.getElementById("mensajeConfirmacion");
+		confirm.innerHTML = "¿Esta seguro que desea solicitar una asistencia al grupo " + grupoActual +" del curso " +cursoActual+ "-" + nombreCurso + "?";
+
 	}
 
 </script>
@@ -313,7 +318,7 @@
 									<br> </br>
 
 
-				¿Esta seguro que desea agregar la solicitud?
+				<label id="mensajeConfirmacion"> ¿Esta seguro que desea agregar la solicitud? </label>
 				
 
             </fieldset>
