@@ -85,6 +85,22 @@
 		<?= $this->Form->end() ?>
 	</div>
 
+	<?php if($anulada): ?>
+		<div class="requests form large-9 medium-8 columns content form-section">
+		<?= $this->Form->create(false) ?>
+		<fieldset>
+			<legend><?= __('Solicitud anulada') ?></legend>
+			<?php
+				echo $this->Form->control('Motivo: ', array('value' => $justificacion, 'disabled'));
+				echo $this->Form->control('motivo', ['label'=>['text'=>'Motivo:'], 'value' => $justificacion, 'disabled'=> true]);
+
+			?>
+		</fieldset>
+		
+		<?= $this->Form->end() ?>
+		</div>
+	<?php endif; ?>
+
 	<?php if($load_requirements_review): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
@@ -105,7 +121,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante

@@ -435,6 +435,7 @@ class RequestsController extends AppController
     {
         $this->set('id', $id);
         $this->loadModel('ApprovedRequests');
+        $this->loadModel('CanceledRequests');
         $roundData = $this->viewVars['roundData'];
 
         //--------------------------------------------------------------------------
@@ -475,13 +476,22 @@ class RequestsController extends AppController
         // Etapa Revision de requisitos
         // Se le indica a la vista que cargue la parte de revisión de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
-            // Se le indica a la vista que debe cargar la parte de revision de requisitos
-            $load_requirements_review = true;
-
-            // Se cargan a la vista los requisitos de esta solicitud en especifico
-            $requirements = $this->Requirements->getRequestRequirements($id);
-            $requirements['stage'] = $request->stage;
-            $this->set(compact('requirements'));
+            // Valeria
+            if($request->status === 'x'){
+                // la solicitud esta anulada
+                $anulada = true;
+                $justificacion = $this->CanceledRequests->getJustification($id);
+                $this->set(compact('anulada', 'justificacion'));
+                //termina Valeria
+            }else{
+                // Se le indica a la vista que debe cargar la parte de revision de requisitos
+                $load_requirements_review = true;
+        
+                // Se cargan a la vista los requisitos de esta solicitud en especifico
+                $requirements = $this->Requirements->getRequestRequirements($id);
+                $requirements['stage'] = $request->stage;
+                $this->set(compact('requirements'));
+            }
         }
         $this->set(compact('load_requirements_review'));
 
@@ -901,8 +911,10 @@ class RequestsController extends AppController
     public function cancelRequest($id, $just){
         $cancelTable=$this->loadmodel('CanceledRequests');
         $result = $cancelTable->cancelRequest($id, $just);
+        $request = $this->Requests->get($id);
 
         if($result){
+            $request->stage = 1;
             $this->Requests->setRequestScope($id, 'x');
             $this->Flash->success(__('Se anuló la solicitud correctamente.'));
         }else{

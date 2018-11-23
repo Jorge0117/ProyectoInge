@@ -70,4 +70,13 @@ class CanceledRequestsTable extends Table
             return false;
         }
     }
+
+    public function getJustification($id){
+        $connect = ConnectionManager::get('default');
+
+        $result = $connect->execute("select justification from canceled_requests where request_id = '$id'");
+
+        $result = $result->fetchAll('assoc');
+        return $result;
+    }
 }
