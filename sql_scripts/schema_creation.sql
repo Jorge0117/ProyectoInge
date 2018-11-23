@@ -69,6 +69,7 @@ CREATE TABLE `professors` (
 CREATE TABLE `students` (
   `user_id` varchar(20) NOT NULL,
   `carne` varchar(6) NOT NULL,
+  `average` decimal(4,2) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `students_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`identification_number`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -76,7 +77,7 @@ CREATE TABLE `students` (
 CREATE TABLE `courses` (
   `code` char(7) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `credits` tinyint(4) DEFAULT NULL,
+  ##`credits` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -130,7 +131,6 @@ CREATE TABLE `requests` (
   `another_student_hours` tinyint(4) NOT NULL,
   `has_another_hours` tinyint(1) NOT NULL,
   `first_time` tinyint(1) NOT NULL,
-  `average` decimal(4,2) DEFAULT NULL,
   `wants_student_hours` tinyint(1) DEFAULT NULL,
   `wants_assistant_hours` tinyint(1) DEFAULT NULL,
   `stage` tinyint(3) DEFAULT '1',
@@ -161,12 +161,7 @@ CREATE TABLE `approved_requests` (
   CONSTRAINT `approved_requests_ibfk_1` FOREIGN KEY (`request_id`) REFERENCES `requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `canceled_requests` (
-  `request_id` int(11) NOT NULL,
-  `justification` varchar(250) NOT NULL,
-  PRIMARY KEY (`request_id`),
-  CONSTRAINT `canceled_requests_ibfk_1` FOREIGN KEY (`request_id`) REFERENCES `requests` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+#TO_DO: REJECTED_REQUEST
 
 #---------------------------------------------------------------------------------------------------------------
 # Views (DDL)
@@ -176,7 +171,6 @@ CREATE VIEW `proyecto_inge_2`.`courses_classes_vw` AS
 		`cr`.`name` AS `Curso`,
 		concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `Profesor`,
 		`cl`.`class_number` AS `Grupo`,
-		`cr`.`credits` AS `Créditos`,
 		`cl`.`semester` AS `Semestre`,
 		`cl`.`year` AS `Año` 
     from 
@@ -275,15 +269,16 @@ CREATE TRIGGER assign_requirements AFTER INSERT ON requests
 FOR EACH ROW
 INSERT INTO requests_requirements(requirement_number, request_id) 
 (SELECT r.requirement_number,NEW.id  from requirements r )
+$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`daniel_nochez`@`%` TRIGGER `proyecto_inge`.`requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
+CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
 BEGIN
 	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
 		call decline_request(new.id);
 	END IF;
-END
+END $$
 DELIMITER ;
 
 DELIMITER $$
@@ -308,7 +303,7 @@ CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW BEGIN
         (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
         (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
 	);
-END
+END $$
 DELIMITER ;
 
 DELIMITER $$
@@ -330,7 +325,7 @@ CREATE DEFINER=`daniel_nochez`@`%` TRIGGER rounds_before_update BEFORE UPDATE ON
         OLD.actual_student_hours_d,
 		OLD.actual_assistant_hours
 	);
-END
+END $$
 DELIMITER ;
 
 DELIMITER $$
