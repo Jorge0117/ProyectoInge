@@ -31,7 +31,7 @@ echo $this->Html->css('buttons');
 				<td align = center><?= h($report->semestre) ?></td>
                 <td align = center><?= h($report->curso)  ?></td>
 				<td align = center><?= h($report->grupo) ?></td>
-				<!-- <td align = center><?= h($ProfessorName) ?></td> -->
+				<td align = center><?= h($report->id_prof) ?></td>
 				<td align = center><?= h($report->hour_ammount) ?></td>
 				<td align = center><?= h($report->tipo_hora) ?></td>
 

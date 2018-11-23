@@ -64,12 +64,49 @@ class ReportsController extends AppController
 
     public function getRoundByValues($round,$semester,$year)
     {
-        //Debe comunicarse con rondas. Por ahora solo agarra un valor por default
-        return '2018-11-06';
+		if($semester == 1)
+			$semester = 'I';
+		else if($semester == 2)
+			$semester = 'II';
+		
+        //Debe comunicarse con rondas
+		$rounds_c = new RoundsController;
+        return $rounds_c->get_round_key($round,$semester,$year); //
     }
 
-    public function reportsView($report = null){
-        if ($this->request->is('post')){
+    public function reportsView($parametro = null){
+		
+		$report =  explode("t",$parametro);
+		
+		$llave_ronda = '\'' . $report[0] .'\'';		
+		$tipo = $report[1];
+		$aprobadas = 0;
+		//Se basa en el tipo paraelegir que parametro realizar
+		switch($tipo)
+		{
+			case 1:
+				//Imprime aprobadas
+				$table = $this->loadModel('info_requests');
+                $estado = '\'a\'';
+                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				//$report = $this->Reports->getApprovedByRound($llave_ronda);
+				break;
+			case 2:
+				//Imprime elegibles rechazados
+				$table = $this->loadModel('info_requests');  
+                $estado = '\'r\'';
+                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				break;
+			case 3:
+				//Imprime no elegibles
+				$table = $this->loadModel('info_requests');  
+                $estado = '\'n\'';
+                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				break;
+		}
+		
+		if ($this->request->is('post')){
+			//Poner aqui lo del excel
         }
 
         $table = $this->loadModel('InfoRequests');
@@ -159,26 +196,31 @@ class ReportsController extends AppController
 
             $round_key = $this->getRoundByValues($round,$semester, $year);
 
-            if ($data['report_type'] = 'Elegibles aceptados' ){
-                
-                 $table = $this->loadModel('info_requests');  
-                 $estado = ' \'a\'';
-                 $report= $table->find()->where(['' . $round. ' = ronda AND ' . $semester . '= semestre AND anno = ' . $year . ' and estado = ' . $estado]);
-                 
-                 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $report]);
-                }
-            
-            if ($data['report_type'] = 'Elegibles rechazados' ){
+			if($round_key != null)
+			{		
+				$round_key = $round_key[0][0];	
+				
+				if ($data['report_type'] = 'Elegibles aceptados' )
+				{		 				 
+					 $parametro = $round_key . 't' . '1';				 
+					 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $parametro]);
+				}
+				
+				if ($data['report_type'] = 'Elegibles rechazados' ){
 
-                $table = $this->loadModel('info_requests');  
-               //$report= $table->find()->where(['semestre'=> $data['semester'] and 'anno'=> $data['year'] and 'ronda'=> $data['round'] and 'estado' => 'r' ]);
-           }
+					 $parametro = $round_key . 't' . '2';				 
+					 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $parametro]);				}
 
-           if ($data['report_type'] = 'No elegibles' ){
+			   if ($data['report_type'] = 'No elegibles' ){
 
-            $table = $this->loadModel('info_requests');  
-            //$report= $table->find()->where(['semestre'=> $data['semester'] and 'anno'=> $data['year'] and 'ronda'=> $data['round'] and 'estado' => 'n' ]);
-       }
+					 $parametro = $round_key . 't' . '3';				 
+					 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $parametro]);		   
+			   }
+	   }//Fin round_key != nulo
+	   else
+	   {
+		   $this->Flash->error(__('Error: No se logró generar el reporte'));
+	   }
            
     }
     
