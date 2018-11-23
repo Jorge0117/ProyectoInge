@@ -169,6 +169,7 @@
 		
 		cursos = document.getElementById("a2").options;
 		grupos  = document.getElementById("a1").options;
+		nombreCurso = document.getElementById("nc").value;
 		
 		//cursoActual = selCourse.options[selCourse.selectedIndex].text;
 		cursoActual = document.getElementById("c2").options[selCourse.selectedIndex].text;
@@ -200,6 +201,10 @@
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
+		
+		confirm = document.getElementById("mensajeConfirmacion");
+		confirm.innerHTML = "¿Esta seguro que desea solicitar una asistencia al grupo " + grupoActual +" del curso " +cursoActual+ "-" + nombreCurso + "?";
+
 	}
 
 </script>
@@ -266,7 +271,7 @@
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
 			echo $this->Form->Control('Nombre',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => $carnet]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => strtoupper($carnet)]);
 			echo $this->Form->Control('Cédula',['disabled', 'value' => $cedula]);
 			echo $this->Form->Control('Correo electrónico ',['disabled', 'value' => $correo]);
 			echo $this->Form->Control('Teléfono ',['disabled', 'value' => $telefono]);
@@ -290,9 +295,12 @@
 			echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
 			echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
 			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
-            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireAssitant()"]);
-            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '12','onchange'=>"unrequireStudent()"]);
-            echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"requireStudent()",'onclick'=>"requireStudent()"]);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '20','onchange'=>"requireAssistant()",'onclick'=>"requireAssistant()"]);
+        ?>
+			<font color="red">* Si no cuenta con un tipo de horas, deje el campo en blanco</font>
+		<?php
+			echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
 			
 			?>
 			</div>
@@ -310,7 +318,7 @@
 									<br> </br>
 
 
-				¿Esta seguro que desea agregar la solicitud?
+				<label id="mensajeConfirmacion"> ¿Esta seguro que desea agregar la solicitud? </label>
 				
 
             </fieldset>
@@ -379,7 +387,7 @@
 
 
 <script>
-
+	// Inicia Daniel Marín
 	// función inicial 
 	$(document).ready( function () {			
 		byId('another-student-hours').disabled = true;
@@ -388,13 +396,14 @@
 	/** Función toggleAnother
 	 * EFE: activa o desactiva los campos de otras horas
 	 **/
-
 	function toggleAnother(){
 		if(byId('has-another-hours').checked){
 			byId('another-student-hours').disabled = false;
 			byId('another-student-hours').required = true;
+			byId('another-student-hours').max = 12;
 			byId('another-assistant-hours').disabled = false;
 			byId('another-assistant-hours').required = true;
+			byId('another-assistant-hours').max = 20;
 		}else{
 			byId('another-student-hours').disabled = true;
 			byId('another-student-hours').value = null;
@@ -408,15 +417,42 @@
 	/** Función unrequireStudent
 	 * EFE: activa o desactiva el requerir el campo otras horas estudiante 
 	 **/
-	function unrequireStudent(){
-		byId('another-student-hours').required = false;
+	function requireStudent(){
+		byId('another-student-hours').required = true;
+		if(!byId('another-assistant-hours').value){
+			byId('another-assistant-hours').required = false;
+		}
+		if(20 > 20 - byId('another-student-hours').value){
+			console.log('cambio assitant')
+			byId('another-assistant-hours').max = 20 - byId('another-student-hours').value;
+			if(20-byId('another-student-hours').value<3)byId('another-assistant-hours').value = ''; 
+		}else{
+			byId('another-assistant-hours').max = 20;
+		}
+		
 	}
 
 	/** Función unrequireAssitant
 	 * EFE: activa o desactiva el requerir el campo otras horas asistente
 	 **/
-	function unrequireAssitant(){
-		byId('another-assistant-hours').required = false;
+	function requireAssistant(){
+		byId('another-assistant-hours').required = true;
+		if(!byId('another-student-hours').value){
+			byId('another-student-hours').required = false;
+		}
+		if(12 > 20 - byId('another-assistant-hours').value){
+			byId('another-student-hours').max = 20-byId('another-assistant-hours').value;
+		}else{
+			byId('another-student-hours').max = 12;
+		}
+		if(byId('another-assistant-hours').value>17){
+			byId('another-student-hours').disabled = true;
+			byId('another-student-hours').value = null;
+		}else{
+			byId('another-student-hours').disabled = false;
+		}
+		
+		
 	}
 
 	/** Función send
@@ -425,6 +461,11 @@
 	function send(){
 		byId('another-student-hours').disabled = false;
 		byId('another-assistant-hours').disabled = false;
+		// autor: ...
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+
+		$('html,body').scrollTop(0);		
 		
 	}
 
@@ -436,12 +477,16 @@
 	function byId(id) {
 		return document.getElementById(id);
 	}
-	
+	//termina Daniel M
 	function confirmar()
 	{
 		var modal = byId("confirmacion");
 		modal.style.display = "block";
 	}
+	
+
+	
+
 	
 	function cancelarModal()
 	{

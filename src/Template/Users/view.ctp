@@ -68,7 +68,7 @@ th, td {
           </tr>
           <?php if ($user['role_id'] === 'Estudiante'): ?>
             <th scope="row">Carné:</th>
-            <td><?= h($user->students[0]->carne) ?></td>
+            <td><?= h(strtoupper($user->students[0]->carne)) ?></td>
           <?php endif ?>
         </tbody>
         </table>

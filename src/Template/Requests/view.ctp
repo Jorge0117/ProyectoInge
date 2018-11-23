@@ -16,31 +16,31 @@
 
             <tr>
                 <th scope="row">Primer Apellido</th>
-                <td><?= $request->has('user') ? h($request->user->lastname1) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->lastname1) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Segundo Apellido</th>
-                <td><?= $request->has('user') ? h($request->user->lastname2) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->lastname2) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Nombre</th>
-                <td><?= $request->has('user') ? h($request->user->name) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->name) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Cédula</th>
-                <td><?= $request->has('user') ? h($request->user->identification_number) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->identification_number) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Carné</th>
-                <td><?= $request->has('student') ? h($request->student->carne) : '' ?></td>
+                <td><?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Teléfono</th>
-                <td><?= $request->has('user') ? h($request->user->phone) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->phone) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Correo electrónico</th>
-                <td><?= $request->has('user') ? h($request->user->email_personal) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->email_personal) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Carrera</th>
@@ -79,7 +79,7 @@
         <tbody>
             <tr>
                 <th scope="row">Sigla</th>
-                <td><?= $request->has('course') ? h($request->course->code) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->course_id) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Grupo</th>
@@ -87,11 +87,11 @@
             </tr>
             <tr>
                 <th scope="row">Nombre del curso</th>
-                <td><?= $request->has('course') ? h($request->course->name) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->course->name) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Nombre del docente</th>
-                <td><?= $request->has('docente') ? h($request->docente->name) . ' ' . h($request->docente->lastname1) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->professor->user->name) . ' ' . h($request->class->professor->user->lastname1) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Semestre</th>
@@ -115,11 +115,12 @@
 <!-- Muestra mensaje informativo si variable created_request es igual a 1 -->
 <script>
 $(function() {
-    var YaCreado = '<?php echo $created_request;?>'
+    var YaCreado = '<?php echo $yc;?>'
     if(YaCreado == 1)
-        $("#MensajeInformativo").modal();
+        $("#MensajeInformativo").modal('show');
 });
 </script>
+
 
 <!-- Mensaje informativo con información importante para el usuario -->
 <div id="MensajeInformativo" class="modal center-block text-center">

@@ -59,19 +59,19 @@
         <div style="width:300px">
         </div>
     <?php else: ?>
-        <div style="width:218px">
-            <div class = 'container'>
-                <div class = 'row justify-content-end'>
+        <div style="width:250px">
+            <div class = 'container border border-danger rounded'>
+                <div class = 'row justify-content-center'>
                     <?php if($current_user['role_id'] === 'Administrador'): ?>
                         <div class = 'col-auto align-self-center'  >
                             <div class = 'row'>
-                                <h6 style='color:red; font-size:12px;margin-bottom:0'><b>
+                                <h6 class='text-danger' style='font-size:12px;'><b>
                                     <?php
                                         $dsh = (int)$roundData['total_student_hours']-(int)$roundData['actual_student_hours'];
                                         $ddh = (int)$roundData['total_student_hours_d']-(int)$roundData['actual_student_hours_d'];
                                         $dah = (int)$roundData['total_assistant_hours']-(int)$roundData['actual_assistant_hours'];
                                     ?>
-                                    <?= "Horas vacantes" ?><br>
+                                    <?= "Disponibles" ?><br>
                                     <?= "HE-ECCI: ".(string)$dsh ?><br>
                                     <?= "HE-DOC: ".(string)$ddh ?><br>
                                     <?= "HA-ECCI: ".(string)$dah ?>
@@ -83,13 +83,18 @@
                     <?php endif; ?>
                     <div class = 'col-auto align-self-center'>
                         <div class = 'row'>
-                            <h6 style='color:red; font-size:16px;margin-bottom:0'><b> 
-                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . ' ' . substr($roundData['year'],2); ?><br>
+                            <h6 class='text-danger' style='font-size:16px;'><b> 
+                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . '-' . substr($roundData['year'],2); ?><br>
                                 <?= "del: " . substr($roundData['start_date'], 8,2).'-'. substr($roundData['start_date'], 5,2).'-'.substr($roundData['start_date'], 2,2) ?><br>
                                 <?=" al: " . substr($roundData['end_date'], 8,2).'-'. substr($roundData['end_date'], 5,2).'-'.substr($roundData['end_date'], 2,2); ?>
                             </b></h6>
                         </div>
                     </div>
+                </div>
+                <div class="row justify-content-center">
+                    <h6 class='text-dark' style='font-size:12px;'>
+                        <?php echo "Fecha y Hora ".date('d-M-Y H:i') ?>
+                    </h6>
                 </div>        
             </div>        
         </div>        

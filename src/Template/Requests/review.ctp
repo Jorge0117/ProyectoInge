@@ -18,7 +18,7 @@
 		
 		<?php
 			echo $this->Form->control('Cédula',array('value' => $user['identification_number'], 'disabled'));
-			echo $this->Form->control('Carné',array('value' => $user['carne'], 'disabled'));
+			echo $this->Form->control('Carné',array('value' => strtoupper($user['carne']), 'disabled'));
 			echo $this->Form->control('Nombre',array('value' => ($user['name'] . " ". $user['lastname1'] . " " . $user['lastname2']), 'disabled'));
 			//Tal vez no deberia ir este?
 			echo $this->Form->control('Correo',array('value' => $user['email_personal'], 'disabled'));
@@ -89,7 +89,7 @@
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
 				<div>
-					<?php if($requirements['stage'] > 1): ?>
+					<?php if($requirements['stage'] > 1 && $requirements['stage'] < 3): ?>
 						<div class='input-group mb-2' id='modificar_tag'>
 							<span style="width:13%" class="input-group-text" >Modificar</span>     
 							<div class="input-group-append" >
@@ -105,7 +105,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> true, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
@@ -306,9 +306,15 @@
 				$haCnt = $approved_request[0][2];
 			}
 		}
-	?>
-	<?php $reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c' ?>
-	<?php $approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed) ?> 
+		$reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c';
+		$approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed);
+		if($default_index =='i'||$default_index == 'c'){
+			$inopia = ' por inopia';
+		}else{
+			$inopia = '';
+		}
+	?> 
+
 	<?php if($approved):?>
 		<div id="divFinal" class="form-section">
 			<?= $this->Form->create(false,['id'=>'endForm']) ?>
@@ -319,75 +325,75 @@
 					<?= $this->Form->control('Clasificación Final',[
 						'id' => 'End-Classification',
 						'name' => 'End-Classification',
-						'options' => ['-No Clasificado-', 'Aceptado', 'Rechazado'],
+						'options' => ['-No Clasificado-', 'Aceptado'.$inopia, 'Rechazado'],
 						'default' => $default_indexf,
 						'onchange'=>"approve()",
 					]);?>
 					
 					<div class="container" id = 'hoursDiv'>
-						<div class="row justify-content-center" id = 'studentRow'>
-							<div class="col-auto">
-								<?= $this->Form->checkbox('checkbox',[
-									'id'=>'tsh',
-									'value' => 'HEE',
-									'label' => false,
-									'onclick'=>"studentHours()",
-								]);?>
+							<div class="row justify-content-center" id = 'studentRow'>
+								<div class="col-auto">
+									<?= $this->Form->checkbox('checkbox',[
+										'id'=>'tsh',
+										'value' => 'HEE',
+										'label' => false,
+										'onclick'=>"studentHours()",
+									]);?>
+								</div>
+								<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hours',[
+										'id'=>'student',
+										'type'=>'number',
+										'min' => $student_max_hours['HEE'] < 3? 0:3,
+										'max' => $student_max_hours['HEE'],
+										'label' => false,
+										'disabled'
+									]);?>
+								</div>
+								<div class="col-auto" id ='hsdLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hsd',[
+										'type'=>'number',
+										'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
+										'label' => false,
+										'disabled',
+										'visibility'=>'hidden'
+									]);?>
+								</div>
 							</div>
-							<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hours',[
-									'id'=>'student',
-									'type'=>'number',
-									'min' => '3',
-									'max' => 12-$request['another_student_hours'],
-									'label' => false,
-									'disabled'
-								]);?>
-							</div>
-							<div class="col-auto" id ='hsdLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hsd',[
-									'type'=>'number',
-									'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
-									'label' => false,
-									'disabled',
-									'visibility'=>'hidden'
-								]);?>
-							</div>
-						</div>
 
-						<div class="row justify-content-center" id = 'studentDRow'>
-							<div class="col-auto">
-								<?= $this->Form->checkbox('checkbox',[
-									'id'=>'tdh',
-									'value' => 'HED',
-									'label' => false,
-									'onclick'=>"studentDHours()",
-								]);?>
+							<div class="row justify-content-center" id = 'studentDRow'>
+								<div class="col-auto">
+									<?= $this->Form->checkbox('checkbox',[
+										'id'=>'tdh',
+										'value' => 'HED',
+										'label' => false,
+										'onclick'=>"studentDHours()",
+									]);?>
+								</div>
+								<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hours',[
+										'id'=>'studentD',
+										'type'=>'number',
+										'min' => $student_max_hours['HED'] < 3? 0:3,
+										'max' => $student_max_hours['HED'],
+										'label' => false,
+										'disabled'
+									]);?>
+								</div>
+								<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
+								<div class="col-2">
+									<?= $this->Form->control('hdd',[
+										'type'=>'number',
+										'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
+										'label' => false,
+										'disabled',
+										'visibility'=>'hidden'
+									]);?>
+								</div>
 							</div>
-							<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hours',[
-									'id'=>'studentD',
-									'type'=>'number',
-									'min' => '3',
-									'max' => 12-$request['another_student_hours'],
-									'label' => false,
-									'disabled'
-								]);?>
-							</div>
-							<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('hdd',[
-									'type'=>'number',
-									'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
-									'label' => false,
-									'disabled',
-									'visibility'=>'hidden'
-								]);?>
-							</div>
-						</div>
 
 						<div class="row justify-content-center" id = 'assistantRow'>
 							<div class="col-auto">
@@ -403,8 +409,8 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => '3',
-									'max' => 20-$request['another_assistant_hours'],
+									'min' => $student_max_hours['HED'] < 3? 0:3,
+									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
 								]);?>
@@ -458,10 +464,26 @@ $(document).ready( function () {
 			$('.radioRequirements').prop( "disabled", true );	
 		}
     });
-	if('<?= $approved ?>'){
+});
+</script>
+
+<?php if($approved): ?>
+<script type="text/javascript">
+$(document).ready(function(){
+
 		if('<?= $reviewed ?>'){
 			byId('divPreliminar').style.display = 'none';
 		}
+
+		// Esconde campos en base al tipo de horas asignables
+		if('<?= $hourTypeAsignableb != 'a' ?>'){
+			byId('assistantRow').style.display = 'none';
+		}
+		if('<?= $hourTypeAsignableb != 'a' && $hourTypeAsignableb != 'e' ?>'){
+			byId('studentDRow').style.display = 'none';
+			byId('studentRow').style.display = 'none';
+		}
+
 		// calcula el tope de horas que se le puede asignar al estudiante
 		var tsh = <?= $roundData['total_student_hours']; ?>;
 		var ash = <?= $roundData['actual_student_hours']; ?>;
@@ -476,7 +498,19 @@ $(document).ready( function () {
 		var totA = tah-aah + <?= $haCnt ?>;
 		if(totA < parseInt(byId('assistant').max))byId('assistant').max = totA;
 		approve();
-    }
+		if('<?= $hsCnt ?>'){
+			byId('tsh').checked = true;
+			studentHours();
+		}
+		if('<?= $hdCnt ?>'){
+			byId('tdh').checked = true;
+			studentDHours();
+		}	
+		if('<?= $haCnt ?>'){
+			byId('tah').checked = true;
+			assistantHours();
+		}
+
 });
 	/** Función approve
 	  * EFE: verifica que el dato de aprovado en el combobox sea selecionado para mostrar el resto de campos
@@ -524,14 +558,15 @@ $(document).ready( function () {
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			byId('tah').checked = false;
-			byId('assistant').value = null;
-			byId('assistant').disabled = true;
-
-			if('<?= $hsCnt == 0 ?>'){
+			if('<?= $hourTypeAsignableb == 'a' ?>'){
+				byId('tah').checked = false;	
+				byId('assistant').value = null;
+				byId('assistant').disabled = true;
+			}
+			if('<?= $student_max_hours['HEE'] > 2 ?>'){
 				byId('student').value = 3;
 			}else{
-				byId('student').value = '<?= $hsCnt ?>';
+				byId('student').value = 0;
 			}
 			byId('student').disabled = false;
 			byId('student').focus();
@@ -540,8 +575,10 @@ $(document).ready( function () {
 			byId('hsd').style.visibility = 'visible';
 			byId('hddLabel').style.visibility = 'hidden';
 			byId('hdd').style.visibility = 'hidden';
-			byId('hadLabel').style.visibility = 'hidden';
-			byId('had').style.visibility = 'hidden';
+			if('<?= $hourTypeAsignableb == 'a' ?>'){
+				byId('hadLabel').style.visibility = 'hidden';
+				byId('had').style.visibility = 'hidden';
+			}
 
 			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
@@ -568,14 +605,16 @@ $(document).ready( function () {
 			byId('tsh').checked = false;
 			byId('student').value = null;
 			byId('student').disabled = true;
-			byId('tah').checked = false;
-			byId('assistant').value = null;
-			byId('assistant').disabled = true;
+			if('<?= $hourTypeAsignableb == 'a' ?>'){
+				byId('tah').checked = false;
+				byId('assistant').value = null;
+				byId('assistant').disabled = true;
+			}
 
-			if('<?= $hsCnt == 0 ?>'){
+			if('<?= $student_max_hours['HED'] > 2 ?>'){
 				byId('studentD').value = 3;
 			}else{
-				byId('studentD').value = '<?= $hsCnt ?>';
+				byId('studentD').value = 0;
 			}
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
@@ -584,8 +623,10 @@ $(document).ready( function () {
 			byId('hdd').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
 			byId('hsd').style.visibility = 'hidden';
-			byId('hadLabel').style.visibility = 'hidden';
-			byId('had').style.visibility = 'hidden';
+			if('<?= $hourTypeAsignableb == 'a' ?>'){
+				byId('hadLabel').style.visibility = 'hidden';
+				byId('had').style.visibility = 'hidden';
+			}
 
 			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
@@ -615,10 +656,10 @@ $(document).ready( function () {
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $haCnt == 0 ?>'){
+			if('<?= $student_max_hours['HAE'] > 2 ?>'){
 				byId('assistant').value = 3;
 			}else{
-				byId('assistant').value = '<?= $haCnt ?>';
+				byId('assistant').value = 0;
 			}
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
@@ -674,7 +715,6 @@ $(document).ready( function () {
 	
 	function cambiarhoras()
 	{
-		
 			$.ajax({
 		url:"<?php echo \Cake\Routing\Router::url(array('controller'=>'Requests','action'=>'changeRequestHours'));?>" ,   cache: false,
 		type: 'GET',
@@ -692,5 +732,5 @@ $(document).ready( function () {
 		}
 			});
 	}
-
 </script>
+<?php endif; ?>

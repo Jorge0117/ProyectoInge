@@ -95,9 +95,9 @@ class AppController extends Controller
             $this->loadModel('Rounds');
             $roundData = $this->Rounds->getLastRow();
             $this->set(compact('roundData'));
-            $this->request->session()->write('roundData',$roundData);
+            $this->getRequest()->getSession()->write('roundData',$roundData);
         }else{
-            $roundData = $this->request->session()->read('roundData');
+            $roundData = $this->getRequest()->getSession()->read('roundData');
             $this->set(compact('roundData'));
         }
 
@@ -105,9 +105,6 @@ class AppController extends Controller
 
     public function forceSSL($error = '', SecurityException $exception = null)
     {
-        // debug($error);
-        // debug($exception);
-        // die();
         if ($exception instanceof SecurityException && $exception->getType() === 'secure') {
             return $this->redirect('https://' . env('SERVER_NAME') . Router::url($this->request->getRequestTarget()));
         }
@@ -126,6 +123,17 @@ class AppController extends Controller
         $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
+        
+        if(!$role_c->is_Authorized($user['role_id'], $module, $action)){
+            debug("Si le aparecio este mensaje es por que, posiblemente, los permisos de esta accion (".$module.'-'.$action.
+              ") no estan en la base, o simplemente el rol [".$user['role_id']."] no lo tiene.\n Solución:\n".
+              "\t1) Verifique que el rol del usuario con el que esta logueado deba tener este permiso.\n".
+              "\t2) En caso de que si lo deba tener, o bien sea una accion nueva, mandarle a kevin un mensaje con el siguiente formato:\n". 
+              "\t\tRol(es): [Rol(es) que debe(n) tener este permiso]\n".
+              "\t\tDescripción: [Descripción de la acción]\n".
+              "\t\tAcción: ".$module.'-'.$action);
+            die();
+        }
         return $role_c->is_Authorized($user['role_id'], $module, $action); 
     }
 }

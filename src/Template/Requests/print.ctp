@@ -16,13 +16,13 @@
     <div class="mb-3">
         <div class="row justify-content-between">
             <div class="col-3 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->lastname1) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->lastname1) : '' ?>
             </div>
             <div class="col-3 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->lastname2) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->lastname2) : '' ?>
             </div>
             <div class="col-3 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->name) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->name) : '' ?>
             </div>
         </div>
 
@@ -42,16 +42,16 @@
     <div class="mb-3">
         <div class="row justify-content-between">
             <div class="col-2 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->identification_number) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->identification_number) : '' ?>
             </div>
             <div class="col-2 border-bottom border-dark text-center">
-                <?= $request->has('student') ? h($request->student->carne) : '' ?>
+                <?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?>
             </div>
             <div class="col-2 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->phone) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->phone) : '' ?>
             </div>
             <div class="col-3 border-bottom border-dark text-center">
-                <?= $request->has('user') ? h($request->user->email_personal) : '' ?>
+                <?= $request->has('student') ? h($request->student->user->email_personal) : '' ?>
             </div>
         </div>
         <div class="row justify-content-between">
@@ -169,10 +169,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <td scope="row"><?= $request->has('course') ? h($request->course->code) : '' ?></td>
+                    <td scope="row"><?= $request->has('class') ? h($request->class->course_id) : '' ?></td>
                     <td><?= h($request->class_number) ?></td>
-                    <td><?= $request->has('course') ? h($request->course->name) : '' ?></td>
-                    <td><?= $request->has('docente') ? h($request->docente->name) . ' ' . h($request->docente->lastname1) : '' ?></td>
+                    <td><?= $request->has('class') ? h($request->class->course->name) : '' ?></td>
+                    <td><?= $request->has('class') ? h($request->class->professor->user->name) . ' ' . h($request->class->professor->user->lastname1) : '' ?></td>
                 </tr>
             </tbody>
         </table>

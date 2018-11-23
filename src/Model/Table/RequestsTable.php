@@ -52,7 +52,8 @@ class RequestsTable extends Table
         ]);
 
         $this->belongsTo('Classes', [
-            'foreignKey' => 'class_number',
+            'foreignKey' => ['class_year', 'course_id', 'class_semester', 'class_number'],
+            'bindingKey' => ['year', 'course_id', 'semester', 'class_number'],
             'joinType' => 'INNER'
 		]);
 		
@@ -84,21 +85,7 @@ class RequestsTable extends Table
     {
         return ($check != "Seleccione un Grupo");
     }
-    
-    /*public function validarSolicitudRepetida($check,  $datos)
-    {
-        $curso = debug($datos['data']['course_id']);
-        $grupo = debug($datos['data']['class_number']);
-        
-        //Si encuentro una sola tupla de solicitudes pendientes con el mismo curso y grupo, entonces de una vez indico que 
-        //la solicitud ya existe
-        //$estudiante = $this->get_student_id();
-        $tuplas = $this->getSameRequests($curso,$grupo);
-        debug($datos);
-        
-        return true;
-        //return (count($tuplas) == 0);
-    }*/
+
 
     public function validationDefault(Validator $validator)
     {
@@ -145,11 +132,6 @@ class RequestsTable extends Table
 
         return $validator;
     }
-
-
-
-
-
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -216,19 +198,6 @@ class RequestsTable extends Table
         return $result;
 
 	}
-
-
-	/*
-	public function getStudentInfo($student_id)
-	{
-		$connet = ConnectionManager::get('default');
-		      //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
-		$result = $connet->execute("select * from users u, students s where u.identification_number = '$student_id' and u.identification_number = s.user_id");
-		$result = $result->fetchAll('assoc');
-        return $result;
-
-	}
-	*/
 	
 	//Obtiene todas las solicitudes pendientes que coincidan con el curso y grupo actual.
 	/*
@@ -428,13 +397,63 @@ class RequestsTable extends Table
     }
     //Termina ESTIVEN
     
+    /**
+     * Determina si un estudiante es dueño de una solicitud.
+     * 
+     * Retorna verdadero si la socilitud $id fue realizada por el estudiante $student_id.
+     * 
+     * @param string $id
+     * @param string $student_id
+     * @return bool 
+     */
     public function isOwnedBy($id, $student_id)
     {
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
     }
 
+    /**
+     * Determina si un profesor está a cargo del curso para el cual se solicita una
+     * asistencia.
+     * 
+     * Retorna verdadero si el profesor $professor_id imparte el curso de la solicitud $id.
+     * 
+     * @param string $id
+     * @param string $professor_id
+     * @return bool
+     */
+    public function isTaughtBy($id, $professor_id)
+    {
+        $submission = $this->get($id,[
+            'contain' => [
+                'Classes'
+            ]
+        ]);
+        return $submission->class->professor_id === $professor_id;  
+    }
+
+    /**
+     * Retorna toda la información asociada a una solicitud, incluyendo el estudiante
+     * que hizo la solicitud, el curso-grupo que solicita y el profesor que lo imparte.
+     * 
+     * @param string $id
+     * @return array Arreglo con toda la información.
+     */
+    public function getAllRequestInfo($id)
+    {
+
+        $submission = $this->get($id, [
+            'contain' => [
+                'Classes' => ['Professors' => ['Users'], 'Courses'],
+                'Students' => ['Users']
+            ],
+        ]);
+
+        return $submission;
+    }
+
+
     //EMPIEZA JORGE
-    //Retorna si una solicitud tiene inopia
+    //Retorna si una solicitud tiene inopia en un array
     public function isInopia($id){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("select count(*) from requests_requirements where acepted_inopia = 1 and request_id = '$id'")->fetchAll();
@@ -449,6 +468,18 @@ class RequestsTable extends Table
     public function setRequestScope($id, $scope){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
+    }
+
+    /**
+     * Devuelve el tipo de horas que se le pueden asignar a un estudiante basado en la revision de requisistos.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Id de la solicitud
+     * @return String Devuelve n para ninguno, e para horas estudiante y a para ambos
+     */
+    public function getScope($id){
+        $request = $this->get($id);
+        return $request->scope;
     }
 
 }

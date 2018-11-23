@@ -22,13 +22,23 @@ class UsersController extends AppController
         $this->Auth->allow('register');
     }
 
+    /**
+     * Devuelve verdadero si el usuario tiene permiso para ingresar al view.
+     *
+     * @param String $user
+     * @return boolean Verdadero si el usuario tiene permiso para ingresar al view, falso si no
+     */
     public function isAuthorized($user)
     {
+        // Cualquier usuario puede acceder a las acciones view y edit de su propio usuario
         if (in_array($this->request->getParam('action'), ['view', 'edit'])) {
             $user_id = (int)$this->request->getParam('pass.0');           
-            return $user_id === (int)$user['identification_number'];
+            if ($user_id === (int)$user['identification_number']) {
+                return true;
+            }
         }
         
+        // Para otros casos usar el módulo de autorización
         return parent::isAuthorized($user);
     }
 

@@ -120,7 +120,4 @@ class CoursesClassesVwTable extends Table
         );
     }
 
-    // public function selectComunYSilvetre(){
-
-    // }
 }

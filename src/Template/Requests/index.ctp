@@ -84,29 +84,48 @@
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Fecha de solicitud') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id', array(
+                'asc' => __('Número de solicitud') . ' <i class="icon-chevron-up text-info pull-right"></i>',
+                'desc' => __('Número de solicitud') . ' <i class="icon-chevron-down text-info pull-right"></i>'
+                ),
+                array(
+                    'escape' => false
+                )) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fecha', 'Fecha de solicitud') ?></th>
+                <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
+                    <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
+                <?php endif; ?>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Tiene otras horas') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('otras_horas','Tiene otras horas') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($query as $request): ?>
             <tr>
+                <td><?= h($request->id) ?></td>
+                
                 <td><?= h($request->fecha) ?></td>
                 
-                <td><?= h($request->carne) ?></td>
-                <td><?= h($request->nombre) ?></td>
 
-                <td><?= $this->Number->format($request->promedio) ?></td>
+                <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
+                    <td><?= h(strtoupper($request->carne)) ?></td>
+                    <td><?= h($request->nombre) ?></td>
+
+                    <?php if ($this->Number->format($request->promedio) == 0): ?>
+                        <td> Pendiente </td>
+                    <?php else: ?>
+                        <td><?= $this->Number->format($request->promedio) ?></td>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 <td><?= h($request->anno) ?></td>
                 <td><?= $this->Number->format($request->semestre) ?></td>
                 <td><?= h($request->curso) ?></td>
@@ -166,3 +185,4 @@
         </tbody>
     </table>
 </div>
+
