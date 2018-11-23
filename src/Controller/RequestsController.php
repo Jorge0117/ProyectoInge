@@ -49,6 +49,7 @@ class RequestsController extends AppController
      */
     public function index()
     {
+
         $table = $this->loadModel('InfoRequests');
         //$rounds = $this->loadModel('Rounds');
         $roundData = $this->viewVars['roundData'];
@@ -893,6 +894,22 @@ class RequestsController extends AppController
     {
         debug("xdxd");
         //die();
+    }
+
+    //Empieza jorge
+
+    public function cancelRequest($id, $just){
+        $cancelTable=$this->loadmodel('CanceledRequests');
+        $result = $cancelTable->cancelRequest($id, $just);
+
+        if($result){
+            $this->Requests->setRequestScope($id, 'x');
+            $this->Flash->success(__('Se anuló la solicitud correctamente.'));
+        }else{
+            $this->Flash->error(__('Error: no se pudo anular la solicitud.'));
+        }
+        
+        return $this->redirect(['action' => 'index']);
     }
 
 }

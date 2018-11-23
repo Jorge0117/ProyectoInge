@@ -9,21 +9,6 @@
 <link rel="stylesheet" href="https://cdn.dhtmlx.com/edge/dhtmlx.css" type="text/css"> 
 <script src="https://cdn.dhtmlx.com/edge/dhtmlx.js" type="text/javascript"></script>
 
-<style>
-.btn-x{
-    background-color: white;
-    border: none;
-    color: #007bff;
-    padding: 0px 0px;
-}
-
-/* Darker color on mouse-over */
-.btn-x:hover {
-    color: #0056B3;
-}
-.btn-x:focus{outline:none !important}
-</style>
-
 <!--Variables utilizadas para el primer display-->
 <?php 
     $penultimateRound = $this->Rounds->getPenultimateRow();
