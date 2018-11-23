@@ -65,7 +65,7 @@ class AdministrativeAssistantsTable extends Table
     public function deleteAssistant($id){
         $connect = ConnectionManager::get('default');
         if(preg_match("/\d+/", $id)){
-            $connect->execute("DELETE from administrative_assistants where user_id = '$id';") ;
-        }
+            $connect->execute("DELETE from administrative_assistants where user_id = '$id';") ; 
+        }       
     }
 }

@@ -74,13 +74,13 @@
         <div class='row'>
             <div class='col self-align-end'>
 
-                <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
-                <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar']) ?>
-                
                 <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
                 <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar'>
                     Agregar
                 </button>
+
+                <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->
+                <?= $this->Html->link('Cancelar',['controller'=>'Requirements','action'=>'index'],['class'=>'btn btn-primary float-right btn-space btn-cancelar']) ?>
             
             <div>
         <div>

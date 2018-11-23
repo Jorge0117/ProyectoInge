@@ -18,6 +18,7 @@ use Cake\Controller\Controller;
 use Cake\Controller\Exception\SecurityException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -57,7 +58,7 @@ class AppController extends Controller
                 'controller' => 'Security',
                 'action' => 'login',
             ],
-            'authError' => 'Ingrese al sistema',
+            'authError' => 'No tiene permisos para ingresar a esta pagina.',
             'flash' => [
                 'element' => 'error'
             ],
@@ -88,6 +89,18 @@ class AppController extends Controller
         $current_user = $this->Auth->user();
         $this->set('current_user', $current_user);
 
+        // author: Daniel Marín
+        // convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+        if(!$current_user){
+            $this->loadModel('Rounds');
+            $roundData = $this->Rounds->getLastRow();
+            $this->set(compact('roundData'));
+            $this->getRequest()->getSession()->write('roundData',$roundData);
+        }else{
+            $roundData = $this->getRequest()->getSession()->read('roundData');
+            $this->set(compact('roundData'));
+        }
+
     }
 
     public function forceSSL($error = '', SecurityException $exception = null)
@@ -110,13 +123,20 @@ class AppController extends Controller
      */
     public function isAuthorized($user)
     {
-        return true;
-        $role_c = new RolesController;
+        /*$role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
-        //debug($module);
-        //debug($action);
-        return $role_c->is_Authorized($user['role_id'], $module, $action); 
-        //return true;
+        
+        if(!$role_c->is_Authorized($user['role_id'], $module, $action)){
+            debug("Si le aparecio este mensaje es por que, posiblemente, los permisos de esta accion (".$module.'-'.$action.
+              ") no estan en la base, o simplemente el rol [".$user['role_id']."] no lo tiene.\n Solución:\n".
+              "\t1) Verifique que el rol del usuario con el que esta logueado deba tener este permiso.\n".
+              "\t2) En caso de que si lo deba tener, o bien sea una accion nueva, mandarle a kevin un mensaje con el siguiente formato:\n". 
+              "\t\tRol(es): [Rol(es) que debe(n) tener este permiso]\n".
+              "\t\tDescripción: [Descripción de la acción]\n".
+              "\t\tAcción: ".$module.'-'.$action);
+            die();
+        }*/
+        return true;//$role_c->is_Authorized($user['role_id'], $module, $action);
     }
 }

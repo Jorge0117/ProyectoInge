@@ -16,7 +16,7 @@ CREATE TABLE `proyecto_inge`.`requests` (
   `another_student_hours` tinyint NOT NULL,
   `has_another_hours` boolean NOT NULL,
   `first_time` boolean NOT NULL,
-  `average` DECIMAL NOT NULL,
+  `average` DECIMAL(4,2) NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY(course_id,class_number,class_semester,class_year) references classes(course_id,class_number,semester,year),
   FOREIGN KEY(student_id) references students(user_id));

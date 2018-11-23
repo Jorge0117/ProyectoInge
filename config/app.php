@@ -210,6 +210,8 @@ return [
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        //Este es un transporte de prueba, para utilizar un correo oficial de la ecci,
+        // se debe crear otro transporte con host y puerto de la ecci o modificar el transporte 'mailjet'
         'mailjet' => [
             'host' => 'in-v3.mailjet.com',
             'port' => 25,
@@ -218,6 +220,14 @@ return [
             'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
             'className' => 'Smtp'
         ],
+        'gmail' => [
+            'host' => 'ssl://smtp.gmail.com',
+            'port' => 465,
+            'timeout' => 60,
+            'username' => 'asistenciaucr12@gmail.com',
+            'password' => 'Contra1234',
+            'className' => 'Smtp'
+        ]
     ],
 
     /**
@@ -263,8 +273,8 @@ return [
              * the following line and set the port accordingly
              */
             'port' => '3306',
-            'username' => 'valeria',
-            'password' => 'valeria123',
+            'username' => 'admin',
+            'password' => 'temp123',
             'database' => 'proyecto_inge',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
