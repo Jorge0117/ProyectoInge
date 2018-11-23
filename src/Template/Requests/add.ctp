@@ -375,10 +375,32 @@
     <?= $this->Form->end() ?>
 	   <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
 
-	
+	<button id="butAceptar" class="btn btn-primary float-right btn-space">Mensaje</button>
+	<button type="submit" class="btn btn-primary float-right">Aceptar</button>
 	
 </div>
 
+<div id="MensajeInformativo" class="modal">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
+			
+            <fieldset>
+					<legend><?= __('Atención') ?></legend>
+					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+					y una fotocopia legible de la cédula de identidad por ambos lados.
+					<br>
+					<b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
+					<br>
+			</fieldset>
+			<fieldset>
+				<?= $this->Html->link('Aceptar',['controller'=>'requests','action'=>'index'],['class'=>'btn btn-primary float-middle btn-space']) ?>
+			</fieldset>
+        
+            
+        </div>
+    </div>
+</div>
 
 
 <script>

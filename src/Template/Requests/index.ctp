@@ -168,11 +168,16 @@
 				
                 
                 <td class="actions">
+                    <div width="20px">
                     <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
                     
                     <?php if ($admin === true): ?>
                     <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
+
+                    <?= $this->Form->button('<i class="fa fa-times"></i>', ['onclick' => "cancelJust($request->id)",'id'=>'cancelar', "class" => "btn-x"]) ?>    
+
                     <?php endif; ?>
+                    </div>
                 </td>
 				
             </tr>
@@ -180,4 +185,15 @@
         </tbody>
     </table>
 </div>
+
+<script>
+
+function cancelJust(id) {
+    var just = prompt("Anular solicitud", "Inserte la justificación");
+    if(just != null){
+        window.location.replace("./requests/cancelRequest/" + id + "/" + just);
+    }
+}
+
+</script>
 
