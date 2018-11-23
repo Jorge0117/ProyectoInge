@@ -33283,3 +33283,213 @@ Stack Trace:
 #17 {main}
 
 
+2018-11-23 19:20:31 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_both.png
+Referer URL: https://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-11-23 19:20:31 Error: [Cake\Routing\Exception\MissingControllerException] Controller class Images could not be found.
+Exception Attributes: array (
+  'class' => 'Images',
+  'plugin' => false,
+  'prefix' => false,
+  '_ext' => false,
+)
+Request URL: /images/sort_asc.png
+Referer URL: https://localhost/ProyectoInge/css/jquery.dataTables.min.css
+Stack Trace:
+#0 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ControllerFactory.php(39): Cake\Http\ControllerFactory->missingController(Object(Cake\Http\ServerRequest))
+#1 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ActionDispatcher.php(91): Cake\Http\ControllerFactory->create(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#2 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\BaseApplication.php(235): Cake\Http\ActionDispatcher->dispatch(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#3 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\BaseApplication->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#4 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Middleware\CsrfProtectionMiddleware.php(107): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#5 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Http\Middleware\CsrfProtectionMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#6 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\RoutingMiddleware.php(156): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#7 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\RoutingMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#8 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Routing\Middleware\AssetMiddleware.php(97): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#9 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Routing\Middleware\AssetMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#10 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Error\Middleware\ErrorHandlerMiddleware.php(98): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#11 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): Cake\Error\Middleware\ErrorHandlerMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#12 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\debug_kit\src\Middleware\DebugKitMiddleware.php(53): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#13 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(65): DebugKit\Middleware\DebugKitMiddleware->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response), Object(Cake\Http\Runner))
+#14 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Runner.php(51): Cake\Http\Runner->__invoke(Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#15 C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\Server.php(98): Cake\Http\Runner->run(Object(Cake\Http\MiddlewareQueue), Object(Cake\Http\ServerRequest), Object(Cake\Http\Response))
+#16 C:\xampp\htdocs\ProyectoInge\webroot\index.php(40): Cake\Http\Server->run()
+#17 {main}
+
+
+2018-11-23 19:23:23 Warning: Warning (512): Unable to emit headers. Headers sent in file=C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php line=292 in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 48]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 48
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:23:23 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 148]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE\src\Http\ResponseEmitter.php, line 148
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 54
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:23:23 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:23:23 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:25:18 Warning: Warning (512): Unable to emit headers. Headers sent in file=C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php line=292 in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 48]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 48
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:25:19 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 148]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE\src\Http\ResponseEmitter.php, line 148
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 54
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:25:19 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:25:19 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:29:48 Warning: Warning (512): Unable to emit headers. Headers sent in file=C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php line=292 in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 48]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 48
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:29:48 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 148]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitStatusLine() - CORE\src\Http\ResponseEmitter.php, line 148
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 54
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:29:48 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+
+2018-11-23 19:29:48 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\ProyectoInge\vendor\phpoffice\phpspreadsheet\src\PhpSpreadsheet\Shared\OLE\PPS\Root.php:292) in [C:\xampp\htdocs\ProyectoInge\vendor\cakephp\cakephp\src\Http\ResponseEmitter.php, line 181]
+Request URL: /reports/reports-view/SELECT%20info_requests.id%20AS%20%60info_requests__id%60%2C%20info_requests.fecha%20AS%20%60info_requests__fecha%60%2C%20info_requests.cedula%20AS%20%60info_requests__cedula%60%2C%20info_requests.carne%20AS%20%60info_requests__carne%60%2C%20info_requests.nombre%20AS%20%60info_requests__nombre%60%2C%20info_requests.promedio%20AS%20%60info_requests__promedio%60%2C%20info_requests.anno%20AS%20%60info_requests__anno%60%2C%20info_requests.semestre%20AS%20%60info_requests__semestre%60%2C%20info_requests.curso%20AS%20%60info_requests__curso%60%2C%20info_requests.grupo%20AS%20%60info_requests__grupo%60%2C%20info_requests.inicio%20AS%20%60info_requests__inicio%60%2C%20info_requests.ronda%20AS%20%60info_requests__ronda%60%2C%20info_requests.estado%20AS%20%60info_requests__estado%60%2C%20info_requests.otras_horas%20AS%20%60info_requests__otras_horas%60%2C%20info_requests.id_prof%20AS%20%60info_requests__id_prof%60%20FROM%20info_requests%20info_requests%20WHERE%201%20%3D%20ronda%20AND%201%3D%20semestre%20AND%20anno%20%3D%20%20and%20estado%20%3D%20%20%27a%27
+Referer URL: https://localhost/ProyectoInge/reports/reports-admin
+Trace:
+Cake\Error\BaseErrorHandler::handleError() - CORE\src\Error\BaseErrorHandler.php, line 159
+header - [internal], line ??
+Cake\Http\ResponseEmitter::emitHeaders() - CORE\src\Http\ResponseEmitter.php, line 181
+Cake\Http\ResponseEmitter::emit() - CORE\src\Http\ResponseEmitter.php, line 55
+Cake\Http\Server::emit() - CORE\src\Http\Server.php, line 141
+[main] - ROOT\webroot\index.php, line 40
+
+
+

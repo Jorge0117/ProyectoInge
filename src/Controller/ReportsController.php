@@ -101,6 +101,7 @@ class ReportsController extends AppController
         //Se ponen los títulos de las columnas
         $headerRow = array("Curso","Semestre","Grupo","Carné","Estudiante","Tipo de horas","Cantidad de horas");
         $sheet->fromArray([$headerRow], NULL, 'A1');
+        $user= new UsersController;
         
         //Se llena el excel con solicitudes
         $cantidad = 1;
@@ -108,15 +109,21 @@ class ReportsController extends AppController
         //Por ahora, sólo se están poniendo estos datos
         foreach ($reports as $report){
             $col = 1;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->anno);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
             $col++;
             $sheet->setCellValueByColumnAndRow($col, $row, $report->semestre);
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->grupo);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->carne);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->nombre);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $ProfessorName = $user->getNameUser($report->id_prof));
             $row++;
             $cantidad++;
         }
-        //Configuración para imprimir
+        //Formato del excel
         $sheet->getPageSetup()
         ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
         $sheet->getPageSetup()
