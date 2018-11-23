@@ -1,13 +1,7 @@
 <style>
 	.btn-space {
         margin-right: 3px;
-        margin-leftt: 3px;
-    }
-
-	.form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
+        margin-left: 3px;
     }
 </style>
 <div class='form-size container'>
