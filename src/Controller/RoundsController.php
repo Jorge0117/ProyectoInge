@@ -135,4 +135,10 @@ class RoundsController extends AppController
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
     }
+	
+	public function get_round_key($round,$semester,$year)
+	{
+		$RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->getRoundKey($round,$semester,$year);
+	}
 }
