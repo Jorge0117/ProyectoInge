@@ -345,7 +345,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'student',
 										'type'=>'number',
-										'min' => $student_max_hours['HEE'] < 3? 0:3,
+										'min' => $student_max_hours['HEE'] < 3 || $hasAsignedHours? 0:3,
 										'max' => $student_max_hours['HEE'],
 										'label' => false,
 										'disabled'
@@ -377,7 +377,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'studentD',
 										'type'=>'number',
-										'min' => $student_max_hours['HED'] < 3? 0:3,
+										'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
 										'max' => $student_max_hours['HED'],
 										'label' => false,
 										'disabled'
@@ -409,7 +409,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => $student_max_hours['HED'] < 3? 0:3,
+									'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
@@ -563,11 +563,7 @@ $(document).ready(function(){
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
 			}
-			if('<?= $student_max_hours['HEE'] > 2 ?>'){
-				byId('student').value = 3;
-			}else{
-				byId('student').value = 0;
-			}
+			
 			byId('student').disabled = false;
 			byId('student').focus();
 
@@ -611,11 +607,7 @@ $(document).ready(function(){
 				byId('assistant').disabled = true;
 			}
 
-			if('<?= $student_max_hours['HED'] > 2 ?>'){
-				byId('studentD').value = 3;
-			}else{
-				byId('studentD').value = 0;
-			}
+			
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
 
@@ -656,11 +648,7 @@ $(document).ready(function(){
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $student_max_hours['HAE'] > 2 ?>'){
-				byId('assistant').value = 3;
-			}else{
-				byId('assistant').value = 0;
-			}
+			
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
 

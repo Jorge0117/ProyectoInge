@@ -46,7 +46,6 @@ class RoundsController extends AppController
      * @return null
      */
     public function add($data = null){
-        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add')){
             $roundData = $this->viewVars['roundData'];
             $start = $this->mirrorDate($data['start_date']);
             $end = $this->mirrorDate($data['end_date']);
@@ -68,7 +67,7 @@ class RoundsController extends AppController
                 $this->updateGlobal();
                 $this->Flash->success(__('Se agregó la ronda correctamente.'));
             }
-        }
+        
     }
 
     /**
@@ -78,6 +77,8 @@ class RoundsController extends AppController
      * @return null
      */
     public function edit($data = null){
+        $role_c = new RolesController;
+
         if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'edit')){
             $roundData = $this->viewVars['roundData'];
             $start = $this->mirrorDate($data['start_date']);
@@ -100,7 +101,6 @@ class RoundsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null){
-        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'delete')){
             $date = $this->mirrorDate($id);
             $this->request->allowMethod(['post', 'delete']);
             $round = $this->Rounds->get($date);
@@ -126,7 +126,7 @@ class RoundsController extends AppController
                 $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que ya se le ha dado inicio, puede proceder a editarla.'));
             }
             return $this->redirect(['action' => 'index']);
-        }
+    
     }
 
     // Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa

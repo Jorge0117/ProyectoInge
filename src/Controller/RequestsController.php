@@ -426,7 +426,7 @@ class RequestsController extends AppController
     /**
      * Se encarga de la logica de la revision de solicitudes. Se divide en la cuatro etapas de la revisión.
      *
-     *
+     * @author Kevin Jiménez <kevinja9608@gmail.com> 
      * @param String $id Identificador de la solicitud
      * @return void
      */
@@ -571,7 +571,12 @@ class RequestsController extends AppController
              */
             $student_asigned_hours = $this->ApprovedRequests->getAsignedHours($request->student_id);
             $student_asigned_hours_request = $this->ApprovedRequests->getThisRequestAsignedHours($id);
-            
+
+
+            /*
+             * Se crea un array con la minima cantidad de horas que se le pueden asignar a un estudiante.
+             *  
+             */
             $student_max_hours['HEE'] = max(
                                             array_key_exists('HEE', $student_asigned_hours_request)? $student_asigned_hours_request['HEE']:0, 
                                             min(
@@ -595,6 +600,13 @@ class RequestsController extends AppController
                                                 $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
                                             )
                                         );
+            
+            $hasAsignedHours = false;   
+            if($student_asigned_hours['HED'] + $student_asigned_hours['HEE'] + $student_asigned_hours['HAE']){           
+                $hasAsignedHours =  true;
+            }
+            debug($hasAsignedHours);
+            $this->set('hasAsignedHours', $hasAsignedHours);
             $this->set('student_max_hours', $student_max_hours);
             $this->set('default_indexf', $default_indexf);
             $this->set('hourTypeAsignableb', $hourTypeAsignableb);
