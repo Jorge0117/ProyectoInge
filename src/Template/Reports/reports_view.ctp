@@ -10,7 +10,7 @@ echo $this->Html->css('buttons');
 
  
 <div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Reporte de') ?></h3>
+    <h3><?= __('Reporte de solicitudes ' . $titulo) ?></h3>
     <table cellpadding="0" cellspacing="0" id= datagridUsers> 
         <thead>
             <tr>

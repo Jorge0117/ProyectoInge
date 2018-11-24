@@ -89,6 +89,7 @@ class ReportsController extends AppController
 				$table = $this->loadModel('info_requests');
                 $estado = '\'a\'';
                 $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				$titulo = 'aprobadas';
 				//$report = $this->Reports->getApprovedByRound($llave_ronda);
 				break;
 			case 2:
@@ -96,12 +97,14 @@ class ReportsController extends AppController
 				$table = $this->loadModel('info_requests');  
                 $estado = '\'r\'';
                 $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				$titulo = 'elegibles rechazadas';
 				break;
 			case 3:
 				//Imprime no elegibles
 				$table = $this->loadModel('info_requests');  
                 $estado = '\'n\'';
                 $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				$titulo = 'no elegibles';
 				break;
 		}
 		
@@ -127,8 +130,9 @@ class ReportsController extends AppController
 				break;
 		}
 		
-		}
-		$this->set(compact('report'));
+		}//Fin del post
+		
+		$this->set(compact('report','titulo'));
            
     }
 	
