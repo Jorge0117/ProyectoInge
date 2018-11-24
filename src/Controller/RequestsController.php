@@ -471,6 +471,7 @@ class RequestsController extends AppController
         $this->set(compact('request_stage', 'request_ponderado'));
 
         //--------------------------------------------------------------------------
+        // Kevin
         // Etapa Revision de requisitos
         // Se le indica a la vista que cargue la parte de revisión de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
@@ -574,38 +575,51 @@ class RequestsController extends AppController
 
 
             /*
-             * Se crea un array con la minima cantidad de horas que se le pueden asignar a un estudiante.
-             *  
-             */
-            $student_max_hours['HEE'] = max(
-                                            array_key_exists('HEE', $student_asigned_hours_request)? $student_asigned_hours_request['HEE']:0, 
-                                            min(
-                                                12 - $student_asigned_hours['HED'] - $student_asigned_hours['HEE'],
-                                                20  - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
-                                            )
-                                        );
-            $student_max_hours['HED'] = max(
-                                            array_key_exists('HED', $student_asigned_hours_request)? $student_asigned_hours_request['HED']:0, 
-                                            min(
-                                                 12 - $student_asigned_hours['HED']- $student_asigned_hours['HEE'],
-                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
-                                            )
-                                        );
-            $student_max_hours['HAE'] = max(
-                                            array_key_exists('HAE', $student_asigned_hours_request)? $student_asigned_hours_request['HAE']:0,
-                                            min(
-                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
-                                            )
-                                        );
+             * Kevin
+             * Se crea un array con la maxima cantidad de horas de cada tipo que se le pueden asignar a un estudiante.
+             * 
+             * Primero se calcula la cantidad de horas estudiante maximas que se le pueden asignar al estudiante. Se hace esto
+             * ya que el maximo de horas de este tipo es 12, por lo que con esto se sabe que nunca se le podra asignar más de 12.
+             * Luego, se calcula la cantidad total maxima de horas que se pueden asignar. Se hace esto, ya que el estudiante podria tener
+             * muchas horas asistente, por lo que debemos tomar esto en cuenta, ya que esto limita la cantidad de horas asignables.
+             * Por ultimo, se verifica que el sistema tenga horas suficientes, en caso que no, el maximo sera la cantidad de horas,
+             * que le quedan al sistema.
+             * 
+             * Despues de realizar esto, se debe tomar en cuenta las horas ya asignadas en la misma solictud. Por lo que estas se suman al 
+             * maximo ya que estas ya estan asignadas. Esto se hace asi, ya que si se cambia la cantidad de horas, se le "cae encima" al 
+             * dato anterior, por lo que al menos debe poder asignar las que ya tiene.
+             * 
+             * Siglas:
+             *  * HEE = Horas estudiante de la ECCI
+             *  * HED = Horas estudiante de DOCENCIA
+             *  * HAE = Horas asistente de la ECCI 
+             */ 
+            $totalAsignedHours = $student_asigned_hours['HAE'] + $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
+            $totalAsignedStudentHours =  $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
+            $student_max_hours['HEE'] = min(
+                                            12 - $totalAsignedStudentHours,
+                                            20 - $totalAsignedHours,
+                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                        ) + (array_key_exists('HEE', $student_asigned_hours_request) ? $student_asigned_hours_request['HEE'] : 0);
+
+                                        
+            $student_max_hours['HED'] = min(
+                                            12 - $totalAsignedStudentHours,
+                                            20 - $totalAsignedHours, 
+                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                        ) + (array_key_exists('HED', $student_asigned_hours_request) ? $student_asigned_hours_request['HED']:0);
+                                        
+            $student_max_hours['HAE'] = min(
+                                            20 - $totalAsignedHours, 
+                                            $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
+                                        ) + (array_key_exists('HAE', $student_asigned_hours_request) ? $student_asigned_hours_request['HAE']:0);      
             
             $hasAsignedHours = false;   
             if($student_asigned_hours['HED'] + $student_asigned_hours['HEE'] + $student_asigned_hours['HAE']){           
                 $hasAsignedHours =  true;
             }
-            debug($hasAsignedHours);
+
+            $this->set('student_asigned_hours_request', $student_asigned_hours_request);
             $this->set('hasAsignedHours', $hasAsignedHours);
             $this->set('student_max_hours', $student_max_hours);
             $this->set('default_indexf', $default_indexf);

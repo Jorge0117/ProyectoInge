@@ -563,11 +563,17 @@ $(document).ready(function(){
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
 			}
-			if('<?= $student_max_hours['HEE'] > 2 ?>'){
-				byId('student').value = 3;
-			}else{
+
+			<?php if(!array_key_exists('HEE', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
 				byId('student').value = 0;
-			}
+			}else{
+				byId('student').value = 3;
+			}	
+			<?php else: ?>
+			byId('student').value = <?= $student_asigned_hours_request['HEE'] ?>;
+			<?php endif; ?>
+
 			byId('student').disabled = false;
 			byId('student').focus();
 
@@ -611,11 +617,15 @@ $(document).ready(function(){
 				byId('assistant').disabled = true;
 			}
 
-			if('<?= $student_max_hours['HED'] > 2 ?>'){
-				byId('student').value = 3;
+			<?php if(!array_key_exists('HED', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
+				byId('studentD').value = 0;
 			}else{
-				byId('student').value = 0;
-			}
+				byId('studentD').value = 3;
+			}	
+			<?php else: ?>
+			byId('studentD').value = <?= $student_asigned_hours_request['HED'] ?>;
+			<?php endif; ?>
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
 
@@ -659,11 +669,16 @@ $(document).ready(function(){
 			
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
-			if('<?= $student_max_hours['HAE'] > 2 ?>'){
-				byId('student').value = 3;
+			
+			<?php if(!array_key_exists('HAE', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
+				byId('assistant').value = 0;
 			}else{
-				byId('student').value = 0;
-			}
+				byId('assistant').value = 3;
+			}	
+			<?php else: ?>
+			byId('assistant').value = <?= $student_asigned_hours_request['HAE'] ?>;
+			<?php endif; ?>
 			byId('hadLabel').style.visibility = 'visible';
 			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
