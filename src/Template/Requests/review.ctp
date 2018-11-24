@@ -563,7 +563,11 @@ $(document).ready(function(){
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
 			}
-			
+			if('<?= $student_max_hours['HEE'] > 2 ?>'){
+				byId('student').value = 3;
+			}else{
+				byId('student').value = 0;
+			}
 			byId('student').disabled = false;
 			byId('student').focus();
 
@@ -607,7 +611,11 @@ $(document).ready(function(){
 				byId('assistant').disabled = true;
 			}
 
-			
+			if('<?= $student_max_hours['HED'] > 2 ?>'){
+				byId('student').value = 3;
+			}else{
+				byId('student').value = 0;
+			}
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
 
@@ -651,7 +659,11 @@ $(document).ready(function(){
 			
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
-
+			if('<?= $student_max_hours['HAE'] > 2 ?>'){
+				byId('student').value = 3;
+			}else{
+				byId('student').value = 0;
+			}
 			byId('hadLabel').style.visibility = 'visible';
 			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
