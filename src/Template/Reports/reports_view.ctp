@@ -25,7 +25,7 @@ echo $this->Html->css('buttons');
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($report as $report): ?>
+            <?php foreach ($reports as $report): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
 				<td align = center><?= h($report->anno) ?></td>
 				<td align = center><?= h($report->semestre) ?></td>

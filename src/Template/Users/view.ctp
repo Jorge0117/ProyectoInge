@@ -41,64 +41,74 @@ th, td {
 
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-5">
         <h2>Datos personales</h2>
 
-        <table>
+        <table class="table">
+        <tbody>
           <tr>
-            <th>Cedula:</th>
+            <th scope="row">Cedula:</th>
             <td><?= h($user->identification_number) ?></td>
           </tr>
           <tr>
-            <th >Nombre:</th>
+            <th scope="row">Nombre:</th>
             <td><?= h($user->name) ?></td>
           </tr>
           <tr>
-            <th >Apellidos:</th>
-            <td><?= h($user->lastname1.''.$user->lastname2) ?></td>
+            <th scope="row">Apellidos:</th>
+            <td><?= h($user->lastname1.' '.$user->lastname2) ?></td>
           </tr>
           <tr>
-            <th>Teléfono:</th>
+            <th scope="row">Teléfono:</th>
             <td><?= h($user->phone) ?></td>
           </tr>
           <tr>
-            <th >Correo:</th>
+            <th scope="row">Correo:</th>
             <td><?= h($user->email_personal) ?></td>
           </tr>
-
+          <?php if ($user['role_id'] === 'Estudiante'): ?>
+            <th scope="row">Carné:</th>
+            <td><?= h(strtoupper($user->students[0]->carne)) ?></td>
+          <?php endif ?>
+        </tbody>
         </table>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-5 offset-md-2">
         <h2> Datos de seguridad</h2>
-        <table>
+        <table class="table">
+        <tbody>
         <tr>
-            <th >Nombre de usuario:</th>
+            <th scope="row">Nombre de usuario:</th>
             <td><?= h($user->username) ?></td>
           </tr>
           <tr>
-            <th >Rol:</th>
+            <th scope="row">Rol:</th>
             <td><?=  h($user->role->role_id) ?></td>
           </tr>
-
+        </tbody>
         </table>
     </div>
 </div>
-    <bt>
-    <div class="bottomright">
+<div class="row mt-5">
+    <div class="col" align="right">
+    <!-- <bt> -->
     <?php 
      echo $this->Html->link('Editar', ['action' => 'edit', $user->identification_number], array('class' => 'btn btn-primary')); 
      ?>
     <?php
-     echo $this->Form->postLink('Eliminar', ['action' => 'delete', $user->identification_number, 
-     'confirm' => __('¿Está seguro que desea eliminar el usuario {0}?', $user->name.' '.$user->lastname1)], 
-     array('class' => 'btn btn-primary')); 
+      if ($current_user['role_id'] === 'Administrador') {
+        echo $this->Form->postLink('Eliminar', ['action' => 'delete', $user->identification_number, 
+        'confirm' => __('¿Está seguro que desea eliminar el usuario {0}?', $user->name.' '.$user->lastname1)], 
+        array('class' => 'btn btn-primary'));
+      }
      ?>
     <?php 
         echo $this->Html->link('Cancelar', ['action' => 'index'], array('class' => 'btn btn-secondary')); 
     ?>
+    <!-- </bt> -->
     </div>
-    </bt>
+</div>
 </body>
 </html>
 

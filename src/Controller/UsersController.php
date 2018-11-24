@@ -21,7 +21,21 @@ class UsersController extends AppController
         parent::initialize();
         $this->Auth->allow('register');
     }
-    
+
+    public function isAuthorized($user)
+    {
+        // Cualquier usuario puede acceder a las acciones view y edit de su propio usuario
+        if (in_array($this->request->getParam('action'), ['view', 'edit'])) {
+            $user_id = (int)$this->request->getParam('pass.0');           
+            if ($user_id === (int)$user['identification_number']) {
+                return true;
+            }
+        }
+        
+        // Para otros casos usar el módulo de autorización
+        return parent::isAuthorized($user);
+    }
+
     /**
      * Index method
      *
@@ -117,6 +131,7 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        $valid_user = $this->Auth->identify();
         $SecurityCont = new SecurityController;
         if (isset($this->request->data['cancel'])) {
             //Volver a sign in
@@ -124,6 +139,7 @@ class UsersController extends AppController
         }
         if ($this->request->is('post')) {
             $username =  $this->request->getData('username');
+            //verificar que username exista en la base de datos
             $user->username= $username;
                 $pattern = "/\w\d{5}/";
                 //asigna rol segun el nombre de usuario
@@ -159,9 +175,6 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {   
-        //$Professors = new ProfessorsController;
-        //$AdministrativeBoss = new AdministrativeBossesController;
-        //$AdministrativeAssistant = new AdministrativeAssistantsController;
         $tableStudents = $this->loadModel('Students');
         $tableProfessors = $this->loadModel('Professors');
         $tableAdm = $this->loadModel('AdministrativeBosses');
@@ -177,6 +190,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
+        $rol_original = $user->role_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
             if (isset($this->request->data['cancel'])) {
                 return $this->redirect( array( 'action' => 'index' ));
@@ -184,12 +198,10 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $rol_actual = $user->role_id;
             $id = $user->identification_number;
+            
             if ($this->Users->save($user)) {
-                if($rol_actual === $rol_usuario){
-                    //do nothing
-                }else{
+                if($rol_actual != $rol_original){
                     //modifico el rol
-                    $rol_original = $rol_usuario;
                     
                     if($user->role_id === 'Administrador'){
                         $tableAdm->addBoss($id);
@@ -223,7 +235,7 @@ class UsersController extends AppController
                             if($rol_original === 'Asistente'){
                                 //roll anterior era asistente administrativo
                                 //se elimina de la tabla administrative_assistants
-                                $tableAs->deleteAssitant($id);
+                                $tableAs->deleteAssistant($id);
                             }else{
                                 if($rol_original === 'Estudiante'){
                                     //roll anterior era asistente administrativo
@@ -236,7 +248,11 @@ class UsersController extends AppController
                      
                 }
                 $this->Flash->success(__('Se modificó el usuario correctamente.'));
-                return $this->redirect(['action' => 'index']);
+                if($rol_usuario === 'Administrador'){
+                    return $this->redirect(['action' => 'index']);
+                }else{
+                    return $this->redirect(['action' => 'view', $user->identification_number]);
+                }
             }
             $this->Flash->error(__('No se pudo modificar el usuario.'));
         }
@@ -281,6 +297,17 @@ class UsersController extends AppController
 
         $userTable=$this->loadmodel('Users');
         return $userTable->getNameUser($id);
+    }
+	
+	   public function getContactInfo ($id) {
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getContactInfo($id);
+    }
+	
+	//Obtiene toda la información de un usuario según su id
+	public function getStudentInfo ($id) {
+        $userTable=$this->loadmodel('Users');
+        return $userTable->getStudentInfo($id);
     }
     
 

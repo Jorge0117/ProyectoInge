@@ -3,7 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
-echo $this->Html->css('buttons');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
@@ -15,7 +14,7 @@ echo $this->Html->css('buttons');
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
@@ -30,21 +29,22 @@ echo $this->Html->css('buttons');
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
 				<td align = center><?= h($studentRequests->anno) ?></td>
 				<td align = center><?= h($studentRequests->semestre) ?></td>
-                <td align = center><?= h($studentRequests->curso)  ?></td>
+                <td align = left><?= h($studentRequests->curso . " - " . $studentRequests->course_name)  ?></td>
 				<td align = center><?= h($studentRequests->grupo) ?></td>
 				<td align = center><?= h($ProfessorName) ?></td>
 				<td align = center><?= h($studentRequests->hour_ammount) ?></td>
 				<td align = center><?= h($studentRequests->tipo_hora) ?></td>
 
-				<td class="actions">
-                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id], ['escape'=>false]) ?>
+					<td class="actions" align = center>
+						<?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $studentRequests->id, 'studentRequests', 'Reports'], ['escape'=>false]) ?>
 
-                </td>
-                
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+					</td>
+					
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script type="text/javascript">
