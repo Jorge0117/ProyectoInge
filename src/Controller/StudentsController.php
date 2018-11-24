@@ -118,4 +118,27 @@ class StudentsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Modifica el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @param Float $average Ponderado del estudiante
+     * @return Bool Verdadero si se completo correctamente, falso en otro caso.
+     */
+    public function saveAverage($id, $average){
+        return $this->Students->saveAverage($id, $average);
+    }
+
+    /**
+     * Retorna el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @return float Ponderado del estudiante, 0 si no se la ha asignado uno.
+     */
+    public function getAverage($id){
+        return floatval($this->Students->getAverage($id));
+    }
 }

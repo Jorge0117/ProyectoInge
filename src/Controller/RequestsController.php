@@ -467,7 +467,8 @@ class RequestsController extends AppController
 
         // Etapa de la solicitud
         $request_stage = $request->stage;
-        $request_ponderado = $request->average;
+        $student_c = new StudentsController;
+        $request_ponderado = $student_c->getAverage($request->student_id);
         $this->set(compact('request_stage', 'request_ponderado'));
 
         //--------------------------------------------------------------------------
@@ -735,12 +736,14 @@ class RequestsController extends AppController
                     }
                 }
 
-                // Se muestra un mensaje informando si la transacción se completo o no. Tambie se actualiza en
+
+                // Se muestra un mensaje informando si la transacción se completo o no. Tambien se actualiza en
                 // etapa se encuentra la solicitud
                 $request_reviewed = $this->Requests->get($id);
                 $request_reviewed->stage = 2;
-                $request_reviewed->average = $data['ponderado'];
-                if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
+                
+                $student_c = new StudentsController;
+                if ($requirements_review_completed && $this->Requests->save($request_reviewed) && $student_c->saveAverage($request->student_id, floatval($data['ponderado']))) {
 
                     $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
                     (new RoundsController)->updateGlobal();// actualiza los datos de rondas
