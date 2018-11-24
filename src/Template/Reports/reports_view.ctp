@@ -40,8 +40,11 @@ echo $this->Html->css('buttons');
             <?php endforeach; ?>
         </tbody>
     </table>
+	<?= $this->Form->create('report') ?>
+	<?php echo $this->Form->button(__('Generar Reporte'),['class'=>'btn-aceptar']) ?>
+	
 </div>
-
+    <?= $this->Form->end() ?>
 <script type="text/javascript">
 	$(document).ready( function () {
     	$("#datagridUsers").DataTable(

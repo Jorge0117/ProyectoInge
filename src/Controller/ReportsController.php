@@ -120,20 +120,20 @@ class ReportsController extends AppController
         ]);
 
         
-        //$this->createExcel();
+        $this->createExcel($report);
 		
 		}
 		$this->set(compact('report'));
            
     }
 
-    public function createExcel(){
+    public function createExcel($reports){
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
         $ronda_actual = $roundData["start_date"];
-        $reports = $table->find('all', [
+       /* $reports = $table->find('all', [
             'conditions' => ['inicio' => $ronda_actual],
-        ]);
+        ]);*/
         
         //Se crea archivo excel
         $spreadsheet = new Spreadsheet();
