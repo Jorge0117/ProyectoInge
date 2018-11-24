@@ -107,7 +107,7 @@ class ReportsController extends AppController
 		
 		if ($this->request->is('post')){
 			//Poner aqui lo del excel
-        }
+        
 
         $table = $this->loadModel('InfoRequests');
         //$rounds = $this->loadModel('Rounds');
@@ -119,8 +119,11 @@ class ReportsController extends AppController
             'conditions' => ['inicio' => $ronda_actual],
         ]);
 
-        $this->set(compact('reports'));
-        $this->createExcel();
+        
+        //$this->createExcel();
+		
+		}
+		$this->set(compact('report'));
            
     }
 

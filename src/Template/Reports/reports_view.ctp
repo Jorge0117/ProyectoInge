@@ -25,15 +25,15 @@ echo $this->Html->css('buttons');
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($reports as $report): ?>
+            <?php foreach ($report as $r): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
-				<td align = center><?= h($report->anno) ?></td>
-				<td align = center><?= h($report->semestre) ?></td>
-                <td align = center><?= h($report->curso)  ?></td>
-				<td align = center><?= h($report->grupo) ?></td>
-				<td align = center><?= h($report->id_prof) ?></td>
-				<td align = center><?= h($report->hour_ammount) ?></td>
-				<td align = center><?= h($report->tipo_hora) ?></td>
+				<td align = center><?= h($r->anno) ?></td>
+				<td align = center><?= h($r->semestre) ?></td>
+                <td align = center><?= h($r->curso)  ?></td>
+				<td align = center><?= h($r->grupo) ?></td>
+				<td align = center><?= h($r->id_prof) ?></td>
+				<td align = center><?= h($r->hour_ammount) ?></td>
+				<td align = center><?= h($r->tipo_hora) ?></td>
 
                 
             </tr>

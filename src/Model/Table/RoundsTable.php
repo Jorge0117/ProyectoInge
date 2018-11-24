@@ -152,7 +152,7 @@ public function getRoundKey($round,$semester,$year){
 		 WHERE round_number = '$round' AND semester = '$semester' AND year = '$year' "
     )->fetchAll();
     return $query;
-
+}
     public function getStartActualRound(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("SELECT max(start_date) from rounds;")->fetchAll();
