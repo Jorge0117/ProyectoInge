@@ -1,13 +1,7 @@
 <style>
 	.btn-space {
         margin-right: 3px;
-        margin-leftt: 3px;
-    }
-
-	.form-section{
-        background-color: #e4e4e4;
-        padding: 2%;
-        margin: 2%;
+        margin-left: 3px;
     }
 </style>
 <div class='form-size container'>
@@ -85,6 +79,22 @@
 		<?= $this->Form->end() ?>
 	</div>
 
+	<?php if($anulada): ?>
+		<div class="requests form large-9 medium-8 columns content form-section">
+		<?= $this->Form->create(false) ?>
+		<fieldset>
+			<legend><?= __('Solicitud anulada') ?></legend>
+			<?php
+				echo $this->Form->control('Motivo: ', array('value' => $justificacion, 'disabled'));
+				echo $this->Form->control('motivo', ['label'=>['text'=>'Motivo:'], 'value' => $justificacion, 'disabled'=> true]);
+
+			?>
+		</fieldset>
+		
+		<?= $this->Form->end() ?>
+		</div>
+	<?php endif; ?>
+
 	<?php if($load_requirements_review): ?>
 		<div class="requests view large-9 medium-8 columns content form-section">
 			<?= $this->Form->create(false) ?>
@@ -105,7 +115,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado verificado:'],'type'=>'float', 'value' => $request_ponderado, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
@@ -345,7 +355,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'student',
 										'type'=>'number',
-										'min' => $student_max_hours['HEE'] < 3? 0:3,
+										'min' => $student_max_hours['HEE'] < 3 || $hasAsignedHours? 0:3,
 										'max' => $student_max_hours['HEE'],
 										'label' => false,
 										'disabled'
@@ -377,7 +387,7 @@
 									<?= $this->Form->control('hours',[
 										'id'=>'studentD',
 										'type'=>'number',
-										'min' => $student_max_hours['HED'] < 3? 0:3,
+										'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
 										'max' => $student_max_hours['HED'],
 										'label' => false,
 										'disabled'
@@ -409,7 +419,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => $student_max_hours['HED'] < 3? 0:3,
+									'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
@@ -563,11 +573,17 @@ $(document).ready(function(){
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
 			}
-			if('<?= $student_max_hours['HEE'] > 2 ?>'){
-				byId('student').value = 3;
-			}else{
+
+			<?php if(!array_key_exists('HEE', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
 				byId('student').value = 0;
-			}
+			}else{
+				byId('student').value = 3;
+			}	
+			<?php else: ?>
+			byId('student').value = <?= $student_asigned_hours_request['HEE'] ?>;
+			<?php endif; ?>
+
 			byId('student').disabled = false;
 			byId('student').focus();
 
@@ -611,11 +627,15 @@ $(document).ready(function(){
 				byId('assistant').disabled = true;
 			}
 
-			if('<?= $student_max_hours['HED'] > 2 ?>'){
-				byId('studentD').value = 3;
-			}else{
+			<?php if(!array_key_exists('HED', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
 				byId('studentD').value = 0;
-			}
+			}else{
+				byId('studentD').value = 3;
+			}	
+			<?php else: ?>
+			byId('studentD').value = <?= $student_asigned_hours_request['HED'] ?>;
+			<?php endif; ?>
 			byId('studentD').disabled = false;
 			byId('studentD').focus();
 
@@ -656,14 +676,19 @@ $(document).ready(function(){
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $student_max_hours['HAE'] > 2 ?>'){
-				byId('assistant').value = 3;
-			}else{
-				byId('assistant').value = 0;
-			}
+			
 			byId('assistant').disabled = false;
 			byId('assistant').focus();
-
+			
+			<?php if(!array_key_exists('HAE', $student_asigned_hours_request)): ?>
+			if('<?= $hasAsignedHours?>'){
+				byId('assistant').value = 0;
+			}else{
+				byId('assistant').value = 3;
+			}	
+			<?php else: ?>
+			byId('assistant').value = <?= $student_asigned_hours_request['HAE'] ?>;
+			<?php endif; ?>
 			byId('hadLabel').style.visibility = 'visible';
 			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';

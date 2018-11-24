@@ -49,6 +49,7 @@ class RequestsController extends AppController
      */
     public function index()
     {
+
         $table = $this->loadModel('InfoRequests');
         //$rounds = $this->loadModel('Rounds');
         $roundData = $this->viewVars['roundData'];
@@ -426,7 +427,7 @@ class RequestsController extends AppController
     /**
      * Se encarga de la logica de la revision de solicitudes. Se divide en la cuatro etapas de la revisión.
      *
-     *
+     * @author Kevin Jiménez <kevinja9608@gmail.com> 
      * @param String $id Identificador de la solicitud
      * @return void
      */
@@ -434,6 +435,7 @@ class RequestsController extends AppController
     {
         $this->set('id', $id);
         $this->loadModel('ApprovedRequests');
+        $this->loadModel('CanceledRequests');
         $roundData = $this->viewVars['roundData'];
 
         //--------------------------------------------------------------------------
@@ -467,20 +469,31 @@ class RequestsController extends AppController
 
         // Etapa de la solicitud
         $request_stage = $request->stage;
-        $request_ponderado = $request->average;
+        $student_c = new StudentsController;
+        $request_ponderado = $student_c->getAverage($request->student_id);
         $this->set(compact('request_stage', 'request_ponderado'));
 
         //--------------------------------------------------------------------------
+        // Kevin
         // Etapa Revision de requisitos
         // Se le indica a la vista que cargue la parte de revisión de requisitos
         if ($role_c->is_Authorized($user['role_id'], $module, $action . 'Requirements') && $request_stage > 0) {
-            // Se le indica a la vista que debe cargar la parte de revision de requisitos
-            $load_requirements_review = true;
-
-            // Se cargan a la vista los requisitos de esta solicitud en especifico
-            $requirements = $this->Requirements->getRequestRequirements($id);
-            $requirements['stage'] = $request->stage;
-            $this->set(compact('requirements'));
+            // Valeria
+            if($request->status === 'x'){
+                // la solicitud esta anulada
+                $anulada = true;
+                $justificacion = $this->CanceledRequests->getJustification($id);
+                $this->set(compact('anulada', 'justificacion'));
+                //termina Valeria
+            }else{
+                // Se le indica a la vista que debe cargar la parte de revision de requisitos
+                $load_requirements_review = true;
+        
+                // Se cargan a la vista los requisitos de esta solicitud en especifico
+                $requirements = $this->Requirements->getRequestRequirements($id);
+                $requirements['stage'] = $request->stage;
+                $this->set(compact('requirements'));
+            }
         }
         $this->set(compact('load_requirements_review'));
 
@@ -571,30 +584,55 @@ class RequestsController extends AppController
              */
             $student_asigned_hours = $this->ApprovedRequests->getAsignedHours($request->student_id);
             $student_asigned_hours_request = $this->ApprovedRequests->getThisRequestAsignedHours($id);
+
+
+            /*
+             * Kevin
+             * Se crea un array con la maxima cantidad de horas de cada tipo que se le pueden asignar a un estudiante.
+             * 
+             * Primero se calcula la cantidad de horas estudiante maximas que se le pueden asignar al estudiante. Se hace esto
+             * ya que el maximo de horas de este tipo es 12, por lo que con esto se sabe que nunca se le podra asignar más de 12.
+             * Luego, se calcula la cantidad total maxima de horas que se pueden asignar. Se hace esto, ya que el estudiante podria tener
+             * muchas horas asistente, por lo que debemos tomar esto en cuenta, ya que esto limita la cantidad de horas asignables.
+             * Por ultimo, se verifica que el sistema tenga horas suficientes, en caso que no, el maximo sera la cantidad de horas,
+             * que le quedan al sistema.
+             * 
+             * Despues de realizar esto, se debe tomar en cuenta las horas ya asignadas en la misma solictud. Por lo que estas se suman al 
+             * maximo ya que estas ya estan asignadas. Esto se hace asi, ya que si se cambia la cantidad de horas, se le "cae encima" al 
+             * dato anterior, por lo que al menos debe poder asignar las que ya tiene.
+             * 
+             * Siglas:
+             *  * HEE = Horas estudiante de la ECCI
+             *  * HED = Horas estudiante de DOCENCIA
+             *  * HAE = Horas asistente de la ECCI 
+             */ 
+            $totalAsignedHours = $student_asigned_hours['HAE'] + $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
+            $totalAsignedStudentHours =  $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
+            $student_max_hours['HEE'] = min(
+                                            12 - $totalAsignedStudentHours,
+                                            20 - $totalAsignedHours,
+                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                        ) + (array_key_exists('HEE', $student_asigned_hours_request) ? $student_asigned_hours_request['HEE'] : 0);
+
+                                        
+            $student_max_hours['HED'] = min(
+                                            12 - $totalAsignedStudentHours,
+                                            20 - $totalAsignedHours, 
+                                            $roundData['total_student_hours'] - $roundData['actual_student_hours']
+                                        ) + (array_key_exists('HED', $student_asigned_hours_request) ? $student_asigned_hours_request['HED']:0);
+                                        
+            $student_max_hours['HAE'] = min(
+                                            20 - $totalAsignedHours, 
+                                            $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
+                                        ) + (array_key_exists('HAE', $student_asigned_hours_request) ? $student_asigned_hours_request['HAE']:0);      
             
-            $student_max_hours['HEE'] = max(
-                                            array_key_exists('HEE', $student_asigned_hours_request)? $student_asigned_hours_request['HEE']:0, 
-                                            min(
-                                                12 - $student_asigned_hours['HED'] - $student_asigned_hours['HEE'],
-                                                20  - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
-                                            )
-                                        );
-            $student_max_hours['HED'] = max(
-                                            array_key_exists('HED', $student_asigned_hours_request)? $student_asigned_hours_request['HED']:0, 
-                                            min(
-                                                 12 - $student_asigned_hours['HED']- $student_asigned_hours['HEE'],
-                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_student_hours'] - $roundData['actual_student_hours']
-                                            )
-                                        );
-            $student_max_hours['HAE'] = max(
-                                            array_key_exists('HAE', $student_asigned_hours_request)? $student_asigned_hours_request['HAE']:0,
-                                            min(
-                                                20 - $student_asigned_hours['HEE'] - $student_asigned_hours['HED'] - $student_asigned_hours['HAE'], 
-                                                $roundData['total_assistant_hours'] - $roundData['actual_assistant_hours']
-                                            )
-                                        );
+            $hasAsignedHours = false;   
+            if($student_asigned_hours['HED'] + $student_asigned_hours['HEE'] + $student_asigned_hours['HAE']){           
+                $hasAsignedHours =  true;
+            }
+
+            $this->set('student_asigned_hours_request', $student_asigned_hours_request);
+            $this->set('hasAsignedHours', $hasAsignedHours);
             $this->set('student_max_hours', $student_max_hours);
             $this->set('default_indexf', $default_indexf);
             $this->set('hourTypeAsignableb', $hourTypeAsignableb);
@@ -709,12 +747,14 @@ class RequestsController extends AppController
                     }
                 }
 
-                // Se muestra un mensaje informando si la transacción se completo o no. Tambie se actualiza en
+
+                // Se muestra un mensaje informando si la transacción se completo o no. Tambien se actualiza en
                 // etapa se encuentra la solicitud
                 $request_reviewed = $this->Requests->get($id);
                 $request_reviewed->stage = 2;
-                $request_reviewed->average = $data['ponderado'];
-                if ($requirements_review_completed && $this->Requests->save($request_reviewed)) {
+                
+                $student_c = new StudentsController;
+                if ($requirements_review_completed && $this->Requests->save($request_reviewed) && $student_c->saveAverage($request->student_id, floatval($data['ponderado']))) {
 
                     $this->Requests->updateRequestStatus($id, 'p'); //llama al metodo para actualizar el estado
                     (new RoundsController)->updateGlobal();// actualiza los datos de rondas
@@ -893,6 +933,24 @@ class RequestsController extends AppController
     {
         debug("xdxd");
         //die();
+    }
+
+    //Empieza jorge
+
+    public function cancelRequest($id, $just){
+        $cancelTable=$this->loadmodel('CanceledRequests');
+        $result = $cancelTable->cancelRequest($id, $just);
+        $request = $this->Requests->get($id);
+
+        if($result){
+            $request->stage = 1;
+            $this->Requests->setRequestScope($id, 'x');
+            $this->Flash->success(__('Se anuló la solicitud correctamente.'));
+        }else{
+            $this->Flash->error(__('Error: no se pudo anular la solicitud.'));
+        }
+        
+        return $this->redirect(['action' => 'index']);
     }
 
 }
