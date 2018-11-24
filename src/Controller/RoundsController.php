@@ -29,14 +29,16 @@ class RoundsController extends AppController
         }
         $this->set(compact('round'));
         $roundData = $this->viewVars['roundData'];
-        $this->displayWarning(
-            $roundData['total_student_hours'],
-            $roundData['total_student_hours_d'],
-            $roundData['total_assistant_hours'],
-            $roundData['actual_student_hours'],
-            $roundData['actual_student_hours_d'],
-            $roundData['actual_assistant_hours']
-        );
+        if($roundData){
+            $this->displayWarning(
+                $roundData['total_student_hours'],
+                $roundData['total_student_hours_d'],
+                $roundData['total_assistant_hours'],
+                $roundData['actual_student_hours'],
+                $roundData['actual_student_hours_d'],
+                $roundData['actual_assistant_hours']
+            );
+        }
     }
     
     /**
@@ -46,7 +48,10 @@ class RoundsController extends AppController
      * @return null
      */
     public function add($data = null){
-            $roundData = $this->viewVars['roundData'];
+        $role_c = new RolesController;
+        $user = $this->Auth->user();
+        $roundData = $this->viewVars['roundData'];
+        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add') && $roundData){
             $start = $this->mirrorDate($data['start_date']);
             $end = $this->mirrorDate($data['end_date']);
             $tsh = $data['total_student_hours'];
@@ -67,7 +72,7 @@ class RoundsController extends AppController
                 $this->updateGlobal();
                 $this->Flash->success(__('Se agregó la ronda correctamente.'));
             }
-        
+        }
     }
 
     /**
@@ -78,7 +83,7 @@ class RoundsController extends AppController
      */
     public function edit($data = null){
         $role_c = new RolesController;
-
+        $user = $this->Auth->user();
         if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'edit')){
             $roundData = $this->viewVars['roundData'];
             $start = $this->mirrorDate($data['start_date']);
@@ -101,6 +106,9 @@ class RoundsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null){
+        $role_c = new RolesController;
+        $user = $this->Auth->user();
+        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'delete')){
             $date = $this->mirrorDate($id);
             $this->request->allowMethod(['post', 'delete']);
             $round = $this->Rounds->get($date);
@@ -126,7 +134,7 @@ class RoundsController extends AppController
                 $this->Flash->error(__('Error: no se logró borrar la ronda, debido a que ya se le ha dado inicio, puede proceder a editarla.'));
             }
             return $this->redirect(['action' => 'index']);
-    
+        }
     }
 
     // Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
