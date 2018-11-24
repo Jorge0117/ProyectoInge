@@ -160,6 +160,8 @@ $(document).ready( function () {
         byId('tahData').style.display = "table-cell";
         byId('tahData').value = 0;
     }else{
+        byId('start-date').disabled = true;
+        byId('end-date').disabled = true;
         // Comentar bloque para poder agregar una ronda.
         // Si hay una ronda activa, no se pueden agregar rondas.
         // Una ronda activa es aquella en la que su último día es mayor a hoy.
@@ -213,8 +215,8 @@ function sensitiveRange(first){
         }        
         calendar.setSensitiveRange(min,max);
     }else{// end_date
-        var min = byId('start-date').value
-        if(compareDates(min,today) < 0) min = today;  //Para poder cerrar la ronda sin eliminarla
+        var min = byId('end-date').value
+        if(compareDates(min,today) < 0) min = today;
         var max = null;
         if(last){
             if(last['semester'] == 'I') max = '30-06-';                              //primer semestre
@@ -255,6 +257,9 @@ calendar.attachEvent("onClick", function(date){
                 byId('total-student-hours').value = 0;
                 byId('total-student-hours-d').value = 0;
                 byId('total-assistant-hours').value = 0;
+                byId('total-student-hours').min = 0;
+                byId('total-student-hours-d').min = 0;
+                byId('total-assistant-hours').min = 0;
             }else{
                 byId('total-student-hours').value = last['total_student_hours']-last['actual_student_hours'];
                 byId('total-student-hours-d').value = last['total_student_hours_d']-last['actual_student_hours_d'];
