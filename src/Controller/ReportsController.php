@@ -109,7 +109,7 @@ class ReportsController extends AppController
 			//Poner aqui lo del excel
         
 
-        $table = $this->loadModel('InfoRequests');
+       /* $table = $this->loadModel('InfoRequests');
         //$rounds = $this->loadModel('Rounds');
         $roundData = $this->viewVars['roundData'];
         //$ronda_actual = $rounds->getStartActualRound();
@@ -118,22 +118,102 @@ class ReportsController extends AppController
         $reports = $table->find('all', [
             'conditions' => ['inicio' => $ronda_actual],
         ]);
+*/
 
-        
-        $this->createExcel($report);
+		switch($tipo)
+		{
+			case 1:
+				$this->createExcelApproved($report);
+				break;
+		}
 		
 		}
 		$this->set(compact('report'));
            
     }
-
-    public function createExcel($reports){
+	
+	public function createExcelApproved($reports){
+		
+		/*
+		Carné | Curso | Sigla | Grupo | Ronda | Profesor |  H.A. | H.E. | Semestre |
+		*/
+		
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
         $ronda_actual = $roundData["start_date"];
-       /* $reports = $table->find('all', [
+        $reports = $table->find('all', [
             'conditions' => ['inicio' => $ronda_actual],
-        ]);*/
+        ]);
+        
+        //Se crea archivo excel
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        //Se ponen los títulos de las columnas
+        $headerRow = array("Carné","Curso","Sigla","Grupo","Ronda","Profesor","H.A","H.E","Semestre");
+        $sheet->fromArray([$headerRow], NULL, 'A1');
+        $user= new UsersController;
+        
+        //Se llena el excel con solicitudes
+        $cantidad = 1;
+        $row = 2; 
+        //Por ahora, sólo se están poniendo estos datos
+        foreach ($reports as $report){
+            $col = 1;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->carne);
+            $col++;
+            //$sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
+			$sheet->setCellValueByColumnAndRow($col, $row, "No esta en la vista");
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->sigla);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->grupo);
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, $report->ronda);
+			$col++;
+		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report->id_prof)); //Esto no me gusta
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, "Poner aqui las HA");
+			$col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, "Poner aqui las HE");
+			$col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report->semestre);
+            $row++;
+            $cantidad++;
+        }
+        //Formato del excel
+        $sheet->getPageSetup()
+        ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $sheet->getPageSetup()
+        ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+        $sheet->setShowGridlines(true);
+        //Se establece el ancho de las celdas
+        $sheet->getDefaultColumnDimension()->setWidth(15);
+        //Se centra el texto
+        $sheet->getStyle('A1:I'.$cantidad)
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        //Cambia color de celdas de cabecera
+        $sheet->getStyle('A1:I1')->getFill()
+        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('FFFF0000');
+        $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
+        
+        //Descarga el archivo excel
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. "Reporte Historico Aceptados" .'.xls"'); /*-- $filename is  xsl filename ---*/
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+    }
+
+    public function createExcel(){
+        $table = $this->loadModel('InfoRequests');
+        $roundData = $this->viewVars['roundData'];
+        $ronda_actual = $roundData["start_date"];
+        $reports = $table->find('all', [
+            'conditions' => ['inicio' => $ronda_actual],
+        ]);
         
         //Se crea archivo excel
         $spreadsheet = new Spreadsheet();
