@@ -114,7 +114,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio ponderado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante

@@ -473,6 +473,7 @@ class RequestsController extends AppController
         $request_ponderado = $student_c->getAverage($request->student_id);
         $this->set(compact('request_stage', 'request_ponderado'));
 
+        $anulada = false;
         //--------------------------------------------------------------------------
         // Kevin
         // Etapa Revision de requisitos
@@ -492,7 +493,7 @@ class RequestsController extends AppController
                 // Se cargan a la vista los requisitos de esta solicitud en especifico
                 $requirements = $this->Requirements->getRequestRequirements($id);
                 $requirements['stage'] = $request->stage;
-                $this->set(compact('requirements'));
+                $this->set(compact('requirements', 'anulada'));
             }
         }
         $this->set(compact('load_requirements_review'));
