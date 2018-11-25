@@ -11,29 +11,45 @@ echo $this->Html->css('buttons');
  
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Reporte de solicitudes ' . $titulo) ?></h3>
-    <table cellpadding="0" cellspacing="0" id= datagridUsers> 
+    <table cellpadding="0" cellspacing="0" id="datagridReports"> 
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Sigla') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
-				<th scope="col"><?= $this->Paginator->sort('Cantidad de horas') ?></th>
-				<th scope="col"><?= $this->Paginator->sort('Tipo de horas') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
+				
+				<?php if($horas == 1): ?>
+				<th scope="col"><?= $this->Paginator->sort('H.A') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('H.E') ?></th>
                 
+				<?php endif ?>
+
+				<?php if($imprimirEstado == 1): ?>
+					<th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
+				<?php endif?>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($report as $r): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
-				<td align = center><?= h($r->anno) ?></td>
-				<td align = center><?= h($r->semestre) ?></td>
-                <td align = center><?= h($r->curso)  ?></td>
-				<td align = center><?= h($r->grupo) ?></td>
-				<td align = center><?= h($r->id_prof) ?></td>
-				<td align = center><?= h($r->hour_ammount) ?></td>
-				<td align = center><?= h($r->tipo_hora) ?></td>
+				<td><?= h($r->curso) ?></td>
+				<td><?= h($r->curso) ?></td>
+                <td><?= h($r->grupo)  ?></td>
+				<td><?= h($r->id_prof) ?></td>
+				<td><?= h($r->carne) ?></td>
+				<td><?= h($r->nombre) ?></td>
+				<?php if($horas == 1): ?>
+				
+				<td><?= h($r->hour_ammount) ?></td>
+				<td><?= h($r->tipo_hora) ?></td>
+				<?php endif ?>
+				
+				<?php if($imprimirEstado == 1): ?>
+					<td><?= h($r->Estado) ?></td>
+				<?php endif?>
 
                 
             </tr>
@@ -47,7 +63,7 @@ echo $this->Html->css('buttons');
     <?= $this->Form->end() ?>
 <script type="text/javascript">
 	$(document).ready( function () {
-    	$("#datagridUsers").DataTable(
+    	$("#datagridReports").DataTable(
       	{
         	/** Configuración del DataTable para cambiar el idioma, se puede personalisar aun más **/
         	"language": {

@@ -81,6 +81,8 @@ class ReportsController extends AppController
 		$llave_ronda = '\'' . $report[0] .'\'';		
 		$tipo = $report[1];
 		$aprobadas = 0;
+		$horas = 0;
+		$imprimirEstado = 0;
 		//Se basa en el tipo paraelegir que parametro realizar
 		switch($tipo)
 		{
@@ -91,6 +93,7 @@ class ReportsController extends AppController
                 $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
 				$titulo = 'aprobadas';
 				//$report = $this->Reports->getApprovedByRound($llave_ronda);
+				$horas = 1;
 				break;
 			case 2:
 				//Imprime elegibles rechazados
@@ -106,6 +109,12 @@ class ReportsController extends AppController
                 $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
 				$titulo = 'no elegibles';
 				break;
+			case 4:
+				//Imprime resultados de una ronda
+				$table = $this->loadModel('info_requests');  
+                $report= $table->find()->where(['inicio = ' . $llave_ronda]);
+				$titulo = '';
+				$imprimirEstado = 1;
 		}
 		
 		if ($this->request->is('post')){
@@ -132,7 +141,7 @@ class ReportsController extends AppController
 		
 		}//Fin del post
 		
-		$this->set(compact('report','titulo'));
+		$this->set(compact('report','titulo','horas','estado','imprimirEstado'));
            
     }
 	
@@ -301,6 +310,11 @@ class ReportsController extends AppController
 			   if ($data['report_type'] = 'No elegibles' ){
 
 					 $parametro = $round_key . 't' . '3';				 
+					 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $parametro]);		   
+			   }
+			   if ($data['report_type'] = 'Resultados' ){
+
+					 $parametro = $round_key . 't' . '4';				 
 					 return $this->redirect(['controller' => 'Reports', 'action' => 'reports_view', $parametro]);		   
 			   }
 	   }//Fin round_key != nulo
