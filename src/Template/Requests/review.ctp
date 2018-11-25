@@ -6,6 +6,7 @@
 </style>
 <div class='form-size container'>
 	<div class="requests view large-9 medium-8 columns content">
+		<h3 id='title' > Revisión de la solicitud número <?= $id ?> </h3>
 		<?= $this->Form->create($request)?>
 		<div id="divEstudiante" class="form-section">
 		<legend> Datos del estudiante </legend>
