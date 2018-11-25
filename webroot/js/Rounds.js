@@ -201,9 +201,9 @@ function start(flag){
     byId('total-assistant-hours').readOnly = false;
     
     // Esconde botones de acción
-    byId('edit').style.display = "none";
-    byId('add').style.display = "none"
-    if(flag == '1')byId('delete').style.display = "none";
+    byId('edit').style.visibility = "hidden";
+    byId('add').style.visibility = "hidden"
+    if(flag == '1')byId('delete').style.visibility = 'hidden';
     
     // Muestra Botones del form
     if(roundData){
@@ -297,10 +297,10 @@ function cancel() {
     byId('total-assistant-hours').value = roundData['total_assistant_hours'];
     byId('flag').value = "0";
     //Botones de Acción
-    byId('delete').style.display = "table-cell";
-    byId('edit').style.display = "table-cell";
+    byId('delete').style.visibility = 'visible';
+    byId('edit').style.visibility = "visible";
     //if(compareDates(roundData['end_date'],getToday())<0){ DESCOMENTAR CUANDO AÑADIR RONDA DEJE DE SER PROBADO
-        byId('add').style.display = "table-cell";
+        byId('add').style.visibility = "visible";
     //}
     // Botones del formulario
     byId('cancelar').style.display = "none";
