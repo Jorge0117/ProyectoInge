@@ -20,6 +20,7 @@ class RoundsHelper extends Helper
 
     // devuelve la ultima tupla con el formato de fechas correcto.
     public function getLastRow() {
+        
         $last = (new RoundsTable)->getLastRow();
         if($last != null){
             $last['start_date'] = $this->YmdtodmY($last['start_date']);
@@ -30,6 +31,7 @@ class RoundsHelper extends Helper
     }
 
     public function getPenultimateRow(){
+        
         $penultimate = (new RoundsTable)->getPenultimateRow();
         if($penultimate != null){
             $penultimate['start_date'] = $this->YmdtodmY($penultimate['start_date']);
@@ -40,14 +42,17 @@ class RoundsHelper extends Helper
     }
 
     public function YmdtodmY($date){
+        $n = strlen($date);
         $j = $i = 0;
-        while($date[$i] != '/' && $date[$i] != '-')$i++;
+        while($date[$i] != '/' && $date[$i] != '-' && $i < $n)$i++;
         $first = substr($date,$j,$i++);
-        $j = $i;$i = 0;
-        while($date[$j+$i] != '/' && $date[$j+$i] != '-')$i++;
+        $j = $i; $i = 0;
+        while($date[$j+$i] != '/' && $date[$j+$i] != '-' && $i < $n)$i++;
         $second = substr($date,$j,$i++);
         $third = substr($date,$j+$i);
-        return $third . "-" . $second . "-" . $first;
+        $result = $third . "-" . $second . "-" . $first;
+
+        return $result;
     }
 
     //devuelve el día actual.
