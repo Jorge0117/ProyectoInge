@@ -14,6 +14,7 @@ echo $this->Html->css('buttons');
     <table cellpadding="0" cellspacing="0" id="datagridReports"> 
         <thead>
             <tr>
+				
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Sigla') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
@@ -22,33 +23,65 @@ echo $this->Html->css('buttons');
 				<th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
 				
 				<?php if($horas == 1): ?>
-				<th scope="col"><?= $this->Paginator->sort('H.A') ?></th>
-				<th scope="col"><?= $this->Paginator->sort('H.E') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('Tipo hora') ?></th>
+				<th scope="col"><?= $this->Paginator->sort('Cantidad') ?></th>
                 
 				<?php endif ?>
 
 				<?php if($imprimirEstado == 1): ?>
 					<th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-				<?php endif?>
+				<?php endif?>	
             </tr>
         </thead>
         <tbody>
             <?php foreach ($report as $r): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
-				<td><?= h($r->curso) ?></td>
-				<td><?= h($r->curso) ?></td>
-                <td><?= h($r->grupo)  ?></td>
-				<td><?= h($r->id_prof) ?></td>
-				<td><?= h($r->carne) ?></td>
-				<td><?= h($r->nombre) ?></td>
+				<td><?= h($r['curso']) ?></td>
+				<td><?= h($r['curso']) ?></td>
+                <td><?= h($r['grupo'])  ?></td>
+				<td><?= h($r['id_prof']) ?></td>
+				<td><?= h($r['carne']) ?></td>
+				<td><?= h($r['nombre']) ?></td>
 				<?php if($horas == 1): ?>
 				
-				<td><?= h($r->hour_ammount) ?></td>
-				<td><?= h($r->tipo_hora) ?></td>
+				<td><?= h($r['hour_type']) ?></td>
+				<td><?= h($r['hour_ammount']) ?></td>
 				<?php endif ?>
 				
 				<?php if($imprimirEstado == 1): ?>
-					<td><?= h($r->Estado) ?></td>
+				
+                <?php if ($r['estado'] === 'p'): ?>
+                    <td> Pendiente </td>
+				<?php else: ?>
+                    <?php if ($r['estado'] === 'a'): ?>
+                        <td> Aceptada </td>
+                    <?php else: ?>
+                        <?php if ($r['estado'] === 'e'): ?>
+                            <td> Elegible </td>
+                        <?php else: ?>
+                            <?php if ($r['estado'] === 'r'): ?>
+                                <td> Rechazada </td>
+                            <?php else: ?>
+                                <?php if ($r['estado'] === 'i'): ?>
+                                    <td> Elegible por inopia </td>
+                                <?php else: ?>
+                                    <?php if ($r['estado'] === 'n'): ?>
+                                        <td> No elegible </td>
+                                    <?php else: ?>
+                                        <?php if ($r['estado'] === 'x'): ?>
+                                            <td> Anulada </td>
+                                        <?php else: ?>
+                                            <?php if ($r['estado'] === 'c'): ?>
+                                                <td> Aceptada por inopia </td>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+				<?php endif; ?>
 				<?php endif?>
 
                 

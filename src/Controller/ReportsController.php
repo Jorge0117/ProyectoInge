@@ -88,9 +88,11 @@ class ReportsController extends AppController
 		{
 			case 1:
 				//Imprime aprobadas
-				$table = $this->loadModel('info_requests');
+				//$table = $this->loadModel('info_requests');
                 $estado = '\'a\'';
-                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				$solicitudes = new RequestsController;
+                //$report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+				$report = $solicitudes->getApprovedRequestsByRound($llave_ronda);
 				$titulo = 'aprobadas';
 				//$report = $this->Reports->getApprovedByRound($llave_ronda);
 				$horas = 1;
@@ -135,7 +137,20 @@ class ReportsController extends AppController
 		switch($tipo)
 		{
 			case 1:
+			
+				//Genera el reporte de solicitudes aceptadas
 				$this->createExcelApproved($report);
+				break;
+				
+			case 2:
+				//Genera el reporte de solicitudes elegibles rechazadas
+				break;
+				
+			case 3:
+				//Genera el reporte de solicitudes no elegibles
+				break;
+			case 4:
+				//Genera el reporte de los resultados de una ronda
 				break;
 		}
 		
@@ -154,15 +169,15 @@ class ReportsController extends AppController
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
         $ronda_actual = $roundData["start_date"];
-        $reports = $table->find('all', [
+        /*$reports = $table->find('all', [
             'conditions' => ['inicio' => $ronda_actual],
-        ]);
+        ]);*/
         
         //Se crea archivo excel
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         //Se ponen los títulos de las columnas
-        $headerRow = array("Carné","Curso","Sigla","Grupo","Ronda","Profesor","H.A","H.E","Semestre");
+        $headerRow = array("Curso","Sigla","Grupo","Profesor","Carné","Tipo Hora","Cantidad");
         $sheet->fromArray([$headerRow], NULL, 'A1');
         $user= new UsersController;
         
@@ -172,24 +187,21 @@ class ReportsController extends AppController
         //Por ahora, sólo se están poniendo estos datos
         foreach ($reports as $report){
             $col = 1;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->carne);
-            $col++;
             //$sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
-			$sheet->setCellValueByColumnAndRow($col, $row, "No esta en la vista");
+			$sheet->setCellValueByColumnAndRow($col, $row, "Falta curso en la vista");
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->sigla);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->grupo);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['grupo']);
             $col++;
-			$sheet->setCellValueByColumnAndRow($col, $row, $report->ronda);
+		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report['id_prof']));  //temporal xd
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['carne']);
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['hour_type']);
 			$col++;
-		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report->id_prof)); //Esto no me gusta
-            $col++;
-			$sheet->setCellValueByColumnAndRow($col, $row, "Poner aqui las HA");
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['hour_ammount']);
 			$col++;
-			$sheet->setCellValueByColumnAndRow($col, $row, "Poner aqui las HE");
-			$col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->semestre);
             $row++;
             $cantidad++;
         }
@@ -205,7 +217,7 @@ class ReportsController extends AppController
         $sheet->getStyle('A1:I'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Cambia color de celdas de cabecera
-        $sheet->getStyle('A1:I1')->getFill()
+        $sheet->getStyle('A1:G1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
         ->getStartColor()->setARGB('FFFF0000');
         $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);

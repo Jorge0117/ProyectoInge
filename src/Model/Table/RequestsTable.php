@@ -506,6 +506,16 @@ class RequestsTable extends Table
         $request = $this->get($id);
         return $request->scope;
     }
+	
+		
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, approved_requests a where i.inicio = $llave_ronda AND i.id = a.request_id");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
 
 }
 

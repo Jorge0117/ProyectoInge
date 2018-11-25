@@ -962,5 +962,12 @@ $this->Flash->error(__('Error: No se logró agregar la solicitud'));
         debug("xdxd");
         //die();
     }
+	
+	
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getApprovedRequestsByRound($llave_ronda);
+	}
+	
 
 }
