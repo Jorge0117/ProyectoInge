@@ -108,8 +108,11 @@ class AppController extends Controller
         $current_user = $this->Auth->user();
         $this->set('current_user', $current_user);
 
-        // author: Daniel Marín
-        // convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+        /** 
+         *  @author Daniel Marín <110100010111h@gmail.com>
+         * 
+         *  Convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+         */
         if(!$current_user){
             $this->loadModel('Rounds');
             $roundData = $this->Rounds->getLastRow();
