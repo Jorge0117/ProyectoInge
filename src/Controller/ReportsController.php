@@ -100,21 +100,25 @@ class ReportsController extends AppController
 			case 2:
 				//Imprime elegibles rechazados
 				$table = $this->loadModel('info_requests');  
-                $estado = '\'r\'';
-                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+                $estado = 'r';
+               // $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+			   $solicitudes = new RequestsController;
+			   $report = $solicitudes->getRequestsByRoundStatus($llave_ronda,$estado);
 				$titulo = 'elegibles rechazadas';
 				break;
 			case 3:
 				//Imprime no elegibles
 				$table = $this->loadModel('info_requests');  
-                $estado = '\'n\'';
-                $report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
+                $estado = 'n';
+				$solicitudes = new RequestsController;
+			    $report = $solicitudes->getRequestsByRoundStatus($llave_ronda,$estado);
 				$titulo = 'no elegibles';
 				break;
 			case 4:
 				//Imprime resultados de una ronda
 				$table = $this->loadModel('info_requests');  
-                $report= $table->find()->where(['inicio = ' . $llave_ronda]);
+				$solicitudes = new RequestsController;
+                $report=  $solicitudes->getAllRequestsByRound($llave_ronda);
 				$titulo = '';
 				$imprimirEstado = 1;
 				break;
@@ -192,7 +196,7 @@ class ReportsController extends AppController
         foreach ($reports as $report){
             $col = 1;
             //$sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
-			$sheet->setCellValueByColumnAndRow($col, $row, "Falta curso en la vista");
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['name']);
             $col++;
             $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
             $col++;
@@ -256,6 +260,8 @@ class ReportsController extends AppController
         $headerRow = array("Curso","Sigla","Grupo","Profesor","Carné","Estado");
         $sheet->fromArray([$headerRow], NULL, 'A1');
         $user= new UsersController;
+		
+		$solicitudes = new RequestsController;        
         
         //Se llena el excel con solicitudes
         $cantidad = 1;
@@ -264,17 +270,42 @@ class ReportsController extends AppController
         foreach ($reports as $report){
             $col = 1;
             //$sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
-			$sheet->setCellValueByColumnAndRow($col, $row, "Falta curso en la vista");
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['name']);
             $col++;
             $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
             $col++;
             $sheet->setCellValueByColumnAndRow($col, $row, $report['grupo']);
             $col++;
-		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report['id_prof']));  //temporal xd
+		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report['id_prof']));  
             $col++;
 			$sheet->setCellValueByColumnAndRow($col, $row, $report['carne']);
             $col++;
-			$sheet->setCellValueByColumnAndRow($col, $row, $report['estado']);
+			
+			switch($report['estado'])
+			{
+				case 'a':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Aprobada');
+					break;
+				case 'e':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Elegible');
+					break;
+				case 'n':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'No elegible');
+					break;
+				case 'i':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Aceptado por inopia');
+					break;
+				case 'x':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Anulada');
+					break;				
+				case 'r':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Rechazada');
+					break;					
+				case 'p':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Pendiente');
+					break;
+			}
+			
 			$col++;
             $row++;
             $cantidad++;
@@ -313,7 +344,8 @@ class ReportsController extends AppController
         /*$reports = $table->find('all', [
             'conditions' => ['inicio' => $ronda_actual],
         ]);*/
-        
+		
+
         //Se crea archivo excel
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

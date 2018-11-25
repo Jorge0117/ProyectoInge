@@ -36,7 +36,7 @@ echo $this->Html->css('buttons');
         <tbody>
             <?php foreach ($report as $r): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
-				<td><?= h($r['curso']) ?></td>
+				<td><?= h($r['name']) ?></td>
 				<td><?= h($r['curso']) ?></td>
                 <td><?= h($r['grupo'])  ?></td>
 				<td><?= h($r['id_prof']) ?></td>
