@@ -109,9 +109,8 @@ class RoundsController extends AppController
         $role_c = new RolesController;
         $user = $this->Auth->user();
         if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'delete')){
-            $date = $this->mirrorDate($id);
             $this->request->allowMethod(['post', 'delete']);
-            $round = $this->Rounds->get($date);
+            $round = $this->Rounds->get($id);
             $RoundsTable = $this->loadmodel('Rounds');
             $RequestsTable = $this->loadmodel('Requests');
             $now = $RoundsTable->getToday();
