@@ -85,9 +85,7 @@
 		<fieldset>
 			<legend><?= __('Solicitud anulada') ?></legend>
 			<?php
-				echo $this->Form->control('Motivo: ', array('value' => $justificacion, 'disabled'));
-				echo $this->Form->control('motivo', ['label'=>['text'=>'Motivo:'], 'value' => $justificacion, 'disabled'=> true]);
-
+				echo $this->Form->control('Motivo: ',array('value' => $justificacion[0], 'disabled'));
 			?>
 		</fieldset>
 		
