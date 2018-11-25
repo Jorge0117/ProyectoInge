@@ -11,6 +11,7 @@
     $(document).ready( function () {
         $("#requesttable").DataTable(
           {
+            "order": [[ 0, "desc" ]],
             /** Configuración del DataTable para cambiar el idioma, se puede personalisar aun más **/
             "language": {
                 "lengthMenu": "Mostrar _MENU_ filas por página",
