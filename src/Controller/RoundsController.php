@@ -15,9 +15,9 @@ use Cake\I18n\Time;
 class RoundsController extends AppController
 {
     /**
-     * Index method
+     * @author Daniel Marín <110100010111h@gmail.com>
      * 
-     * @return null
+     * Index method
      */
     public function index(){   
         $round = $this->Rounds->newEntity();
@@ -42,10 +42,11 @@ class RoundsController extends AppController
     }
     
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * add method
      *
      * @param array|null $data post data.
-     * @return null
      */
     public function add($data = null){
         $role_c = new RolesController;
@@ -76,10 +77,11 @@ class RoundsController extends AppController
     }
 
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * edit method
      *
      * @param array|null $data post data.
-     * @return null
      */
     public function edit($data = null){
         $role_c = new RolesController;
@@ -99,6 +101,8 @@ class RoundsController extends AppController
     }
 
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * Delete method
      *
      * @param string|null $id Round id.
@@ -136,7 +140,11 @@ class RoundsController extends AppController
         }
     }
 
-    // Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
+     */
     public function mirrorDate($date){
         $j = $i = 0;
         while($date[$i] != '/' && $date[$i] != '-')$i++;
@@ -148,12 +156,24 @@ class RoundsController extends AppController
         return $third . "-" . $second . "-" . $first;
     }
 
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Actualiza el valor de la variable roundData en el sistema.
+     * El método debe de ser llamado cada vez que surge un cambio
+     * en la tabla de rondas
+     */
     public function updateGlobal(){
         $roundData = $this->Rounds->getLastRow();
         $this->request->session()->write('roundData',$roundData);
         $this->set(compact('roundData'));
     }
 
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Despliega advertencias con respecto a las condiciones dadas.
+     */
     private function displayWarning($tsh,$tdh,$tah,$ash,$adh,$aah){
         if(!$this->between()){
             $this->Flash->warning(__('Advertencia: Actualmente no se encuentra dentro de una ronda'));
@@ -175,8 +195,11 @@ class RoundsController extends AppController
     }
 
 
-
-    // informa si el día de hoy se encuentra dentro de la úlitma ronda agregada
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Informa si el día de hoy se encuentra dentro de la úlitma ronda agregada
+     */
     public function between(){
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
