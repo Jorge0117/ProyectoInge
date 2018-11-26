@@ -16,31 +16,31 @@
 
             <tr>
                 <th scope="row">Primer Apellido</th>
-                <td><?= $request->has('user') ? h($request->user->lastname1) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->lastname1) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Segundo Apellido</th>
-                <td><?= $request->has('user') ? h($request->user->lastname2) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->lastname2) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Nombre</th>
-                <td><?= $request->has('user') ? h($request->user->name) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->name) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Cédula</th>
-                <td><?= $request->has('user') ? h($request->user->identification_number) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->identification_number) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Carné</th>
-                <td><?= $request->has('student') ? h($request->student->carne) : '' ?></td>
+                <td><?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Teléfono</th>
-                <td><?= $request->has('user') ? h($request->user->phone) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->phone) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Correo electrónico</th>
-                <td><?= $request->has('user') ? h($request->user->email_personal) : '' ?></td>
+                <td><?= $request->has('student') ? h($request->student->user->email_personal) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Carrera</th>
@@ -79,7 +79,7 @@
         <tbody>
             <tr>
                 <th scope="row">Sigla</th>
-                <td><?= $request->has('course') ? h($request->course->code) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->course_id) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Grupo</th>
@@ -87,11 +87,11 @@
             </tr>
             <tr>
                 <th scope="row">Nombre del curso</th>
-                <td><?= $request->has('course') ? h($request->course->name) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->course->name) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Nombre del docente</th>
-                <td><?= $request->has('docente') ? h($request->docente->name) . ' ' . h($request->docente->lastname1) : '' ?></td>
+                <td><?= $request->has('class') ? h($request->class->professor->user->name) . ' ' . h($request->class->professor->user->lastname1) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Semestre</th>
@@ -106,8 +106,41 @@
 
     <div class="row">
         <div class="col" align="right">
-            <?= $this->Html->link('Atrás', ['controller' => 'Requests', 'action' => 'index'], ['class' => 'btn btn-secondary']) ?>
+            <?= $this->Html->link('Atrás', ['controller' => $backController, 'action' => $backLocation], ['class' => 'btn btn-secondary']) ?>
             <?= $this->Html->link('Imprimir', ['controller' => 'Requests', 'action' => 'print', $request->id], ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
+        </div>
+    </div>
+</div>
+
+<!-- Muestra mensaje informativo si variable created_request es igual a 1 -->
+<script>
+$(function() {
+    var YaCreado = '<?php echo $yc;?>'
+    if(YaCreado == 1)
+        $("#MensajeInformativo").modal('show');
+});
+</script>
+
+
+<!-- Mensaje informativo con información importante para el usuario -->
+<div id="MensajeInformativo" class="modal center-block text-center">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
+			
+            <fieldset>
+					<legend><?= __('Atención') ?></legend>
+					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+					y una fotocopia legible de la cédula de identidad por ambos lados.
+					<br>
+					<b>Fecha límite: <?php echo $fecha; ?></b>
+					<br>
+			</fieldset>
+			<fieldset>
+            <button type="button" class="btn btn-primary float-middle btn-space" data-dismiss="modal">Aceptar</button>
+			</fieldset>
+        
+            
         </div>
     </div>
 </div>

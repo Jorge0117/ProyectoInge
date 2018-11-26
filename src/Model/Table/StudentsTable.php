@@ -49,6 +49,11 @@ class StudentsTable extends Table
         $this->hasMany('RequestsBackup', [
             'foreignKey' => 'student_id'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'bindingKey' => 'identification_number',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -89,5 +94,30 @@ class StudentsTable extends Table
             $return = 1;
         }
         return $return;
+    }
+
+    /**
+     * Modifica el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @param Float $average Ponderado del estudiante
+     * @return Boolv Verdadero si se completo correctamente, falso en otro caso.
+     */
+    public function saveAverage($id, $average){
+       $student = $this->get($id);
+       $student->average = $average;
+       return $this->save($student);
+    }
+
+    /**
+     * Retorna el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @return float Ponderado del estudiante, 0 si no se la ha asignado uno.
+     */
+    public function getAverage($id){
+        return $this->get($id)->average;
     }
 }

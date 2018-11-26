@@ -18,6 +18,11 @@
 		selClass = document.getElementById("class-number");
 		selCourse = document.getElementById("course-id");
 		
+
+		//+++++++++++++++++++++++++++++++++++++++++++++
+		selCourseII = document.getElementById("c2");
+		//+++++++++++++++++++++++++++++++++++++++++++++
+		
 		//Obtiene valores de los inputs ocultos
 		a1 = document.getElementById("a1");
 		a2 = document.getElementById("a2");
@@ -32,8 +37,15 @@
 		}
 		
 		//Recuerda el curso actual seleccionado
-		actualCourse = selCourse.options[selCourse.selectedIndex].text;
 
+		//---------------------------------------------------------------
+		//actualCourse = selCourse.options[selCourse.selectedIndex].text;
+		//---------------------------------------------------------------
+
+		//+++++++++++++++++++++++++++++++++++++++++++++
+		actualCourse = selCourseII.options[selCourse.selectedIndex].text;
+		//+++++++++++++++++++++++++++++++++++++++++++++
+		
 		
 		courses = a2.options;
 		i = 0;
@@ -122,7 +134,13 @@
 		selCourse = document.getElementById("course-id");
 		
 		//Obtiene el valor del curso y grupo seleccionados actualmente
-		Course = selCourse.options[selCourse.selectedIndex].text;
+		
+		//----------------------------------------------------------
+		//Course = selCourse.options[selCourse.selectedIndex].text;
+		//----------------------------------------------------------
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		Course = document.getElementById("c2").options[selCourse.selectedIndex].text;
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		Group = selClass.options[selClass.selectedIndex].text;/*
 		//Realiza una peticion al servidor mediante la tecnica AJAX, para obtener el nombre del profesor en base al curso y grupo actual
 		$.ajax({
@@ -151,8 +169,10 @@
 		
 		cursos = document.getElementById("a2").options;
 		grupos  = document.getElementById("a1").options;
+		nombreCurso = document.getElementById("nc").value;
 		
-		cursoActual = selCourse.options[selCourse.selectedIndex].text;
+		//cursoActual = selCourse.options[selCourse.selectedIndex].text;
+		cursoActual = document.getElementById("c2").options[selCourse.selectedIndex].text;
 		grupoActual = selClass.options[selClass.selectedIndex].text;
 
 		for(c = 0;  c < cursos.length; c = c + 1) // Recorre los cursos
@@ -181,9 +201,57 @@
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
+		
+		confirm = document.getElementById("mensajeConfirmacion");
+		confirm.innerHTML = "¿Esta seguro que desea solicitar una asistencia al grupo " + grupoActual +" del curso " +cursoActual+ "-" + nombreCurso + "?";
+
 	}
 
 </script>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Fondo del modal */
+    .modal {
+        display: none; 
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px; /*Posición del modal */
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; /* En caso de ser necesario se puede hacer scroll */
+        background-color: rgb(0,0,0); /* Color del fondo */
+        background-color: rgba(0,0,0,0.4); /* Color con transparencia */
+    }
+
+    /* Contenido del modal */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar"> 
     <ul class="side-nav">
 		
@@ -202,11 +270,11 @@
 		<div class="form-section">
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
-			echo $this->Form->Control('Nombre del Estudiante: ',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id2',['label' => 'Carnet del Estudiante:','disabled', 'value' => $carnet]);
-			echo $this->Form->Control('Cedula: ',['disabled', 'value' => $cedula]);
-			echo $this->Form->Control('Correo Eléctronico: ',['disabled', 'value' => $correo]);
-			echo $this->Form->Control('Telefono: ',['disabled', 'value' => $telefono]);
+			echo $this->Form->Control('Nombre',['disabled', 'value' => $nombreEstudiante]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => strtoupper($carnet)]);
+			echo $this->Form->Control('Cédula',['disabled', 'value' => $cedula]);
+			echo $this->Form->Control('Correo electrónico ',['disabled', 'value' => $correo]);
+			echo $this->Form->Control('Teléfono ',['disabled', 'value' => $telefono]);
 		?>
 		</div>
 		
@@ -214,30 +282,63 @@
 		<legend><?= __('Datos del Curso y del Grupo de la Solicitud') ?></legend>
 		<?php		
 			
-            echo $this->Form->control('course_id', ['label' => 'Curso:', 'options' => $c2, 'onChange' => 'updateClass()']);
+            echo $this->Form->control('course_id', ['label' => 'Curso', 'options' => $c3, 'onChange' => 'updateClass()']);
             echo $this->Form->input('class_number',['type' => 'select', 'options' => [], 'controller' => 'Requests', 'onChange' => 'save()', 'label' => 'Grupo:']); //Cambiar options por $ grupos.
-			echo $this->Form->input('Nombre Curso: ', ['id' => 'nc', 'disabled']);
-			echo $this->Form->input('Profesor Que Imparte el Curso: ', ['id' => 'prof', 'disabled', 'type' =>'text']);
-			echo $this->Form->control('average', ['label' => 'Promedio Ponderado', 'type' => 'text']);
+			echo $this->Form->input('Nombre curso ', ['id' => 'nc', 'disabled']);
+			echo $this->Form->input('Profesor ', ['id' => 'prof', 'disabled', 'type' =>'text']);
 		?>
 		</div>
 		<div class="form-section">
 		<legend><?= __('Datos requeridos para la Solicitud') ?></legend>
 		<!--	¿Qué tipo de horas desea solicitar? <checkbox></checkbox> <input type="checkbox"> Horas Asistente <input type="checkbox"> Horas Estudiante -->
 		<?php
-			echo $this->Form->control('wants_student_hours', ['label' => 'Deseo Solicitar Horas Estudiante', 'type' => 'checkbox']);
-			echo $this->Form->control('wants_assistant_hours', ['label' => 'Deseo Solicitar Horas Asistente', 'type' => 'checkbox']);
-			echo $this->Form->control('has_another_hours', ['label' => 'Tengo otras Horas Asignadas']);
-            echo $this->Form->control('another_student_hours', ['label' => 'Cantidad de horas estudiante ya asignadas: ']);
-            echo $this->Form->control('another_assistant_hours', ['label' => 'Cantidad de horas asistente ya asignadas: ']);
-
-            echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+			echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
+			echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
+			echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
+            echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"requireStudent()",'onclick'=>"requireStudent()"]);
+            echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '20','onchange'=>"requireAssistant()",'onclick'=>"requireAssistant()"]);
+        ?>
+			<font color="red">* Si no cuenta con un tipo de horas, deje el campo en blanco</font>
+		<?php
+			echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
+			
 			?>
 			</div>
 			
+			
+			
+						<div id="confirmacion" class="modal", style = "z-index:20">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
 
-			<?php echo $this->Form->button(__('Agregar Solicitud'),['class'=>'btn-aceptar']) ?>
-			<?php echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); ?>
+            <fieldset>
+                <legend><?= __('Agregar solicitud') ?></legend>
+				
+				<br>
+									<br> </br>
+
+
+				<label id="mensajeConfirmacion"> ¿Esta seguro que desea agregar la solicitud? </label>
+				
+
+            </fieldset>
+            <!--<button type="submit" class="btn btn-primary float-right">Aceptar</button>-->
+			 <button id="butCanc" type="reset" class="btn btn-secondary float-right btn-space" onclick="cancelarModal()">Cancelar</button>
+			<?php echo $this->Form->button(__('Aceptar'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
+	
+        
+
+        </div>
+    </div>
+</div>
+			
+			
+			
+			<!--<?php echo $this->Form->button(__('Agregar solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>-->
+			<?php 
+						echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); 
+			echo $this->Form->control('Agregar Solicitud',['type' => 'button', 'onclick' =>'confirmar()', 'id' => 'btnConfirmacion', 'label' => '','value' => 'Agregar solicitud', 'class'=>'btn-aceptar']);
+?>
 			
 			<?php
 			/*echo $this->Form->Label("Datos adicionales Solicitud: ");
@@ -255,20 +356,167 @@
 			echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
 			echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
+			echo $this->Form->control('c2', ['label' => '', 'id' => 'c2', 'type' => 'select' , 'options' => $c2 , 'style' => 'visibility:hidden']);
 			//echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
 
 
+			
+			
+			
+			
+			
+			
+			
+			?>
+			
+			
 
-		?>
+
+		
     </fieldset>
 
-   <!-- <button class="button"><?= $this->Html->link('Agregar Solicitud',['controller'=>'requests','action'=>'add'],['class'=>'nav-link']) ?></button> -->
-
+	
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
     <?= $this->Form->end() ?>
 	   <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
 
-	
+	<button id="butAceptar" class="btn btn-primary float-right btn-space">Mensaje</button>
+	<button type="submit" class="btn btn-primary float-right">Aceptar</button>
 	
 </div>
 
+<div id="MensajeInformativo" class="modal">
+    <div class="modal-content">
+        <div class="files form large-9 medium-8 columns content">
+			
+            <fieldset>
+					<legend><?= __('Atención') ?></legend>
+					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+					y una fotocopia legible de la cédula de identidad por ambos lados.
+					<br>
+					<b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
+					<br>
+			</fieldset>
+			<fieldset>
+				<?= $this->Html->link('Aceptar',['controller'=>'requests','action'=>'index'],['class'=>'btn btn-primary float-middle btn-space']) ?>
+			</fieldset>
+        
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+	// Inicia Daniel Marín
+	// función inicial 
+	$(document).ready( function () {			
+		byId('another-student-hours').disabled = true;
+		byId('another-assistant-hours').disabled = true;
+	});
+	/** Función toggleAnother
+	 * EFE: activa o desactiva los campos de otras horas
+	 **/
+	function toggleAnother(){
+		if(byId('has-another-hours').checked){
+			byId('another-student-hours').disabled = false;
+			byId('another-student-hours').required = true;
+			byId('another-student-hours').max = 12;
+			byId('another-assistant-hours').disabled = false;
+			byId('another-assistant-hours').required = true;
+			byId('another-assistant-hours').max = 20;
+		}else{
+			byId('another-student-hours').disabled = true;
+			byId('another-student-hours').value = null;
+			byId('another-student-hours').required = false;
+			byId('another-assistant-hours').disabled = true;
+			byId('another-assistant-hours').value = null;
+			byId('another-assistant-hours').required = false;
+		}
+	}
+
+	/** Función unrequireStudent
+	 * EFE: activa o desactiva el requerir el campo otras horas estudiante 
+	 **/
+	function requireStudent(){
+		byId('another-student-hours').required = true;
+		if(!byId('another-assistant-hours').value){
+			byId('another-assistant-hours').required = false;
+		}
+		if(20 > 20 - byId('another-student-hours').value){
+			console.log('cambio assitant')
+			byId('another-assistant-hours').max = 20 - byId('another-student-hours').value;
+			if(20-byId('another-student-hours').value<3)byId('another-assistant-hours').value = ''; 
+		}else{
+			byId('another-assistant-hours').max = 20;
+		}
+		
+	}
+
+	/** Función unrequireAssitant
+	 * EFE: activa o desactiva el requerir el campo otras horas asistente
+	 **/
+	function requireAssistant(){
+		byId('another-assistant-hours').required = true;
+		if(!byId('another-student-hours').value){
+			byId('another-student-hours').required = false;
+		}
+		if(12 > 20 - byId('another-assistant-hours').value){
+			byId('another-student-hours').max = 20-byId('another-assistant-hours').value;
+		}else{
+			byId('another-student-hours').max = 12;
+		}
+		if(byId('another-assistant-hours').value>17){
+			byId('another-student-hours').disabled = true;
+			byId('another-student-hours').value = null;
+		}else{
+			byId('another-student-hours').disabled = false;
+		}
+		
+		
+	}
+
+	/** Función send
+	 * EFE: habilita los campos de otras horas para enviarlos en el form
+	 **/
+	function send(){
+		byId('another-student-hours').disabled = false;
+		byId('another-assistant-hours').disabled = false;
+		// autor: ...
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+
+		$('html,body').scrollTop(0);		
+		
+	}
+
+	/** Función byId
+	 * EFE: Función wrapper de getElementById
+	 * REQ: Id del elemento a obtener.
+	 * RET: Elemento requerido.
+	 **/
+	function byId(id) {
+		return document.getElementById(id);
+	}
+	//termina Daniel M
+	function confirmar()
+	{
+		var modal = byId("confirmacion");
+		modal.style.display = "block";
+	}
+	
+
+	
+
+	
+	function cancelarModal()
+	{
+		var modal = byId("confirmacion");
+		modal.style.display = "none";
+		
+		byId('has-another-hours').checked = false;
+		byId('another-student-hours').disabled = true;
+		byId('another-assistant-hours').disabled = true;
+	}
+</script>

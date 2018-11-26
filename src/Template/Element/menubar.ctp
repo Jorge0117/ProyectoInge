@@ -3,11 +3,12 @@
  * Barra del menú de navegación, ingluye el logo de la ECCI e información de las rondas.
  */
 ?>
-
-<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white">    
-    <a class="navbar-brand">
-        <?= $this->Html->image('logoEcci.png', ['class' => 'mr-4','style' => 'width:200px'])?>
-    </a>
+<nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white" >    
+    <div style = 'width:218px'>
+        <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/" >
+            <?= $this->Html->image('logoEcci.png', ['style' => 'width:200px'])?>
+        </a>
+    </div>
 
     <div>
         <?php if ($current_user): ?>
@@ -23,17 +24,17 @@
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
                         <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
                         <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistencias',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
                     <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>
-                    <li class="nav-item item-menu"><?= $this->Html->link('Asistentes del profesor',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
+                    <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Curso-grupo',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Cursos',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                         <li class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
 
@@ -41,26 +42,61 @@
                         
                         <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Roles',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li class="nav-item item-menu"><?= $this->Html->link('Permisos',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>
             </div>
         <?php else: ?>
-
             <span class="navbar-text">
             </span>
         <?php endif ?>
 
     </div>
-
-    <?php $round = $this->Rounds->getLastRound() ?>
-    <?php if($round == null): ?>
-        <div style="width:200px">
+    <!-- Element/menubar.ctp -->
+    
+    <?php if(!$roundData): ?>
+        <div style="width:300px">
         </div>
     <?php else: ?>
-        <div style="height:69px">  
-            <h5 style='color:red;'><strong> <?= $round[0] ?><br><?= $round[1] ?><br><?= $round[2] ?> </strong></h5>
-        </div>
+        <div style="width:250px">
+            <div class = 'container border border-danger rounded'>
+                <div class = 'row justify-content-center'>
+                    <?php if($current_user['role_id'] === 'Administrador'): ?>
+                        <div class = 'col-auto align-self-center'  >
+                            <div class = 'row'>
+                                <h6 class='text-danger' style='font-size:12px;'><b>
+                                    <?php
+                                        $dsh = (int)$roundData['total_student_hours']-(int)$roundData['actual_student_hours'];
+                                        $ddh = (int)$roundData['total_student_hours_d']-(int)$roundData['actual_student_hours_d'];
+                                        $dah = (int)$roundData['total_assistant_hours']-(int)$roundData['actual_assistant_hours'];
+                                    ?>
+                                    <?= "Disponibles" ?><br>
+                                    <?= "HE-ECCI: ".(string)$dsh ?><br>
+                                    <?= "HE-DOC: ".(string)$ddh ?><br>
+                                    <?= "HA-ECCI: ".(string)$dah ?>
+                                </b></h6>
+                            </div>    
+                        </div>        
+                        <div class = 'col-auto align-self-center'>
+                        </div>
+                    <?php endif; ?>
+                    <div class = 'col-auto align-self-center'>
+                        <div class = 'row'>
+                            <h6 class='text-danger' style='font-size:16px;'><b> 
+                                <?= "Ronda " .$roundData['round_number'] .' '. $roundData['semester'] . '-' . substr($roundData['year'],2); ?><br>
+                                <?= "del: " . substr($roundData['start_date'], 8,2).'-'. substr($roundData['start_date'], 5,2).'-'.substr($roundData['start_date'], 2,2) ?><br>
+                                <?=" al: " . substr($roundData['end_date'], 8,2).'-'. substr($roundData['end_date'], 5,2).'-'.substr($roundData['end_date'], 2,2); ?>
+                            </b></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <h6 class='text-dark' style='font-size:12px;'>
+                        <?php echo "Fecha y Hora ".date('d-M-Y H:i') ?>
+                    </h6>
+                </div>        
+            </div>        
+        </div>        
     <?php endif; ?>
 </nav>

@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CoursesClassesVw Model
@@ -46,7 +47,11 @@ class CoursesClassesVwTable extends Table
             ->scalar('Sigla')
             ->maxLength('Sigla', 7)
             ->requirePresence('Sigla', 'create')
-            ->notEmpty('Sigla');
+            ->notEmpty('Sigla')
+            ->add('Sigla', 'validFormat',[
+                'rule' => '/^[A-Z]{2}[0-9]{4}$/i',
+                'message' => 'El formato de curso no es correcto'
+            ]);
 
         $validator
             ->scalar('Curso')
@@ -75,6 +80,12 @@ class CoursesClassesVwTable extends Table
             ->notEmpty('Año');
 
         return $validator;
+    }
+
+    public function fetchCourses(){
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute("SELECT * from courses;")->fetchAll();
+        return $query;
     }
 
     /**
@@ -109,7 +120,4 @@ class CoursesClassesVwTable extends Table
         );
     }
 
-    // public function selectComunYSilvetre(){
-
-    // }
 }

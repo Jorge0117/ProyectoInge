@@ -44,18 +44,7 @@ class StudentsController extends AppController
     /**
      * Add a new student specifying id and carne
      */
-    public function newStudent($id, $carne){
-        /*
-        $articles = TableRegistry::get('Students');
-        $article = $articles->newEntity();
-        $article->user_id = $id;
-        $article->carne = $carne;
-
-        if ($articles->save($article)) {
-            $this->Flash->success(__('Se agregó el estudiante correctamente.'));        
-        }
-        */
-        
+    public function newStudent($id, $carne){        
         $student = new Student([
             'user_id' => $id,
             'carne' => $carne
@@ -128,5 +117,28 @@ class StudentsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Modifica el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @param Float $average Ponderado del estudiante
+     * @return Bool Verdadero si se completo correctamente, falso en otro caso.
+     */
+    public function saveAverage($id, $average){
+        return $this->Students->saveAverage($id, $average);
+    }
+
+    /**
+     * Retorna el ponderado de un estudiante.
+     * 
+     * @author Kevin Jiménez <kevinja9608@gmail.com>
+     * @param String $id Identificador del estudiante
+     * @return float Ponderado del estudiante, 0 si no se la ha asignado uno.
+     */
+    public function getAverage($id){
+        return floatval($this->Students->getAverage($id));
     }
 }
