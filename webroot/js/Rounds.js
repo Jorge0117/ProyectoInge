@@ -36,7 +36,7 @@ var today = getToday();
 (function() {
     if(!roundData){
         start(1);
-        byId('start-date').value = getToday();
+        byId('start-date').value = today;
         byId('end-date').value = byId('start-date').value;
     }else{ 
         byId('start-date').disabled = true;
@@ -44,7 +44,7 @@ var today = getToday();
         byId('total-student-hours').disabled = true;
         byId('total-student-hours-d').disabled = true;
         byId('total-assistant-hours').disabled = true;
-        if(compareDates(roundData['end_date'],getToday())>=0){
+        if(compareDates(roundData['end_date'],today)>=0){
             //byId('add').style.display = 'none'; DESCOMENTAR AL DEJAR DE PROBAR AGREGADOS
         }
     }
@@ -62,13 +62,25 @@ calendar.attachEvent("onClick", function(date){
     if(compareDates(byId('start-date').value, byId('end-date').value) > 0){
         byId('end-date').value = byId('start-date').value;
     }
+    var startDate = splitDate(byId('start-date').value);
+    var year = startDate['y'];
+    if(startDate['m'] == 12) year += 1;
+    endSem1 = '01-07-'.concat(year);
+    endSem2 = '01-12-'.concat(year);
+    // Controla que no se cruzen semestres.
+    if(compareDates(byId('start-date').value, endSem1) < 0){
+        if(compareDates(byId('end-date').value, endSem1) >= 0){
+            byId('end-date').value = alterDate(endSem1,-1);
+        }
+    }else if(compareDates(byId('start-date').value,endSem2) < 0){
+        if(compareDates(byId('end-date').value, endSem2) >= 0){
+            byId('end-date').value = alterDate(endSem2,-1);
+        }
+    }
     if(roundData){
         if( byId('flag').value == '1'){
-            var startDate = splitDate(byId('start-date').value);
-            var year = startDate['y'];
-            if(startDate['m'] == 12) year = parseInt(year)+1;
-            if(year != roundData['year'] || (roundData['semester'] == 'I' && parseInt(startDate['m']) > 6 && parseInt(startDate['m']) < 12) || (roundData['semester'] == 'II' && parseInt(startDate['m']) > 11)){
-                // Si se cambia de semestre el número de horas se resetea
+            if(year != roundData['year'] || (roundData['semester'] == 'I' && startDate['m'] > 6 && startDate['m'] < 12) || (roundData['semester'] == 'II' && startDate['m'] > 11)){
+                // Si se cambia de semestre el número de horas se resetean a 0.
                 byId('total-student-hours').value = 0;
                 byId('total-student-hours-d').value = 0;
                 byId('total-assistant-hours').value = 0;
@@ -76,7 +88,7 @@ calendar.attachEvent("onClick", function(date){
                 byId('total-student-hours-d').min = 0;
                 byId('total-assistant-hours').min = 0;
             }else{
-                // Si vuelve al semestre actual se devuelven los datos antiguos
+                // Si vuelve al semestre actual se resetea a los datos antiguos.
                 byId('total-student-hours').value = roundData['total_student_hours']-roundData['actual_student_hours'];
                 byId('total-student-hours-d').value = roundData['total_student_hours_d']-roundData['actual_student_hours_d'];
                 byId('total-assistant-hours').value =  roundData['total_assistant_hours']-roundData['actual_assistant_hours'];
@@ -91,80 +103,76 @@ calendar.attachEvent("onClick", function(date){
 /** 
  * @author Daniel Marín <110100010111h@gmail.com>
  * 
- * Función que ayuda a bloquear la entrada de fechas no validas
- * 
- * @param {bool} start - indica cual campo está con atención.
+ * Función que ayuda a bloquear la entrada de fechas no validas en el campo de fecha inicial
  */
-function sensitiveRange(start){
-    if(start){// start_date
-        byId('start-date').readOnly = true;
-        var min = today;
-        var max = null;
-        if(byId('flag').value == '1' && roundData){// añadir
-            if(roundData['round_number'] == 3){
-                var sem1ds = '01-07-'.concat(roundData['year']);
-                var sem2ds = '01-12-'.concat(roundData['year']);
-                if(roundData['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
-                else if(roundData['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
-            }
-            if(compareDates(roundData['start_date'],roundData['end_date']) == 0 && compareDates(roundData['end_date'],min) > 0){
-                min = alterDate(roundData['end_date'],1);
-            }else if(compareDates(roundData['end_date'],min) > 0){
-                min = roundData['end_date'];
-            }
-        }else{ // editar
-            var penultimateStart = penultimateRoundData['start_date'];
-            var penultimateEnd = penultimateRoundData['end_date'];
-            if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
-                min = alterDate(penultimateEnd,1);
-            }else if(compareDates(penultimateEnd,min) > 0){
-                min = penultimateEnd;
-            }
-
-            var sem1ds = '01-12-'.concat(roundData['year']-1);
-            var sem2ds = '01-07-'.concat(roundData['year']);
+function sensitiveStart(){
+    calendar.hide();
+    byId('start-date').readOnly = true;
+    var min = today;
+    var max = null;
+    if(byId('flag').value == '1' && roundData){// añadir
+        if(roundData['round_number'] == 3){
+            var sem1ds = '01-07-'.concat(roundData['year']);
+            var sem2ds = '01-12-'.concat(roundData['year']);
             if(roundData['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
             else if(roundData['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
+        }
+        if(compareDates(roundData['start_date'],roundData['end_date']) == 0 && compareDates(roundData['end_date'],min) > 0){
+            min = alterDate(roundData['end_date'],1);
+        }else if(compareDates(roundData['end_date'],min) > 0){
+            min = roundData['end_date'];
+        }
+    }else{ // editar
+        var penultimateStart = penultimateRoundData['start_date'];
+        var penultimateEnd = penultimateRoundData['end_date'];
+        if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
+            min = alterDate(penultimateEnd,1);
+        }else if(compareDates(penultimateEnd,min) > 0){
+            min = penultimateEnd;
+        }
 
-            if(roundData){
-                if(compareDates(roundData['start_date'],today)<0){
-                    max = min = roundData['start_date'];
-                }else{
-                    if(roundData['semester'] == 'I') max = '30-06-';                              //primer semestre
-                    else max = '30-11-';                                            //segundo semestre
-                    max = max.concat(roundData['year']);                                      // agrega el año
-                }   
-            }
+        var sem1ds = '01-12-'.concat(roundData['year']-1);
+        var sem2ds = '01-07-'.concat(roundData['year']);
+        if(roundData['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
+        else if(roundData['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
 
-        }        
-        calendar.setSensitiveRange(min,max);
-    }else{// end_date
-        byId('end-date').readOnly = true;
-        var min = roundData['end_date'];
-        if(compareDates(min,today) < 0) min = today;
-        var max = null;
         if(roundData){
-            if(roundData['semester'] == 'I') max = '30-06-';                              //primer semestre
-            else max = '30-11-';                                            //segundo semestre
-            max = max.concat(roundData['year']);                                      // agrega el año
-            if(byId('flag').value != '2'){                                  // Añadir
-                if(compareDates(max,min)<0){
-                    var minDate = splitDate(min);
-                    var year = minDate['y'];
-                    if(minDate['m'] == '12' || parseInt(minDate['m']) < 7){
-                        if(minDate['m'] == '12'){
-                            year = parseInt(year)+1;
-                        }
-                        max = '30-06-'.concat(year);
-                    }else{
-                        max = '30-11-'.concat(year);
-                    }
-                }
+            if(compareDates(roundData['start_date'],today)<0){
+                max = min = roundData['start_date'];
+            }else{
+                max = ((roundData['semester'] == 'I')? '30-06-':'30-11-').concat(roundData['year']);
             }
         }
-        calendar.setSensitiveRange(min,max);
-    }
+    }        
+    calendar.setSensitiveRange(min,max);
 }    
+
+/** 
+ * @author Daniel Marín <110100010111h@gmail.com>
+ * 
+ * Función que ayuda a bloquear la entrada de fechas no validas en el campo de fecha final
+ */
+function sensitiveEnd(){
+    calendar.hide();
+    byId('end-date').readOnly = true;
+    min = roundData['end_date'];
+    max = null;
+    
+    if(compareDates(min,today) < 0) min = today;
+    if(compareDates(min,byId('start-date').value) < 0) min = byId('start-date').value;
+    if(roundData ){
+        max = (roundData['semester'] == 'I')?'30-06-' : '30-11-';
+        max = max.concat(roundData['year']);
+        if(byId('flag').value == '1'){
+            if(compareDates(max,min)<0){
+                var md = splitDate(min);
+                if(md['m'] == 12) md['y'] += 1;
+                max = ((md['m'] == 12 || md['m'] < 7)?'30-06-':'30-11-').concat(md['y']);
+            }
+        }
+    }
+    calendar.setSensitiveRange(min,max);
+}
 
 /** 
  * @author Daniel Marín <110100010111h@gmail.com>
@@ -299,7 +307,7 @@ function cancel() {
     //Botones de Acción
     byId('delete').style.visibility = 'visible';
     byId('edit').style.visibility = "visible";
-    //if(compareDates(roundData['end_date'],getToday())<0){ DESCOMENTAR CUANDO AÑADIR RONDA DEJE DE SER PROBADO
+    //if(compareDates(roundData['end_date'],today)<0){ DESCOMENTAR CUANDO AÑADIR RONDA DEJE DE SER PROBADO
         byId('add').style.visibility = "visible";
     //}
     // Botones del formulario

@@ -35,7 +35,6 @@
     <div class = 'row justify-content-center' id = 'Title'>
         <h3 id ='title' > Gestión de Rondas </h3>
     </div>
-    <br>
     <!-- Botones de acción -->
     <div class = 'row justify-content-end' id = 'ActionTopButtons'>
 
@@ -68,7 +67,7 @@
     </div>
 
     <!-- Sección con datos de las fechas de la ronda actual -->
-    <div class='form-section' id = 'datesDiv'>
+    <div class='form-section' id = 'datesDiv' style = 'margin-top:10px; margin-bottom:30px'>
         <?php if($roundData): ?>
             <legend id = 'subSection1'> Periodo de la ronda #<?= $roundNumber ?> del <?= $semester ?> ciclo <?= $year ?> </legend>
         <?php else: ?>
@@ -84,7 +83,7 @@
                     'value'     =>  $startDate,
                     'label'     =>  false,
                     'readonly'  =>  true,
-                    'onfocus'   =>  'sensitiveRange(1)',
+                    'onfocus'   =>  'sensitiveStart()',
                     'onfocusout'=>  'readOnlyFalse(1)',
                     'style'     =>  'text-align:center']); ?>
             </div>
@@ -97,7 +96,7 @@
                     'value'     =>  $endDate,
                     'label'     =>  false,
                     'readonly'  =>  true,
-                    'onfocus'   =>  'sensitiveRange(0)',
+                    'onfocus'   =>  'sensitiveEnd()',
                     'onfocusout'=>  'readOnlyFalse(0)',
                     'style'     =>  'text-align:center']); ?>
             </div>
@@ -118,7 +117,7 @@
     </div>
 
     <!-- Sección con datos de las horas totales de la ronda actual -->
-    <div class='form-section' id = 'HoursDiv'>
+    <div class='form-section' id = 'HoursDiv' style = 'margin-top:30px; margin-bottom:10px'>
         <legend id = 'subSection2'>Total de horas asignadas</legend>
         <div class = 'row justify-content-center' >
         <div class = 'col'   id = 'totalStudentHours'>

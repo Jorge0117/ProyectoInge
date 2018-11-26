@@ -8,8 +8,7 @@ use App\Model\Table\RoundsTable;
 /**
  * Rounds helper
  */
-class RoundsHelper extends Helper
-{
+class RoundsHelper extends Helper{
 
     /**
      * Default configuration.
@@ -61,15 +60,9 @@ class RoundsHelper extends Helper
         return $this->YmdtodmY($today);
     }
 
-   
-
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
     public function between(){
         return (new RoundsTable)->between();
-    }
-
-    public function active(){
-        return (new RoundsTable)->active();
     }
 }
 
