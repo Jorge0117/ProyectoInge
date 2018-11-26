@@ -278,7 +278,7 @@ INSERT INTO requests_requirements(requirement_number, request_id)
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`daniel_nochez`@`%` TRIGGER `proyecto_inge`.`requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
+CREATE requests_after_update AFTER UPDATE ON `requests` FOR EACH ROW
 BEGIN
 	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
 		call decline_request(new.id);
@@ -312,7 +312,7 @@ END
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`daniel_nochez`@`%` TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW BEGIN
     CALL check_rounds_on_update(
 		NEW.round_number,
         NEW.semester,
@@ -334,8 +334,16 @@ END
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`daniel_nochez`@`%` TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW BEGIN
     CALL delete_round(OLD.start_date);
+END
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW BEGIN
+    IF NEW.round_number = 1 THEN
+		update students set average = 0;
+	END IF;
 END
 DELIMITER ;
 
