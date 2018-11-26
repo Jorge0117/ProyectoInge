@@ -84,7 +84,7 @@
                     'value'     =>  $startDate,
                     'label'     =>  false,
                     'readonly'  =>  true,
-                    'onfocus'   =>  'sensitiveRange(1)',
+                    'onfocus'   =>  'sensitiveStart()',
                     'onfocusout'=>  'readOnlyFalse(1)',
                     'style'     =>  'text-align:center']); ?>
             </div>
@@ -97,7 +97,7 @@
                     'value'     =>  $endDate,
                     'label'     =>  false,
                     'readonly'  =>  true,
-                    'onfocus'   =>  'sensitiveRange(0)',
+                    'onfocus'   =>  'sensitiveEnd()',
                     'onfocusout'=>  'readOnlyFalse(0)',
                     'style'     =>  'text-align:center']); ?>
             </div>
