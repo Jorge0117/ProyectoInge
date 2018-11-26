@@ -304,6 +304,12 @@ function cancel() {
     byId('total-student-hours-d').value = roundData['total_student_hours_d'];
     byId('total-assistant-hours').value = roundData['total_assistant_hours'];
     byId('flag').value = "0";
+    // disabled
+    byId('start-date').disabled = true;
+    byId('end-date').disabled = true;
+    byId('total-student-hours').disabled = true;
+    byId('total-student-hours-d').disabled = true;
+    byId('total-assistant-hours').disabled = true;
     //Botones de Acción
     byId('delete').style.visibility = 'visible';
     byId('edit').style.visibility = "visible";
