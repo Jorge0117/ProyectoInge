@@ -350,7 +350,7 @@
 										'onclick'=>"studentHours()",
 									]);?>
 								</div>
-								<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
+								<div class="col-auto"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
 								<div class="col-2">
 									<?= $this->Form->control('hours',[
 										'id'=>'student',
@@ -382,7 +382,7 @@
 										'onclick'=>"studentDHours()",
 									]);?>
 								</div>
-								<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
+								<div class="col-auto"><p> <?= "Horas Estudiante DOC: " ?></p></div>
 								<div class="col-2">
 									<?= $this->Form->control('hours',[
 										'id'=>'studentD',
@@ -414,7 +414,7 @@
 									'onclick'=>"assistantHours()",						
 								]);?>
 							</div>
-							<div class="col-3"><p> <?= "Horas Asistente: " ?></p></div>
+							<div class="col-auto"><p> <?= "Horas Asistente: " ?></p></div>
 							<div class="col-2">
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
@@ -516,6 +516,9 @@ function habilitarReqs(){
 
 <?php if($approved): ?>
 <script type="text/javascript">
+
+hourTypeAsignableb = '<?= $hourTypeAsignableb ?>';
+
 $(document).ready(function(){
 
 		if('<?= $reviewed ?>'){
@@ -523,10 +526,10 @@ $(document).ready(function(){
 		}
 
 		// Esconde campos en base al tipo de horas asignables
-		if('<?= $hourTypeAsignableb != 'a' ?>'){
+		if(hourTypeAsignableb != 'a' && hourTypeAsignableb != 'c'){
 			byId('assistantRow').style.display = 'none';
 		}
-		if('<?= $hourTypeAsignableb != 'a' && $hourTypeAsignableb != 'e' ?>'){
+		if(hourTypeAsignableb == 'n'){
 			byId('studentDRow').style.display = 'none';
 			byId('studentRow').style.display = 'none';
 		}
@@ -605,7 +608,7 @@ $(document).ready(function(){
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a' ){
 				byId('tah').checked = false;	
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
@@ -628,7 +631,7 @@ $(document).ready(function(){
 			byId('hsd').style.visibility = 'visible';
 			byId('hddLabel').style.visibility = 'hidden';
 			byId('hdd').style.visibility = 'hidden';
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'){
 				byId('hadLabel').style.visibility = 'hidden';
 				byId('had').style.visibility = 'hidden';
 			}
@@ -658,7 +661,7 @@ $(document).ready(function(){
 			byId('tsh').checked = false;
 			byId('student').value = null;
 			byId('student').disabled = true;
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'){
 				byId('tah').checked = false;
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
@@ -680,7 +683,7 @@ $(document).ready(function(){
 			byId('hdd').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
 			byId('hsd').style.visibility = 'hidden';
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'){
 				byId('hadLabel').style.visibility = 'hidden';
 				byId('had').style.visibility = 'hidden';
 			}
