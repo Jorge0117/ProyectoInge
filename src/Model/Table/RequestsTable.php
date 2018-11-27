@@ -480,7 +480,8 @@ class RequestsTable extends Table
     //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
     public function setRequestScope($id, $scope){
         $connet = ConnectionManager::get('default');
-        $query = $connet->execute("update requests set status = '$scope' where id = '$id'");
+
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
     /**
@@ -506,7 +507,7 @@ class RequestsTable extends Table
 	public function getRequestsByRoundStatus($llave_ronda,$estado)
 	{
 		$connet = ConnectionManager::get('default');
-        $result = $connet->execute("select * from info_requests i, approved_requests a, courses c where i.inicio = $llave_ronda AND i.id = a.request_id and c.code = i.curso AND i.estado = '$estado'");
+        $result = $connet->execute("select * from info_requests i, courses c where i.inicio = $llave_ronda AND c.code = i.curso AND i.estado = '$estado'");
         $result = $result->fetchAll('assoc');
         return $result;
 	}

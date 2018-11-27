@@ -120,54 +120,42 @@
     <div class='form-section' id = 'HoursDiv' style = 'margin-top:30px; margin-bottom:10px'>
         <legend id = 'subSection2'>Total de horas asignadas</legend>
         <div class = 'row justify-content-center' >
-        <div class = 'col'   id = 'totalStudentHours'>
-            <div class = 'row justify-content-center' id = 'totalStudentHoursLabel'>Total Horas Estudiante ECCI:</div>
-            <div class = 'row justify-content-center' id = 'totalStudentHoursData'>
-
+            <div class = 'col'   id = 'totalStudentHours'>
                 <!-- Campo total_student_hours, contiene el valor del total de horas estudiante de la ECCI. -->
                 <?= $this->Form->control('total_student_hours',[
                     'type'      =>  'number',
                     'value'     =>  $totalStudentHours,
                     'min'       =>  $actualStudentHours,
                     'readonly'  =>  true,
-                    'label'     =>  false,
+                    'label'     =>  'Total Horas Estudiante ECCI:',
                     'form'      => 'mainRoundsIndexform',
                     'style'     =>  'text-align:center',
                     'required']); ?>
             </div>
-        </div>
-        <div class = 'col' id = 'totalDHours'>
-            <div class = 'row justify-content-center' id = 'totalDHoursHeader'>Total Horas Estudiante DOC:</div>
-            <div class = 'row justify-content-center' id = 'totalDHoursData'> 
-
+            <div class = 'col' id = 'totalDHours'>
                 <!-- Campo total_student_hours_d, contiene el valor del total de horas estudiante de docencia. -->
                 <?= $this->Form->control('total_student_hours_d',[
                     'type'      =>  'number',
                     'value'     =>  $totalDHours,
                     'min'       =>  $actualDHours,
                     'readonly'  =>  true,
-                    'label'     =>  false,
+                    'label'     =>  'Total Horas Estudiante DOC:',
                     'form'      => 'mainRoundsIndexform',
                     'style'     =>  'text-align:center',
                     'required']); ?>
-            </div>   
-        </div>
-        <div class = 'col' id = 'totalAssistantHours'>
-            <div class = 'row justify-content-center' id = 'totalAssistantHoursHeader'>Total Horas Asistente ECCI:</div>
-            <div class = 'row justify-content-center' id = 'totalAssistantHoursData'>
-
+            </div>
+            <div class = 'col' id = 'totalAssistantHours'>
                 <!-- Campo total_assistant_hours, contiene el valor del total de horas asistente de la ECCI. -->
                 <?= $this->Form->control('total_assistant_hours',[
                     'type'      =>  'number',
                     'value'     =>  $totalAssistantHours,
                     'min'       =>  $actualAssistantHours,
                     'readonly'  =>  true,
-                    'label'     =>  false,
+                    'label'     =>  'Total Horas Asistente ECCI:',
                     'form'      => 'mainRoundsIndexform',
                     'style'     =>  'text-align:center',
                     'required']); ?>
             </div>
-        </div>
         </div>
     </div>
 
@@ -195,7 +183,7 @@
 
 
 <?= $this->Html->script('Generic'); ?>
-<?=  $this->Html->script('DateOps'); ?>
+<?= $this->Html->script('DateOps'); ?>
 <script>
     /** 
      * @author Daniel Marín <110100010111h@gmail.com>
