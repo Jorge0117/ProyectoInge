@@ -467,7 +467,8 @@ class RequestsTable extends Table
     //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
     public function setRequestScope($id, $scope){
         $connet = ConnectionManager::get('default');
-        $query = $connet->execute("update requests set status = '$scope' where id = '$id'");
+
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
     /**
