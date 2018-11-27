@@ -149,12 +149,12 @@ class ReportsController extends AppController
 				
 			case 2:
 				//Genera el reporte de solicitudes elegibles rechazadas
-				$this->createExcelRAndNC($report);
+				$this->createExcelRAndNC($report,1);
 				break;
 				
 			case 3:
 				//Genera el reporte de solicitudes no elegibles
-				$this->createExcelRAndNC($report);
+				$this->createExcelRAndNC($report,2);
 				break;
 			case 4:
 				//Genera el reporte de los resultados de una ronda
@@ -222,7 +222,7 @@ class ReportsController extends AppController
         //Se establece el ancho de las celdas
         $sheet->getDefaultColumnDimension()->setWidth(15);
         //Se centra el texto
-        $sheet->getStyle('A1:I'.$cantidad)
+        $sheet->getStyle('A1:G'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Cambia color de celdas de cabecera
         $sheet->getStyle('A1:G1')->getFill()
@@ -306,7 +306,6 @@ class ReportsController extends AppController
 					break;
 			}
 			
-			$col++;
             $row++;
             $cantidad++;
         }
@@ -319,13 +318,13 @@ class ReportsController extends AppController
         //Se establece el ancho de las celdas
         $sheet->getDefaultColumnDimension()->setWidth(15);
         //Se centra el texto
-        $sheet->getStyle('A1:H'.$cantidad)
+        $sheet->getStyle('A1:F'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Cambia color de celdas de cabecera
-        $sheet->getStyle('A1:G1')->getFill()
+        $sheet->getStyle('A1:F1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
         ->getStartColor()->setARGB('463636');
-        $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
+        $sheet->getPageSetup()->setPrintArea('A1:F'.$cantidad);
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
         
@@ -337,20 +336,19 @@ class ReportsController extends AppController
         $writer->save('php://output');
     }
 
-    public function createExcelRAndNC($reports){
+    public function createExcelRAndNC($reports,$type){
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
         $ronda_actual = $roundData["start_date"];
-        /*$reports = $table->find('all', [
-            'conditions' => ['inicio' => $ronda_actual],
-        ]);*/
-		
+        
+        $headerRechazados = "Reporte Historico de Rechazados";
+        $headerNoElegibles = "Reporte Historico de No Elegibles";
 
         //Se crea archivo excel
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         //Se ponen los títulos de las columnas
-        $headerRow = array("Curso","Grupo","Profesor","Carné","Semestre","Ronda");
+        $headerRow = array("Curso","Sigla","Grupo","Profesor","Carné");
         $sheet->fromArray([$headerRow], NULL, 'A1');
         $user= new UsersController;
         
@@ -360,17 +358,15 @@ class ReportsController extends AppController
         //Por ahora, sólo se están poniendo estos datos
         foreach ($reports as $report){
             $col = 1;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['name']);
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->grupo);
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $ProfessorName = $user->getNameUser($report->id_prof));
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['grupo']);
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->carne);
+		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report['id_prof']));  
             $col++;
-            $sheet->setCellValueByColumnAndRow($col, $row, $report->semestre);
-            $col++;
-			$sheet->setCellValueByColumnAndRow($col, $row, $report->ronda);
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['carne']);
             $row++;
             $cantidad++;
         }
@@ -383,19 +379,22 @@ class ReportsController extends AppController
         //Se establece el ancho de las celdas
         $sheet->getDefaultColumnDimension()->setWidth(15);
         //Se centra el texto
-        $sheet->getStyle('A1:G'.$cantidad)
+        $sheet->getStyle('A1:E'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         //Cambia color de celdas de cabecera
-        $sheet->getStyle('A1:G1')->getFill()
+        $sheet->getStyle('A1:E1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
         ->getStartColor()->setARGB('463636');
-        $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
+        $sheet->getPageSetup()->setPrintArea('A1:E'.$cantidad);
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
         
         //Descarga el archivo excel
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'. "archivo" .'.xls"'); /*-- $filename is  xsl filename ---*/
+        if($type == 1)
+            header('Content-Disposition: attachment;filename="'. $headerRechazados .'.xls"');  
+        else
+            header('Content-Disposition: attachment;filename="'. $headerNoElegibles .'.xls"');
         header('Cache-Control: max-age=0');
         
         $writer->save('php://output');
