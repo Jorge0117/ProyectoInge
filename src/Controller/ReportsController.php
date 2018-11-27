@@ -149,12 +149,12 @@ class ReportsController extends AppController
 				
 			case 2:
 				//Genera el reporte de solicitudes elegibles rechazadas
-				$this->createExcel($report);
+				$this->createExcelReprovedAndNC($report);
 				break;
 				
 			case 3:
 				//Genera el reporte de solicitudes no elegibles
-				$this->createExcel($report);
+				$this->createExcelReprovedAndNC($report);
 				break;
 			case 4:
 				//Genera el reporte de los resultados de una ronda
@@ -167,7 +167,73 @@ class ReportsController extends AppController
 		$this->set(compact('report','titulo','horas','estado','imprimirEstado'));
            
     }
-	
+    
+    public function createExcelReprovedAndNC($reports){
+		
+		/*
+		Carné | Curso | Sigla | Grupo | Ronda | Profesor |  H.A. | H.E. | Semestre |
+		*/
+		
+        $table = $this->loadModel('InfoRequests');
+        $roundData = $this->viewVars['roundData'];
+        $ronda_actual = $roundData["start_date"];
+        
+        //Se crea archivo excel
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        //Se ponen los títulos de las columnas
+        $headerRow = array("Curso","Sigla","Grupo","Profesor","Carné","Tipo Hora");
+        $sheet->fromArray([$headerRow], NULL, 'A1');
+        $user= new UsersController;
+        
+        //Se llena el excel con solicitudes
+        $cantidad = 1;
+        $row = 2; 
+        //Por ahora, sólo se están poniendo estos datos
+        foreach ($reports as $report){
+            $col = 1;
+            //$sheet->setCellValueByColumnAndRow($col, $row, $report->curso);
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['name']);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
+            $col++;
+            $sheet->setCellValueByColumnAndRow($col, $row, $report['grupo']);
+            $col++;
+		    $sheet->setCellValueByColumnAndRow($col, $row, $user->getNameUser($report['id_prof']));  //temporal xd
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['carne']);
+            $col++;
+			$sheet->setCellValueByColumnAndRow($col, $row, $report['hour_type']);
+            $row++;
+            $cantidad++;
+        }
+        //Formato del excel
+        $sheet->getPageSetup()
+        ->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $sheet->getPageSetup()
+        ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+        $sheet->setShowGridlines(true);
+        //Se establece el ancho de las celdas
+        $sheet->getDefaultColumnDimension()->setWidth(15);
+        //Se centra el texto
+        $sheet->getStyle('A1:I'.$cantidad)
+        ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        //Cambia color de celdas de cabecera
+        $sheet->getStyle('A1:F1')->getFill()
+        ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('FFFF0000');
+        $sheet->getPageSetup()->setPrintArea('A1:F'.$cantidad);
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
+        
+        //Descarga el archivo excel
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'. "Reporte Historico Aceptados" .'.xls"'); /*-- $filename is  xsl filename ---*/
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+    }
+
 	public function createExcelApproved($reports){
 		
 		/*
