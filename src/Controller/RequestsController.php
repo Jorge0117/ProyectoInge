@@ -961,6 +961,22 @@ class RequestsController extends AppController
         
         return $this->redirect(['action' => 'index']);
     }
+	
+	
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getApprovedRequestsByRound($llave_ronda);
+	}
+	
+	public function getRequestsByRoundStatus($llave_ronda,$estado)
+	{
+		return $this->Requests->getRequestsByRoundStatus($llave_ronda, $estado);
+	}
+	
+	public function getAllRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getAllRequestsByRound($llave_ronda);
+	}
 
     /**
      * Revisar solicitudes elegible o elegibles por inopia en un índice.

@@ -53,6 +53,8 @@
                         <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                         <li class="nav-item item-menu"><?= $this->Html->link('Permisos',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
+
+                        <li class="nav-item item-menu"><?= $this->Html->link('Reportes',['controller'=>'Reports','action'=>'reports_admin'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>
