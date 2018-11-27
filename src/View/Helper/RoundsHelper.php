@@ -8,8 +8,7 @@ use App\Model\Table\RoundsTable;
 /**
  * Rounds helper
  */
-class RoundsHelper extends Helper
-{
+class RoundsHelper extends Helper{
 
     /**
      * Default configuration.
@@ -20,6 +19,7 @@ class RoundsHelper extends Helper
 
     // devuelve la ultima tupla con el formato de fechas correcto.
     public function getLastRow() {
+        
         $last = (new RoundsTable)->getLastRow();
         if($last != null){
             $last['start_date'] = $this->YmdtodmY($last['start_date']);
@@ -30,6 +30,7 @@ class RoundsHelper extends Helper
     }
 
     public function getPenultimateRow(){
+        
         $penultimate = (new RoundsTable)->getPenultimateRow();
         if($penultimate != null){
             $penultimate['start_date'] = $this->YmdtodmY($penultimate['start_date']);
@@ -40,14 +41,17 @@ class RoundsHelper extends Helper
     }
 
     public function YmdtodmY($date){
+        $n = strlen($date);
         $j = $i = 0;
-        while($date[$i] != '/' && $date[$i] != '-')$i++;
+        while($date[$i] != '/' && $date[$i] != '-' && $i < $n)$i++;
         $first = substr($date,$j,$i++);
-        $j = $i;$i = 0;
-        while($date[$j+$i] != '/' && $date[$j+$i] != '-')$i++;
+        $j = $i; $i = 0;
+        while($date[$j+$i] != '/' && $date[$j+$i] != '-' && $i < $n)$i++;
         $second = substr($date,$j,$i++);
         $third = substr($date,$j+$i);
-        return $third . "-" . $second . "-" . $first;
+        $result = $third . "-" . $second . "-" . $first;
+
+        return $result;
     }
 
     //devuelve el día actual.
@@ -56,15 +60,9 @@ class RoundsHelper extends Helper
         return $this->YmdtodmY($today);
     }
 
-   
-
     //devuelve un booleano que informa si el dia de hoy esta dentro del rango de las fechas establecidas.
     public function between(){
         return (new RoundsTable)->between();
-    }
-
-    public function active(){
-        return (new RoundsTable)->active();
     }
 }
 

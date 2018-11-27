@@ -13,8 +13,8 @@
         <div class="form-section">
             <legend><?= __('Datos personales') ?></legend>
             <?php
-                echo $this->Form->control('identification_number',['type'=>'text']);
-                echo $this->Form->control('identification_type', ['options' => ['Cédula de nacional', 'Cédula de residencia', 'Pasaporte', 'Otra'], 'label'=>['text'=>'Tipo de identificación']]);
+                echo $this->Form->control('identification_number',['type'=>'text', 'label'=>['text'=>'Número de cédula']]);
+                echo $this->Form->control('identification_type', ['options' => ['Cédula nacional', 'Cédula de residencia', 'Pasaporte', 'Otra'], 'label'=>['text'=>'Tipo de identificación']]);
                 echo $this->Form->control('name',['label'=>['text'=>'Nombre']]);
                 echo $this->Form->control('lastname1',['label'=>['text'=>'Primer apellido']]);
                 echo $this->Form->control('lastname2',['label'=>['text'=>'Segundo apellido']]);

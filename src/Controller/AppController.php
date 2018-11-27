@@ -50,7 +50,13 @@ class AppController extends Controller
         
         $this->loadComponent('Flash');
         
-        // $this->loadComponent('Security');
+        /**
+         * Authentication component.
+         * 
+         * Controla la autenticación por medio del LDAP
+         * de la ECCI.
+         * @author Daniel Díaz
+         */
         $this->loadComponent('Auth',[
             'authorize' => ['Controller'],
             'authenticate' => ['MyLdap'],
@@ -76,21 +82,37 @@ class AppController extends Controller
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
+         * 
+         * Redirige los requests al método forceSSL si no usan conexión segura
          */
         $this->loadComponent('Security', ['blackHoleCallback' => 'forceSSL']);
 
     }
 
+    /**
+     * Este método corre antes de ejecutar las acciones de cualquier controlador.
+     * 
+     * Opciones para todos los controladores y variables accesibles desde cualquier vista.
+     */
     public function beforeFilter(Event $event)
     {
+        /**
+         * Obliga al servidor a establecer una conexión segura.
+         */
         parent::beforeFilter($event);
         $this->Security->requireSecure();
 
+        /**
+         * Información del usuario actual accesible desde las vistas. 
+         */
         $current_user = $this->Auth->user();
         $this->set('current_user', $current_user);
 
-        // author: Daniel Marín
-        // convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+        /** 
+         *  @author Daniel Marín <110100010111h@gmail.com>
+         * 
+         *  Convierte los datos de ronda en una variable global para evitar conexiones repetitivas a la base de datos
+         */
         if(!$current_user){
             $this->loadModel('Rounds');
             $roundData = $this->Rounds->getLastRow();
@@ -103,11 +125,20 @@ class AppController extends Controller
 
     }
 
+    /**
+     * Forzar conexión segura (SSL), y redigir páginas a https automáticamente.
+     * 
+     * Captura excepciones de seguridad, si se deben a una conexión insegura
+     * (por medio de http) redirecciona a la misma URL con https. De lo contrario
+     * vuelve a levantar la excepción.
+     * 
+     * @author Daniel Díaz
+     * 
+     * @param string error Tipo de error
+     * @param SecurityException exception Excepción  de seguridad que causó el llamado del método.
+     */
     public function forceSSL($error = '', SecurityException $exception = null)
     {
-        // debug($error);
-        // debug($exception);
-        // die();
         if ($exception instanceof SecurityException && $exception->getType() === 'secure') {
             return $this->redirect('https://' . env('SERVER_NAME') . Router::url($this->request->getRequestTarget()));
         }
@@ -123,7 +154,8 @@ class AppController extends Controller
      */
     public function isAuthorized($user)
     {
-        /*$role_c = new RolesController;
+        return true;
+        $role_c = new RolesController;
         $action =$this->request->getParam('action');
         $module = $this->request->getParam('controller');
         
@@ -136,7 +168,7 @@ class AppController extends Controller
               "\t\tDescripción: [Descripción de la acción]\n".
               "\t\tAcción: ".$module.'-'.$action);
             die();
-        }*/
-        return true;//$role_c->is_Authorized($user['role_id'], $module, $action);
+        }
+        return $role_c->is_Authorized($user['role_id'], $module, $action); 
     }
 }
