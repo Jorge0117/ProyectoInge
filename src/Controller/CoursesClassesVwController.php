@@ -54,28 +54,10 @@ class CoursesClassesVwController extends AppController
             //Guarda cada dato en una variable. En el caso del profesor guarda el índice que se escogió
             $name=$coursesClassesVw->Curso;
             $code=$coursesClassesVw->Sigla;
-            $cred=$coursesClassesVw->Creditos;
-            $group=$coursesClassesVw->Grupo;
-            $indexProf=$coursesClassesVw->Profesor;
-            $semester=$coursesClassesVw->Semestre;
-            $year=$coursesClassesVw->Año;
 
-            //Obtiene el array de profesores
-            $usersController = new UsersController;
-            $prof = $usersController->getProfessors();
-
-            //Con el índice de profesor y el método preg_split, so consigue el nombre y el apellido del profesor en un array
-            $prof = preg_split('/\s+/', $prof[$indexProf]);
-            
-            //Se consigue el id del profesor con el nombre y apellido
-            $prof = $usersController->getId($prof[0], $prof[1]);
             //Agrega el curso a la base
             $courseTable=$this->loadmodel('Courses');
-            $courseTable->addCourse($code, $name, $cred);
-
-            //Agrega el grupo al a base
-            $classTable=$this->loadmodel('Classes');
-            $classTable->addClass($code, $group, $semester, $year, 1, $prof);
+            $courseTable->addCourse($code, $name);
 
             //Muestra mensaje de confirmación y redirecciona al index
             $this->Flash->success(__('Se agregó el curso correctamente.'));
@@ -85,7 +67,7 @@ class CoursesClassesVwController extends AppController
         //Consigue le array de profesores
         $usersController = new UsersController;
         $professors = $usersController->getProfessors();
-        $this->set(compact('coursesClassesVw', 'professors'));
+        $this->set(compact('coursesClassesVw'));
     }
 
     public function addClass(){
