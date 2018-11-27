@@ -180,11 +180,15 @@ class RoundsTable extends Table{
 
 
 
-    //Autor: Esteban Rojas
-	//Esta funcion obtiene los datos de la ronda que esta activa en el sistema. Dado que los tiempos entre rondas no se traslapan 
-	//entonces esta función obtiene como máximo una sola tupla de rondas.
-	//Si no hay ninguna ronda activa, entonces retorna un vector vacio.
-	//Recordar referenciar los atributos de la ronda con [0]['campo']
+
+	/**
+     * @author Esteban Rojas Solís <esteban201483@gmail.com>
+     * 
+		Esta funcion obtiene los datos de la ronda que esta activa en el sistema.
+		
+		@param string $fechaActual  fecha desde la cual se obtiene la ronda activa
+		@return array Si no hay ronda activa, entonces el valor retornado será nulo
+     */
     public function getActualRound($fechaActual)
     {
         $connet = ConnectionManager::get('default');
@@ -192,4 +196,23 @@ class RoundsTable extends Table{
         $result = $result->fetchAll('assoc');
         return $result;
     }	
+	
+	/**
+     * @author Esteban Rojas Solís <esteban201483@gmail.com>
+     * 
+		Esta funcion obtiene la llave de una ronda según el número de ronda, semestre y año.
+
+		@param string $round  
+		@param string $semester  
+		@param string $year  
+		@return array Si hay un número de ronda  del semestre y año especificados, de lo contrario nulo
+     */	
+	public function getRoundKey($round,$semester,$year){
+    $connet = ConnectionManager::get('default');
+    $query = $connet->execute(
+        "SELECT start_date FROM rounds
+		 WHERE round_number = '$round' AND semester = '$semester' AND year = '$year' "
+    )->fetchAll();
+    return $query;
+}
 }

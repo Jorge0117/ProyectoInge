@@ -921,13 +921,16 @@ class RequestsController extends AppController
             $text = "Estimado estudiante $name:" . "\v \r \v \r" .
                 "Su solicitud de horas al curso con el(la) profesor(a) $professor, curso $course y grupo $group, fue enviada con éxito." . "\v \r \v \r" .
                 "Por favor no contestar este correo. Cualquier consulta comunicarse con la secretaría de la ECCI al 2511-0000 o 'correo de contacto'.";
+            $email->setSubject('Concurso de asistencia ECCI');
+        }
+        else{
+            $email->setSubject('Resultado concurso de asistencia ECCI');
         }
 
         //Se envía el correo.
         try {
             $res = $email->setFrom('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
-                  ->setTo($mail)
-                  ->setSubject('Resultado del concurso de asistencia')                  
+                  ->setTo($mail)                 
                   ->send($text);
 
         } catch (Exception $e) {
@@ -961,5 +964,21 @@ class RequestsController extends AppController
         
         return $this->redirect(['action' => 'index']);
     }
+	
+	
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getApprovedRequestsByRound($llave_ronda);
+	}
+	
+	public function getRequestsByRoundStatus($llave_ronda,$estado)
+	{
+		return $this->Requests->getRequestsByRoundStatus($llave_ronda, $estado);
+	}
+	
+	public function getAllRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getAllRequestsByRound($llave_ronda);
+	}
 
 }
