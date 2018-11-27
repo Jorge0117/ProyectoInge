@@ -481,6 +481,32 @@ class RequestsTable extends Table
         $request = $this->get($id);
         return $request->scope;
     }
+	
+		
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, approved_requests a, courses c where i.inicio = $llave_ronda AND i.id = a.request_id and c.code = i.curso");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	public function getRequestsByRoundStatus($llave_ronda,$estado)
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, approved_requests a, courses c where i.inicio = $llave_ronda AND i.id = a.request_id and c.code = i.curso AND i.estado = '$estado'");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	public function getAllRequestsByRound($llave_ronda)
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, courses c where i.inicio = $llave_ronda AND i.curso = c.code");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
 
 }
 

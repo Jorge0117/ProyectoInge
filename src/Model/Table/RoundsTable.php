@@ -166,7 +166,16 @@ class RoundsTable extends Table{
         return $query[0][0];
     } 
 
-    /*public function getStartActualRound(){
+// obtiene el día actual.
+public function getRoundKey($round,$semester,$year){
+    $connet = ConnectionManager::get('default');
+    $query = $connet->execute(
+        "SELECT start_date FROM rounds
+		 WHERE round_number = '$round' AND semester = '$semester' AND year = '$year' "
+    )->fetchAll();
+    return $query;
+}
+    public function getStartActualRound(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute("SELECT max(start_date) from rounds;")->fetchAll();
         return $query[0][0];   

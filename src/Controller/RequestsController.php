@@ -935,6 +935,23 @@ class RequestsController extends AppController
         debug("xdxd");
         //die();
     }
+	
+	
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getApprovedRequestsByRound($llave_ronda);
+	}
+	
+	public function getRequestsByRoundStatus($llave_ronda,$estado)
+	{
+		return $this->Requests->getRequestsByRoundStatus($llave_ronda, $estado);
+	}
+	
+	public function getAllRequestsByRound($llave_ronda)
+	{
+		return $this->Requests->getAllRequestsByRound($llave_ronda);
+	}
+	
 
     //Empieza jorge
 
