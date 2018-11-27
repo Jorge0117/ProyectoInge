@@ -20,18 +20,18 @@
 
                     <li class="nav-item item-menu"><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                    
+                    <!-- Nathan González (Empieza) -->
+                    <!-- Se pregunta si estamos en ronda -->
                     <?php $between = $this->Rounds->between() ?>
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
                     
+                        <!-- Si estamos en ronda se muestra la opción de enviar una solicitud y ver mis solicitudes -->
                         <?php if($between == true): ?> 
                             <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
                             <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                         <?php endif ?>
+                    <!-- Nathan González (Termina) -->
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Asistencias pasadas',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
                         <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistencias',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
                         <?php if($between == true): ?> 

@@ -31,7 +31,14 @@
         );
     } );
 
-    // Función encargada de filtrar las solicitudes.
+    /**
+     * Función encargada de filtrar las solicitudes.
+     * 
+     * @author Nathan González
+     * @parameter selector Id del select para tomar su valor.
+     * @parameter table Id de la tabla para poder filtrarla.  
+     * @return Flash Para informar que la solicitud se reviso con exito.
+     */
     function hideRequest(selector, table){
         var selId = document.getElementById(selector); // Identificador del selector.
         var tabId = document.getElementById(table);    // Identificador de la tabla que se va a filtrar.
