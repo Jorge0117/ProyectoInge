@@ -186,6 +186,11 @@ class RequestsController extends AppController
 
     public function add()
     {
+        /***** Nathan González *****/
+        // Si no se está en ronda de admisión de solicitudes no permite entrar a la vista ni por URL
+        if( $this->loadmodel('Rounds')->between() == false )
+            return $this->redirect(['controller' => 'Mainpage', 'action' => 'index']);
+        /***** Nathan González *****/
 
         $request = $this->Requests->newEntity();
         $roundData = $this->viewVars['roundData'];
@@ -864,7 +869,7 @@ class RequestsController extends AppController
 
         //Se envía el correo.
         try {
-            $res = $email->setFrom('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
+            $res = $email->setFrom('asistenciasecciucr@outlook.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->setTo($mail)                 
                   ->send($text);
 
@@ -990,4 +995,52 @@ class RequestsController extends AppController
 
     }
 
+    /**
+     * Revisar solicitudes elegible o elegibles por inopia en un índice.
+     * 
+     * @author Nathan González
+     * @return Flash Para informar que la solicitud se reviso con exito.
+     */
+    public function indexReview(){
+        // Carga el modelo de Requests
+        $requests = $this->loadModel('Requests');
+
+        // Si la solicitud fue hecha procede a almacenarla y enviar el correo correspondiente
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+
+            // Toma los datos de la solicitud
+            $data = $this->request->getData();
+
+            /* Si la solicitud es aceptada o aceptada por inopia se almacena el estado, las horas 
+             * establecidas y se envía una notificación, caso contrario se guarda el estado y se 
+             * envia una notificación
+             */
+            if( $data['sendStatus'] == 'a' || $data['sendStatus'] == 'i' ){
+                if( $data['sendStatus'] == 'a' ) $this->sendMail( $data['sendId'], 3 );
+                else $this->sendMail( $data['sendId'], 4) ;
+
+                $requests->approveRequest( $data['sendId'], $data['sendHourType'], $data['sendHour'] );
+                $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
+            }
+            else{
+                $this->sendMail( $data['sendId'], 2 );
+
+                $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
+            }
+
+            // Se cargan los valores del índice para una nueva vista
+            $query = $requests->traerElegibles();
+            $this->set(compact('query',$query));
+
+            // Se redirecciona para cargar la nueva vista
+            $this->redirect(['action' => 'indexReview']);
+
+            // Mensaje informativo de exito
+            return $this->Flash->success(__('Se reviso la solicitud correctamente'));
+        }
+
+        // Se cargan los valores del índice para una nueva vista
+        $query = $requests->traerElegibles();
+        $this->set(compact('query',$query)); 
+    }
 }
