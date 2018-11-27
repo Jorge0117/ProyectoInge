@@ -116,7 +116,7 @@ insert into permissions_roles values('Reports-studentRequests', 'Estudiante');
 insert into users
 values ('100010001','Nacional', 'Estudiante', 'Estudiante', 'Estudiante', 'estudiante', 'estudiante@mail.com', '80008000', 'Estudiante');
 
-insert into students values ('100010001','b00000');
+insert into students values ('100010001','b00000',10);
 
 insert into users
 values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistente', 'asistente@mail.com', '80008000', 'Asistente');

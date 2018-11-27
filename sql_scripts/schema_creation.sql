@@ -134,7 +134,7 @@ CREATE TABLE `requests` (
   `wants_student_hours` tinyint(1) DEFAULT NULL,
   `wants_assistant_hours` tinyint(1) DEFAULT NULL,
   `stage` tinyint(3) DEFAULT '1',
-  `scope` enum('n','e','a') DEFAULT 'n',
+  `scope` enum('n','e','a','i','c') DEFAULT 'n',
   PRIMARY KEY (`id`),
   KEY `pk_round_start` (`round_start`),
   CONSTRAINT `fk_round_start` FOREIGN KEY (`course_id`,`class_number`,`class_semester`,`class_year`) REFERENCES `classes` (`course_id`,`class_number`,`semester`,`year`) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -194,7 +194,7 @@ CREATE VIEW `info_requests` AS
 		`r`.`student_id` AS `cedula`,
 		`st`.`carne` AS `carne`,
 		concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `nombre`,
-		`r`.`average` AS `promedio`,
+		`st`.`average` AS `promedio`,
 		`r`.`class_year` AS `anno`,
 		`r`.`class_semester` AS `semestre`,
 		`r`.`course_id` AS `curso`,
@@ -542,7 +542,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-     IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT SUBDATE(NOW(),10))) AND start_d != old_start_d) THEN
+	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT SUBDATE(NOW(),10))) AND start_d != old_start_d) THEN
 		SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
