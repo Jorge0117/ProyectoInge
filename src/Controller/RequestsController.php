@@ -864,7 +864,7 @@ class RequestsController extends AppController
 
         //Se envía el correo.
         try {
-            $res = $email->setFrom('estivenalg@gmail.com') // Se debe cambiar este correo por el que se usa en config/app.php
+            $res = $email->setFrom('asistenciasecciucr@outlook.com') // Se debe cambiar este correo por el que se usa en config/app.php
                   ->setTo($mail)                 
                   ->send($text);
 

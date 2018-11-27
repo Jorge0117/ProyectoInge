@@ -220,13 +220,16 @@ return [
             'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
             'className' => 'Smtp'
         ],
-        'gmail' => [
-            'host' => 'ssl://smtp.gmail.com',
-            'port' => 465,
+        'outlook' => [
+            'host' => 'smtp-mail.outlook.com',
+            'port' => 587,
             'timeout' => 60,
-            'username' => 'asistenciaucr12@gmail.com',
-            'password' => 'Contra1234',
-            'className' => 'Smtp'
+            'username' => 'asistenciasecciurc@outlook.com',
+            'password' => 'contra1234',
+            'client' => null,
+            'className' => 'Smtp',
+            'tls' => true,
+            'starttls' => true
         ]
     ],
 
