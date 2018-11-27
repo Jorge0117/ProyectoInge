@@ -100,7 +100,7 @@
 				<div>
 					<?php if($requirements['stage'] > 1 && $requirements['stage'] < 3): ?>
 						<div class='input-group mb-2' id='modificar_tag'>
-							<span style="width:13%" class="input-group-text" >Modificar</span>     
+							<span class="input-group-text" >Modificar</span>     
 							<div class="input-group-append" >
 								<div class="input-group-text bg-white">
 									<?php
@@ -114,7 +114,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado',['onchange'=>'autoReqs()','label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
@@ -138,10 +138,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -176,10 +176,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Asistente'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -213,10 +213,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Ambos'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -239,6 +239,7 @@
 						echo $this->Form->button(
 							'Aceptar',
 							[
+								'onclick' => 'habilitarReqs()',
 								'id' => 'AceptarRequisitos',
 								'name' => 'AceptarRequisitos',
 								'type' => 'submit',
@@ -463,6 +464,7 @@
 		</div>
 	<?php endif;?>
 
+<?= $this->Html->script('Generic'); ?>
 
 <script type="text/javascript">
 $(document).ready( function () {
@@ -474,7 +476,43 @@ $(document).ready( function () {
 		}
     });
 });
+
+function autoReqs(){
+	byId('requirement_6_a').disabled = true;
+	byId('requirement_4_a').disabled = true;
+	byId('requirement_6_r').disabled = true;
+	byId('requirement_4_r').disabled = true;
+	byId('requirement_6_i').disabled = true;
+	byId('requirement_4_i').disabled = true;
+	if(byId('ponderado').value >= 8){
+		byId('requirement_6_a').checked = true;
+		byId('requirement_4_a').checked = true;
+	}else if(byId('ponderado').value >= 7.5){
+		byId('requirement_6_i').checked = true;
+		byId('requirement_4_a').checked = true;
+	}else if(byId('ponderado').value >= 7.0){
+		byId('requirement_6_i').checked = true;
+		byId('requirement_4_i').checked = true;
+	}else{
+		byId('requirement_6_r').checked = true;
+		byId('requirement_4_r').checked = true;
+		byId('requirement_6_i').disabled = false;
+		byId('requirement_4_i').disabled = false;
+	}
+}
+
+function habilitarReqs(){
+	byId('requirement_6_a').disabled = false;
+	byId('requirement_4_a').disabled = false;
+	byId('requirement_6_r').disabled = false;
+	byId('requirement_4_r').disabled = false;
+	byId('requirement_6_i').disabled = false;
+	byId('requirement_4_i').disabled = false;
+}
+
 </script>
+
+
 
 <?php if($approved): ?>
 <script type="text/javascript">
@@ -726,15 +764,6 @@ $(document).ready(function(){
 			
 			byId("divChangeHours").style.display = 'none';
 		}
-	}
-
-	/** Función byId
-	  * EFE: Función wrapper de getElementById
-	  * REQ: Id del elemento a obtener.
-	  * RET: Elemento requerido.
-	  **/
-  	function byId(id) {
-		return document.getElementById(id);
 	}
 	
 	function cambiarhoras()

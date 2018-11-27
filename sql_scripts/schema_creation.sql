@@ -287,7 +287,8 @@ END
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
+BEGIN
 	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
     CALL check_rounds_on_insert(
 		NEW.round_number,
@@ -312,7 +313,8 @@ END
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
+BEGIN
     CALL check_rounds_on_update(
 		NEW.round_number,
         NEW.semester,
@@ -334,19 +336,29 @@ END
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW 
+BEGIN
     CALL delete_round(OLD.start_date);
 END
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW BEGIN
+CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
+BEGIN
     IF NEW.round_number = 1 THEN
 		update students set average = 0;
 	END IF;
 END
 DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
+BEGIN
+	IF old.average <> new.average THEN
+		update requests set average = new.average where student_id = new.user_id;
+    END IF;
+END
+DELIMITER ;
 #---------------------------------------------------------------------------------------------------------------
 # Stored procedures
 
