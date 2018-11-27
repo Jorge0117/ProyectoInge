@@ -496,9 +496,12 @@ class RequestsController extends AppController
                 $load_requirements_review = true;
         
                 // Se cargan a la vista los requisitos de esta solicitud en especifico
+                // Se cargan a la vista los requisitos de esta solicitud en especifico
                 $requirements = $this->Requirements->getRequestRequirements($id);
                 $requirements['stage'] = $request->stage;
-                $this->set(compact('requirements', 'anulada'));
+                $hourTypeFilter['Asistente'] = $request->wants_assistant_hours;
+                $hourTypeFilter['Estudiante'] = $request->wants_student_hours;
+                $this->set(compact('requirements', 'anulada', 'hourTypeFilter'));
             }
         }
         $this->set(compact('load_requirements_review'));

@@ -116,6 +116,7 @@
 					<?php endif; ?>
 					<?php echo $this->Form->control('ponderado',['onchange'=>'autoReqs()','label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
+					<?php if( $hourTypeFilter['Estudiante']): ?>
 					<legend>
 					Requisitos de horas estudiante
 					</legend>
@@ -152,7 +153,8 @@
 							?>		  
 						</table>
 					</div>
-
+					<?php endif; ?>
+					<?php if( $hourTypeFilter['Asistente']): ?>
 					<legend>
 						Requisitos de horas asistente
 					</legend>
@@ -190,7 +192,7 @@
 
 						</table>
 					</div>
-
+					<?php endif; ?>
 					<legend>
 						Requisitos generales
 					</legend>
