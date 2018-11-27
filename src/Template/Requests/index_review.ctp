@@ -50,7 +50,7 @@
                         <select id="status" name="status" class='btn status'>
                             <option value = "n">------------------</option>
                             <option value = "a">Aceptado</option>
-                            <option value = "i">Aceptado por inopia</option>
+                            <option value = "c">Aceptado por inopia</option>
                             <option value = "r">Rechazado</option>
                         </select>
                     </td>
@@ -157,7 +157,7 @@
              * se bloquea la elección de tipo de hora y si el estado es rechazado se activa el botón 
              * para enviar la solicitud.
              */
-            if( this.value == 'a' || this.value == 'i' ){
+            if( this.value == 'a' || this.value == 'c' ){
                 table.rows[row].cells[7].firstElementChild.value = 'NON';
                 table.rows[row].cells[7].firstElementChild.disabled = false;
                 table.rows[row].cells[9].firstElementChild.disabled = true;

@@ -999,10 +999,15 @@ class RequestsController extends AppController
              * envia una notificación
              */
             if( $data['sendStatus'] == 'a' || $data['sendStatus'] == 'i' ){
+                if( $data['sendStatus'] == 'a' ) $this->sendMail( $data['sendId'], 3 );
+                else $this->sendMail( $data['sendId'], 4) ;
+
                 $requests->approveRequest( $data['sendId'], $data['sendHourType'], $data['sendHour'] );
                 $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
             }
             else{
+                $this->sendMail( $data['sendId'], 2 );
+
                 $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
             }
 

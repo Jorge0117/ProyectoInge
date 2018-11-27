@@ -415,10 +415,10 @@ class RequestsTable extends Table
     {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
-        "SELECT r.id, u.username, r.average, r.course_id, r.class_number, r.has_another_hours
+        "SELECT r.id, u.username, s.average, r.course_id, r.class_number, r.has_another_hours
          FROM requests r, students s, users u, rounds ro
          WHERE ro.start_date = r.round_start
-         AND (r.status = 'e' OR r.status = 'o')
+         AND (r.status = 'e' OR r.status = 'i')
          AND r.student_id = s.user_id 
          AND s.user_id = u.identification_number"
         )->fetchAll();
