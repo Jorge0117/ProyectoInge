@@ -7,7 +7,9 @@ echo $this->Html->css('buttons');
 ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 
-
+<?= $this->Form->create('report') ?>
+<?php echo $this->Form->button(__('Generar Reporte'),['class'=>'btn-aceptar float-right btn-space']) ?>
+<?= $this->Form->end() ?>
  
 <div class="users index large-9 medium-8 columns content">
     <h3><?= __('Reporte de solicitudes ' . $titulo) ?></h3>
@@ -89,11 +91,8 @@ echo $this->Html->css('buttons');
             <?php endforeach; ?>
         </tbody>
     </table>
-	<?= $this->Form->create('report') ?>
-	<?php echo $this->Form->button(__('Generar Reporte'),['class'=>'btn-aceptar']) ?>
-	
 </div>
-    <?= $this->Form->end() ?>
+
 <script type="text/javascript">
 	$(document).ready( function () {
     	$("#datagridReports").DataTable(
