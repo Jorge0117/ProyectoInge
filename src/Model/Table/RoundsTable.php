@@ -192,4 +192,13 @@ class RoundsTable extends Table{
         $result = $result->fetchAll('assoc');
         return $result;
     }	
+	
+	public function getRoundKey($round,$semester,$year){
+    $connet = ConnectionManager::get('default');
+    $query = $connet->execute(
+        "SELECT start_date FROM rounds
+		 WHERE round_number = '$round' AND semester = '$semester' AND year = '$year' "
+    )->fetchAll();
+    return $query;
+}
 }

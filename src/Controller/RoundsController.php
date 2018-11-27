@@ -212,5 +212,11 @@ class RoundsController extends AppController
 		$RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->getActualRound(date('y-m-d'));
     }
+	
+	public function get_round_key($round,$semester,$year)
+	{
+		$RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->getRoundKey($round,$semester,$year);
+	}
 
 }
