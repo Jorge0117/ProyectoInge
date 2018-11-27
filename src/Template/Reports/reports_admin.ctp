@@ -12,7 +12,7 @@
     <fieldset>
         <div class="form-section">
             <?php
-                echo $this->Form->control('report_type',['type'=>'select', 'label' => 'Tipo de Reporte', 'options' => ['Elegibles aceptados','Elegibles rechazados','No elegibles']]);
+                echo $this->Form->control('report_type',['type'=>'select', 'label' => 'Tipo de Reporte', 'options' => ['Elegibles aceptados','Elegibles rechazados','No elegibles', 'Resultados']]);
 				echo $this->Form->control('year',['label' => 'Año', 'type'=>'text']);
 				echo $this->Form->control('semester',['type'=>'select', 'label' => 'Ciclo', 'options' => ['I','II']]);
 				echo $this->Form->control('round',['type'=>'select', 'label' => 'Ronda', 'options' => ['1','2', '3']]);
