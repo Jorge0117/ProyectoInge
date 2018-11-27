@@ -188,7 +188,9 @@
                 
                 <td class="actions">
                     <div width="20px">
-                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
+
+                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'print', $request->id], ['target' => '_blank', 'escape'=>false]) ?>
                     
                     <?php if ($admin === true): ?>
                     <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
