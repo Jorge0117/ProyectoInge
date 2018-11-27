@@ -50,6 +50,12 @@ class SecurityController extends AppController
 
                 } else {
                     $this->Auth->setUser($user);
+
+                    $request_c = new RequestsController;
+                    if ($user['role_id'] === 'Estudiante') {
+                        $request_c->updateMessageVariable(1);
+                    }
+                    
                     return $this->redirect($this->Auth->redirectUrl());
                 }
             } else {
@@ -57,8 +63,7 @@ class SecurityController extends AppController
             }
 
         }
-        $request_c = new RequestsController;
-        $request_c->updateMessageVariable(1);
+
     }
 
     /**
