@@ -169,6 +169,7 @@
 		
 		cursos = document.getElementById("a2").options;
 		grupos  = document.getElementById("a1").options;
+		nombreCurso = document.getElementById("nc").value;
 		
 		//cursoActual = selCourse.options[selCourse.selectedIndex].text;
 		cursoActual = document.getElementById("c2").options[selCourse.selectedIndex].text;
@@ -200,6 +201,10 @@
 		//Ahora que se selecciono un curso, ya no es necesario que aparezca esta opcion
 		if(selClass.options[(selClass.length-1)].text == "Seleccione un Curso")
 			selClass.options.remove((selClass.length-1));
+		
+		confirm = document.getElementById("mensajeConfirmacion");
+		confirm.innerHTML = "¿Esta seguro que desea solicitar una asistencia al grupo " + grupoActual +" del curso " +cursoActual+ "-" + nombreCurso + "?";
+
 	}
 
 </script>
@@ -266,7 +271,7 @@
 		<legend><?= __('Datos del estudiante') ?></legend>
 		<?php
 			echo $this->Form->Control('Nombre',['disabled', 'value' => $nombreEstudiante]);
-			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => $carnet]);
+			echo $this->Form->Control( 'student_id2',['label' => 'Carné','disabled', 'value' => strtoupper($carnet)]);
 			echo $this->Form->Control('Cédula',['disabled', 'value' => $cedula]);
 			echo $this->Form->Control('Correo electrónico ',['disabled', 'value' => $correo]);
 			echo $this->Form->Control('Teléfono ',['disabled', 'value' => $telefono]);
@@ -313,7 +318,7 @@
 									<br> </br>
 
 
-				¿Esta seguro que desea agregar la solicitud?
+				<label id="mensajeConfirmacion"> ¿Esta seguro que desea agregar la solicitud? </label>
 				
 
             </fieldset>

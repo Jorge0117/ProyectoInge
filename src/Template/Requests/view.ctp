@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th scope="row">Carné</th>
-                <td><?= $request->has('student') ? h($request->student->carne) : '' ?></td>
+                <td><?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Teléfono</th>
@@ -115,11 +115,12 @@
 <!-- Muestra mensaje informativo si variable created_request es igual a 1 -->
 <script>
 $(function() {
-    var YaCreado = '<?php echo $created_request;?>'
+    var YaCreado = '<?php echo $yc;?>'
     if(YaCreado == 1)
-        $("#MensajeInformativo").modal();
+        $("#MensajeInformativo").modal('show');
 });
 </script>
+
 
 <!-- Mensaje informativo con información importante para el usuario -->
 <div id="MensajeInformativo" class="modal center-block text-center">

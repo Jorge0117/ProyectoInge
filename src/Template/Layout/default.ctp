@@ -148,7 +148,7 @@ echo $this->Html->css('grid-index');
     </div>
     <?=$this->Flash->render()?>
 
-    <div class="container pt-5">
+    <div class="container my-5">
       <?=$this->fetch('content')?>
     </div>
 
