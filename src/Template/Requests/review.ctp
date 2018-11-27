@@ -708,25 +708,6 @@ $(document).ready(function(){
 		}
 	}
 	
-	function allowUpdateHours()
-	{
-		if(byId("hours_change").checked)
-		{
-			/*byId("AceptarCambioHoras").style.visibility = 'visible';
-			byId("new_ha").style.visibility = 'visible';
-			byId("new_he").style.visibility = 'visible';*/
-			byId("divChangeHours").style.display = 'block';
-		}
-		else
-		{
-			/*byId("AceptarCambioHoras").style.visibility = 'hidden';
-			byId("new_ha").style.visibility = 'hidden';
-			byId("new_ha").value = 'xdxd';
-			byId("new_he").style.visibility = 'hidden';*/
-			
-			byId("divChangeHours").style.display = 'none';
-		}
-	}
 
 	/** Función byId
 	  * EFE: Función wrapper de getElementById
@@ -758,3 +739,30 @@ $(document).ready(function(){
 	}
 </script>
 <?php endif; ?>
+
+<script type="text/javascript">
+	/** Función allowUpdateHours
+	  * EFE: Permite activar o desactivar la opción de cambiar horas
+	  **/
+	function allowUpdateHours()
+	{
+		if(document.getElementById("hours_change").checked)
+		{
+			/*byId("AceptarCambioHoras").style.visibility = 'visible';
+			byId("new_ha").style.visibility = 'visible';
+			byId("new_he").style.visibility = 'visible';*/
+			document.getElementById("divChangeHours").style.display = 'block';
+			
+		}
+		else
+		{
+			/*byId("AceptarCambioHoras").style.visibility = 'hidden';
+			byId("new_ha").style.visibility = 'hidden';
+			byId("new_ha").value = 'xdxd';
+			byId("new_he").style.visibility = 'hidden';*/
+			
+			document.getElementById("divChangeHours").style.display = 'none';
+		}
+	}
+
+</script>
