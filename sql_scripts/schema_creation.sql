@@ -134,7 +134,7 @@ CREATE TABLE `requests` (
   `wants_student_hours` tinyint(1) DEFAULT NULL,
   `wants_assistant_hours` tinyint(1) DEFAULT NULL,
   `stage` tinyint(3) DEFAULT '1',
-  `scope` enum('n','e','a','i','c') DEFAULT 'n',
+  `scope` enum('n','e','a','i','c','b') DEFAULT 'n',
   PRIMARY KEY (`id`),
   KEY `pk_round_start` (`round_start`),
   CONSTRAINT `fk_round_start` FOREIGN KEY (`course_id`,`class_number`,`class_semester`,`class_year`) REFERENCES `classes` (`course_id`,`class_number`,`semester`,`year`) ON UPDATE CASCADE ON DELETE CASCADE,
