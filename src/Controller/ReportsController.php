@@ -89,7 +89,7 @@ class ReportsController extends AppController
 			case 1:
 				//Imprime aprobadas
 				//$table = $this->loadModel('info_requests');
-                $estado = '\'a\'';
+                $estado = 'a';
 				$solicitudes = new RequestsController;
                 //$report= $table->find()->where(['inicio = ' . $llave_ronda . ' AND estado = ' . $estado]);
 				$report = $solicitudes->getApprovedRequestsByRound($llave_ronda);
@@ -149,12 +149,12 @@ class ReportsController extends AppController
 				
 			case 2:
 				//Genera el reporte de solicitudes elegibles rechazadas
-				$this->createExcel($report);
+				$this->createExcelRAndNC($report);
 				break;
 				
 			case 3:
 				//Genera el reporte de solicitudes no elegibles
-				$this->createExcel($report);
+				$this->createExcelRAndNC($report);
 				break;
 			case 4:
 				//Genera el reporte de los resultados de una ronda
@@ -227,7 +227,7 @@ class ReportsController extends AppController
         //Cambia color de celdas de cabecera
         $sheet->getStyle('A1:G1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFF0000');
+        ->getStartColor()->setARGB('463636');
         $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
@@ -324,7 +324,7 @@ class ReportsController extends AppController
         //Cambia color de celdas de cabecera
         $sheet->getStyle('A1:G1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFF0000');
+        ->getStartColor()->setARGB('463636');
         $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
@@ -337,7 +337,7 @@ class ReportsController extends AppController
         $writer->save('php://output');
     }
 
-    public function createExcel($reports){
+    public function createExcelRAndNC($reports){
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
         $ronda_actual = $roundData["start_date"];
@@ -388,7 +388,7 @@ class ReportsController extends AppController
         //Cambia color de celdas de cabecera
         $sheet->getStyle('A1:G1')->getFill()
         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-        ->getStartColor()->setARGB('FFFF0000');
+        ->getStartColor()->setARGB('463636');
         $sheet->getPageSetup()->setPrintArea('A1:G'.$cantidad);
 
         $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xls($spreadsheet);
