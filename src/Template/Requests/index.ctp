@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Valeria Zamora
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Request[]|\Cake\Collection\CollectionInterface $requests
  */
@@ -10,6 +11,7 @@
     $(document).ready( function () {
         $("#requesttable").DataTable(
           {
+            "order": [[ 0, "desc" ]],
             /** Configuración del DataTable para cambiar el idioma, se puede personalisar aun más **/
             "language": {
                 "lengthMenu": "Mostrar _MENU_ filas por página",
@@ -95,29 +97,42 @@
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('Fecha de solicitud') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Número de solicitud') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('fecha', 'Fecha de solicitud') ?></th>
+                <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
+                    <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('Nombre') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
+                <?php endif; ?>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Estado') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Tiene otras horas') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('otras_horas','Tiene otras horas') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($query as $request): ?>
             <tr>
+                <td><?= h($request->id) ?></td>
+                
                 <td><?= h($request->fecha) ?></td>
                 
-                <td><?= h($request->carne) ?></td>
-                <td><?= h($request->nombre) ?></td>
 
-                <td><?= $this->Number->format($request->promedio) ?></td>
+                <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
+                    <td><?= h(strtoupper($request->carne)) ?></td>
+                    <td><?= h($request->nombre) ?></td>
+
+                    <?php if ($this->Number->format($request->promedio) == 0): ?>
+                        <td> Pendiente </td>
+                    <?php else: ?>
+                        <td><?= $this->Number->format($request->promedio) ?></td>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 <td><?= h($request->anno) ?></td>
                 <td><?= $this->Number->format($request->semestre) ?></td>
                 <td><?= h($request->curso) ?></td>
@@ -165,11 +180,16 @@
 				
                 
                 <td class="actions">
+                    <div width="20px">
                     <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
                     
                     <?php if ($admin === true): ?>
                     <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
+
+                    <?= $this->Form->button('<i class="fa fa-times"></i>', ['onclick' => "cancelJust($request->id)",'id'=>'cancelar', "class" => "btn-x"]) ?>    
+
                     <?php endif; ?>
+                    </div>
                 </td>
 				
             </tr>
@@ -177,3 +197,15 @@
         </tbody>
     </table>
 </div>
+
+<script>
+
+function cancelJust(id) {
+    var just = prompt("Anular solicitud", "Inserte la justificación");
+    if(just != null){
+        window.location.replace("./requests/cancelRequest/" + id + "/" + just);
+    }
+}
+
+</script>
+

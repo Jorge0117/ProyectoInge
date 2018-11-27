@@ -74,7 +74,11 @@ class CoursesTable extends Table
         $validator
             ->scalar('code')
             ->maxLength('code', 7)
-            ->notEmpty('code');
+            ->notEmpty('code')
+            ->add('code', 'validFormat',[
+                'rule' => '/^[A-Z]{2}[0-9]{4}$/i',
+                'message' => 'El formato de curso no es correcto'
+            ]);
 
         $validator
             ->scalar('name')
