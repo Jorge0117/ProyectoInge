@@ -100,7 +100,7 @@
 				<div>
 					<?php if($requirements['stage'] > 1 && $requirements['stage'] < 3): ?>
 						<div class='input-group mb-2' id='modificar_tag'>
-							<span style="width:13%" class="input-group-text" >Modificar</span>     
+							<span class="input-group-text" >Modificar</span>     
 							<div class="input-group-append" >
 								<div class="input-group-text bg-white">
 									<?php
@@ -114,7 +114,7 @@
 							</div>
 						</div>
 					<?php endif; ?>
-					<?php echo $this->Form->control('ponderado', ['label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
+					<?php echo $this->Form->control('ponderado',['onchange'=>'autoReqs()','label'=>['text'=>'Promedio verificado:'],'type'=>'number','step' => 0.01,  'value' => $request_ponderado, 'min' => 5.0, 'max' => 10.0, 'disabled'=> $requirements['stage'] > 1, 'class' => 'radioRequirements']);?>
 					<?php $this->Form->unlockField('ponderado');?>
 					<legend>
 					Requisitos de horas estudiante
@@ -138,10 +138,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Estudiante'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Estudiante'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Estudiante'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -176,10 +176,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Asistente'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Asistente'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Asistente'][$i]['requirement_number'].'" value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -213,10 +213,10 @@
 									echo('<tr class="bg-white">'."\n");
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['description'].'</td>'."\n"); 
 									echo("\t\t\t\t".'<td style= \'text-align: left;\'>'.$requirements['Ambos'][$i]['type'].'</td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
-									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_a" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="approved" required '.$checkedApproved.' '.$disable_radios.'></td>'."\n"); 
+									echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_r" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="rejected"'.$checkedRejected.' '.$disable_radios.'></td>'."\n");
 									if($requirements['Ambos'][$i]['type'] == 'Opcional'){
-										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
+										echo("\t\t\t\t".'<td><input class="radioRequirements" type="radio" id="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'_i" name="requirement_'.$requirements['Ambos'][$i]['requirement_number'].'"value="inopia"'.$checkedInopia.' '.$disable_radios.'></td>'."\n");
 									}else{
 										echo("\t\t\t\t".'<td style= \'text-align: left;\'>  </td>'."\n"); 
 									}
@@ -239,6 +239,7 @@
 						echo $this->Form->button(
 							'Aceptar',
 							[
+								'onclick' => 'habilitarReqs()',
 								'id' => 'AceptarRequisitos',
 								'name' => 'AceptarRequisitos',
 								'type' => 'submit',
@@ -317,11 +318,6 @@
 		}
 		$reviewed = $default_index == 'a' || $default_index == 'r' || $default_index == 'c';
 		$approved = $load_final_review && ($default_index == 'e' || $default_index =='i' || $reviewed);
-		if($default_index =='i'||$default_index == 'c'){
-			$inopia = ' por inopia';
-		}else{
-			$inopia = '';
-		}
 	?> 
 
 	<?php if($approved):?>
@@ -334,87 +330,69 @@
 					<?= $this->Form->control('Clasificación Final',[
 						'id' => 'End-Classification',
 						'name' => 'End-Classification',
-						'options' => ['-No Clasificado-', 'Aceptado'.$inopia, 'Rechazado'],
+						'options' => ['-No Clasificado-', 'Aceptado', 'Rechazado'],
 						'default' => $default_indexf,
 						'onchange'=>"approve()",
 					]);?>
 					
 					<div class="container" id = 'hoursDiv'>
-							<div class="row justify-content-center" id = 'studentRow'>
-								<div class="col-auto">
-									<?= $this->Form->checkbox('checkbox',[
-										'id'=>'tsh',
-										'value' => 'HEE',
-										'label' => false,
-										'onclick'=>"studentHours()",
-									]);?>
-								</div>
-								<div class="col-3"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
-								<div class="col-2">
-									<?= $this->Form->control('hours',[
-										'id'=>'student',
-										'type'=>'number',
-										'min' => $student_max_hours['HEE'] < 3 || $hasAsignedHours? 0:3,
-										'max' => $student_max_hours['HEE'],
-										'label' => false,
-										'disabled'
-									]);?>
-								</div>
-								<div class="col-auto" id ='hsdLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-								<div class="col-2">
-									<?= $this->Form->control('hsd',[
-										'type'=>'number',
-										'value'=> $roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt,
-										'label' => false,
-										'disabled',
-										'visibility'=>'hidden'
-									]);?>
-								</div>
+						<div class="row justify-content-left" id = 'studentRow'>
+							<div class="col-auto">
+								<?= $this->Form->checkbox('checkbox',[
+									'id'=>'tsh',
+									'value' => 'HEE',
+									'label' => false,
+									'onchange'=>"studentHours()",
+								]);?>
 							</div>
-
-							<div class="row justify-content-center" id = 'studentDRow'>
-								<div class="col-auto">
-									<?= $this->Form->checkbox('checkbox',[
-										'id'=>'tdh',
-										'value' => 'HED',
-										'label' => false,
-										'onclick'=>"studentDHours()",
-									]);?>
-								</div>
-								<div class="col-3"><p> <?= "Horas Estudiante DOC: " ?></p></div>
-								<div class="col-2">
-									<?= $this->Form->control('hours',[
-										'id'=>'studentD',
-										'type'=>'number',
-										'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
-										'max' => $student_max_hours['HED'],
-										'label' => false,
-										'disabled'
-									]);?>
-								</div>
-								<div class="col-auto" id ='hddLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-								<div class="col-2">
-									<?= $this->Form->control('hdd',[
-										'type'=>'number',
-										'value'=> $roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt,
-										'label' => false,
-										'disabled',
-										'visibility'=>'hidden'
-									]);?>
-								</div>
+							<div class="col-4"><p> <?= "Horas Estudiante ECCI: " ?></p></div>
+							<div class="col-auto">
+								<?= $this->Form->control('hours',[
+									'id'=>'student',
+									'type'=>'number',
+									'min' => $student_max_hours['HEE'] < 3 || $hasAsignedHours? 0:3,
+									'max' => $student_max_hours['HEE'],
+									'label' => false,
+									'disabled',
+									'style' => 'width:65px'
+								]);?>
 							</div>
-
-						<div class="row justify-content-center" id = 'assistantRow'>
+							<div class="col-auto" id ='hsdLabel'><p> <?= "Disponibles: ".strval($roundData['total_student_hours']-$roundData['actual_student_hours'] + $hsCnt) ?></p></div>
+						</div>
+						<div class="row justify-content-left" id = 'studentDRow'>
+							<div class="col-auto">
+								<?= $this->Form->checkbox('checkbox',[
+									'id'=>'tdh',
+									'value' => 'HED',
+									'label' => false,
+									'onchange'=>"studentDHours()",
+								]);?>
+							</div>
+							<div class="col-4"><p> <?= "Horas Estudiante DOC: " ?></p></div>
+							<div class="col-auto">
+								<?= $this->Form->control('hours',[
+									'id'=>'studentD',
+									'type'=>'number',
+									'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
+									'max' => $student_max_hours['HED'],
+									'label' => false,
+									'disabled',
+									'style' => 'width:65px'
+								]);?>
+							</div>
+							<div class="col-auto" id ='hddLabel'><p> <?= "Disponibles: ".strval($roundData['total_student_hours_d']-$roundData['actual_student_hours_d'] + $hdCnt) ?></p></div>
+						</div>
+						<div class="row justify-content-left" id = 'assistantRow'>
 							<div class="col-auto">
 								<?= $this->Form->checkbox('checkbox',[
 									'id'=>'tah',
 									'value' => 'HAE',
 									'label' => false,	
-									'onclick'=>"assistantHours()",						
+									'onchange'=>"assistantHours()",						
 								]);?>
 							</div>
-							<div class="col-3"><p> <?= "Horas Asistente: " ?></p></div>
-							<div class="col-2">
+							<div class="col-4"><p> <?= "Horas Asistente: " ?></p></div>
+							<div class="col-auto">
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
@@ -422,18 +400,10 @@
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
+									'style' => 'width:65px'
 								]);?>
 							</div>
-							<div class="col-auto" id ='hadLabel' style = 'visibility:hidden'><p> <?= "Disponibles: " ?></p></div>
-							<div class="col-2">
-								<?= $this->Form->control('had',[
-									'type'=>'number',
-									'value'=> $roundData['total_assistant_hours']-$roundData['actual_assistant_hours'] + $haCnt,
-									'label' => false,
-									'disabled',
-									'visibility'=>'hidden'
-								]);?>
-							</div>
+							<div class="col-auto" id ='hadLabel'><p> <?= "Disponibles: ".strval($roundData['total_assistant_hours']-$roundData['actual_assistant_hours'] + $haCnt) ?></p></div>
 						</div>
 						<?php
 							echo $this->Form->control('type',['type'=>'hidden',]);
@@ -463,6 +433,7 @@
 		</div>
 	<?php endif;?>
 
+<?= $this->Html->script('Generic'); ?>
 
 <script type="text/javascript">
 $(document).ready( function () {
@@ -474,21 +445,60 @@ $(document).ready( function () {
 		}
     });
 });
+
+function autoReqs(){
+	byId('requirement_6_a').disabled = true;
+	byId('requirement_4_a').disabled = true;
+	byId('requirement_6_r').disabled = true;
+	byId('requirement_4_r').disabled = true;
+	byId('requirement_6_i').disabled = true;
+	byId('requirement_4_i').disabled = true;
+	if(byId('ponderado').value >= 8){
+		byId('requirement_6_a').checked = true;
+		byId('requirement_4_a').checked = true;
+	}else if(byId('ponderado').value >= 7.5){
+		byId('requirement_6_i').checked = true;
+		byId('requirement_4_a').checked = true;
+	}else if(byId('ponderado').value >= 7.0){
+		byId('requirement_6_i').checked = true;
+		byId('requirement_4_i').checked = true;
+	}else{
+		byId('requirement_6_r').checked = true;
+		byId('requirement_4_r').checked = true;
+		byId('requirement_6_i').disabled = false;
+		byId('requirement_4_i').disabled = false;
+	}
+}
+
+function habilitarReqs(){
+	byId('requirement_6_a').disabled = false;
+	byId('requirement_4_a').disabled = false;
+	byId('requirement_6_r').disabled = false;
+	byId('requirement_4_r').disabled = false;
+	byId('requirement_6_i').disabled = false;
+	byId('requirement_4_i').disabled = false;
+}
+
 </script>
+
+
 
 <?php if($approved): ?>
 <script type="text/javascript">
-$(document).ready(function(){
 
+hourTypeAsignableb = '<?= $hourTypeAsignableb ?>';
+
+$(document).ready(function(){
+		
 		if('<?= $reviewed ?>'){
 			byId('divPreliminar').style.display = 'none';
 		}
 
 		// Esconde campos en base al tipo de horas asignables
-		if('<?= $hourTypeAsignableb != 'a' ?>'){
+		if(hourTypeAsignableb != 'a' && hourTypeAsignableb != 'c' && hourTypeAsignableb != 'b'){
 			byId('assistantRow').style.display = 'none';
 		}
-		if('<?= $hourTypeAsignableb != 'a' && $hourTypeAsignableb != 'e' ?>'){
+		if(hourTypeAsignableb == 'n'){
 			byId('studentDRow').style.display = 'none';
 			byId('studentRow').style.display = 'none';
 		}
@@ -537,13 +547,10 @@ $(document).ready(function(){
 		byId('assistant').disabled = true;
 		byId('assistant').value = null;
 		byId('hsdLabel').style.visibility = 'hidden';
-		byId('hsd').style.visibility = 'hidden';
 		byId('hddLabel').style.visibility = 'hidden';
-		byId('hdd').style.visibility = 'hidden';
 		byId('hadLabel').style.visibility = 'hidden';
-		byId('had').style.visibility = 'hidden';
 
-		byId('endButtons').style.display = 'none';
+		byId('endButtons').style.visibility = 'hidden';
 
 		var clasification = byId('End-Classification').value;
 		if(clasification == 1){
@@ -551,7 +558,7 @@ $(document).ready(function(){
 		}else{
 			byId('hoursDiv').style.display = 'none';
 			if(clasification == 2){
-				byId('endButtons').style.display = 'table';
+				byId('endButtons').style.visibility = 'visible';
 			}
 		}
 	}
@@ -561,13 +568,17 @@ $(document).ready(function(){
 	  **/
 	function studentHours(){
 		if(byId('tsh').checked){
-
+			if((hourTypeAsignableb == 'i' || hourTypeAsignableb == 'b') && byId('End-Classification').value == 1){
+				byId('End-Classification').options[1].innerText = 'Aceptado por inopia';
+			}else{
+				byId('End-Classification').options[1].innerText = 'Aceptado';
+			}
 			byId('type').value = "HEE";
 
 			byId('tdh').checked = false;
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'|| hourTypeAsignableb == 'b'|| hourTypeAsignableb == 'c'){
 				byId('tah').checked = false;	
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
@@ -587,22 +598,18 @@ $(document).ready(function(){
 			byId('student').focus();
 
 			byId('hsdLabel').style.visibility = 'visible';
-			byId('hsd').style.visibility = 'visible';
 			byId('hddLabel').style.visibility = 'hidden';
-			byId('hdd').style.visibility = 'hidden';
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'|| hourTypeAsignableb == 'b'|| hourTypeAsignableb == 'c'){
 				byId('hadLabel').style.visibility = 'hidden';
-				byId('had').style.visibility = 'hidden';
 			}
 
-			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
 		}else{
+			byId('End-Classification').options[1].innerText = 'Aceptado';
 			byId('student').value = null;
 			byId('student').disabled = true;
 
 			byId('hsdLabel').style.visibility = 'hidden';
-			byId('hsd').style.visibility = 'hidden';
 
 			byId('endButtons').style.visibility = 'hidden';
 		}
@@ -614,13 +621,17 @@ $(document).ready(function(){
 	  **/
 	  function studentDHours(){
 		if(byId('tdh').checked){
-
+			if((hourTypeAsignableb == 'i' || hourTypeAsignableb == 'b') && byId('End-Classification').value == 1){
+				byId('End-Classification').options[1].innerText = 'Aceptado por inopia';
+			}else{
+				byId('End-Classification').options[1].innerText = 'Aceptado';
+			}
 			byId('type').value = "HED";
 
 			byId('tsh').checked = false;
 			byId('student').value = null;
 			byId('student').disabled = true;
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'||hourTypeAsignableb == 'b'||hourTypeAsignableb == 'c'){
 				byId('tah').checked = false;
 				byId('assistant').value = null;
 				byId('assistant').disabled = true;
@@ -639,22 +650,18 @@ $(document).ready(function(){
 			byId('studentD').focus();
 
 			byId('hddLabel').style.visibility = 'visible';
-			byId('hdd').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
-			byId('hsd').style.visibility = 'hidden';
-			if('<?= $hourTypeAsignableb == 'a' ?>'){
+			if(hourTypeAsignableb == 'a'|| hourTypeAsignableb == 'b'||hourTypeAsignableb == 'c'){
 				byId('hadLabel').style.visibility = 'hidden';
-				byId('had').style.visibility = 'hidden';
 			}
 
-			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
 		}else{
+			byId('End-Classification').options[1].innerText = 'Aceptado';
 			byId('studentD').value = null;
 			byId('studentD').disabled = true;
 
 			byId('hddLabel').style.visibility = 'hidden';
-			byId('hdd').style.visibility = 'hidden';
 
 			byId('endButtons').style.visibility = 'hidden';
 		}
@@ -666,6 +673,11 @@ $(document).ready(function(){
 	  **/
 	function assistantHours(){
 		if(byId('tah').checked){
+			if((hourTypeAsignableb == 'c' || hourTypeAsignableb == 'b') && byId('End-Classification').value == 1){
+				byId('End-Classification').options[1].innerText = 'Aceptado por inopia';
+			}else{
+				byId('End-Classification').options[1].innerText = 'Aceptado';
+			}
 			byId('tah').style.disabled = true;
 			byId('tsh').style.disabled = false;
 			byId('type').value = "HAE";
@@ -689,34 +701,22 @@ $(document).ready(function(){
 			byId('assistant').value = <?= $student_asigned_hours_request['HAE'] ?>;
 			<?php endif; ?>
 			byId('hadLabel').style.visibility = 'visible';
-			byId('had').style.visibility = 'visible';
 			byId('hsdLabel').style.visibility = 'hidden';
-			byId('hsd').style.visibility = 'hidden';
 			byId('hddLabel').style.visibility = 'hidden';
-			byId('hdd').style.visibility = 'hidden';
 
-			byId('endButtons').style.display = 'table';
 			byId('endButtons').style.visibility = 'visible';
 		}else{
+			byId('End-Classification').options[1].innerText = 'Aceptado';
 			byId('assistant').value = null;
 			byId('assistant').disabled = true;
 
 			byId('hadLabel').style.visibility = 'hidden';
-			byId('had').style.visibility = 'hidden';
 
 			byId('endButtons').style.visibility = 'hidden';
 		}
 	}
 	
 
-	/** Función byId
-	  * EFE: Función wrapper de getElementById
-	  * REQ: Id del elemento a obtener.
-	  * RET: Elemento requerido.
-	  **/
-  	function byId(id) {
-		return document.getElementById(id);
-	}
 	
 	function cambiarhoras()
 	{

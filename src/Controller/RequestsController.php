@@ -513,6 +513,10 @@ class RequestsController extends AppController
                     $hourType = 'e';
                 }
             }
+            if($hourType == 'a' && $requirementList['Asistente'][1]['acepted_inopia']){
+                $hourType = 'c';
+            }
+
             //Si se cumplen los requisitos para horas asistente, no es necesario verificar si cumple los de horas estudiante
             if($hourType != 'a'){
                 for ($index = 0; $index < sizeof($requirementList['Estudiante']); $index++){
@@ -522,6 +526,19 @@ class RequestsController extends AppController
                     }
                 }
             }
+
+            // c: inopia solo en asistente
+            // b: inopia en asistente y en estudiante
+            // i: inopia solo en estudiante(requisito obligatorio en asistente rechazado)
+            if($requirementList['Estudiante'][1]['acepted_inopia']){
+                if($hourType == 'c'){
+                    $hourType = 'b';
+                }else if($hourType == 'e'){
+                    $hourType = 'i';
+                }
+            }
+            
+
             //Si ya no puede aplicar para ninguna, no es necesario verificar los requisitos generales
             if($hourType != 'n'){
                 for ($index = 0; $index < sizeof($requirementList['Ambos']); $index++){
