@@ -11,6 +11,7 @@
     $(document).ready( function () {
         $("#requesttable").DataTable(
           {
+            "order": [[ 0, "desc" ]],
             /** Configuración del DataTable para cambiar el idioma, se puede personalisar aun más **/
             "language": {
                 "lengthMenu": "Mostrar _MENU_ filas por página",
@@ -84,13 +85,7 @@
     <table cellpadding="0" cellspacing="0" id = "requesttable">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id', array(
-                'asc' => __('Número de solicitud') . ' <i class="icon-chevron-up text-info pull-right"></i>',
-                'desc' => __('Número de solicitud') . ' <i class="icon-chevron-down text-info pull-right"></i>'
-                ),
-                array(
-                    'escape' => false
-                )) ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Número de solicitud') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('fecha', 'Fecha de solicitud') ?></th>
                 <?php if (!($current_user['role_id'] === 'Estudiante')): ?>
                     <th scope="col"><?= $this->Paginator->sort('Carné') ?></th>
@@ -98,7 +93,7 @@
                     <th scope="col"><?= $this->Paginator->sort('Promedio') ?></th>
                 <?php endif; ?>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestre') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Ronda') ?></th>
@@ -173,11 +168,16 @@
 				
                 
                 <td class="actions">
+                    <div width="20px">
                     <?= $this->Html->link('<i class="fa fa-print"></i>', ['action' => 'view', $request->id], ['escape'=>false]) ?>
                     
                     <?php if ($admin === true): ?>
                     <?= $this->Html->link('<i class="fa fa-pencil-square-o"></i>', ['action' => 'review', $request->id], ['escape'=>false]) ?>
+
+                    <?= $this->Form->button('<i class="fa fa-times"></i>', ['onclick' => "cancelJust($request->id)",'id'=>'cancelar', "class" => "btn-x"]) ?>    
+
                     <?php endif; ?>
+                    </div>
                 </td>
 				
             </tr>
@@ -185,4 +185,15 @@
         </tbody>
     </table>
 </div>
+
+<script>
+
+function cancelJust(id) {
+    var just = prompt("Anular solicitud", "Inserte la justificación");
+    if(just != null){
+        window.location.replace("./requests/cancelRequest/" + id + "/" + just);
+    }
+}
+
+</script>
 

@@ -15,14 +15,11 @@ use Cake\I18n\Time;
 class RoundsController extends AppController
 {
     /**
-     * Index method
+     * @author Daniel Marín <110100010111h@gmail.com>
      * 
-     * @return null
+     * Index method
      */
     public function index(){   
-        //$this->viewVars['roundData']['round_number']++;
-        //debug($this->viewVars['roundData']['round_number']);
-        //die();
         $round = $this->Rounds->newEntity();
         // Recibe el form y con base a los datos recibidos elige si agregar o editar una ronda
         if ($this->request->is('post')) {
@@ -32,25 +29,30 @@ class RoundsController extends AppController
         }
         $this->set(compact('round'));
         $roundData = $this->viewVars['roundData'];
-        $this->displayWarning(
-            $roundData['total_student_hours'],
-            $roundData['total_student_hours_d'],
-            $roundData['total_assistant_hours'],
-            $roundData['actual_student_hours'],
-            $roundData['actual_student_hours_d'],
-            $roundData['actual_assistant_hours']
-        );
+        if($roundData){
+            $this->displayWarning(
+                $roundData['total_student_hours'],
+                $roundData['total_student_hours_d'],
+                $roundData['total_assistant_hours'],
+                $roundData['actual_student_hours'],
+                $roundData['actual_student_hours_d'],
+                $roundData['actual_assistant_hours']
+            );
+        }
     }
     
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * add method
      *
      * @param array|null $data post data.
-     * @return null
      */
     public function add($data = null){
-        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add')){
-            $roundData = $this->viewVars['roundData'];
+        $role_c = new RolesController;
+        $user = $this->Auth->user();
+        $roundData = $this->viewVars['roundData'];
+        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add') && $roundData){
             $start = $this->mirrorDate($data['start_date']);
             $end = $this->mirrorDate($data['end_date']);
             $tsh = $data['total_student_hours'];
@@ -75,12 +77,15 @@ class RoundsController extends AppController
     }
 
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * edit method
      *
      * @param array|null $data post data.
-     * @return null
      */
     public function edit($data = null){
+        $role_c = new RolesController;
+        $user = $this->Auth->user();
         if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'edit')){
             $roundData = $this->viewVars['roundData'];
             $start = $this->mirrorDate($data['start_date']);
@@ -96,6 +101,8 @@ class RoundsController extends AppController
     }
 
     /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
      * Delete method
      *
      * @param string|null $id Round id.
@@ -103,10 +110,11 @@ class RoundsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null){
+        $role_c = new RolesController;
+        $user = $this->Auth->user();
         if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'delete')){
-            $date = $this->mirrorDate($id);
             $this->request->allowMethod(['post', 'delete']);
-            $round = $this->Rounds->get($date);
+            $round = $this->Rounds->get($id);
             $RoundsTable = $this->loadmodel('Rounds');
             $RequestsTable = $this->loadmodel('Requests');
             $now = $RoundsTable->getToday();
@@ -132,7 +140,11 @@ class RoundsController extends AppController
         }
     }
 
-    // Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Trasnforma una fecha de formato y-m-d a d-m-y y vicesversa
+     */
     public function mirrorDate($date){
         $j = $i = 0;
         while($date[$i] != '/' && $date[$i] != '-')$i++;
@@ -144,12 +156,24 @@ class RoundsController extends AppController
         return $third . "-" . $second . "-" . $first;
     }
 
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Actualiza el valor de la variable roundData en el sistema.
+     * El método debe de ser llamado cada vez que surge un cambio
+     * en la tabla de rondas
+     */
     public function updateGlobal(){
         $roundData = $this->Rounds->getLastRow();
         $this->request->session()->write('roundData',$roundData);
         $this->set(compact('roundData'));
     }
 
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Despliega advertencias con respecto a las condiciones dadas.
+     */
     private function displayWarning($tsh,$tdh,$tah,$ash,$adh,$aah){
         if(!$this->between()){
             $this->Flash->warning(__('Advertencia: Actualmente no se encuentra dentro de una ronda'));
@@ -171,8 +195,11 @@ class RoundsController extends AppController
     }
 
 
-
-    // informa si el día de hoy se encuentra dentro de la úlitma ronda agregada
+    /** 
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Informa si el día de hoy se encuentra dentro de la úlitma ronda agregada
+     */
     public function between(){
         $RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->between();
@@ -185,5 +212,11 @@ class RoundsController extends AppController
 		$RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->getActualRound(date('y-m-d'));
     }
+	
+	public function get_round_key($round,$semester,$year)
+	{
+		$RoundsTable = $this->loadmodel('Rounds');
+        return $RoundsTable->getRoundKey($round,$semester,$year);
+	}
 
 }

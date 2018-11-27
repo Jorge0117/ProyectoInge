@@ -9,6 +9,8 @@ use Cake\Event\Event;
  * Este controlador se encarga de autenticar los usuarios del sistema.
  * Se apoya en el componente MyLdapAuthenticate para manejar la verificación de
  * credenciales con la red de la ECCI 
+ * 
+ * @author Daniel Díaz
  */
 class SecurityController extends AppController
 {
@@ -22,24 +24,29 @@ class SecurityController extends AppController
 
     /**
      * Pantalla de login que autentica a los usuarios. Si un usuario ingresa
-     * datos válidos perono se encuentra en la Base de Datos se redirige a
+     * datos válidos pero no se encuentra en la Base de Datos se redirige a
      * la pantalla de registrarse.
+     * 
+     * @author Daniel Díaz
      */
     public function login()
     {
+        // Si el usuario ya ingresó redirigir al menú principal;
+        if ($this->Auth->user()) {
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+
         if($this->request->is('post'))
         {
             
             $user = $this->Auth->identify();
             if($user)
             {
-                // debug("Se logro autenticar");
-
                 if ($user['identification_number'] == 'NEW_USER') {
                     // Caso en que los credenciales fueron válidos pero el usuario no existe!
                     // Cambiar la siguiente línea por la accion de agregar usuario
                     $this->getRequest()->getSession()->write('NEW_USER', $user['username']);
-                    $this->redirect(['controller' => 'Users', 'action' => 'register', $user['username']]);
+                    return $this->redirect(['controller' => 'Users', 'action' => 'register', $user['username']]);
 
                 } else {
                     $this->Auth->setUser($user);
@@ -47,7 +54,6 @@ class SecurityController extends AppController
                 }
             } else {
                 $this->Flash->error('Credenciales inválidos.');
-                // debug("No se logro autenticar");
             }
 
         }
@@ -55,24 +61,12 @@ class SecurityController extends AppController
         $request_c->updateMessageVariable(1);
     }
 
-    // public function register(string $username)
-    // {
-    //     debug('Se ingresaron datos válidos para ' . $username . ' pero el usuario no existe en la BD');
-    //     debug('Sustituir por llamado a User add');
-    //     die();
-    // }
-
     /**
      * Limpia la sesión activa.
+     * @author Daniel Díaz
      */
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
     }
-
-    // public function checkUsername($username){
-    //     return $this->Auth->validateUser($username);
-    // }
-
-
 }
