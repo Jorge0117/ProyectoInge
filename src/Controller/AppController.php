@@ -168,7 +168,7 @@ class AppController extends Controller
               "\t\tDescripción: [Descripción de la acción]\n".
               "\t\tAcción: ".$module.'-'.$action);
             die();
-        }*/
-        return true;//$role_c->is_Authorized($user['role_id'], $module, $action);
+        }
+        return $role_c->is_Authorized($user['role_id'], $module, $action); 
     }
 }

@@ -205,12 +205,6 @@ class RoundsController extends AppController
         return $RoundsTable->between();
     }
 	
-	public function get_round_key($round,$semester,$year)
-	{
-		$RoundsTable = $this->loadmodel('Rounds');
-        return $RoundsTable->getRoundKey($round,$semester,$year);
-	}
-	
 	//Autor: Esteban Rojas
 	//Llama al modelo de Rondas y solicita la ronda actual.
 	public function get_actual_round()
