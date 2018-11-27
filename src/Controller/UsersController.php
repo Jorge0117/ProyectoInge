@@ -198,9 +198,7 @@ class UsersController extends AppController
         ]);
         $rol_original = $user->role_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if (isset($this->request->data['cancel'])) {
-                return $this->redirect( array( 'action' => 'index' ));
-            }
+
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $rol_actual = $user->role_id;
             $id = $user->identification_number;
