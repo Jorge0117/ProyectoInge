@@ -350,6 +350,14 @@ class ReportsController extends AppController
         $writer->save('php://output');
     }
 
+    /**
+     * Metodo que envia correos a los estudiantes.
+     * 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param $reports que son 
+     * @param int $type , que identifica si son rechazados o no elegibles
+     * @return void.
+     */
     public function createExcelRAndNC($reports,$type){
         $table = $this->loadModel('InfoRequests');
         $roundData = $this->viewVars['roundData'];
