@@ -26,20 +26,17 @@ class RequirementsController extends AppController
     }
 
     /**
-     * Index method
+     * Metodo que redirecciona al index, carga los requisitos del modelo y los envía
      *
-     * @return \Cake\Http\Response|void
-     */
-    //Empieza ESTIVEN
-    /*Función que redireccina a la vista index*/ 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @return void
+     */ 
     public function index()
     {
         $table = $this->loadModel('Requirements');
         $requirements = $table->find();
         $this->set(compact('requirements'));
-        //$this->checkDate();
     }
-    //Termina ESTIVEN
 
     /**
      * View method
@@ -132,14 +129,13 @@ class RequirementsController extends AppController
     }
 
     /**
-     * Delete method
+     * Elimina el requisito elegido
      *
-     * @param string|null $id Requirement id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param null $id identificador del requisito.
+     * @return redirect Redirecciona al index
+     * @throws / Flash success cuando se elimina el requisito, Flash error cuando no se puede borrar el requisito.
      */
-    //Empieza Estiven
-    /*Función para eliminar requisito*/ 
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
@@ -152,7 +148,6 @@ class RequirementsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-    //Termina ESTIVEN
 
     //Función que relacionará a una solicitud con los requisitos.
     public function addRequest($requestId){

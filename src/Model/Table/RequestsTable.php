@@ -379,11 +379,15 @@ class RequestsTable extends Table
         return $query;
     }
 
-    //Empieza ESTIVEN
-    //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
-    //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
-    // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si
-    // se aprueba requisito por inopia o no.
+    /**
+     * Metodo que obtiene todos los requisitos no cumplidos por el estudiante en una solicitud.
+     * 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param int $id que es el identificador de la solicitud
+     * @param char $s se debe poner el valor que identifique a los requisitos rechados
+     * @param int $in que identifica si se aprueba requisito por inopia o no.
+     * @return result: los requisitos no aprobados en la solicitud.
+     */
     public function getRequirements($id,$s,$in)
 	{
         $connet = ConnectionManager::get('default');
@@ -395,7 +399,6 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result; // Se devuelve la lista de requisitos.
     }
-    //Termina ESTIVEN
     
     /**
      * Determina si un estudiante es dueño de una solicitud.

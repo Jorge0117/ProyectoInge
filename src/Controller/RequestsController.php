@@ -815,9 +815,13 @@ class RequestsController extends AppController
         $this->set('load_final_review', $load_final_review);
     }
 
-    //Empieza ESTIVEN
-    //Método para recuperar los requisitos que no fueron cumplidos por el estudiante
-    //Recibe el id de la solicitud
+    /**
+     * Metodo que obtiene los requisitos no cumplidos por el estudiante en la solicitud.
+     * 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param $id que es el identificador de la solicitud
+     * @return string con todos los requisitos no cumplidos.
+     */
     public function reprovedMessage($id)
     {
         $s = 'r'; //Es el valor que tienen los requisitos rechazados
@@ -831,8 +835,15 @@ class RequestsController extends AppController
         return $list; //Se devuelve la lista de requisitos rechazados del estudiante
     }
 
-    //Método para enviar correo electrónico al estudiante, dando algún aviso.
-    //Recibe el id de la solicitud y un estado para indicar si es no elegible, aceptado o rechazado.
+    /**
+     * Metodo que envia correos a los estudiantes.
+     * 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param int $id que es el identificador de la solicitud
+     * @param int $state que es el tipo de mensaje que se 
+     * debe enviar, dependiendo del estado de la solicitud
+     * @return void.
+     */
     public function sendMail($id, $state)
     {
         //Aquí se obtienen datos de la solicitud, nombre de profesor, curso, grupo y nombre de estudiante,
@@ -905,7 +916,6 @@ class RequestsController extends AppController
 
         }
     }
-    //Termina ESTIVEN
 
     //Empieza jorge
 
