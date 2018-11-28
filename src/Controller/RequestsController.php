@@ -926,7 +926,9 @@ class RequestsController extends AppController
 
         if($result){
             $request->stage = 1;
-            $this->Requests->setRequestScope($id, 'x');
+            $request->status = 'x';
+
+            $this->Requests->save($request);
             $this->Flash->success(__('Se anuló la solicitud correctamente.'));
         }else{
             $this->Flash->error(__('Error: no se pudo anular la solicitud.'));
