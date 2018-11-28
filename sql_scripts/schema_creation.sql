@@ -262,99 +262,6 @@ CREATE VIEW `professor_assistants` AS
 		);
 
 #---------------------------------------------------------------------------------------------------------------
-# Triggers
-
-DELIMITER $$
-CREATE TRIGGER assign_requirements AFTER INSERT ON requests
-FOR EACH ROW
-INSERT INTO requests_requirements(requirement_number, request_id) 
-(SELECT r.requirement_number,NEW.id  from requirements r )
-$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
-BEGIN
-	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
-		call decline_request(new.id);
-	END IF;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
-BEGIN
-	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
-    CALL check_rounds_on_insert(
-		NEW.round_number,
-        NEW.semester,
-        NEW.start_date,
-        NEW.end_date,
-        NEW.year,
-        NEW.total_student_hours,
-        NEW.total_student_hours_d,
-        NEW.total_assistant_hours,
-        NEW.actual_student_hours,
-        NEW.actual_student_hours_d,
-        NEW.actual_assistant_hours,
-        (SELECT total_student_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT total_student_hours_d FROM rounds WHERE start_date = @last_start_date),
-        (SELECT total_assistant_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_student_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
-	);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
-BEGIN
-    CALL check_rounds_on_update(
-		NEW.round_number,
-        NEW.semester,
-        NEW.start_date,
-        NEW.end_date,
-        NEW.year,
-        OLD.start_date,
-		NEW.total_student_hours,
-        NEW.total_student_hours_d,
-		NEW.total_assistant_hours,
-		NEW.actual_student_hours,
-        NEW.actual_student_hours_d,
-		NEW.actual_assistant_hours,
-		OLD.actual_student_hours,
-        OLD.actual_student_hours_d,
-		OLD.actual_assistant_hours
-	);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW 
-BEGIN
-    CALL delete_round(OLD.start_date);
-END
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
-BEGIN
-    IF NEW.round_number = 1 THEN
-		update students set average = 0;
-	END IF;
-END
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
-BEGIN
-	IF old.average <> new.average THEN
-		update requests set average = new.average where student_id = new.user_id;
-    END IF;
-END
-DELIMITER ;
-#---------------------------------------------------------------------------------------------------------------
 # Stored procedures
 
 DELIMITER $$
@@ -754,4 +661,97 @@ BEGIN
         total_assistant_hours = tah
     WHERE start_date = old_start_d;
 END$$
+DELIMITER ;
+#---------------------------------------------------------------------------------------------------------------
+# Triggers
+
+DELIMITER $$
+CREATE TRIGGER assign_requirements AFTER INSERT ON requests
+FOR EACH ROW
+INSERT INTO requests_requirements(requirement_number, request_id) 
+(SELECT r.requirement_number,NEW.id  from requirements r )
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
+BEGIN
+	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
+		call decline_request(new.id);
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
+BEGIN
+	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
+    CALL check_rounds_on_insert(
+		NEW.round_number,
+        NEW.semester,
+        NEW.start_date,
+        NEW.end_date,
+        NEW.year,
+        NEW.total_student_hours,
+        NEW.total_student_hours_d,
+        NEW.total_assistant_hours,
+        NEW.actual_student_hours,
+        NEW.actual_student_hours_d,
+        NEW.actual_assistant_hours,
+        (SELECT total_student_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT total_student_hours_d FROM rounds WHERE start_date = @last_start_date),
+        (SELECT total_assistant_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_student_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
+	);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
+BEGIN
+    CALL check_rounds_on_update(
+		NEW.round_number,
+        NEW.semester,
+        NEW.start_date,
+        NEW.end_date,
+        NEW.year,
+        OLD.start_date,
+		NEW.total_student_hours,
+        NEW.total_student_hours_d,
+		NEW.total_assistant_hours,
+		NEW.actual_student_hours,
+        NEW.actual_student_hours_d,
+		NEW.actual_assistant_hours,
+		OLD.actual_student_hours,
+        OLD.actual_student_hours_d,
+		OLD.actual_assistant_hours
+	);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW 
+BEGIN
+    CALL delete_round(OLD.start_date);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
+BEGIN
+    IF NEW.round_number = 1 THEN
+		update students set average = 0;
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
+BEGIN
+	IF old.average <> new.average THEN
+		update requests set average = new.average where student_id = new.user_id;
+    END IF;
+END $$
 DELIMITER ;
