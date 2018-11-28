@@ -304,7 +304,7 @@ class ReportsController extends AppController
 					$sheet->setCellValueByColumnAndRow($col, $row, 'No elegible');
 					break;
 				case 'i':
-					$sheet->setCellValueByColumnAndRow($col, $row, 'Aceptado por inopia');
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Elegible por inopia');
 					break;
 				case 'x':
 					$sheet->setCellValueByColumnAndRow($col, $row, 'Anulada');
@@ -314,6 +314,9 @@ class ReportsController extends AppController
 					break;					
 				case 'p':
 					$sheet->setCellValueByColumnAndRow($col, $row, 'Pendiente');
+					break;
+				case 'c':
+					$sheet->setCellValueByColumnAndRow($col, $row, 'Aceptado por inopia');
 					break;
 			}
 			
