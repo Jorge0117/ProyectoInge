@@ -14,6 +14,18 @@ class RequirementsController extends AppController
 {
 
     /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarRequisitos');
+
+    }
+
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|void

@@ -24,6 +24,17 @@ require ROOT.DS.'vendor' .DS. 'phpoffice/phpspreadsheet/src/Bootstrap.php';
  */
 class CoursesClassesVwController extends AppController
 {
+    /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarCursos');
+
+    }
 
     /**
      * Index method, Joseph Rementería.

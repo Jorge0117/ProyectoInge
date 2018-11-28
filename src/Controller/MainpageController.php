@@ -25,6 +25,7 @@ class MainpageController extends AppController
      */
     public function index()
     {
+        $this->set('active_menu', 'MenubarInicio');
         
     }
 }
