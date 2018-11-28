@@ -216,14 +216,29 @@ class RoundsController extends AppController
         return $RoundsTable->between();
     }
 	
-	//Autor: Esteban Rojas
-	//Llama al modelo de Rondas y solicita la ronda actual.
+	/**
+     * @author Esteban Rojas
+     * 
+		Esta funcion obtiene los datos de la ronda que esta activa en el sistema.
+		
+		@return array Si no hay ronda activa, entonces el valor retornado será nulo
+     */
 	public function get_actual_round()
     {
 		$RoundsTable = $this->loadmodel('Rounds');
         return $RoundsTable->getActualRound(date('y-m-d'));
     }
 	
+	/**
+     * @author Esteban Rojas 
+     * 
+		Esta funcion obtiene la llave de una ronda según el número de ronda, semestre y año.
+
+		@param string $round  
+		@param string $semester  
+		@param string $year  
+		@return array Si hay un número de ronda  del semestre y año especificados, de lo contrario nulo
+     */	
 	public function get_round_key($round,$semester,$year)
 	{
 		$RoundsTable = $this->loadmodel('Rounds');
