@@ -3,6 +3,35 @@
  * Barra del menú de navegación, ingluye el logo de la ECCI e información de las rondas.
  */
 ?>
+
+
+<?php 
+/**
+ * La variable $active_menu se usa para indicar cuál es el menú activo. Los posibles valores son:
+ * - MenubarInicio
+ * - MenubarSolicitudes
+ * - MenubarEstSolicitar
+ * - MenubarEstHistorial
+ * - MenubarProfHistorial
+ * - MenubarCursos
+ * - MenubarRequisitos
+ * - MenubarRonda
+ * - MenubarUsuarios
+ * - MenubarPermisos
+ * - MenubarReportes
+ */
+if(isset($active_menu)):
+?>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var obj_id = '#<?php echo $active_menu; ?>';
+        var clase = $(obj_id).attr('class');
+        $(obj_id).attr('class', clase + ' active');
+    });
+    </script>
+<?php else: ?>
+<?php endif; ?>
+
 <nav class="navbar navbar-fixed-top navbar-expand-xl justify-content-between navbar-light bg-white" >    
     <div style = 'width:218px'>
         <a class="navbar-brand" href="https://www.ecci.ucr.ac.cr/" >
@@ -18,33 +47,43 @@
             <div class="collapse navbar-collapse" id="modulesList">
                 <ul class="nav navbar-nav">
 
-                    <li class="nav-item item-menu"><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></li>
+                    <li id="MenubarInicio" class="nav-item item-menu"><?= $this->Html->link('Inicio',['controller'=>'Mainpage','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                    
+                    <!-- Nathan González (Empieza) -->
+                    <!-- Se pregunta si estamos en ronda -->
+                    <?php $between = $this->Rounds->between() ?>
                     <?php if($current_user['role_id'] === 'Estudiante'): ?>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistencias',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
+                    
+                        <!-- Si estamos en ronda se muestra la opción de enviar una solicitud y ver mis solicitudes -->
+                        <?php if($between == true): ?> 
+                            <li id="MenubarEstSolicitar" class="nav-item item-menu"><?= $this->Html->link('Solicitar asistencia',['controller'=>'Requests','action'=>'add'],['class'=>'nav-link']) ?></li>
+                            <li id="MenubarSolicitudes" class="nav-item item-menu"><?= $this->Html->link('Mis solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php endif ?>
+                    <!-- Nathan González (Termina) -->
+
+                        <li id="MenubarEstHistorial" class="nav-item item-menu"><?= $this->Html->link('Historial de asistencias',['controller'=>'Reports','action'=>'studentRequests'],['class'=>'nav-link']) ?></li>
                     <?php else: ?>
-                    <li class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php if($between == true): ?> 
+                            <li id="MenubarSolicitudes" class="nav-item item-menu"><?= $this->Html->link('Solicitudes',['controller'=>'Requests','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <?php endif ?>
                     <?php endif ?>
 
                     <?php if ($current_user['role_id'] === 'Profesor'): ?>
-                    <li class="nav-item item-menu"><?= $this->Html->link('Historial de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
+                    <li id="MenubarProfHistorial" class="nav-item item-menu"><?= $this->Html->link('Historial de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
                     
                     <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
-                        <li class="nav-item item-menu"><?= $this->Html->link('Cursos',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarCursos" class="nav-item item-menu"><?= $this->Html->link('Cursos',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarRequisitos" class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarRonda" class="nav-item item-menu"><?= $this->Html->link('Ronda',['controller'=>'Rounds','action'=>'index'],['class'=>'nav-link']) ?></li>
                         
-                        <li class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarUsuarios" class="nav-item item-menu"><?= $this->Html->link('Usuarios',['controller'=>'Users','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Permisos',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarPermisos" class="nav-item item-menu"><?= $this->Html->link('Permisos',['controller'=>'Roles','action'=>'index'],['class'=>'nav-link']) ?></li>
 
-                        <li class="nav-item item-menu"><?= $this->Html->link('Reportes',['controller'=>'Reports','action'=>'reports_admin'],['class'=>'nav-link']) ?></li>
+                        <li id="MenubarReportes" class="nav-item item-menu"><?= $this->Html->link('Reportes',['controller'=>'Reports','action'=>'reports_admin'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
 
                 </ul>

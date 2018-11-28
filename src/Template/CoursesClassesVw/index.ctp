@@ -159,8 +159,6 @@
 
 
 <style>
-    body {font-family: Arial, Helvetica, sans-serif;}
-
     /* Fondo del modal */
     .modal {
         display: none; 

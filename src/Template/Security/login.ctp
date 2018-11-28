@@ -6,6 +6,8 @@
     <?= $this->Form->create() ?>
     <fieldset>
         <legend><?= __('Ingreso al sistema') ?></legend>
+        
+        <small class="form-text text-muted mb-1">Use sus credenciales de la ECCI, p.e. "b12345" o "gabriela.salazar"</small>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
             <span style="width:120px" class="input-group-text">Usuario:</span>

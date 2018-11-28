@@ -14,6 +14,18 @@ class RequirementsController extends AppController
 {
 
     /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarRequisitos');
+
+    }
+
+    /**
      * Index method
      *
      * @return \Cake\Http\Response|void
@@ -48,6 +60,7 @@ class RequirementsController extends AppController
     /**
      * Add method
      *
+     * @author Nathan González
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -82,6 +95,7 @@ class RequirementsController extends AppController
     /**
      * Edit method
      *
+     * @author Nathan González
      * @param string|null $id Requirement id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.

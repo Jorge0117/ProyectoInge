@@ -411,6 +411,19 @@ class RequestsTable extends Table
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
     }
 
+    public function traerElegibles()
+    {
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+        "SELECT r.id, u.username, s.average, r.course_id, r.class_number, r.has_another_hours
+         FROM requests r, students s, users u, rounds ro
+         WHERE ro.start_date = r.round_start
+         AND (r.status = 'e' OR r.status = 'i')
+         AND r.student_id = s.user_id 
+         AND s.user_id = u.identification_number"
+        )->fetchAll();
+        return $query;
+    }
     /**
      * Determina si un profesor está a cargo del curso para el cual se solicita una
      * asistencia.
@@ -467,7 +480,8 @@ class RequestsTable extends Table
     //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
     public function setRequestScope($id, $scope){
         $connet = ConnectionManager::get('default');
-        $query = $connet->execute("update requests set status = '$scope' where id = '$id'");
+
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
     /**
