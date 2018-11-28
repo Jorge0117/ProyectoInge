@@ -228,7 +228,10 @@ class ReportsController extends AppController
         ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
         $sheet->setShowGridlines(true);
         //Se establece el ancho de las celdas
-        $sheet->getDefaultColumnDimension()->setWidth(15);
+        $sheet->getColumnDimension('A')->setAutoSize(false);
+        $sheet->getColumnDimension('D')->setAutoSize(false);
+        $sheet->getColumnDimension('A')->setWidth(50);
+        $sheet->getColumnDimension('D')->setWidth(25);
         //Se centra el texto
         $sheet->getStyle('A1:G'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -324,7 +327,10 @@ class ReportsController extends AppController
         ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
         $sheet->setShowGridlines(true);
         //Se establece el ancho de las celdas
-        $sheet->getDefaultColumnDimension()->setWidth(15);
+        $sheet->getColumnDimension('A')->setAutoSize(false);
+        $sheet->getColumnDimension('D')->setAutoSize(false);
+        $sheet->getColumnDimension('A')->setWidth(50);
+        $sheet->getColumnDimension('D')->setWidth(25);
         //Se centra el texto
         $sheet->getStyle('A1:F'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
@@ -367,6 +373,8 @@ class ReportsController extends AppController
         foreach ($reports as $report){
             $col = 1;
             $sheet->setCellValueByColumnAndRow($col, $row, $report['name']);
+            $sheet->setCellValueByColumnAndRow($col, $row,'width="40"');
+            $sheet->
             $col++;
             $sheet->setCellValueByColumnAndRow($col, $row, $report['curso']);
             $col++;
@@ -385,7 +393,10 @@ class ReportsController extends AppController
         ->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
         $sheet->setShowGridlines(true);
         //Se establece el ancho de las celdas
-        $sheet->getDefaultColumnDimension()->setWidth(15);
+        $sheet->getColumnDimension('A')->setAutoSize(false);
+        $sheet->getColumnDimension('D')->setAutoSize(false);
+        $sheet->getColumnDimension('A')->setWidth(50);
+        $sheet->getColumnDimension('D')->setWidth(25);
         //Se centra el texto
         $sheet->getStyle('A1:E'.$cantidad)
         ->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
