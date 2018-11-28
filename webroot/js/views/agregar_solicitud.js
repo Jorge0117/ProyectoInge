@@ -218,18 +218,18 @@ function requireAssistant(){
     
 }
 
-/** Función send
+/** 
+ * Se ejecuta cuando el usuario acepta el modal con el mensaje de confirmación.
+ * 
+ * Función send
  * EFE: habilita los campos de otras horas para enviarlos en el form
  **/
 function send(){
+
     byId('another-student-hours').disabled = false;
     byId('another-assistant-hours').disabled = false;
     // autor: ...
-    var modal = byId("confirmacion");
-    modal.style.display = "none";
-
-    $('html,body').scrollTop(0);        
-    
+    $('#confirmacion').modal('hide'); 
 }
 
 /** Función byId
@@ -241,17 +241,11 @@ function byId(id) {
     return document.getElementById(id);
 }
 //termina Daniel M
-function confirmar()
-{
-    var modal = byId("confirmacion");
-    modal.style.display = "block";
-}
+
 
 function cancelarModal()
 {
-    var modal = byId("confirmacion");
-    modal.style.display = "none";
-    
+    $('#confirmacion').modal('hide');
     byId('has-another-hours').checked = false;
     byId('another-student-hours').disabled = true;
     byId('another-assistant-hours').disabled = true;

@@ -7,45 +7,14 @@
 ?>
 
 <style>
-
-    /* Fondo del modal */
-    .modal {
-        display: none; 
-        position: fixed;
-        z-index: 1;
-        padding-top: 100px; /*Posición del modal */
-        left: 0;
-        top: 0;
-        width: 100%; 
-        height: 100%; 
-        overflow: auto; /* En caso de ser necesario se puede hacer scroll */
-        background-color: rgb(0,0,0); /* Color del fondo */
-        background-color: rgba(0,0,0,0.4); /* Color con transparencia */
-    }
-
-    /* Contenido del modal */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-    }
+	/* Esta clase se usa para campos ocultos */
+	.no-size {
+		margin: 0px;
+		padding: 0px;
+		width: 0px;
+		height: 0px;
+		visibility:hidden;
+	}
 </style>
 
 <?php 
@@ -102,80 +71,43 @@
                 echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
             ?>
         </div>
-        
-        <div id="confirmacion" class="modal", style = "z-index:20">
-            <div class="modal-content">
-                <div class="files form large-9 medium-8 columns content">
-
-                    <fieldset>
-                        <legend><?= __('Agregar solicitud') ?></legend>
-                        <br>
-                        <br>
-                        </br>
-                        <label id="mensajeConfirmacion"> ¿Esta seguro que desea agregar la solicitud? </label>
-                    </fieldset>
-                    <!--<button type="submit" class="btn btn-primary float-right">Aceptar</button>-->
-                    <button id="butCanc" type="reset" class="btn btn-secondary float-right btn-space" onclick="cancelarModal()">Cancelar</button>
-                    <?php echo $this->Form->button(__('Aceptar'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
-
-                </div>
-            </div>
-        </div>
                             
-        <?php echo $this->Form->button(__('Agregar solicitud'),['class'=>'btn-aceptar', 'onclick'=>'send()']) ?>
-        <?php 
-            echo $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']); 
-            echo $this->Form->control('Agregar Solicitud',['type' => 'button', 'onclick' =>'confirmar()', 'id' => 'btnConfirmacion', 'label' => '','value' => 'Agregar solicitud', 'class'=>'btn-aceptar']);
-        ?>
-            
+        <?= $this->Html->link(__('Cancelar'), $this->request->referer(), ['class'=>'btn btn-secondary btn-cancelar']) ?>
+		<?= $this->Form->button('Agregar Solicitud',['id' => 'btnConfirmacion', 'class'=>'btn btn-primary btn-aceptar', 'type'=>'button', 'data-toggle' => 'modal', 'data-target' => '#confirmacion']) ?>
+    
         <?php
-            /*
-            echo $this->Form->Label("Datos adicionales Solicitud: ");
-            echo $this->Form->input('class_semester',['disabled', 'label' => 'Semestre:', 'type' => 'text' , 'value' => $semestre]);
-            echo $this->Form->Control('class_year',['disabled', 'label' => 'Año:','value' => $año]);
-            */
-
             /**
              *  Estos campos solamente sirven para almacenar vectores, dado que esta es la única forma eficiente que conozco de compartir variables
              *  entre php y javascript. Si conocen una mejor me avisan :)
+			 * 
+			 * TODO:
+			 * La próxima use el HTML helper para insertar codigo js inline y/o JQuery para setear las variable en contexto global.
             */
-            echo $this->Form->control('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'style' => 'visibility:hidden']);
-            echo $this->Form->control('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'style' => 'visibility:hidden']);
-            echo $this->Form->control('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'style' => 'visibility:hidden']);
-            echo $this->Form->control('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'style' => 'visibility:hidden']);
-            echo $this->Form->control('c2', ['label' => '', 'id' => 'c2', 'type' => 'select' , 'options' => $c2 , 'style' => 'visibility:hidden']);
+            echo $this->Form->text('a1', ['label' => '', 'id' => 'a1', 'type' => 'select' , 'options' => $class , 'class' => 'no-size']);
+            echo $this->Form->text('a2', ['label' => '', 'id' => 'a2', 'type' => 'select' , 'options' => $course , 'class' => 'no-size']);
+            echo $this->Form->text('a3', ['label' => '', 'id' => 'a3', 'type' => 'select' , 'options' => $nombre , 'class' => 'no-size']);
+            echo $this->Form->text('a4', ['label' => '', 'id' => 'a4', 'type' => 'select' , 'options' => $profesor , 'class' => 'no-size']);
+            echo $this->Form->text('c2', ['label' => '', 'id' => 'c2', 'type' => 'select' , 'options' => $c2 , 'class' => 'no-size']);
             //echo $this->Form->control('a5', ['label' => '', 'id' => 'a5', 'type' => 'select' , 'options' => $id , 'style' => 'visibility:hidden', 'height' => '1px']);
         ?>
-    </fieldset>
 
-    
-    <!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
+		<div id="confirmacion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="confirmacion	Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+							<h5 class="modal-title">Agregar Solicitud</h5>
+					</div>
+					<div class="modal-body">
+						<p id="mensajeConfirmacion">¿Esta seguro que desea agregar la solicitud?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="butCanc" class="btn btn-secondary" onclick="cancelarModal()">Cancelar</button>
+						<?= $this->Form->button('Aceptar', ["type" => "submit", "class" => "btn btn-primary btn-aceptar", "onclick" => "send()"]) ?>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    </fieldset>    
     <?= $this->Form->end() ?>
-    <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
-
-    <button id="butAceptar" class="btn btn-primary float-right btn-space">Mensaje</button>
-    <button type="submit" class="btn btn-primary float-right">Aceptar</button>
-    
-</div>
-
-<div id="MensajeInformativo" class="modal">
-    <div class="modal-content">
-        <div class="files form large-9 medium-8 columns content">
-            
-            <fieldset>
-                    <legend><?= __('Atención') ?></legend>
-                    Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
-                    Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
-                    y una fotocopia legible de la cédula de identidad por ambos lados.
-                    <br>
-                    <b>Fecha límite: <?php echo $ronda[0]['end_date']; ?></b>
-                    <br>
-            </fieldset>
-            <fieldset>
-                <?= $this->Html->link('Aceptar',['controller'=>'requests','action'=>'index'],['class'=>'btn btn-primary float-middle btn-space']) ?>
-            </fieldset>
-        
-            
-        </div>
-    </div>
 </div>
