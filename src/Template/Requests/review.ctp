@@ -228,6 +228,7 @@
 					</div>
 				</div>
 				<div class="container">
+				<?php if( $requirements['stage'] < 3): ?>
 				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
@@ -249,6 +250,7 @@
 						
 					?>
 				</div>
+				<?php endif; ?>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>

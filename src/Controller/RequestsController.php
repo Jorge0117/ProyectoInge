@@ -954,6 +954,7 @@ class RequestsController extends AppController
 	}
 
     public function setMaxHours($request_id, $student_id){
+        $request = $this->Requests->get($request_id);
         $roundData = $this->viewVars['roundData'];
         /*
         * Kevin
@@ -1001,8 +1002,8 @@ class RequestsController extends AppController
         *  * HED = Horas estudiante de DOCENCIA
         *  * HAE = Horas asistente de la ECCI 
         */ 
-        $totalAsignedHours = $student_asigned_hours['HAE'] + $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
-        $totalAsignedStudentHours =  $student_asigned_hours['HED'] + $student_asigned_hours['HEE'];
+        $totalAsignedHours = $student_asigned_hours['HAE'] + $student_asigned_hours['HED'] + $student_asigned_hours['HEE'] + $request->another_student_hours + $request->another_assistant_hours ;
+        $totalAsignedStudentHours =  $student_asigned_hours['HED'] + $student_asigned_hours['HEE'] + $request->another_student_hours;
         $student_max_hours['HEE'] = min(
                                         12 - $totalAsignedStudentHours,
                                         20 - $totalAsignedHours,
