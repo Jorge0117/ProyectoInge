@@ -381,9 +381,6 @@
 	<!--<?= $this->Html->link(__('Dejar Solicitud Pendiente'), ['controller' => 'Requests', 'action' => 'save', 'type' => 'submit']) ?>-->
     <?= $this->Form->end() ?>
 	   <!--<button class="button"><?= $this->Html->link('Cancelar',['controller'=>'RequestsController','action'=>'index'],['class'=>'nav-link']) ?></button>-->
-
-	<button id="butAceptar" class="btn btn-primary float-right btn-space">Mensaje</button>
-	<button type="submit" class="btn btn-primary float-right">Aceptar</button>
 	
 </div>
 

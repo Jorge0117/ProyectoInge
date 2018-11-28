@@ -11,8 +11,10 @@
         <h3><?= __('Agregar curso') ?></h3>
 
         <div class="form-section">
+            <small class="form-text text-muted mb-1">Digite la sigla sin el guión, p.e "CI1310"</small>
             <?php
                 echo $this->Form->control('Sigla', ['pattern' => "[A-Z]{2}[0-9]{4}"]);
+
                 echo $this->Form->control('Curso', ['requiered']);
                 
             ?>
