@@ -190,6 +190,11 @@ class RequestsController extends AppController
         return "1";
     }
 
+	/**
+     * @author Esteban Rojas Solís <esteban201483@gmail.com>
+     * 
+		Esta funcion Permite controla la lógica para agregar solicitud
+     */
     public function add()
     {
         if ($this->Auth->user('role_id') === 'Estudiante') {
@@ -602,6 +607,7 @@ class RequestsController extends AppController
 
         //--------------------------------------------------------------------------
         //Datos de la solicitud
+		//Empieza Esteban
         //Se trae los datos de la solicitud
         $request = $this->Requests->get($id);
         $user = $this->Requests->getStudentInfo($request['student_id']);
@@ -621,6 +627,7 @@ class RequestsController extends AppController
         //Manda los parametros a la revision
 
         // Manejo de los requests
+		//Autor: Esteban
         if ($this->request->is(['patch', 'post', 'put'])) {
             // Se guarda los datos del request
             $data = $this->request->getData();
@@ -638,7 +645,7 @@ class RequestsController extends AppController
                 }
 
             }
-
+			//Termina Esteban
             // Entra en este if si el boton oprimido fue el de revision de requisitos
             if (array_key_exists('AceptarRequisitos', $data)) {
 

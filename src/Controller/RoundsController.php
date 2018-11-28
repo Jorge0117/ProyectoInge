@@ -217,7 +217,7 @@ class RoundsController extends AppController
     }
 	
 	/**
-     * @author Esteban Rojas Solís <esteban201483@gmail.com>
+     * @author Esteban Rojas
      * 
 		Esta funcion obtiene los datos de la ronda que esta activa en el sistema.
 		
@@ -230,7 +230,7 @@ class RoundsController extends AppController
     }
 	
 	/**
-     * @author Esteban Rojas Solís <esteban201483@gmail.com>
+     * @author Esteban Rojas 
      * 
 		Esta funcion obtiene la llave de una ronda según el número de ronda, semestre y año.
 
