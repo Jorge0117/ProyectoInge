@@ -401,7 +401,7 @@ class CoursesClassesVwController extends AppController
             $classTable = $this->loadmodel('Classes');
 
             //Agrega el curso
-            $courseTable->addCourse($parameters[1], $parameters[0], 0);
+            $courseTable->addCourse($parameters[1], $parameters[0]);
 
             //Selecciona un smestre según la fecha actual
             if(date("m") > 6){
