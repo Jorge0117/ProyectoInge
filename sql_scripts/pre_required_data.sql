@@ -54,6 +54,7 @@ insert into permissions values('CoursesClassesVw-uploadFile', 'Subir archivo con
 insert into permissions values('CoursesClassesVw-addCourse', 'Agregar un curso manualmente');
 insert into permissions values('CoursesClassesVw-addClass', 'Agregar un grupo manualmente');
 insert into permissions values('CoursesClassesVw-importExcelfile', 'Importar un archivo con clases y cursos');
+insert into permissions values('CoursesClassesVw-cancelExcel', 'Cancelar subida de excel');
 
 insert into permissions_roles values('CoursesClassesVw-index', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-edit', 'Administrador');
@@ -62,6 +63,7 @@ insert into permissions_roles values('CoursesClassesVw-uploadFile', 'Administrad
 insert into permissions_roles values('CoursesClassesVw-addCourse', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-addClass', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-importExcelfile', 'Administrador');
+insert into permissions_roles values('CoursesClassesVw-cancelExcel', 'Administrador');
 
 ##Requisitos
 insert into permissions values('Requirements-index', 'Listar requerimientos');
