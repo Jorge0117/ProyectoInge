@@ -318,6 +318,13 @@ class RequestsController extends AppController
         $classes;
         $grupos = $this->Requests->getGroups($this->get_student_id(), $semestre, $año);
 
+		if($grupos == null)
+		{
+			$this->Flash->error(__('Error: No hay Grupos Disponibles'));
+			return $this->redirect(['controller' => 'Mainpage', 'action' => 'index']);
+		}	
+		
+		
         $aux;
 
         //Se trae todos los grupos de la base de datos y los almacena en un vector
