@@ -6,6 +6,9 @@
  */
 ?>
 
+
+
+
 <div class="requests index large-9 medium-8 columns content text-grid">
 
     <div class='container'>
@@ -27,8 +30,13 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($query as $request): ?>
                 
+                <?php foreach ($requests as $request): ?>
+                <?php 
+                    $r = 'request_'.$request[0];
+                    debug($hasAsignedHours_526);
+                    //die(); 
+                ?>
                 <tr>  
                     <!-- Número de solicitud -->
                     <td><?= h($request[0]) ?></td>
@@ -189,19 +197,31 @@
             // Se busca la tabla por su id
             var table = document.getElementById('requesttable');
 
+            student_max_hours = 'student_max_hours_'.concat(table.rows[row].cells[0].innerText);
+            hasAsignedHours = 'hasAsignedHours_'.concat(table.rows[row].cells[0].innerText);
             // Si se elige horas asistentes su min será 3 y su max 20, 
             // si se elije horas estudiantes su min será 3 y su max 12. 
             // Caso contrario se bloqueara la entrada de datos
             if( this.value == 'HAE' ){
                 table.rows[row].cells[8].firstElementChild.disabled = false;
-                table.rows[row].cells[8].firstElementChild.value = 3;
+                //table.rows[row].cells[8].firstElementChild.min =  $$student_max_hours['HAE'] < 3 || $$hasAsignedHours? 0:3 ?>';
+                //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HAE'];
                 table.rows[row].cells[8].firstElementChild.max = 20;
+                table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
             }
             else{
                 if( this.value == 'HEE' || this.value == 'HED' ){
                     table.rows[row].cells[8].firstElementChild.disabled = false;
-                    table.rows[row].cells[8].firstElementChild.value = 3;
+                    if(this.value == 'HEE'){
+                        //table.rows[row].cells[8].firstElementChild.min = $$student_max_hours['HEE'] < 3 || $$hasAsignedHours? 0:3;
+                        //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HEE'];
+                    }else if(this.value == 'HED'){
+                        //table.rows[row].cells[8].firstElementChild.min = $$student_max_hours['HED'] < 3 || $$hasAsignedHours? 0:3;
+                        //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HED'];
+                    }
+                    
                     table.rows[row].cells[8].firstElementChild.max = 12;
+                    table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
                 }
                 else{
                     table.rows[row].cells[8].firstElementChild.disabled = true;

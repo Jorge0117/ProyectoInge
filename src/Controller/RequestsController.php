@@ -607,7 +607,7 @@ class RequestsController extends AppController
                 $default_indexf = 2;
             }
 
-            $this->setMaxHours($id, $request->student_id);
+            $this->setMaxHours($id, $request->student_id,'');
             $this->set('default_indexf', $default_indexf);
 
         }
@@ -951,7 +951,7 @@ class RequestsController extends AppController
 		return $this->Requests->getAllRequestsByRound($llave_ronda);
 	}
 
-    public function setMaxHours($request_id, $student_id){
+    public function setMaxHours($request_id, $student_id, $var_id){
         $roundData = $this->viewVars['roundData'];
         /*
         * Kevin
@@ -1024,10 +1024,10 @@ class RequestsController extends AppController
             $hasAsignedHours =  true;
         }
 
-        $this->set('student_asigned_hours_request', $student_asigned_hours_request);
-        $this->set('hasAsignedHours', $hasAsignedHours);
-        $this->set('student_max_hours', $student_max_hours);
-        $this->set('hourTypeAsignableb', $hourTypeAsignableb);
+        $this->set('student_asigned_hours_request'.$var_id, $student_asigned_hours_request);
+        $this->set('hasAsignedHours'.$var_id, $hasAsignedHours);
+        $this->set('student_max_hours'.$var_id, $student_max_hours);
+        $this->set('hourTypeAsignableb'.$var_id, $hourTypeAsignableb);
 
     }
 
@@ -1039,7 +1039,20 @@ class RequestsController extends AppController
      */
     public function indexReview(){
         // Carga el modelo de Requests
-        $requests = $this->loadModel('Requests');
+        $this->loadModel('Requests');
+        $this->loadModel('ApprovedRequests');
+        
+        // Se cargan los valores del índice para una nueva vista
+        $requests = $this->Requests->traerElegibles();
+        foreach ($requests as $request){
+            $r = $this->Requests->get($request[0]);
+            $var_name = 'request_'.$request[0];
+            debug($var_name);
+            $this->set($var_name,$r); 
+            $this->setMaxHours($request[0], $r->student_id, '_'.$request[0]);
+        }  
+        
+        $this->set(compact('requests',$requests)); 
 
         // Si la solicitud fue hecha procede a almacenarla y enviar el correo correspondiente
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
@@ -1055,18 +1068,14 @@ class RequestsController extends AppController
                 if( $data['sendStatus'] == 'a' ) $this->sendMail( $data['sendId'], 3 );
                 else $this->sendMail( $data['sendId'], 4) ;
 
-                $requests->approveRequest( $data['sendId'], $data['sendHourType'], $data['sendHour'] );
-                $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
+                $this->Requests->approveRequest( $data['sendId'], $data['sendHourType'], $data['sendHour'] );
+                $this->Requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
             }
             else{
                 $this->sendMail( $data['sendId'], 2 );
 
-                $requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
+                $this->Requests->updateRequestStatus( $data['sendId'], $data['sendStatus'] );
             }
-
-            // Se cargan los valores del índice para una nueva vista
-            $query = $requests->traerElegibles();
-            $this->set(compact('query',$query));
 
             // Se redirecciona para cargar la nueva vista
             $this->redirect(['action' => 'indexReview']);
@@ -1075,8 +1084,7 @@ class RequestsController extends AppController
             return $this->Flash->success(__('Se reviso la solicitud correctamente'));
         }
 
-        // Se cargan los valores del índice para una nueva vista
-        $query = $requests->traerElegibles();
-        $this->set(compact('query',$query)); 
+        
+
     }
 }

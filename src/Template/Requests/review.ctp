@@ -396,7 +396,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
+									'min' => $student_max_hours['HAE'] < 3 || $hasAsignedHours? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
@@ -440,6 +440,14 @@ $(document).ready( function () {
     $("#edit_checkbox").change(function(){
 		if($("#edit_checkbox").is(":checked")){
 			$('.radioRequirements').prop( "disabled", false );
+			if(byId('ponderado').value != 0){
+				byId('requirement_4_a').disabled = true;
+				byId('requirement_6_a').disabled = true;
+				byId('requirement_4_r').disabled = true;
+				byId('requirement_6_r').disabled = true;
+				byId('requirement_4_i').disabled = true;
+				byId('requirement_6_i').disabled = true;
+			}
 		}else{
 			$('.radioRequirements').prop( "disabled", true );	
 		}
