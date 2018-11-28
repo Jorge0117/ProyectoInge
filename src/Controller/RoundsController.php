@@ -176,7 +176,7 @@ class RoundsController extends AppController
      */
     public function updateGlobal(){
         $roundData = $this->Rounds->getLastRow();
-        $this->request->session()->write('roundData',$roundData);
+        $this->request->getSession()->write('roundData',$roundData);
         $this->set(compact('roundData'));
     }
 
