@@ -30,6 +30,10 @@ class ReportsController extends AppController
      */
 
     public function studentRequests(){
+
+        // Activar ítem del menú de navegación.
+        $this->set('active_menu', 'MenubarEstHistorial');
+
         $table = $this->loadModel('ProfessorAssistants');
 
         $studentRequests = $table->find()->where(['id_student'=>$this->viewVars['current_user']['identification_number']]);
@@ -47,6 +51,10 @@ class ReportsController extends AppController
      * Autor: Mayquely
      */
     public function professorAssistants(){
+
+        // Activar ítem del menú de navegación.
+        $this->set('active_menu', 'MenubarProfHistorial');
+
         $table = $this->loadModel('ProfessorAssistants');
          $professorAssistants= $table->find()->where(['id_prof'=>$this->viewVars['current_user']['identification_number']]);
          $ProfessorName = ' '; 
@@ -401,6 +409,9 @@ class ReportsController extends AppController
     }
 
     public function reportsAdmin(){
+        // Activar el item del menu de navegacion
+        $this->set('active_menu', 'MenubarReportes');
+        
         if ($this->request->is('post')){
             $data= $this->request->getData();
             $semester = $data['semester'] + 1;

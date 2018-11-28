@@ -15,6 +15,17 @@ use Cake\I18n\Time;
 class RoundsController extends AppController
 {
     /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarRonda');
+
+    }
+    /**
      * @author Daniel Marín <110100010111h@gmail.com>
      * 
      * Index method

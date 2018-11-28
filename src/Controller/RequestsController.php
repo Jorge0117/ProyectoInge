@@ -13,6 +13,12 @@ use Cake\Mailer\Email;
  */
 class RequestsController extends AppController
 {
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarSolicitudes');
+
+    }
 
     /**
      * Devuelve verdadero si el usuario tiene permiso para ingresar al view o print.
@@ -186,6 +192,12 @@ class RequestsController extends AppController
 
     public function add()
     {
+        if ($this->Auth->user('role_id') === 'Estudiante') {
+            $this->set('active_menu', 'MenubarEstSolicitar');
+        } else {
+            $this->set('active_menu', 'MenubarSolicitudes');
+        }
+
         /***** Nathan González *****/
         // Si no se está en ronda de admisión de solicitudes no permite entrar a la vista ni por URL
         if( $this->loadmodel('Rounds')->between() == false )

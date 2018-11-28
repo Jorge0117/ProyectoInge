@@ -23,6 +23,22 @@ class UsersController extends AppController
     }
 
     /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+
+        $role = $this->Auth->user('role_id');
+        if ($role === 'Administrador' || $role === 'Asistente' ) {
+            $this->set('active_menu', 'MenubarUsuarios');
+        }
+
+    }
+
+    /**
      * Devuelve verdadero si el usuario tiene permiso para ingresar al view.
      *
      * @param String $user
