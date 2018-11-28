@@ -26,6 +26,7 @@ insert into permissions values('Requests-reviewPreliminary', 'Asignar estado de 
 insert into permissions values('Requests-reviewRequirements', 'Revisar los requerimientos de una solicitud');
 insert into permissions values('Requests-indexReview', 'Revision final de solicitudes en index');
 insert into permissions values('Requests-add', 'Agregar una solicitud');
+insert into permissions values('Requests-cancelRequest', 'Cancelar una solicitud');
 
 insert into permissions_roles values('Requests-index', 'Administrador');
 insert into permissions_roles values('Requests-view', 'Administrador');
@@ -34,6 +35,7 @@ insert into permissions_roles values('Requests-reviewRequirements', 'Administrad
 insert into permissions_roles values('Requests-reviewPreliminary', 'Administrador');
 insert into permissions_roles values('Requests-reviewFinal', 'Administrador');
 insert into permissions_roles values('Requests-indexReview', 'Administrador');
+insert into permissions_roles values('Requests-cancelRequest', 'Administrador');
 
 insert into permissions_roles values('Requests-index', 'Asistente');
 insert into permissions_roles values('Requests-view', 'Asistente');
