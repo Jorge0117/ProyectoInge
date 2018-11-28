@@ -72,7 +72,7 @@ if(isset($active_menu)):
                     <li id="MenubarProfHistorial" class="nav-item item-menu"><?= $this->Html->link('Historial de asistentes',['controller'=>'Reports','action'=>'professorAssistants'],['class'=>'nav-link']) ?></li>
                     <?php endif ?>
                     
-                    <?php if ($current_user['role_id'] === 'Administrador' || $current_user['role_id'] === 'Asistente'): ?>
+                    <?php if ($current_user['role_id'] === 'Administrador'): ?>
                         <li id="MenubarCursos" class="nav-item item-menu"><?= $this->Html->link('Cursos',['controller'=>'CoursesClassesVw','action'=>'index'],['class'=>'nav-link']) ?></li>
 
                         <li id="MenubarRequisitos" class="nav-item item-menu"><?= $this->Html->link('Requisitos',['controller'=>'Requirements','action'=>'index'],['class'=>'nav-link']) ?></li>
