@@ -211,7 +211,8 @@ class RequestsTable extends Table
     {
         $connet = ConnectionManager::get('default');
 
-        $result = $connet->execute("select c.course_id,c.class_number, co.name, u.name as prof from classes c, courses co, users u
+        $result = $connet->execute("select c.course_id,c.class_number, co.name, concat(u.name,' ',u.lastname1,' ',u.lastname2) 
+		as prof from classes c, courses co, users u
         where c.year = '$year' and c.semester = '$semestre' and co.code = c.course_id AND c.state = 1 AND 
 		u.identification_number = c.professor_id AND
         concat(c.course_id,c.class_number)  NOT IN(
