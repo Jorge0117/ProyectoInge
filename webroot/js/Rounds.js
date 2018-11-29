@@ -122,26 +122,24 @@ function sensitiveStart(){
         }else if(compareDates(roundData['end_date'],min) > 0){
             min = roundData['end_date'];
         }
-    }else{ // editar
-        var penultimateStart = penultimateRoundData['start_date'];
-        var penultimateEnd = penultimateRoundData['end_date'];
-        if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
-            min = alterDate(penultimateEnd,1);
-        }else if(compareDates(penultimateEnd,min) > 0){
-            min = penultimateEnd;
+    }else if(roundData){ // editar
+        if(penultimateRoundData){
+            var penultimateStart = penultimateRoundData['start_date'];
+            var penultimateEnd = penultimateRoundData['end_date'];
+            if(compareDates(penultimateStart,penultimateEnd) == 0 && compareDates(penultimateEnd,min) > 0){
+                min = alterDate(penultimateEnd,1);
+            }else if(compareDates(penultimateEnd,min) > 0){
+                min = penultimateEnd;
+            }
         }
-
         var sem1ds = '01-12-'.concat(roundData['year']-1);
         var sem2ds = '01-07-'.concat(roundData['year']);
         if(roundData['semester'] == 'I' && (compareDates(sem1ds,min) > 0)) min = sem1ds;
         else if(roundData['semester'] == 'II' && (compareDates(sem2ds,min) > 0)) min = sem2ds;
-
-        if(roundData){
-            if(compareDates(roundData['start_date'],today)<0){
-                max = min = roundData['start_date'];
-            }else{
-                max = ((roundData['semester'] == 'I')? '30-06-':'30-11-').concat(roundData['year']);
-            }
+        if(compareDates(roundData['start_date'],today)<0){
+            max = min = roundData['start_date'];
+        }else{
+            max = ((roundData['semester'] == 'I')? '30-06-':'30-11-').concat(roundData['year']);
         }
     }        
     calendar.setSensitiveRange(min,max);
@@ -155,12 +153,10 @@ function sensitiveStart(){
 function sensitiveEnd(){
     calendar.hide();
     byId('end-date').readOnly = true;
-    min = roundData['end_date'];
-    max = null;
-    
-    if(compareDates(min,today) < 0) min = today;
-    if(compareDates(min,byId('start-date').value) < 0) min = byId('start-date').value;
-    if(roundData ){
+    if(roundData){
+        min = roundData['end_date'];
+        if(compareDates(min,today) < 0) min = today;
+        if(compareDates(min,byId('start-date').value) < 0) min = byId('start-date').value;
         max = (roundData['semester'] == 'I')?'30-06-' : '30-11-';
         max = max.concat(roundData['year']);
         if(byId('flag').value == '1'){
@@ -170,6 +166,11 @@ function sensitiveEnd(){
                 max = ((md['m'] == 12 || md['m'] < 7)?'30-06-':'30-11-').concat(md['y']);
             }
         }
+    }else{
+        min = byId('start-date').value
+        var md = splitDate(min);
+        max = ((md['m'] == 12 || md['m'] < 7)?'30-06-':'30-11-').concat(md['y']);
+        if(compareDates(min,today) < 0) min = today;
     }
     calendar.setSensitiveRange(min,max);
 }
@@ -271,7 +272,6 @@ function startAdd(){
         }   
     }
 }
-
 
 /** 
  * @author Daniel Marín <110100010111h@gmail.com>
