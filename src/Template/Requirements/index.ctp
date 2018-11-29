@@ -32,7 +32,7 @@
         <thead>
             <tr> <!--Nombre de las columnas en el grid-->
                 <th scope="col"><?= $this->Paginator->sort('Descripcion') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Tipo') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Tipo de Horas') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Horas') ?></th>
                 
                 <?php if($this->Rounds->between() == true) : ?> 

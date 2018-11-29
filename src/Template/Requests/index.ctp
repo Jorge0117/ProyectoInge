@@ -94,9 +94,11 @@
             </select>
         </div>
 
-        <div class="col-0">
-            <?= $this->Html->link('Revisar solicitudes elegibles',['controller'=>'Requests','action'=>'index_review'],['class'=>'btn btn-primary float-right btn-space btn-aceptar']) ?>
-        </div>
+        <?php if ($current_user['role_id'] === 'Administrador'): ?>
+            <div class="col-xl-0 self-align-end">
+                <?= $this->Html->link('Revisar solicitudes elegibles',['controller'=>'Requests','action'=>'index_review'],['class'=>'btn btn-primary float-right btn-space btn-aceptar']) ?>
+            </div>
+        <?php endif; ?>
     <div>
 
     <br>
