@@ -1,7 +1,8 @@
-/*
-Esta funcion se encarga de cargar el valor de select de grupos en base al valor ingresado en el select de curso.
-Ejemplo: Si se selecciona curso ci1314, entonces el select de grupos almacenara todos los grupos en los que se imparte dicho curso
-*/
+/**
+ Carga el comboBox de grupos de acuerdo al curso seleccionado
+ * 
+ * @author Esteban Rojas
+ **/
 function updateClass() 
 {
     document.getElementById("prof").value = ""; 
@@ -102,10 +103,13 @@ function updateClass()
     
 
 }
-/*
-    Esta funcion se encarga de salvar el nombre del curso y del profesor en 2 campos de texto bloqueados, de modo que el usuario pueda 
-    ver la información del grupo y curso que selecciono
-*/
+
+
+/**
+ Carga el nombre del profesor y del curso según el curso y grupos seleccionados
+ * 
+ * @author Esteban Rojas
+ **/
 function save()
 {
     //Referencia los selects de grupo y curso respectivamente
@@ -243,10 +247,12 @@ function byId(id) {
 //termina Daniel M
 
 
+/**
+ * Oculta el mensaje de confirmar solicitud
+ * 
+ * @author Esteban Rojas
+ */
 function cancelarModal()
 {
     $('#confirmacion').modal('hide');
-    byId('has-another-hours').checked = false;
-    byId('another-student-hours').disabled = true;
-    byId('another-assistant-hours').disabled = true;
 }
