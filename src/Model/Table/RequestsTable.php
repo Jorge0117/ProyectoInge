@@ -222,7 +222,16 @@ class RequestsTable extends Table
         return $result;
     }
     
-    //Obtiene el profesor, los codigos de curso y codigo nombre de los grupo de este semestre y año cuyo estado sea 1
+	/**
+	* Devuelve todos los cursos y grupos en los que el estudiante no tiene una solicitud de asistencia. Esto permite que el estudiante
+	* no solicite más de una vez una asistencia al mismo grupo del mismo curso. Además, impide que el estudiante solicite asistencia a 
+	* grupos que ya tienen un asistente.
+	* @author Esteban Rojas
+	* @param String $id_estudiante Identificación del estudiante
+	* @param String $semestre semestre de los grupos a seleccionar
+	* @param String $year año de los grupos a seleccionar
+	* @return Array con todos los cursos y grupos disponibles para que el estudiante solicite una asistencia
+	*/
     public function getGroups($id_estudiante, $semestre, $year)
     {
         $connet = ConnectionManager::get('default');
