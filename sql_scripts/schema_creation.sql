@@ -273,9 +273,9 @@ end$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255), creditsC tinyint)
+CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255))
 BEGIN
-	insert into courses (code, name, credits) values (codeC, nameC, creditsC);
+	insert into courses (code, name) values (codeC, nameC);
 END$$
 DELIMITER ;
 
