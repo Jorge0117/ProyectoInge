@@ -59,7 +59,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestres') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
@@ -69,10 +69,15 @@
             <tr>
                 <td><?= h($course->Sigla) ?></td>
                 <td><?= h($course->Curso) ?></td>
-                <td><?= $this->Number->format($course->Grupo) ?></td>
+                <td align = "center"><?= $this->Number->format($course->Grupo) ?></td>
                 <td><?= h($course->Profesor) ?></td>
-                <td><?= h($course->Semestre) ?></td>
-                <td><?= h($course->Año) ?></td>
+                <?php if ($this->Number->format($course->Semestre) == 1): ?>
+                        <td align = "center"> I </td>
+                    <?php else: ?>
+                        <td align = "center">II</td>
+                    <?php endif; ?>
+                
+                <td align = "center"><?= h($course->Año) ?></td>
                 
                 <td class="actions">
                     <?= $this->Html->link(
