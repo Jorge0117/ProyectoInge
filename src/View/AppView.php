@@ -27,5 +27,8 @@ class AppView extends View
     {
         //render the initializeUI method from the UIViewTrait
         $this->initializeUI(['layout' => false]);
+        $this->Paginator->setTemplates([
+            'sort' => '<strong class="text-primary">{{text}}</strong>'
+        ]);
     }
 }

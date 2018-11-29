@@ -23,6 +23,22 @@ class UsersController extends AppController
     }
 
     /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+
+        $role = $this->Auth->user('role_id');
+        if ($role === 'Administrador' || $role === 'Asistente' ) {
+            $this->set('active_menu', 'MenubarUsuarios');
+        }
+
+    }
+
+    /**
      * Devuelve verdadero si el usuario tiene permiso para ingresar al view.
      *
      * @param String $user
@@ -198,9 +214,7 @@ class UsersController extends AppController
         ]);
         $rol_original = $user->role_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if (isset($this->request->data['cancel'])) {
-                return $this->redirect( array( 'action' => 'index' ));
-            }
+
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $rol_actual = $user->role_id;
             $id = $user->identification_number;

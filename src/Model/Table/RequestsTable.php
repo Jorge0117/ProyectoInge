@@ -401,11 +401,15 @@ class RequestsTable extends Table
         return $query;
     }
 
-    //Empieza ESTIVEN
-    //Método que recupera los requisitos no aprovados por el estudiante de una solicitud
-    //Recibe el id de la solicitud, un valor s que es el valor con el que se identifica el estado de los requisitos,
-    // se debe poner el valor que identifique a los requisitos rechaados, y la variable in que identifica si
-    // se aprueba requisito por inopia o no.
+    /**
+     * Metodo que obtiene todos los requisitos no cumplidos por el estudiante en una solicitud.
+     * 
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param int $id que es el identificador de la solicitud
+     * @param char $s se debe poner el valor que identifique a los requisitos rechados
+     * @param int $in que identifica si se aprueba requisito por inopia o no.
+     * @return result: los requisitos no aprobados en la solicitud.
+     */
     public function getRequirements($id,$s,$in)
 	{
         $connet = ConnectionManager::get('default');
@@ -417,7 +421,6 @@ class RequestsTable extends Table
 		$result = $result->fetchAll('assoc');
         return $result; // Se devuelve la lista de requisitos.
     }
-    //Termina ESTIVEN
     
     /**
      * Determina si un estudiante es dueño de una solicitud.
@@ -433,6 +436,19 @@ class RequestsTable extends Table
         return $this->exists(['id' => $id, 'student_id' => $student_id]);
     }
 
+    public function traerElegibles()
+    {
+        $connet = ConnectionManager::get('default');
+        $query = $connet->execute(
+        "SELECT r.id, u.username, s.average, r.course_id, r.class_number, r.has_another_hours
+         FROM requests r, students s, users u, rounds ro
+         WHERE ro.start_date = r.round_start
+         AND (r.status = 'e' OR r.status = 'i')
+         AND r.student_id = s.user_id 
+         AND s.user_id = u.identification_number"
+        )->fetchAll();
+        return $query;
+    }
     /**
      * Determina si un profesor está a cargo del curso para el cual se solicita una
      * asistencia.
@@ -489,7 +505,8 @@ class RequestsTable extends Table
     //Metodo que guarda en la base que tipo de horas se le puede asignar a una solicitud
     public function setRequestScope($id, $scope){
         $connet = ConnectionManager::get('default');
-        $query = $connet->execute("update requests set status = '$scope' where id = '$id'");
+
+        $query = $connet->execute("update requests set scope = '$scope' where id = '$id'");
     }
 
     /**
@@ -503,6 +520,30 @@ class RequestsTable extends Table
         $request = $this->get($id);
         return $request->scope;
     }
+	
+	public function getApprovedRequestsByRound($llave_ronda)
+	{
+        $connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, approved_requests a, courses c where i.inicio = $llave_ronda AND i.id = a.request_id and c.code = i.curso");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	public function getRequestsByRoundStatus($llave_ronda,$estado)
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, courses c where i.inicio = $llave_ronda AND c.code = i.curso AND i.estado = '$estado'");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
+	
+	public function getAllRequestsByRound($llave_ronda)
+	{
+		$connet = ConnectionManager::get('default');
+        $result = $connet->execute("select * from info_requests i, courses c where i.inicio = $llave_ronda AND i.curso = c.code");
+        $result = $result->fetchAll('assoc');
+        return $result;
+	}
 
 }
 

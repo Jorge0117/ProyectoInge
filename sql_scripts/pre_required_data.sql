@@ -26,6 +26,7 @@ insert into permissions values('Requests-reviewPreliminary', 'Asignar estado de 
 insert into permissions values('Requests-reviewRequirements', 'Revisar los requerimientos de una solicitud');
 insert into permissions values('Requests-indexReview', 'Revision final de solicitudes en index');
 insert into permissions values('Requests-add', 'Agregar una solicitud');
+insert into permissions values('Requests-cancelRequest', 'Cancelar una solicitud');
 
 insert into permissions_roles values('Requests-index', 'Administrador');
 insert into permissions_roles values('Requests-view', 'Administrador');
@@ -34,6 +35,7 @@ insert into permissions_roles values('Requests-reviewRequirements', 'Administrad
 insert into permissions_roles values('Requests-reviewPreliminary', 'Administrador');
 insert into permissions_roles values('Requests-reviewFinal', 'Administrador');
 insert into permissions_roles values('Requests-indexReview', 'Administrador');
+insert into permissions_roles values('Requests-cancelRequest', 'Administrador');
 
 insert into permissions_roles values('Requests-index', 'Asistente');
 insert into permissions_roles values('Requests-view', 'Asistente');
@@ -54,6 +56,7 @@ insert into permissions values('CoursesClassesVw-uploadFile', 'Subir archivo con
 insert into permissions values('CoursesClassesVw-addCourse', 'Agregar un curso manualmente');
 insert into permissions values('CoursesClassesVw-addClass', 'Agregar un grupo manualmente');
 insert into permissions values('CoursesClassesVw-importExcelfile', 'Importar un archivo con clases y cursos');
+insert into permissions values('CoursesClassesVw-cancelExcel', 'Cancelar subida de excel');
 
 insert into permissions_roles values('CoursesClassesVw-index', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-edit', 'Administrador');
@@ -62,6 +65,7 @@ insert into permissions_roles values('CoursesClassesVw-uploadFile', 'Administrad
 insert into permissions_roles values('CoursesClassesVw-addCourse', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-addClass', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-importExcelfile', 'Administrador');
+insert into permissions_roles values('CoursesClassesVw-cancelExcel', 'Administrador');
 
 ##Requisitos
 insert into permissions values('Requirements-index', 'Listar requerimientos');
@@ -116,7 +120,7 @@ insert into permissions_roles values('Reports-studentRequests', 'Estudiante');
 insert into users
 values ('100010001','Nacional', 'Estudiante', 'Estudiante', 'Estudiante', 'estudiante', 'estudiante@mail.com', '80008000', 'Estudiante');
 
-insert into students values ('100010001','b00000');
+insert into students values ('100010001','b00000',10);
 
 insert into users
 values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistente', 'asistente@mail.com', '80008000', 'Asistente');

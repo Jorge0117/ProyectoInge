@@ -47,11 +47,7 @@ class CoursesClassesVwTable extends Table
             ->scalar('Sigla')
             ->maxLength('Sigla', 7)
             ->requirePresence('Sigla', 'create')
-            ->notEmpty('Sigla')
-            ->add('Sigla', 'validFormat',[
-                'rule' => '/^[A-Z]{2}[0-9]{4}$/i',
-                'message' => 'El formato de curso no es correcto'
-            ]);
+            ->notEmpty('Sigla');
 
         $validator
             ->scalar('Curso')

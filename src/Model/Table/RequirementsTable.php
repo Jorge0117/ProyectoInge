@@ -52,27 +52,6 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_number'
         ]);
     }
-    //Empieza ESTIVEN
-    //Función para eliminar un requisito, llamada por el controlador
-    public function deleteRequirement($requirement_number)
-    {
-        //------------------------------------------------
-        $result = true;
-        //------------------------------------------------
-        $connection = ConnectionManager::get('default');
-        //------------------------------------------------
-        //Ejecuta el código SQL en la base de datos directamente, para eliminar el requisito con la
-        //llave primaria que se mandó como parámetro
-        $result = $connection->execute(
-            "DELETE FROM requirements 
-            WHERE   requirement_number  = '$requirement_number' 
-            "
-        );
-        //------------------------------------------------
-        //Se envía el resultado de la operación
-        return $result;
-    }
-    // Termina ESTIVEN 
 
     /**
      * Default validation rules.
