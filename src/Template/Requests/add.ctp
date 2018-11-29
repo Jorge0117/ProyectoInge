@@ -59,6 +59,7 @@
             <?php
                 echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
                 echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
+				?><font color="red">* Debe solicitar al menos un tipo de hora</font><?php
                 echo '<hr/>';
 			?>
 			<legend><?= __('Datos de otras asistencias') ?></legend>
@@ -67,7 +68,7 @@
                 echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"requireStudent()",'onclick'=>"requireStudent()"]);
                 echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '20','onchange'=>"requireAssistant()",'onclick'=>"requireAssistant()"]);
             ?>
-            <font color="red">* Si no cuenta con un tipo de horas, deje el campo en blanco</font>
+            <font color="red">* Si no cuenta con un tipo de horas, deje el campo vacío</font>
             <hr/>
             <?php
                 echo $this->Form->control('first_time', ['label' => 'Es la primera vez que solicito una asistencia']);
