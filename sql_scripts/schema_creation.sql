@@ -273,9 +273,9 @@ end$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255), creditsC tinyint)
+CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255))
 BEGIN
-	insert into courses (code, name, credits) values (codeC, nameC, creditsC);
+	insert into courses (code, name) values (codeC, nameC);
 END$$
 DELIMITER ;
 
@@ -744,14 +744,5 @@ BEGIN
     IF NEW.round_number = 1 THEN
 		update students set average = 0;
 	END IF;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
-BEGIN
-	IF old.average <> new.average THEN
-		update requests set average = new.average where student_id = new.user_id;
-    END IF;
 END $$
 DELIMITER ;
