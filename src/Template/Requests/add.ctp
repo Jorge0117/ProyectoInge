@@ -55,13 +55,16 @@
             ?>
         </div>
         <div class="form-section">
-        <legend><?= __('Datos requeridos para la Solicitud') ?></legend>
+        <legend><?= __('Tipos de horas solicitadas') ?></legend>
         <!--    ¿Qué tipo de horas desea solicitar? <checkbox></checkbox> <input type="checkbox"> Horas Asistente <input type="checkbox"> Horas Estudiante -->
             <?php
                 echo $this->Form->control('wants_student_hours', ['label' => 'Solicito horas estudiante', 'type' => 'checkbox']);
                 echo $this->Form->control('wants_assistant_hours', ['label' => 'Solicito horas asistente', 'type' => 'checkbox']);
                 echo '<hr/>';
-                echo $this->Form->control('has_another_hours', ['label' => 'Tengo horas asignadas','onclick'=>"toggleAnother()"]);
+			?>
+			<legend><?= __('Datos de otras asistencias') ?></legend>
+			<?php
+                echo $this->Form->control('has_another_hours', ['label' => 'Tengo otras horas asignadas','onclick'=>"toggleAnother()"]);
                 echo $this->Form->control('another_student_hours', ['label' => 'Horas estudiante ', 'min' => '3', 'max'=> '12','onchange'=>"requireStudent()",'onclick'=>"requireStudent()"]);
                 echo $this->Form->control('another_assistant_hours', ['label' => 'Horas asistente ', 'min' => '3', 'max'=> '20','onchange'=>"requireAssistant()",'onclick'=>"requireAssistant()"]);
             ?>
