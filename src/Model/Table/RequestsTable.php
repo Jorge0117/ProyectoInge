@@ -521,6 +521,13 @@ class RequestsTable extends Table
         return $request->scope;
     }
 	
+	 /**
+     * Devuelve todas las solicitudes aprobadas en una ronda.
+     * 
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+     * @return Array con todas las solicitudes aprobadas
+     */
 	public function getApprovedRequestsByRound($llave_ronda)
 	{
         $connet = ConnectionManager::get('default');
@@ -529,6 +536,15 @@ class RequestsTable extends Table
         return $result;
 	}
 	
+	/**
+     * Devuelve todas las solicitudes según su estado en una ronda. No se recomienda utilizarlo con las solicitudes aprobadas dado que no se
+     * trae la cantidad de horas asignadas 
+	 *
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+	 @param char $estado
+     * @return Array con todas las solicitudes según dicho estado
+     */
 	public function getRequestsByRoundStatus($llave_ronda,$estado)
 	{
 		$connet = ConnectionManager::get('default');
@@ -536,7 +552,13 @@ class RequestsTable extends Table
         $result = $result->fetchAll('assoc');
         return $result;
 	}
-	
+	/**
+     * Devuelve todas las solicitudes en una ronda.
+     * 
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+     * @return Array con todas las solicitudes de dicha ronda
+     */
 	public function getAllRequestsByRound($llave_ronda)
 	{
 		$connet = ConnectionManager::get('default');
