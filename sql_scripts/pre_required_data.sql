@@ -128,9 +128,11 @@ values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistent
 insert into users
 values ('100010003','Nacional', 'Administrador', 'Administrador', 'Administrador', 'administrador', 'administrador@mail.com', '80008000', 'Administrador');
 
-insert into administrative_bosses values ('100010003');
+##insert into administrative_bosses values ('100010003');
 
 insert into users
 values ('10001004','Nacional', 'Profesor', 'Profesor', 'Profesor', 'profesor', 'profesor@mail.com', '80008000', 'Profesor');
 
-insert into rounds values ('2018-11-06', '2018-11-28', '2', 'II', 2018, '900', '1000', '500', '7', '5', '0');
+## INSERTAR UNA FISHING RONDA ES IMPOSIBLE 
+#insert into rounds values ('2018-12-01', '2018-12-31', '2', 'II', 2018, '900', '1000', '500', '7', '5', '0');
+#call insert_round('2018-12-01', '2018-12-31',90,90,90);
