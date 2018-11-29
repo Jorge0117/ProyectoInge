@@ -88,23 +88,7 @@ class RequestsTable extends Table
 
 
     public function validationDefault(Validator $validator)
-    {
-            
-       /* //Valida que la cantidad de horas asistente se encuentre entre 0 y 20
-        $validator
-            ->integer('another_student_hours')
-            ->allowEmpty('another_student_hours')
-            ->lessThanOrEqual('another_student_hours', 20, '* La cantidad maxima de horas ya asignadas es 20')
-            ->GreaterThanOrEqual('another_student_hours', 0, 'La cantidad minima de horas ya asignadas es 0');
-            
-        //Valida que la cantidad de horas estudiante se encuentre entre 0 y 20
-        $validator
-            ->integer('another_assistant_hours')
-            ->allowEmpty('another_assistant_hours')
-            ->lessThanOrEqual('another_assistant_hours', 20, '* La cantidad maxima de horas ya asignadas es 20')
-            ->GreaterThanOrEqual('another_assistant_hours', 0, 'La cantidad minima de horas ya asignadas es 0');
-            
-*/
+    {           
         //Valida que se seleccione un curso valido
         $validator->add('course_id', [
             'validarCurso' => [
@@ -112,9 +96,7 @@ class RequestsTable extends Table
                 'provider' => 'table',
                 'message' => 'Seleccione un curso'
             ]
-        ]);
-
-        
+        ]);     
         //Valida que se seleccione un grupo valido
         $validator->add('class_number', [
             'validarGrupo' => [
@@ -123,13 +105,6 @@ class RequestsTable extends Table
                 'message' => 'Seleccione un Grupo'
             ]
         ]);
-        
-
-        
-        //Los demas elementos no es necesario validarlos, ya que los checkboxs pueden guardarse como nulos en la DB
-        
-        //debug($validator);
-
         return $validator;
     }
 
