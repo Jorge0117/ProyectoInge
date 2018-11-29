@@ -394,7 +394,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-     IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds ),(SELECT SUBDATE(NOW(),1)))) THEN
+     IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds ),(SELECT SUBDATE(DATE(NOW()),1)))) THEN
 		SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
@@ -461,7 +461,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT SUBDATE(NOW(),10))) AND start_d != old_start_d) THEN
+	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT DATE(SUBDATE(NOW(),10)))) AND start_d != old_start_d) THEN
 		SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;

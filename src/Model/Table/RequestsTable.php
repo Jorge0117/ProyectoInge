@@ -355,13 +355,30 @@ class RequestsTable extends Table
         return $request['status'];
     }
 
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * llama al procedimiento almacenado creado para aprobar solicitudes
+     * 
+     * @param {int} $req_id - ID de la solicitud
+     * @param {string} $h_type - Tipo de horas por agregar
+     * @param {int} $cnt - cantidad de horas por agregar
+     */
     public function approveRequest($req_id,$h_type,$cnt){
         $connet = ConnectionManager::get('default');
         $connet->execute(
             "CALL approve_request('$req_id', '$h_type', '$cnt')"
         );
     }
-    
+
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Obtiene la solicitud aprobada con el ID respectivo
+     * 
+     * @param {int} $id - ID de la solicitud
+     * @return {array} solicitud aprobada 
+     */
     public function getApproved($id) {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
@@ -370,7 +387,12 @@ class RequestsTable extends Table
         )->fetchAll();
         return $query;
     }
-
+    
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Verifica si existe al menos una solicitud en la ronda actual
+     */
     public function requestsOnRound(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
