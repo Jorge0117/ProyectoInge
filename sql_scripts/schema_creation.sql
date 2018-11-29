@@ -746,12 +746,3 @@ BEGIN
 	END IF;
 END $$
 DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
-BEGIN
-	IF old.average <> new.average THEN
-		update requests set average = new.average where student_id = new.user_id;
-    END IF;
-END $$
-DELIMITER ;
