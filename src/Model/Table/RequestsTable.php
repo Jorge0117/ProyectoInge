@@ -90,7 +90,7 @@ class RequestsTable extends Table
     public function validationDefault(Validator $validator)
     {
             
-        //Valida que la cantidad de horas asistente se encuentre entre 0 y 20
+       /* //Valida que la cantidad de horas asistente se encuentre entre 0 y 20
         $validator
             ->integer('another_student_hours')
             ->allowEmpty('another_student_hours')
@@ -104,7 +104,7 @@ class RequestsTable extends Table
             ->lessThanOrEqual('another_assistant_hours', 20, '* La cantidad maxima de horas ya asignadas es 20')
             ->GreaterThanOrEqual('another_assistant_hours', 0, 'La cantidad minima de horas ya asignadas es 0');
             
-
+*/
         //Valida que se seleccione un curso valido
         $validator->add('course_id', [
             'validarCurso' => [

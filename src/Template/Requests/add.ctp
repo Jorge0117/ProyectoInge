@@ -29,7 +29,6 @@
     <fieldset>
         <center><legend><?= __('Agregar Solicitud') ?></legend></center>
         <?php
-            //debug(($classes->execute())[1]);
 
             //Implementacion del bloque que se trae todos los datos del usuario
         ?>
