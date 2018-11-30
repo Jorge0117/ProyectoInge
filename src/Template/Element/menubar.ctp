@@ -134,7 +134,7 @@ if(isset($active_menu)):
                 </div>
                 <div class="row justify-content-center">
                     <h6 class='text-dark' style='font-size:12px;'>
-                        <?php echo "Fecha y Hora ".date('d-M-Y H:i') ?>
+                        <?= "Fecha y Hora ".(new DateTime('now'))->sub(new DateInterval('P'.'0'.'Y'.'0'.'M'.'0'.'DT'.'6'.'H'.'0'.'M'.'0'.'S'))->format('d-M-Y H:i') ?>
                     </h6>
                 </div>        
             </div>        
