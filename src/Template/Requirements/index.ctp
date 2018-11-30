@@ -16,7 +16,7 @@
         <div class='row'>
             <div class='col self-align-end'>
 
-                <?php if($this->Rounds->between() == true): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
+                <?php if($this->Rounds->between() != true): ?> <!--Sirve para bloquear o desbloquear botón dependiendo de la ronda-->
                     <?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
                         'Agregar requisito',
                         ['controller'=>'Requirements','action'=>'add'],//Se dirige a la vista de agregar
@@ -35,7 +35,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Tipo de Horas') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Horas') ?></th>
                 
-                <?php if($this->Rounds->between() == true) : ?> 
+                <?php if($this->Rounds->between() != true) : ?> 
                     <th scope="col" class="actions"><?= __(' ') ?></th>
                 <?php endif; ?>
             </tr>
@@ -48,7 +48,7 @@
                 <td><?= h($requirement->hour_type) ?></td>
 
                 <td class="actions">
-                    <?php if($this->Rounds->between() == true) : ?>
+                    <?php if($this->Rounds->between() != true) : ?>
                         <?= $this->Html->link('<i class="fa fa-pencil fa_custom fa-1x"></i>', ['action' => 'edit', $requirement->requirement_number],['escape' => false]) ?>
                         <?= $this->Form->postLink(
                             '<i class="fa fa-trash-o fa_custom fa-1x"></i>',
