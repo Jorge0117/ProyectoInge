@@ -748,6 +748,16 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
+CREATE TRIGGER users_BEFORE_DELETE BEFORE DELETE ON users FOR EACH ROW
+BEGIN
+	IF OLD.role_id = 'Administrador' THEN 
+		SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'check constraint on user.role_id failed: usuarios con rol Administrador no se pueden borrar';
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
 CREATE TRIGGER add_user AFTER INSERT ON users
 FOR EACH ROW 
 BEGIN

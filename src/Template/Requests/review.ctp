@@ -442,10 +442,16 @@ $(document).ready( function () {
     $("#edit_checkbox").change(function(){
 		if($("#edit_checkbox").is(":checked")){
 			$('.radioRequirements').prop( "disabled", false );
+			if(byId('ponderado').value != 0){
+				autoReqs();
+			}
 		}else{
 			$('.radioRequirements').prop( "disabled", true );	
 		}
-    });
+	});
+	if(byId('ponderado').value != 0){
+		autoReqs();
+	}
 });
 
 function autoReqs(){
