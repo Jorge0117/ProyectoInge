@@ -50,7 +50,7 @@ class SetPasswdCommand extends Command
 
         $path = Folder::addPathElement(CONFIG, 'passwd');
 
-        $io->info($path);
+        // $io->info($path);
 
         if (file_exists($path)) {
             // Sobreescribir
@@ -76,18 +76,41 @@ class SetPasswdCommand extends Command
         $io->info('Costo optimo: ' .$cost);
         $io->info('hash: ' . $hash);        
 
-        $script = Folder::addPathElement(ROOT, ["bin", "set_admin_passwd.bash"]);
 
-        exec($script . " '$hash'", $output, $ret);
-        if ($ret === 0) {
-            $io->out('Clave escrita con éxito.');
-        } else {
-            $io->error('Error al tratar de guardar la contraseña: ' . $ret);
-            foreach ($output as $line) {
-                $io->error($line);
+        if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
+            // Servidor Windows
+
+            $passwd_f = new File($path);
+
+            if ($passwd_f->open('w')) {
+                if ($passwd_f->write($hash)) {
+                    $io->out('Clave escrita con éxito.');
+                    $passwd_f->close();
+                    return 0;
+                }
+                $io->error('No se pudo escribir al archivo.');
+                $passwd_f->close();
+                return 1;
+            } else {
+                $iot->error('No se puedo abrir el archivo');
+                return 1;
             }
-            return 1;
+        } else {
+            // Otros (se asume UNIX)
+            $script = Folder::addPathElement(ROOT, ["bin", "set_admin_passwd.bash"]);
+
+            exec($script . " '$hash'", $output, $ret);
+            if ($ret === 0) {
+                $io->out('Clave escrita con éxito.');
+            } else {
+                $io->error('Error al tratar de guardar la contraseña: ' . $ret);
+                foreach ($output as $line) {
+                    $io->error($line);
+                }
+                return 1;
+            }
+            return 0;
         }
-        return 0;
+
     }
 }
