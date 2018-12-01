@@ -73,8 +73,8 @@ class SetPasswdCommand extends Command
 
 
         $hash = password_hash($passwd, PASSWORD_DEFAULT, ['cost' => $cost]);
-        $io->info('Costo optimo: ' .$cost);
-        $io->info('hash: ' . $hash);        
+        // $io->info('Costo optimo: ' .$cost);
+        // $io->info('hash: ' . $hash);        
 
 
         if (strncasecmp(PHP_OS, 'WIN', 3) == 0) {
