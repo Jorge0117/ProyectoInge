@@ -42,3 +42,4 @@ logs/*
 logs/
 
 *.log
+config/passwd
