@@ -52,3 +52,10 @@
     color: #0056B3;
 }
 .btn-x:focus{outline:none !important}
+
+.text-clickable {
+    color: #007bff !important;
+}
+.text-clickable:hover {
+    color: #0062cc !important;
+}
