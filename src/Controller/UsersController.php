@@ -22,13 +22,39 @@ class UsersController extends AppController
         $this->Auth->allow('register');
     }
 
+    /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+
+        $role = $this->Auth->user('role_id');
+        if ($role === 'Administrador' || $role === 'Asistente' ) {
+            $this->set('active_menu', 'MenubarUsuarios');
+        }
+
+    }
+
+    /**
+     * Devuelve verdadero si el usuario tiene permiso para ingresar al view.
+     *
+     * @param String $user
+     * @return boolean Verdadero si el usuario tiene permiso para ingresar al view, falso si no
+     */
     public function isAuthorized($user)
     {
+        // Cualquier usuario puede acceder a las acciones view y edit de su propio usuario
         if (in_array($this->request->getParam('action'), ['view', 'edit'])) {
             $user_id = (int)$this->request->getParam('pass.0');           
-            return $user_id === (int)$user['identification_number'];
+            if ($user_id === (int)$user['identification_number']) {
+                return true;
+            }
         }
         
+        // Para otros casos usar el módulo de autorización
         return parent::isAuthorized($user);
     }
 
@@ -39,11 +65,14 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
+      /*  $this->paginate = [
             'contain' => ['Roles']
         ];
         $users = $this->paginate($this->Users);
+        */ 
+         $table = $this->loadmodel('Users');
 
+        $users = $table->find();
         $this->set(compact('users'));
     }
 
@@ -185,9 +214,7 @@ class UsersController extends AppController
         ]);
         $rol_original = $user->role_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if (isset($this->request->data['cancel'])) {
-                return $this->redirect( array( 'action' => 'index' ));
-            }
+
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $rol_actual = $user->role_id;
             $id = $user->identification_number;
@@ -283,26 +310,25 @@ class UsersController extends AppController
         $userTable=$this->loadmodel('Users');
         return $userTable->getProfessors();
     }
-
+     /** 
+     * Autor: Mayquely
+     */
     public function getNameUser ($id) {
 
         $userTable=$this->loadmodel('Users');
         return $userTable->getNameUser($id);
     }
-    
-    public function getContactInfo ($id) {
-
+	
+	   public function getContactInfo ($id) {
         $userTable=$this->loadmodel('Users');
         return $userTable->getContactInfo($id);
     }
 	
 	//Obtiene toda la información de un usuario según su id
 	public function getStudentInfo ($id) {
-
         $userTable=$this->loadmodel('Users');
         return $userTable->getStudentInfo($id);
     }
-	
-
+    
 
 }

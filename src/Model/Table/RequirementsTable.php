@@ -52,25 +52,6 @@ class RequirementsTable extends Table
             'foreignKey' => 'requirement_number'
         ]);
     }
-    //Función para eliminar un requisito, llamada por el controlador
-    public function deleteRequirement($requirement_number)
-    {
-        //------------------------------------------------
-        $result = true;
-        //------------------------------------------------
-        $connection = ConnectionManager::get('default');
-        //------------------------------------------------
-        //Ejecuta el código SQL en la base de datos directamente, para eliminar el requisito con la
-        //llave primaria que se mandó como parámetro
-        $result = $connection->execute(
-            "DELETE FROM requirements 
-            WHERE   requirement_number  = '$requirement_number' 
-            "
-        );
-        //------------------------------------------------
-        //Se envía el resultado de la operación
-        return $result;
-    }
 
     /**
      * Default validation rules.
@@ -105,22 +86,22 @@ class RequirementsTable extends Table
     }
 
     /**
-     * Retorna un array con los requisito de la solicitud con $id categorizados en opcionales y obligatorios.
+     * Retorna un array con los requisito de la solicitud con $id categorizados en estudiante, asistente y generales.
      * 
+     * @author Kevin Jimenez <kevinja9608@gmail.com>
      * @param String $id Identificador de la solicitud
-     * @return array Array con los requisitos de la solicitud categorizados en opcionales y obligatorios
-     * 
+     * @return array Array con los requisitos de la solicitud categorizados en estudiante, asistente y generales
      */
     public function getRequestRequirements($id){
 
-        // Solicita a la base los requisitos opcionales, esto devuelve un array con toda la informacion
+        // Solicita a la base los requisitos de horas estudiante
         $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
             return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
         })->where(['hour_type' => 'Estudiante'])->toArray();
 
         /* En el array que se retorna, solo se guarda los campos necesarios(para disminuir el trafico en la red)
-         * En el caso de los opcionales se guarda el estado, numero de requisito, si fue aceptado por inopia
-         * y su descripcion
+         * En el caso de los opcionales se guarda el estado, numero de requisito, si fue aceptado por inopia,
+         *  su descripcion y si es obligatorio o opcional
          */
         $student_requirements = [];
         for ($i = 0; $i < count($requirements); $i++){
@@ -132,14 +113,13 @@ class RequirementsTable extends Table
             $student_requirements[$i]['type'] = $requirements[$i]['type'];
         }
 
-        // Solicita a la base los requisitos obligatorios
+        // Solicita a la base los requisitos de horas asistente
         $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
             return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
         })->where(['hour_type' => 'Asistente'])->toArray();
 
         /*
          * En el array que se retorna, solo se guarda los campos necesarios(para disminuir el trafico en la red)
-         * En el caso de los obligatorios se guarda el estado, numero de requisito y su descripcion
          */
 		$assistant_requirements = [];
         for ($i = 0; $i < count($requirements); $i++){
@@ -151,7 +131,7 @@ class RequirementsTable extends Table
             $assistant_requirements[$i]['type'] = $requirements[$i]['type'];
         }
 
-        // Solicita a la base los requisitos obligatorios
+        // Solicita a la base los requisitos generales
         $requirements = $this->find()->matching('RequestsRequirements', function($q) use($id){
             return $q->select(['RequestsRequirements.state','RequestsRequirements.acepted_inopia'])->where(['RequestsRequirements.request_id' => $id]); 
         })->where(['hour_type' => 'Ambos'])->toArray();
@@ -163,13 +143,15 @@ class RequirementsTable extends Table
             $general_requirements[$i]['requirement_number'] = $requirements[$i]['requirement_number'];
             $general_requirements[$i]['description'] = $requirements[$i]['description'];
             $general_requirements[$i]['type'] = $requirements[$i]['type'];
+            $general_requirements[$i]['acepted_inopia'] = $requirements[$i]['_matchingData']['RequestsRequirements']['acepted_inopia'];
         }
         
-
         /*
-         * En el array final, los requisitos se separan en opcionales y obligatorios
+         * En el array final, los requisitos se separan en Estudiante, asistente y ambos
          */
         $requirements = ['Estudiante' => $student_requirements, 'Asistente' => $assistant_requirements, 'Ambos' => $general_requirements];
 		return $requirements;
     }
+
+    
 }

@@ -6,7 +6,7 @@
 ?>
 <h3>Modificar usuario</h3>
 
-<div class="users form large-9 medium-8 columns content form-size">
+<div class="form-size">
     <?= $this->Form->create($user,array(
                 'type'=>'file')) ?>
     
@@ -42,7 +42,7 @@
         
     </fieldset>
     
-    <div class="submit">
+    <div>
         <?php echo $this->Form->submit(__('Aceptar'), ['class'=>'btn btn-primary btn-aceptar'], array('name' => 'ok', 'div' => FALSE)); ?>
         <?php echo $this->Html->link(__('Cancelar'), ['action' => 'view', $user->identification_number], ['class'=>'btn btn-secondary btn-cancelar']); ?>
     </div>

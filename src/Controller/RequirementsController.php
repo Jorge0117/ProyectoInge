@@ -14,17 +14,28 @@ class RequirementsController extends AppController
 {
 
     /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|void
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
      */
-    /*Función que redireccina a la vista index*/
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarRequisitos');
+
+    }
+
+    /**
+     * Metodo que redirecciona al index, carga los requisitos del modelo y los envía
+     *
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @return void
+     */ 
     public function index()
     {
         $table = $this->loadModel('Requirements');
         $requirements = $table->find();
         $this->set(compact('requirements'));
-        //$this->checkDate();
     }
 
     /**
@@ -46,6 +57,7 @@ class RequirementsController extends AppController
     /**
      * Add method
      *
+     * @author Nathan González
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
@@ -80,6 +92,7 @@ class RequirementsController extends AppController
     /**
      * Edit method
      *
+     * @author Nathan González
      * @param string|null $id Requirement id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
@@ -116,47 +129,24 @@ class RequirementsController extends AppController
     }
 
     /**
-     * Delete method
+     * Elimina el requisito elegido
      *
-     * @param string|null $id Requirement id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @author Estiven Alfaro <estivenalg@gmail.com>
+     * @param null $id identificador del requisito.
+     * @return redirect Redirecciona al index
+     * @throws / Flash success cuando se elimina el requisito, Flash error cuando no se puede borrar el requisito.
      */
-    /*Función para eliminar requisito*/
-    public function delete($requirement_number)
+    public function delete($id = null)
     {
-        //------------------------------------------------
-        //Se pone el resultado en falso hasta que se optenga el resultado de eliminar el requisito
-        $result = false;
-        //------------------------------------------------
-        //Crea una nueva entidad de requeriminetos en el modelo
-        $model = $this->Requirements->newEntity();
-        //------------------------------------------------
-        //Si la nueva entidad de requerimientos fue realizada correctamente, haga
-        if ($this->request->is('post')) {
-            //------------------------------------------------
-            //Pasa los datos de la entidad hecha en la vista a la entidad hecha en el modelo.
-            $model = $this->Requirements->patchEntity(
-                $model, 
-                $this->request->getData()
-            );
-            //------------------------------------------------
-            //Carga el modelo de Requisitos
-            $requirementsModel = $this->loadmodel('Requirements');
-            //------------------------------------------------
-            //Se llama al método de eliminar dentro del modelo, se envía de parámetro la llave primaria del requisito
-            $result = $requirementsModel->deleteRequirement(
-                $requirement_number
-            );
+        $this->request->allowMethod(['post', 'delete']);
+        $requirement = $this->Requirements->get($id);
+        if ($this->Requirements->delete($requirement)) {
+            $this->Flash->success(__('Se borró el requisito correctamente'));
+        } else {
+            $this->Flash->error(__('Error: no se pudo borrar el requisito'));
         }
-        //------------------------------------------------
-        //Si se elimina con éxito, sale mesnaje de éxito, sino sale mensaje de error, en ambas redirecciona al index
-        if($result){
-            $this->redirect(['action' => 'index']);
-            return $this->Flash->success(__('Se eliminó el requisito correctamente'));
-        }
-        $this->redirect(['action' => 'index']);
-        $this->Flash->error(__('No se logró eliminar el requisito'));
+
+        return $this->redirect(['action' => 'index']);
     }
 
     //Función que relacionará a una solicitud con los requisitos.

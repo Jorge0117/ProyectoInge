@@ -12,6 +12,19 @@ use App\Controller\AppController;
  */
 class RolesController extends AppController
 {
+
+    /**
+     * Activa el item del menú de navegación
+     * 
+     * @author Daniel Díaz
+     */
+    public function beforeFilter($event)
+    {
+        parent::beforeFilter($event);
+        $this->set('active_menu', 'MenubarPermisos');
+
+    }
+
     /**
      * Se encarga de la logica de modificar permisos de rol.
      *
@@ -188,4 +201,6 @@ class RolesController extends AppController
 
         return in_array($module.'-'.$action, $role_permissions);
     }
+
+    
 }

@@ -40,3 +40,6 @@ tmp/
 logs/*
 
 logs/
+
+*.log
+config/passwd

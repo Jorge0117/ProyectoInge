@@ -44,6 +44,11 @@ class ProfessorsTable extends Table
             'dependent'  => true,
             'cascadeCallbacks' => true
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'bindingKey' => 'identification_number',
+            'joinType' => 'INNER'
+        ]);
 
     }
 

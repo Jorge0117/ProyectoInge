@@ -38,21 +38,20 @@
 </style>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
-
+<h3><?= __('Cursos activos') ?></h3>
  <?= $this->Html->link(
         'Agregar grupo',
         ['controller'=>'CoursesClassesVw','action'=>'addClass'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary  btn-agregar-index btn-space']
     )?>
  <?= $this->Html->link(
         'Agregar curso',
         ['controller'=>'CoursesClassesVw','action'=>'addCourse'],
-        ['class'=>'btn btn-primary float-right btn-space']
+        ['class'=>'btn btn-primary  btn-agregar-index btn-space']
     )?>
-<button id="butExcel" class="btn btn-primary float-right btn-space">Cargar Archivo</button>
+<button id="butExcel" class="btn btn-primary btn-agregar-index btn-space">Cargar Archivo</button>
 
 <div class="courses index large-9 medium-8 columns content">
-    <h3><?= __('Cursos-Grupos') ?></h3>
     <table cellpadding="0" cellspacing="0" id = 'viewCoursesClassesDatagrid'>
         <thead>
             <tr>
@@ -60,7 +59,7 @@
                 <th scope="col"><?= $this->Paginator->sort('Curso') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Grupo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Profesor') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('Semestres') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('Ciclo') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('Año') ?></th>
                 <th scope="col" class="actions"><?= __('Opciones') ?></th>
             </tr>
@@ -70,10 +69,15 @@
             <tr>
                 <td><?= h($course->Sigla) ?></td>
                 <td><?= h($course->Curso) ?></td>
-                <td><?= $this->Number->format($course->Grupo) ?></td>
+                <td align = "center"><?= $this->Number->format($course->Grupo) ?></td>
                 <td><?= h($course->Profesor) ?></td>
-                <td><?= h($course->Semestre) ?></td>
-                <td><?= h($course->Año) ?></td>
+                <?php if ($this->Number->format($course->Semestre) == 1): ?>
+                        <td align = "center"> I </td>
+                    <?php else: ?>
+                        <td align = "center">II</td>
+                    <?php endif; ?>
+                
+                <td align = "center"><?= h($course->Año) ?></td>
                 
                 <td class="actions">
                     <?= $this->Html->link(
@@ -160,8 +164,6 @@
 
 
 <style>
-    body {font-family: Arial, Helvetica, sans-serif;}
-
     /* Fondo del modal */
     .modal {
         display: none; 

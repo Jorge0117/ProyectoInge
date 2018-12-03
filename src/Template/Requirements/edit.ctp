@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author Nathan González
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Requirement $requirement
  */
@@ -11,7 +12,7 @@
 </head>
 
 <!-- Se crea un contenedor para el form. -->
-<div class="form-size requests form large-9 medium-8 columns content">
+<div class="form-section">
 
     <!-- Se busca crear un nuevo requisito desde el form. -->
     <?= $this->Form->create($requirement) ?>
@@ -76,8 +77,8 @@
             <div class='col self-align-end'>
 
                 <!-- Botón de agregar, cuando es presionado se ingresa la nueva tupla a la base de datos. -->
-                <button type="submit" class='btn btn-primary float-right btn-space btn-aceptar'>
-                    Editar
+                <button type="submit" class='btn btn-primary btn-space btn-aceptar'>
+                    Aceptar
                 </button>
 
                 <!-- Botón de cancelar, cuando es presionado se regresa a el index de los requisitos. -->

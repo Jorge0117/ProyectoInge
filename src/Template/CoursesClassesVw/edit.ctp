@@ -5,15 +5,9 @@
  */
 ?>
 
-<style>
-    .btn-space {
-        margin-right: 3px;
-        margin-leftt: 3px;
-    }
-</style>
-<div class="courses form large-9 medium-8 columns content">
+<div class="courses form large-9 medium-8 columns content form-size">
     <?= $this->Form->create() ?>
-    <legend><?= __('Editar Grupo') ?></legend>
+    <h3><?= __('Editar Grupo') ?></h3>
     <fieldset>
         <div class = "form-section">
             <?php
@@ -35,7 +29,7 @@
                     ]
                 );
                 echo $this->Form->control(
-                    'Semestre',
+                    'Ciclo',
                     [
                         'options' => [1,2,3],
                         'default' => ($semester-1)
@@ -46,7 +40,7 @@
                     [
                         'default' => $year,
                         'type' => 'number',
-                        'min' => 1901,
+                        'min' => 2018,
                         'max' => 2155,
                         'required'
                     ]
@@ -61,13 +55,19 @@
                      ]
                 );
             ?>
+
+
+            
         </div>
     </fieldset>
+   
+    <button type="submit" class="btn btn-primary btn-aceptar">Aceptar</button>
+   
     <?= $this->Html->link(
         'Cancelar',
         ['controller'=>'CoursesClassesVw','action'=>'index'],
-        ['class'=>'btn btn-secondary float-right btn-space']
+        ['class'=>'btn btn-secondary btn-cancelar']
     )?>
-    <button type="submit" class="btn btn-primary float-right  btn-space">Aceptar</button>
+
     <?= $this->Form->end() ?>
 </div>
