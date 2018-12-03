@@ -590,7 +590,7 @@ BEGIN
     SET @round = @round+1;
     
     -- Inicia insertar ronda
-    INSERT INTO ROUNDS VALUES(start_d,end_d,@round,@semester,@year,tsh,tdh,tah,0,0,0);
+    INSERT INTO rounds VALUES(start_d,end_d,@round,@semester,@year,tsh,tdh,tah,0,0,0);
     
 END$$
 DELIMITER ;

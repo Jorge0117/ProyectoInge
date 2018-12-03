@@ -168,7 +168,7 @@ class RequestsTable extends Table
     {
         $connet = ConnectionManager::get('default');
               //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
-        $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = '$courseId' AND c.class_number = '$classNumber' AND c.professor_id = u.identification_number");
+        $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from classes c, users u WHERE c.course_id = '$courseId' AND c.class_number = '$classNumber' AND c.professor_id = u.identification_number");
         $result = $result->fetchAll('assoc');
         return $result;
 
