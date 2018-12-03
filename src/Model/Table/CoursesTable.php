@@ -48,7 +48,7 @@ class CoursesTable extends Table
         ]);
     }
     //Agrega el curso a la base si no está
-    public function addCourse($courseCode, $courseName, $courseCredits)
+    public function addCourse($courseCode, $courseName)
     {
         $return = false;
         $connect = ConnectionManager::get('default');
@@ -57,7 +57,7 @@ class CoursesTable extends Table
         $inTable = count($connect->execute("select code from courses where code = '$courseCode'"));
 
         if ($inTable == 0) {
-            $connect->execute("call addCourse('$courseCode', '$courseName', '$courseCredits')");
+            $connect->execute("call addCourse('$courseCode', '$courseName')");
             $return = true;
         }
         return $return;

@@ -1,3 +1,10 @@
+use proyecto_inge_2;
+
+-- Usuario para conectarse a la bd
+-- create user 'asistencias'@'localhost' identified by '4ZP7b8g4rkStXpS9';
+-- GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON proyecto_inge_2.* TO 'asistencias'@'localhost';
+
+
 ##Ingresar roles del sistema
 insert into roles values('Administrador');
 insert into roles values('Estudiante');
@@ -26,6 +33,7 @@ insert into permissions values('Requests-reviewPreliminary', 'Asignar estado de 
 insert into permissions values('Requests-reviewRequirements', 'Revisar los requerimientos de una solicitud');
 insert into permissions values('Requests-indexReview', 'Revision final de solicitudes en index');
 insert into permissions values('Requests-add', 'Agregar una solicitud');
+insert into permissions values('Requests-cancelRequest', 'Cancelar una solicitud');
 
 insert into permissions_roles values('Requests-index', 'Administrador');
 insert into permissions_roles values('Requests-view', 'Administrador');
@@ -34,6 +42,7 @@ insert into permissions_roles values('Requests-reviewRequirements', 'Administrad
 insert into permissions_roles values('Requests-reviewPreliminary', 'Administrador');
 insert into permissions_roles values('Requests-reviewFinal', 'Administrador');
 insert into permissions_roles values('Requests-indexReview', 'Administrador');
+insert into permissions_roles values('Requests-cancelRequest', 'Administrador');
 
 insert into permissions_roles values('Requests-index', 'Asistente');
 insert into permissions_roles values('Requests-view', 'Asistente');
@@ -54,6 +63,7 @@ insert into permissions values('CoursesClassesVw-uploadFile', 'Subir archivo con
 insert into permissions values('CoursesClassesVw-addCourse', 'Agregar un curso manualmente');
 insert into permissions values('CoursesClassesVw-addClass', 'Agregar un grupo manualmente');
 insert into permissions values('CoursesClassesVw-importExcelfile', 'Importar un archivo con clases y cursos');
+insert into permissions values('CoursesClassesVw-cancelExcel', 'Cancelar subida de excel');
 
 insert into permissions_roles values('CoursesClassesVw-index', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-edit', 'Administrador');
@@ -62,6 +72,7 @@ insert into permissions_roles values('CoursesClassesVw-uploadFile', 'Administrad
 insert into permissions_roles values('CoursesClassesVw-addCourse', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-addClass', 'Administrador');
 insert into permissions_roles values('CoursesClassesVw-importExcelfile', 'Administrador');
+insert into permissions_roles values('CoursesClassesVw-cancelExcel', 'Administrador');
 
 ##Requisitos
 insert into permissions values('Requirements-index', 'Listar requerimientos');
@@ -124,9 +135,11 @@ values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistent
 insert into users
 values ('100010003','Nacional', 'Administrador', 'Administrador', 'Administrador', 'administrador', 'administrador@mail.com', '80008000', 'Administrador');
 
-insert into administrative_bosses values ('100010003');
+##insert into administrative_bosses values ('100010003');
 
 insert into users
 values ('10001004','Nacional', 'Profesor', 'Profesor', 'Profesor', 'profesor', 'profesor@mail.com', '80008000', 'Profesor');
 
-insert into rounds values ('2018-11-06', '2018-11-28', '2', 'II', 2018, '900', '1000', '500', '7', '5', '0');
+## INSERTAR UNA FISHING RONDA ES IMPOSIBLE 
+#insert into rounds values ('2018-12-01', '2018-12-31', '2', 'II', 2018, '900', '1000', '500', '7', '5', '0');
+#call insert_round('2018-12-01', '2018-12-31',90,90,90);

@@ -34,6 +34,7 @@ class RoundsController extends AppController
         $round = $this->Rounds->newEntity();
         // Recibe el form y con base a los datos recibidos elige si agregar o editar una ronda
         if ($this->request->is('post')) {
+            
             $data = $this->request->getData();
             if($data['flag'] == '1') $this->add($data);
             else if($data['flag'] == '2') $this->edit($data);
@@ -60,30 +61,39 @@ class RoundsController extends AppController
      * @param array|null $data post data.
      */
     public function add($data = null){
+        
         $role_c = new RolesController;
         $user = $this->Auth->user();
         $roundData = $this->viewVars['roundData'];
-        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add') && $roundData){
+        if ($role_c->is_Authorized($user['role_id'], 'Rounds', 'add')){
             $start = $this->mirrorDate($data['start_date']);
             $end = $this->mirrorDate($data['end_date']);
             $tsh = $data['total_student_hours'];
             $tdh = $data['total_student_hours_d'];
             $tah = $data['total_assistant_hours'];
-            $sameYear = substr($roundData['year'],-2) === substr($start,2,2);
-            $old_month = substr($roundData['start_date'],5,2);
-            $new_month = substr($start,5,2);
-            $sameSemester = ($old_month<7&&$old_month==12)&&($new_month<7&&$new_month==12)||
-                            ($old_month>=7&&$old_month<12)&&($new_month>=7&&$new_month<12);
-            if($roundData['round_number']==3 && $sameYear && $sameSemester){
-                $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que ha llegado al límite de 3 rondas por semestre, puede proceder a eliminar o editar la ronda actual.'));
-            }else if($start < $roundData['start_date']){//fixme
-                $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
+            if($roundData){
+                $sameYear = substr($roundData['year'],-2) === substr($start,2,2);
+                $old_month = substr($roundData['start_date'],5,2);
+                $new_month = substr($start,5,2);
+                $sameSemester = ($old_month<7&&$old_month==12)&&($new_month<7&&$new_month==12)||
+                                ($old_month>=7&&$old_month<12)&&($new_month>=7&&$new_month<12);
+                if($roundData['round_number']==3 && $sameYear && $sameSemester){
+                    $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que ha llegado al límite de 3 rondas por semestre, puede proceder a eliminar o editar la ronda actual.'));
+                }else if($start < $roundData['start_date']){//fixme
+                    $this->Flash->error(__('Error: No se logró agregar la ronda, debido a que hay otra existente que comparte una parte del rango, para realizar un cambio puede proceder a editar la ronda.'));
+                }else{
+                    $RoundsTable = $this->loadmodel('Rounds');            
+                    $RoundsTable->insertRound($start,$end,$tsh,$tdh,$tah);
+                    $this->updateGlobal();
+                    $this->Flash->success(__('Se agregó la ronda correctamente.'));
+                }
             }else{
                 $RoundsTable = $this->loadmodel('Rounds');            
                 $RoundsTable->insertRound($start,$end,$tsh,$tdh,$tah);
                 $this->updateGlobal();
                 $this->Flash->success(__('Se agregó la ronda correctamente.'));
             }
+            
         }
     }
 

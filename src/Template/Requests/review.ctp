@@ -228,6 +228,7 @@
 					</div>
 				</div>
 				<div class="container">
+				<?php if( $requirements['stage'] < 3): ?>
 				<div class='row justify-content-end'> 
 					<?= $this->Html->link(
 						'Cancelar',
@@ -249,6 +250,7 @@
 						
 					?>
 				</div>
+				<?php endif; ?>
 				</div>
 			<?= $this->Form->end() ?>
 		</div>
@@ -441,17 +443,15 @@ $(document).ready( function () {
 		if($("#edit_checkbox").is(":checked")){
 			$('.radioRequirements').prop( "disabled", false );
 			if(byId('ponderado').value != 0){
-				byId('requirement_4_a').disabled = true;
-				byId('requirement_6_a').disabled = true;
-				byId('requirement_4_r').disabled = true;
-				byId('requirement_6_r').disabled = true;
-				byId('requirement_4_i').disabled = true;
-				byId('requirement_6_i').disabled = true;
+				autoReqs();
 			}
 		}else{
 			$('.radioRequirements').prop( "disabled", true );	
 		}
-    });
+	});
+	if(byId('ponderado').value != 0){
+		autoReqs();
+	}
 });
 
 function autoReqs(){

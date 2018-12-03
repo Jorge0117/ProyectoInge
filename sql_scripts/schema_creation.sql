@@ -262,99 +262,6 @@ CREATE VIEW `professor_assistants` AS
 		);
 
 #---------------------------------------------------------------------------------------------------------------
-# Triggers
-
-DELIMITER $$
-CREATE TRIGGER assign_requirements AFTER INSERT ON requests
-FOR EACH ROW
-INSERT INTO requests_requirements(requirement_number, request_id) 
-(SELECT r.requirement_number,NEW.id  from requirements r )
-$$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
-BEGIN
-	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
-		call decline_request(new.id);
-	END IF;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
-BEGIN
-	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
-    CALL check_rounds_on_insert(
-		NEW.round_number,
-        NEW.semester,
-        NEW.start_date,
-        NEW.end_date,
-        NEW.year,
-        NEW.total_student_hours,
-        NEW.total_student_hours_d,
-        NEW.total_assistant_hours,
-        NEW.actual_student_hours,
-        NEW.actual_student_hours_d,
-        NEW.actual_assistant_hours,
-        (SELECT total_student_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT total_student_hours_d FROM rounds WHERE start_date = @last_start_date),
-        (SELECT total_assistant_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_student_hours FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
-        (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
-	);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
-BEGIN
-    CALL check_rounds_on_update(
-		NEW.round_number,
-        NEW.semester,
-        NEW.start_date,
-        NEW.end_date,
-        NEW.year,
-        OLD.start_date,
-		NEW.total_student_hours,
-        NEW.total_student_hours_d,
-		NEW.total_assistant_hours,
-		NEW.actual_student_hours,
-        NEW.actual_student_hours_d,
-		NEW.actual_assistant_hours,
-		OLD.actual_student_hours,
-        OLD.actual_student_hours_d,
-		OLD.actual_assistant_hours
-	);
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW 
-BEGIN
-    CALL delete_round(OLD.start_date);
-END
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
-BEGIN
-    IF NEW.round_number = 1 THEN
-		update students set average = 0;
-	END IF;
-END
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER students_AFTER_UPDATE AFTER UPDATE ON students FOR EACH ROW
-BEGIN
-	IF old.average <> new.average THEN
-		update requests set average = new.average where student_id = new.user_id;
-    END IF;
-END
-DELIMITER ;
-#---------------------------------------------------------------------------------------------------------------
 # Stored procedures
 
 DELIMITER $$
@@ -366,9 +273,9 @@ end$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255), creditsC tinyint)
+CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255))
 BEGIN
-	insert into courses (code, name, credits) values (codeC, nameC, creditsC);
+	insert into courses (code, name) values (codeC, nameC);
 END$$
 DELIMITER ;
 
@@ -487,7 +394,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-     IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds ),(SELECT SUBDATE(NOW(),1)))) THEN
+     IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds ),(SELECT SUBDATE(DATE(NOW()),1)))) THEN
 		SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
@@ -554,7 +461,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT SUBDATE(NOW(),10))) AND start_d != old_start_d) THEN
+	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT DATE(SUBDATE(NOW(),10)))) AND start_d != old_start_d) THEN
 		SIGNAL SQLSTATE '45000'
 			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
@@ -683,7 +590,7 @@ BEGIN
     SET @round = @round+1;
     
     -- Inicia insertar ronda
-    INSERT INTO ROUNDS VALUES(start_d,end_d,@round,@semester,@year,tsh,tdh,tah,0,0,0);
+    INSERT INTO rounds VALUES(start_d,end_d,@round,@semester,@year,tsh,tdh,tah,0,0,0);
     
 END$$
 DELIMITER ;
@@ -754,4 +661,115 @@ BEGIN
         total_assistant_hours = tah
     WHERE start_date = old_start_d;
 END$$
+DELIMITER ;
+#---------------------------------------------------------------------------------------------------------------
+# Triggers
+
+DELIMITER $$
+CREATE TRIGGER assign_requirements AFTER INSERT ON requests
+FOR EACH ROW
+INSERT INTO requests_requirements(requirement_number, request_id) 
+(SELECT r.requirement_number,NEW.id  from requirements r )
+$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
+BEGIN
+	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
+		call decline_request(new.id);
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
+BEGIN
+	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
+    CALL check_rounds_on_insert(
+		NEW.round_number,
+        NEW.semester,
+        NEW.start_date,
+        NEW.end_date,
+        NEW.year,
+        NEW.total_student_hours,
+        NEW.total_student_hours_d,
+        NEW.total_assistant_hours,
+        NEW.actual_student_hours,
+        NEW.actual_student_hours_d,
+        NEW.actual_assistant_hours,
+        (SELECT total_student_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT total_student_hours_d FROM rounds WHERE start_date = @last_start_date),
+        (SELECT total_assistant_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_student_hours FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
+        (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
+	);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
+BEGIN
+    CALL check_rounds_on_update(
+		NEW.round_number,
+        NEW.semester,
+        NEW.start_date,
+        NEW.end_date,
+        NEW.year,
+        OLD.start_date,
+		NEW.total_student_hours,
+        NEW.total_student_hours_d,
+		NEW.total_assistant_hours,
+		NEW.actual_student_hours,
+        NEW.actual_student_hours_d,
+		NEW.actual_assistant_hours,
+		OLD.actual_student_hours,
+        OLD.actual_student_hours_d,
+		OLD.actual_assistant_hours
+	);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER rounds_before_delete BEFORE DELETE ON rounds FOR EACH ROW 
+BEGIN
+    CALL delete_round(OLD.start_date);
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
+BEGIN
+    IF NEW.round_number = 1 THEN
+		update students set average = 0;
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER users_BEFORE_DELETE BEFORE DELETE ON users FOR EACH ROW
+BEGIN
+	IF OLD.role_id = 'Administrador' THEN 
+		SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'check constraint on user.role_id failed: usuarios con rol Administrador no se pueden borrar';
+	END IF;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER add_user AFTER INSERT ON users
+FOR EACH ROW 
+BEGIN
+	IF NEW.role_id = 'Profesor' THEN
+		INSERT INTO professors 
+        SET user_id = NEW.identification_number;
+    ELSEIF NEW.role_id = 'Asistente' THEN
+		INSERT INTO administrative_assistants 
+        SET user_id = NEW.identification_number;
+    ELSEIF NEW.role_id = 'Administrador' THEN
+		INSERT INTO administrative_bosses 
+        SET user_id = NEW.identification_number;
+	END IF;
+END $$
 DELIMITER ;

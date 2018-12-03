@@ -87,7 +87,7 @@
 
                     <!-- Botón para procesar su respectiva fila -->
                     <td>
-                        <input type="buttom" class='btn btn-primary float-right btn-space btn-aceptar' style="width:80px" value="Agregar" disabled>
+                        <input type="buttom" class='btn btn-primary float-right btn-space btn-aceptar' style="width:80px" value="Agregar y editar" disabled>
                     </td>
                 </tr>
                 <?php endforeach; ?>

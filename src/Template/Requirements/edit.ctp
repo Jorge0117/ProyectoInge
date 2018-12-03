@@ -12,7 +12,7 @@
 </head>
 
 <!-- Se crea un contenedor para el form. -->
-<div class="form-size form-section requests form large-9 medium-8 columns content">
+<div class="form-section">
 
     <!-- Se busca crear un nuevo requisito desde el form. -->
     <?= $this->Form->create($requirement) ?>

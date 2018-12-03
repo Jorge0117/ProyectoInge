@@ -184,6 +184,7 @@
 
 <?= $this->Html->script('Generic'); ?>
 <?= $this->Html->script('DateOps'); ?>
+
 <script>
     /** 
      * @author Daniel Marín <110100010111h@gmail.com>
@@ -191,13 +192,15 @@
      * Obtiene todos los datos de la ronda actual y los almacena en una variable js.
      */
     (function() {
-        if('<?= $roundData != null ?>'){
+        <?php if($roundData != null): ?>
             resultArray = <?= json_encode($roundData) ?>;
             resultArray['start_date'] = YmdtodmY(resultArray['start_date']);
             resultArray['end_date'] = YmdtodmY(resultArray['end_date']);
             roundData = resultArray;
             penultimateRoundData = <?= json_encode($penultimateRound) ?>;
-        }else roundData = null;
+        <?php else: ?> 
+            roundData = null;
+        <?php endif; ?> 
     })();
 </script>
 <?=  $this->Html->script('Rounds'); ?>

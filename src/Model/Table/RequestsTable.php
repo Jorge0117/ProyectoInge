@@ -88,23 +88,7 @@ class RequestsTable extends Table
 
 
     public function validationDefault(Validator $validator)
-    {
-            
-        //Valida que la cantidad de horas asistente se encuentre entre 0 y 20
-        $validator
-            ->integer('another_student_hours')
-            ->allowEmpty('another_student_hours')
-            ->lessThanOrEqual('another_student_hours', 20, '* La cantidad maxima de horas ya asignadas es 20')
-            ->GreaterThanOrEqual('another_student_hours', 0, 'La cantidad minima de horas ya asignadas es 0');
-            
-        //Valida que la cantidad de horas estudiante se encuentre entre 0 y 20
-        $validator
-            ->integer('another_assistant_hours')
-            ->allowEmpty('another_assistant_hours')
-            ->lessThanOrEqual('another_assistant_hours', 20, '* La cantidad maxima de horas ya asignadas es 20')
-            ->GreaterThanOrEqual('another_assistant_hours', 0, 'La cantidad minima de horas ya asignadas es 0');
-            
-
+    {           
         //Valida que se seleccione un curso valido
         $validator->add('course_id', [
             'validarCurso' => [
@@ -112,9 +96,7 @@ class RequestsTable extends Table
                 'provider' => 'table',
                 'message' => 'Seleccione un curso'
             ]
-        ]);
-
-        
+        ]);     
         //Valida que se seleccione un grupo valido
         $validator->add('class_number', [
             'validarGrupo' => [
@@ -123,13 +105,6 @@ class RequestsTable extends Table
                 'message' => 'Seleccione un Grupo'
             ]
         ]);
-        
-
-        
-        //Los demas elementos no es necesario validarlos, ya que los checkboxs pueden guardarse como nulos en la DB
-        
-        //debug($validator);
-
         return $validator;
     }
 
@@ -193,7 +168,7 @@ class RequestsTable extends Table
     {
         $connet = ConnectionManager::get('default');
               //  $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = "+$courseId+" AND c.class_number = "+$classNumber+" AND c.professor_id = u.identification_number");
-        $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from Classes c, users u WHERE c.course_id = '$courseId' AND c.class_number = '$classNumber' AND c.professor_id = u.identification_number");
+        $result = $connet->execute("Select CONCAT(name,' ',lastname1) AS name from classes c, users u WHERE c.course_id = '$courseId' AND c.class_number = '$classNumber' AND c.professor_id = u.identification_number");
         $result = $result->fetchAll('assoc');
         return $result;
 
@@ -222,12 +197,22 @@ class RequestsTable extends Table
         return $result;
     }
     
-    //Obtiene el profesor, los codigos de curso y codigo nombre de los grupo de este semestre y año cuyo estado sea 1
+	/**
+	* Devuelve todos los cursos y grupos en los que el estudiante no tiene una solicitud de asistencia. Esto permite que el estudiante
+	* no solicite más de una vez una asistencia al mismo grupo del mismo curso. Además, impide que el estudiante solicite asistencia a 
+	* grupos que ya tienen un asistente.
+	* @author Esteban Rojas
+	* @param String $id_estudiante Identificación del estudiante
+	* @param String $semestre semestre de los grupos a seleccionar
+	* @param String $year año de los grupos a seleccionar
+	* @return Array con todos los cursos y grupos disponibles para que el estudiante solicite una asistencia
+	*/
     public function getGroups($id_estudiante, $semestre, $year)
     {
         $connet = ConnectionManager::get('default');
 
-        $result = $connet->execute("select c.course_id,c.class_number, co.name, u.name as prof from classes c, courses co, users u
+        $result = $connet->execute("select c.course_id,c.class_number, co.name, concat(u.name,' ',u.lastname1,' ',u.lastname2) 
+		as prof from classes c, courses co, users u
         where c.year = '$year' and c.semester = '$semestre' and co.code = c.course_id AND c.state = 1 AND 
 		u.identification_number = c.professor_id AND
         concat(c.course_id,c.class_number)  NOT IN(
@@ -355,13 +340,30 @@ class RequestsTable extends Table
         return $request['status'];
     }
 
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * llama al procedimiento almacenado creado para aprobar solicitudes
+     * 
+     * @param {int} $req_id - ID de la solicitud
+     * @param {string} $h_type - Tipo de horas por agregar
+     * @param {int} $cnt - cantidad de horas por agregar
+     */
     public function approveRequest($req_id,$h_type,$cnt){
         $connet = ConnectionManager::get('default');
         $connet->execute(
             "CALL approve_request('$req_id', '$h_type', '$cnt')"
         );
     }
-    
+
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Obtiene la solicitud aprobada con el ID respectivo
+     * 
+     * @param {int} $id - ID de la solicitud
+     * @return {array} solicitud aprobada 
+     */
     public function getApproved($id) {
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
@@ -370,7 +372,12 @@ class RequestsTable extends Table
         )->fetchAll();
         return $query;
     }
-
+    
+    /**
+     * @author Daniel Marín <110100010111h@gmail.com>
+     * 
+     * Verifica si existe al menos una solicitud en la ronda actual
+     */
     public function requestsOnRound(){
         $connet = ConnectionManager::get('default');
         $query = $connet->execute(
@@ -499,6 +506,13 @@ class RequestsTable extends Table
         return $request->scope;
     }
 	
+	 /**
+     * Devuelve todas las solicitudes aprobadas en una ronda.
+     * 
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+     * @return Array con todas las solicitudes aprobadas
+     */
 	public function getApprovedRequestsByRound($llave_ronda)
 	{
         $connet = ConnectionManager::get('default');
@@ -507,6 +521,15 @@ class RequestsTable extends Table
         return $result;
 	}
 	
+	/**
+     * Devuelve todas las solicitudes según su estado en una ronda. No se recomienda utilizarlo con las solicitudes aprobadas dado que no se
+     * trae la cantidad de horas asignadas 
+	 *
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+	 @param char $estado
+     * @return Array con todas las solicitudes según dicho estado
+     */
 	public function getRequestsByRoundStatus($llave_ronda,$estado)
 	{
 		$connet = ConnectionManager::get('default');
@@ -514,7 +537,13 @@ class RequestsTable extends Table
         $result = $result->fetchAll('assoc');
         return $result;
 	}
-	
+	/**
+     * Devuelve todas las solicitudes en una ronda.
+     * 
+     * @author Esteban Rojas
+     * @param String $llave_ronda Id de la ronda
+     * @return Array con todas las solicitudes de dicha ronda
+     */
 	public function getAllRequestsByRound($llave_ronda)
 	{
 		$connet = ConnectionManager::get('default');
