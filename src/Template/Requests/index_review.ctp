@@ -90,11 +90,30 @@
                         <input type="buttom" class='btn btn-primary float-right btn-space btn-aceptar' style="width:80px" value="Agregar y editar" disabled>
                     </td>
                 </tr>
+
+                <?= $this->Form->create(false,['id'=>'hourData'] ); ?>
+                <?php 
+                    // Verifica si tiene horas asignadas
+                    $hah = "hasAsignedHours".$request[0];
+                    echo $this->Form->input('assigned'.$request[0], ['type'=>'hidden', 'value' => $$hah ] ); 
+
+                    $hourMax = "student_max_hours_".$request[0];
+                    // maximo de horas estudiante ecci
+                    echo $this->Form->input('heeMax'.$request[0], ['type'=>'hidden', 'value' => $$hourMax['HEE'] ] );
+
+                    // maximo de horas estudiante doc
+                    echo $this->Form->input('hedMax'.$request[0], ['type'=>'hidden', 'value' => $$hourMax['HED'] ] );
+
+                    // maximo de horas asistente ecci
+                    echo $this->Form->input('haeMax'.$request[0], ['type'=>'hidden', 'value' => $$hourMax['HAE'] ] );
+                ?> 
+                <?= $this->Form->end(); ?>
+
                 <?php endforeach; ?>
             </tbody>
         </table>
         
-        <!-- Forma oculta para procesar la solicitud de la fila deseada -->
+        <!-- Datos para controlar las horas de la solicitud -->
         <?= $this->Form->create(false,['id'=>'submitRequest'] ); ?>
         <?php 
             // Número de solicitud
@@ -119,7 +138,6 @@
             $this->Form->unlockField('sendHour');
         ?> 
         <?= $this->Form->end(); ?>
-
     <div> 
 </div>
 
@@ -182,11 +200,14 @@
             }
         });
 
+        <?= $this->Html->script('Generic'); ?>
+
         /**
          * Función encargada de establecer el mínimo y máximo de horas 
          * dependiendo del tipo de horas elegidas .
          * 
          * @author Nathan González
+         * @author Daniel Marín
          */
         $('#requesttable').on('change', '.checkbox', function (event) {   
             // Se toma la fila y la columna del elemento que cambio             
@@ -204,7 +225,7 @@
             // Caso contrario se bloqueara la entrada de datos
             if( this.value == 'HAE' ){
                 table.rows[row].cells[8].firstElementChild.disabled = false;
-                //table.rows[row].cells[8].firstElementChild.min =  $$student_max_hours['HAE'] < 3 || $$hasAsignedHours? 0:3 ?>';
+                table.rows[row].cells[8].firstElementChild.min =  byId('assigned'.concat(table.rows[row].cells[0].innerText())).value < 3 || $$hasAsignedHours? 0:3 ?>';
                 //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HAE'];
                 table.rows[row].cells[8].firstElementChild.max = 20;
                 table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
