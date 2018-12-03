@@ -1,3 +1,10 @@
+use proyecto_inge_2;
+
+-- Usuario para conectarse a la bd
+-- create user 'asistencias'@'localhost' identified by '4ZP7b8g4rkStXpS9';
+-- GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON proyecto_inge_2.* TO 'asistencias'@'localhost';
+
+
 ##Ingresar roles del sistema
 insert into roles values('Administrador');
 insert into roles values('Estudiante');
