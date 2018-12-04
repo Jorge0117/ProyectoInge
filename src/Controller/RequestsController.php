@@ -953,7 +953,7 @@ class RequestsController extends AppController
 		return $this->Requests->getAllRequestsByRound($llave_ronda);
 	}
 
-    public function setMaxHours($request_id, $student_id){
+    public function setMaxHours($request_id, $student_id, $var_id){
         $request = $this->Requests->get($request_id);
         $roundData = $this->viewVars['roundData'];
         /*
@@ -1050,7 +1050,6 @@ class RequestsController extends AppController
         foreach ($requests as $request){
             $r = $this->Requests->get($request[0]);
             $var_name = 'request_'.$request[0];
-            debug($var_name);
             $this->set($var_name,$r); 
             $this->setMaxHours($request[0], $r->student_id, '_'.$request[0]);
         }  

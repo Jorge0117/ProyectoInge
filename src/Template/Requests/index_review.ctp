@@ -32,11 +32,6 @@
             <tbody>
                 
                 <?php foreach ($requests as $request): ?>
-                <?php 
-                    $r = 'request_'.$request[0];
-                    debug($hasAsignedHours_526);
-                    //die(); 
-                ?>
                 <tr>  
                     <!-- Número de solicitud -->
                     <td><?= h($request[0]) ?></td>
@@ -94,7 +89,7 @@
                 <?= $this->Form->create(false,['id'=>'hourData'] ); ?>
                 <?php 
                     // Verifica si tiene horas asignadas
-                    $hah = "hasAsignedHours".$request[0];
+                    $hah = "hasAsignedHours_".$request[0];
                     echo $this->Form->input('assigned'.$request[0], ['type'=>'hidden', 'value' => $$hah ] ); 
 
                     $hourMax = "student_max_hours_".$request[0];
@@ -140,6 +135,8 @@
         <?= $this->Form->end(); ?>
     <div> 
 </div>
+
+<?= $this->Html->script('Generic'); ?>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 <script type="text/javascript">
@@ -200,7 +197,7 @@
             }
         });
 
-        <?= $this->Html->script('Generic'); ?>
+        
 
         /**
          * Función encargada de establecer el mínimo y máximo de horas 
@@ -223,25 +220,28 @@
             // Si se elige horas asistentes su min será 3 y su max 20, 
             // si se elije horas estudiantes su min será 3 y su max 12. 
             // Caso contrario se bloqueara la entrada de datos
+
+            console.log(byId('haeMax'.concat(table.rows[row].cells[0].innerText)).value);
+
             if( this.value == 'HAE' ){
                 table.rows[row].cells[8].firstElementChild.disabled = false;
-                table.rows[row].cells[8].firstElementChild.min =  byId('assigned'.concat(table.rows[row].cells[0].innerText())).value < 3 || $$hasAsignedHours? 0:3 ?>';
-                //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HAE'];
-                table.rows[row].cells[8].firstElementChild.max = 20;
+                //table.rows[row].cells[8].firstElementChild.min =  byId('haeMax'.concat(table.rows[row].cells[0].innerText)).value < 3 || byId('assigned'.concat(table.rows[row].cells[0].innerText())).value? 1:3 ;
+                //table.rows[row].cells[8].firstElementChild.max =  byId('haeMax'.concat(table.rows[row].cells[0].innerText)).value;
+                //table.rows[row].cells[8].firstElementChild.max = 20;
                 table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
             }
             else{
                 if( this.value == 'HEE' || this.value == 'HED' ){
                     table.rows[row].cells[8].firstElementChild.disabled = false;
                     if(this.value == 'HEE'){
-                        //table.rows[row].cells[8].firstElementChild.min = $$student_max_hours['HEE'] < 3 || $$hasAsignedHours? 0:3;
-                        //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HEE'];
+                        //table.rows[row].cells[8].firstElementChild.min =  byId('heeMax'.concat(table.rows[row].cells[0].innerText)).value < 3 || byId('assigned'.concat(table.rows[row].cells[0].innerText())).value? 1:3;
+                        //table.rows[row].cells[8].firstElementChild.max =  byId('heeMax'.concat(table.rows[row].cells[0].innerText)).value;
                     }else if(this.value == 'HED'){
-                        //table.rows[row].cells[8].firstElementChild.min = $$student_max_hours['HED'] < 3 || $$hasAsignedHours? 0:3;
-                        //table.rows[row].cells[8].firstElementChild.max = $$student_max_hours['HED'];
+                        //table.rows[row].cells[8].firstElementChild.min = byId('hedMax'.concat(table.rows[row].cells[0].innerText)).value < 3 ||  byId('assigned'.concat(table.rows[row].cells[0].innerText())).value? 1:3;
+                        //table.rows[row].cells[8].firstElementChild.max = byId('hedMax'.concat(table.rows[row].cells[0].innerText)).value;
                     }
                     
-                    table.rows[row].cells[8].firstElementChild.max = 12;
+                    //table.rows[row].cells[8].firstElementChild.max = 12;
                     table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
                 }
                 else{
