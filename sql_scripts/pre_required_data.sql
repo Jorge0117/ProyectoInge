@@ -1,8 +1,9 @@
-use proyecto_inge_2;
+use sistema_control_asistencias;
 
--- Usuario para conectarse a la bd
--- create user 'asistencias'@'localhost' identified by '4ZP7b8g4rkStXpS9';
--- GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON proyecto_inge_2.* TO 'asistencias'@'localhost';
+## Usuario para conectarse a la bd
+create user 'asistencias'@'localhost' identified by 'ProyInge1!';
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON sistema_control_asistencias.* TO 'asistencias'@'localhost';
+FLUSH PRIVILEGES;
 
 
 ##Ingresar roles del sistema
@@ -133,7 +134,7 @@ insert into users
 values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistente', 'asistente@mail.com', '80008000', 'Asistente');
 
 insert into users
-values ('100010003','Nacional', 'Administrador', 'Administrador', 'Administrador', 'administrador', 'administrador@mail.com', '80008000', 'Administrador');
+values ('000000000','Nacional', 'Administrador', 'Administrador', 'Administrador', 'administrador', 'administrador@mail.com', '00000000', 'Administrador');
 
 ##insert into administrative_bosses values ('100010003');
 
