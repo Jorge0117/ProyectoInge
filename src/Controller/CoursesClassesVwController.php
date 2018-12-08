@@ -330,7 +330,9 @@ class CoursesClassesVwController extends AppController
                         $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
                         if($id == null){
                             $canContinue = false;
-                            array_push($errorProf, $value);
+                            if(array_search($value,$errorProf)===FALSE){
+                                array_push($errorProf, $value);
+                            }
 
                         }else{
                             array_push($profIds, $id);
