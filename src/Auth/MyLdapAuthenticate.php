@@ -5,6 +5,8 @@ namespace App\Auth;
 use Cake\Auth\BaseAuthenticate;
 use Cake\Http\ServerRequest;
 use Cake\Http\Response;
+use Cake\Filesystem\Folder;
+use Cake\Filesystem\File;
 
 
 /**
@@ -42,6 +44,35 @@ class MyLdapAuthenticate extends BaseAuthenticate
         return $result->toArray();
     }
 
+    /**
+     * Verifica los credenciales de usuarios de administrador
+     * @see src/Command/VerifyPasswdCommand.php
+     */
+    protected function verifyAdminPasswd($passwd)
+    {
+        $path = Folder::addPathElement(CONFIG, 'passwd');
+
+        if (!file_exists($path)) {
+            // debug('La contraseña del administrador no ha sido configurada');
+            return false;
+        }  
+
+        $result = false;
+        $passwd_f = new File($path);
+
+        if ($passwd_f->open('r')) {
+            $content = $passwd_f->read();
+            if ($content === false) {
+                debug('No se pudo leer el contenido del archivo');
+            } else {
+                $result = password_verify($passwd, $content);
+            }
+            $passwd_f->close();
+        } else {
+            debug('No se pudo abrir de archivo');
+        }
+        return $result;
+    }
 
     /**
      * Determina si los datos suministrados autentican correctamente a un usuario.
@@ -70,9 +101,15 @@ class MyLdapAuthenticate extends BaseAuthenticate
             ldap_set_option($ldapconn, LDAP_OPT_NETWORK_TIMEOUT, 2);
             $ldapbind = @ldap_bind($ldapconn, $dn, $password);
             //debug($ldapbind);
-            if ($ldapbind || $username === 'profesor' || $username === 'estudiante' || $username === 'asistente' || $username === 'administrador') {
+            if ($ldapbind) {
                 //debug("Conexión realizada con éxito y credenciales válidos");
                 return $this->findUser($username);
+            } elseif ($username === 'profesor' || $username === 'estudiante' || $username === 'asistente' || $username === 'administrador') {
+                if ($this->verifyAdminPasswd($password)) {
+                    return $this->findUser($username);
+                } else {
+                    return false;
+                }
             }
             else {
 

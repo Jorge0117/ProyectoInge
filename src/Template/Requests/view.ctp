@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th scope="row">Carné</th>
-                <td><?= $request->has('student') ? h($request->student->carne) : '' ?></td>
+                <td><?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?></td>
             </tr>
             <tr>
                 <th scope="row">Teléfono</th>
@@ -115,31 +115,56 @@
 <!-- Muestra mensaje informativo si variable created_request es igual a 1 -->
 <script>
 $(function() {
-    var YaCreado = '<?php echo $created_request;?>'
+    var YaCreado = '<?php echo $yc;?>'
     if(YaCreado == 1)
-        $("#MensajeInformativo").modal();
+        $("#MensajeInformativo").modal('show');
 });
 </script>
 
+
 <!-- Mensaje informativo con información importante para el usuario -->
-<div id="MensajeInformativo" class="modal center-block text-center">
-    <div class="modal-content">
-        <div class="files form large-9 medium-8 columns content">
-			
-            <fieldset>
-					<legend><?= __('Atención') ?></legend>
-					Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
-					Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
-					y una fotocopia legible de la cédula de identidad por ambos lados.
-					<br>
-					<b>Fecha límite: <?php echo $fecha; ?></b>
-					<br>
-			</fieldset>
-			<fieldset>
-            <button type="button" class="btn btn-primary float-middle btn-space" data-dismiss="modal">Aceptar</button>
-			</fieldset>
-        
-            
+<div id="MensajeInformativo" class="modal fade">
+    <div class="modal-dialog model-dialog-centered">
+        <div class="modal-content">
+            <!-- <div class="files form large-9 medium-8 columns content"> -->
+                
+                <!-- <fieldset>
+                        <legend><?php //__('Atención') ?></legend>
+                        Este documento debe ser impreso y presentado en la secretaría de la Escuela de Ciencias de la Computación e Informática.<br>
+                        Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta en colones de ahorro o cuenta corriente <br>
+                        y una fotocopia legible de la cédula de identidad por ambos lados.
+                        <br>
+                        <b>Fecha límite: <?php //echo $fecha; ?></b>
+                        <br>
+                </fieldset>
+
+                <fieldset>
+                    <button type="button" class="btn btn-primary float-middle btn-space" data-dismiss="modal">Aceptar</button>
+                </fieldset> -->
+
+                <div class="modal-header">
+                    <legend class="modal-title"><?= __('Atención') ?></legend>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body text-justify">
+                    <p>
+                    Para concluir el proceso de solicitud debe imprimir y presentar este documento en la secretaría de la Escuela de Ciencias de la Computación e Informática.
+                    Si es su primera asistencia, favor presentar una carta de un banco público que certifique su número de cuenta corriente o cuenta de ahorro en colones
+                    y una fotocopia legible de la cédula de identidad por ambos lados.
+                    </p>
+                    <p>
+                        <b>Fecha límite: <?php echo $fecha; ?></b>
+                    </p>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+                
+            <!-- </div> -->
         </div>
     </div>
 </div>

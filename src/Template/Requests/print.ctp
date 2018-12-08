@@ -45,7 +45,7 @@
                 <?= $request->has('student') ? h($request->student->user->identification_number) : '' ?>
             </div>
             <div class="col-2 border-bottom border-dark text-center">
-                <?= $request->has('student') ? h($request->student->carne) : '' ?>
+                <?= $request->has('student') ? h(strtoupper($request->student->carne)) : '' ?>
             </div>
             <div class="col-2 border-bottom border-dark text-center">
                 <?= $request->has('student') ? h($request->student->user->phone) : '' ?>

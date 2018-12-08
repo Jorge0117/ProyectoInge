@@ -9,7 +9,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
     /**
      * Configure basic information about the application.
@@ -216,17 +216,20 @@ return [
             'host' => 'in-v3.mailjet.com',
             'port' => 25,
             'timeout' => 60,
-            'username' => '234124609a61db8066486733b2aab722',
-            'password' => '2d250bd6edb0768a2b688aa8c1a4ee29',
+            'username' => '43d87f51701c00004b1eb78d9324a665',
+            'password' => 'a867b5027b5f7b775ddf27b4bd72f238',
             'className' => 'Smtp'
         ],
-        'gmail' => [
-            'host' => 'ssl://smtp.gmail.com',
-            'port' => 465,
+        'outlook' => [
+            'host' => 'smtp-mail.outlook.com',
+            'port' => 587,
             'timeout' => 60,
-            'username' => 'asistenciaucr12@gmail.com',
-            'password' => 'Contra1234',
-            'className' => 'Smtp'
+            'username' => 'asistenciasecciurc@outlook.com',
+            'password' => 'contra1234',
+            'client' => null,
+            'className' => 'Smtp',
+            'tls' => true,
+            'starttls' => true
         ]
     ],
 

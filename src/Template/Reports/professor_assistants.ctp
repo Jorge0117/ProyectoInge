@@ -29,16 +29,16 @@ echo $this->Html->css('buttons');
         <tbody>
             <?php foreach ($professorAssistants as $professorAssistants): ?>
             <tr> <!-- Aquí se ve que se pone en el datagrid-->
-                <td align = center><?= h($professorAssistants->curso.' - '.$professorAssistants->course_name)  ?></td>
-				<td align = center><?= h($professorAssistants->semestre.' - '.$professorAssistants->anno) ?></td>
-				<td align = center><?= h($professorAssistants->grupo) ?></td>
-				<td align = center><?= h($professorAssistants->carne) ?></td>
-				<td align = center><?= h($professorAssistants->nombre) ?></td>
-				<td align = center><?= h($professorAssistants->hour_ammount) ?></td>
-				<td align = center ><?= h($professorAssistants->tipo_hora) ?></td>
-				<td  class="actions">
-                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'view', $professorAssistants->id_request], ['escape'=>false]) ?>
-
+                <td align = "center"><?= h($professorAssistants->curso.' - '.$professorAssistants->course_name)  ?></td>
+				<td align = "center"><?= h($professorAssistants->semestre.' - '.$professorAssistants->anno) ?></td>
+				<td align = "center"><?= h($professorAssistants->grupo) ?></td>
+				<td align = "center"><?= h($professorAssistants->carne) ?></td>
+				<td align = "center"><?= h($professorAssistants->nombre) ?></td>
+				<td align = "center"><?= h($professorAssistants->hour_ammount) ?></td>
+				<td align = "center" ><?= h($professorAssistants->tipo_hora) ?></td>
+				<td align = "center" class="actions">
+                    <?= $this->Html->link('<i class="fa fa-eye"></i>', ['controller' => 'Requests', 'action' => 'view', $professorAssistants->id_request], ['escape'=>false]) ?>
+                    <?= $this->Html->link('<i class="fa fa-print"></i>', ['controller' => 'Requests', 'action' => 'print', $professorAssistants->id_request], ['target' => '_blank', 'escape'=>false]) ?>
                 </td>
                 
             </tr>
@@ -46,6 +46,12 @@ echo $this->Html->css('buttons');
         </tbody>
     </table>
 </div>
+
+<?= $this->Html->link( //Botón de agregar requisito, que lleva a la vista para poder agregar un nuevo requisito
+                        'Generar excel',
+                        ['controller'=>'Reports','action'=>'CreateExcel'],
+                        ['class'=>'btn btn-primary float-right btn-space btn-agregar-index']
+                    )?>
 
 <script type="text/javascript">
 	$(document).ready( function () {
