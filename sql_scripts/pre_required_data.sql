@@ -1,10 +1,9 @@
 use sistema_control_asistencias;
 
-## Usuario para conectarse a la bd
+##Usuario para conectarse a la bd
 create user 'asistencias'@'localhost' identified by 'ProyInge1!';
 GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON sistema_control_asistencias.* TO 'asistencias'@'localhost';
 FLUSH PRIVILEGES;
-
 
 ##Ingresar roles del sistema
 insert into roles values('Administrador');
@@ -52,9 +51,7 @@ insert into permissions_roles values('Requests-reviewRequirements', 'Asistente')
 
 insert into permissions_roles values('Requests-index', 'Estudiante');
 insert into permissions_roles values('Requests-view', 'Estudiante');
-
-
-
+insert into permissions_roles values('Requests-add', 'Estudiante');
 
 ##Cursos-grupos
 insert into permissions values('CoursesClassesVw-index', 'Listar cursos');
@@ -117,13 +114,13 @@ insert into permissions_roles values('Users-view', 'Administrador');
 ##Historicos
 insert into permissions values('Reports-professorAssistants', 'Historico de asistentes de un profesor');
 insert into permissions values('Reports-studentRequests', 'Historico de asistencias de un estudiante');
+insert into permissions values('Reports-reportsAdmin', 'Historico de asistencias en general');
+
 
 insert into permissions_roles values('Reports-professorAssistants', 'Profesor');
 insert into permissions_roles values('Reports-studentRequests', 'Estudiante');
+insert into permissions_roles values('Reports-reportsAdmin', 'Administrador');
 
-
-
-##insert into permissions values();
 
 insert into users
 values ('100010001','Nacional', 'Estudiante', 'Estudiante', 'Estudiante', 'estudiante', 'estudiante@mail.com', '80008000', 'Estudiante');
@@ -136,7 +133,13 @@ values ('100010002','Nacional', 'Asistente', 'Asistente', 'Asistente', 'asistent
 insert into users
 values ('000000000','Nacional', 'Administrador', 'Administrador', 'Administrador', 'administrador', 'administrador@mail.com', '00000000', 'Administrador');
 
-##insert into administrative_bosses values ('100010003');
-
 insert into users
 values ('10001004','Nacional', 'Profesor', 'Profesor', 'Profesor', 'profesor', 'profesor@mail.com', '80008000', 'Profesor');
+
+## Requisitos actuales
+Insert into requirements values('Matricular un mínimo de 9 créditos en el ciclo lectivo en el cual está designado','Obligatorio',1,'Ambos');
+Insert into requirements values('Haber aprobado el curso en el cual va a prestar la colaboración','Obligatorio',2,'Ambos');
+Insert into requirements values('Primer año de carrera aprobado','Obligatorio',3,'Estudiante');
+Insert into requirements values('Tener un promedio ponderado anual igual o superior a 7,5','Opcional',4,'Estudiante');
+Insert into requirements values('Haber aprobado el 50% del plan de estudios ','Obligatorio',5,'Asistente');
+Insert into requirements values('Tener un promedio ponderado anual igual o superior a 8,0','Opcional',6,'Asistente');
