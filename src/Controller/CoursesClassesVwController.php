@@ -309,6 +309,12 @@ class CoursesClassesVwController extends AppController
         $rows = [];
 
         $profIds = [];
+
+        //Los profesores que deben ser agregados
+        $errorProf = [];
+
+        //Indica si se pueden agregar los cursos
+        $canContinue = true;
         //Se llena la matriz
         for ($row = 5; $row <= $highestRow; ++$row) {
             for ($col = 1; $col <= 4; ++$col) {
@@ -323,10 +329,11 @@ class CoursesClassesVwController extends AppController
                         //Consigue el id del profesor
                         $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
                         if($id == null){
-                            //Se borra el archivo
-                            $this->deleteFiles();
-                            $this->Flash->error('El profesor '. $value .' no se encuentra en la tabla');
-                            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+                            $canContinue = false;
+                            if(array_search($value,$errorProf)===FALSE){
+                                array_push($errorProf, $value);
+                            }
+
                         }else{
                             array_push($profIds, $id);
                         }
@@ -340,6 +347,21 @@ class CoursesClassesVwController extends AppController
             $table[$row -5] = $rows;
             unset($rows); //resetea el array rows
         }
+
+        //En caso de que un profesor no exista
+        if(!$canContinue){
+            $message = "Los siguientes profesores no están en la base: \n";
+            for ($i = 0; $i < count($errorProf); $i++){
+                $message = $message . $errorProf[$i] . ",\n";
+            }
+
+
+            //Se borra el archivo
+            $this->deleteFiles();
+            $this->Flash->error($message);
+            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+        }
+
         //Se cambia el nombre de las llaves del array si no es post ya que es para la vista previa
         if(!$this->request->is('post')){
             $table = array_map(function($tag) {
