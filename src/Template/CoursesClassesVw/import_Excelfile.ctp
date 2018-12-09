@@ -33,11 +33,17 @@ tr:nth-child(even) {
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($table as $row): array_map('htmlentities', $row); ?>
+        <?php 
+            foreach ($table as $row): array_map('htmlentities', $row); 
+            if($row['Curso'] != null):
+        ?>
             <tr>
             <td><?php echo implode('</td><td>', $row); ?></td>
             </tr>
-        <?php endforeach; ?>
+        <?php 
+            endif;
+            endforeach; 
+        ?>
         </tbody>
         </table>
 
