@@ -860,7 +860,7 @@ class RequestsController extends AppController
 
         //Se crea una nueva instancia de correo de cakephp
         $email = new Email();
-        $email->setTransport('mailjet'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
+        $email->setTransport('outlook'); //Se debe cambiar 'mailjet' por el nombre de transporte que se puso en config/app.php
 
         //En todos los mensajes se debe cambiar la parte "correo de contacto" por el correo utilizado para atender dudas con respecto al tema de solicitudes de horas
 
@@ -1081,9 +1081,9 @@ class RequestsController extends AppController
 
             // Se redirecciona para cargar la nueva vista
             $this->redirect(['action' => 'indexReview']);
-
+            (new RoundsController)->updateGlobal();
             // Mensaje informativo de exito
-            return $this->Flash->success(__('Se reviso la solicitud correctamente'));
+            return $this->Flash->success(__('Se revisó la solicitud correctamente'));
         }
 
         

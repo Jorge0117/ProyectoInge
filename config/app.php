@@ -224,7 +224,7 @@ return [
             'host' => 'smtp-mail.outlook.com',
             'port' => 587,
             'timeout' => 60,
-            'username' => 'asistenciasecciurc@outlook.com',
+            'username' => 'asistenciasecciucr@outlook.com',
             'password' => 'contra1234',
             'client' => null,
             'className' => 'Smtp',
