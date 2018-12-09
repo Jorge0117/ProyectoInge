@@ -407,14 +407,11 @@ class CoursesClassesVwController extends AppController
             //Agrega el curso
             $courseTable->addCourse($parameters[1], $parameters[0]);
 
-            //Selecciona un smestre según la fecha actual
-            if(date("m") > 6){
-                $semester = 2;
-            }else{
-                $semester = 1;
-            }
+            //Selecciona un semestre según la ronda actual
+            $roundData = $this->viewVars['roundData'];
+            $semester = ($roundData['semester']=='I')?1:2;
             //Agrega el grupo
-            $classTable->addClass($parameters[1], $parameters[2], $semester, date("Y"), 1, $profId);
+            $classTable->addClass($parameters[1], $parameters[2], $semester, $roundData['year'], 1, $profId);
 
         }
     }

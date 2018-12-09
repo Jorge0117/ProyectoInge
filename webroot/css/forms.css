@@ -21,3 +21,8 @@
 html {
     overflow-y: scroll;
 }
+
+::placeholder { /* Most modern browsers support this now. */
+    color: rgb(155, 155, 155) !important;
+    opacity: 0.5;
+}
