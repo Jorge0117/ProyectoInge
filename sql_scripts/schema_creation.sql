@@ -1,6 +1,6 @@
-CREATE SCHEMA `proyecto_inge_2` ;
+CREATE SCHEMA `sistema_control_asistencias` ;
 
-USE proyecto_inge_2;
+USE sistema_control_asistencias;
 
 #---------------------------------------------------------------------------------------------------------------
 # Tables (DDL)
@@ -163,70 +163,79 @@ CREATE TABLE `approved_requests` (
 
 #TO_DO: REJECTED_REQUEST
 
+CREATE TABLE `canceled_requests` (
+  `request_id` int(11) NOT NULL,
+  `justification` varchar(250) NOT NULL,
+  PRIMARY KEY (`request_id`),
+  CONSTRAINT `canceled_requests_ibfk_1` FOREIGN KEY (`request_id`) REFERENCES `requests` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 #---------------------------------------------------------------------------------------------------------------
 # Views (DDL)
 
-CREATE VIEW `proyecto_inge_2`.`courses_classes_vw` AS
-	select `cr`.`code` AS `Sigla`,
-		`cr`.`name` AS `Curso`,
-		concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `Profesor`,
-		`cl`.`class_number` AS `Grupo`,
-		`cl`.`semester` AS `Semestre`,
-		`cl`.`year` AS `Año` 
-    from 
+CREATE VIEW `sistema_control_asistencias`.`courses_classes_vw` AS
+  select `cr`.`code` AS `Sigla`,
+    `cr`.`name` AS `Curso`,
+    concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `Profesor`,
+    `cl`.`class_number` AS `Grupo`,
+    `cl`.`semester` AS `Semestre`,
+    `cl`.`year` AS `Año` 
+    from
     (
-		(
-			(`classes` `cl` join `courses` `cr`) 
-				join `professors` `p`
-		) 
-		join `users` `u`
-	) 
-	where (
-		(`cl`.`course_id` = `cr`.`code`) 
+      (
+      (`classes` `cl` join `courses` `cr`) 
+        join `professors` `p`
+    ) 
+    join `users` `u`
+  ) 
+  where (
+    (`cl`.`course_id` = `cr`.`code`) 
         and (`cl`.`professor_id` = `p`.`user_id`) 
         and (`p`.`user_id` = `u`.`identification_number`) 
         and (`cl`.`state` = 1)
     );
     
 CREATE VIEW `info_requests` AS 
-	select `r`.`id` AS `id`,
-		`r`.`reception_date` AS `fecha`,
-		`r`.`student_id` AS `cedula`,
-		`st`.`carne` AS `carne`,
-		concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `nombre`,
-		`st`.`average` AS `promedio`,
-		`r`.`class_year` AS `anno`,
-		`r`.`class_semester` AS `semestre`,
-		`r`.`course_id` AS `curso`,
-		`r`.`class_number` AS `grupo`,
-		`r`.`round_start` AS `inicio`,
-		`ro`.`round_number` AS `ronda`,
-		`r`.`status` AS `estado`,
-		`r`.`has_another_hours` AS `otras_horas`,
-		`c`.`professor_id` AS `id_prof` 
+  select `r`.`id` AS `id`,
+    `r`.`reception_date` AS `fecha`,
+    `r`.`student_id` AS `cedula`,
+    `st`.`carne` AS `carne`,
+    concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `nombre`,
+    `st`.`average` AS `promedio`,
+    `r`.`class_year` AS `anno`,
+    `r`.`class_semester` AS `semestre`,
+    `r`.`course_id` AS `curso`,
+    `r`.`class_number` AS `grupo`,
+    `r`.`round_start` AS `inicio`,
+    `ro`.`round_number` AS `ronda`,
+    `r`.`status` AS `estado`,
+    `r`.`has_another_hours` AS `otras_horas`,
+    `c`.`professor_id` AS `id_prof` 
     from (
-		(
-			(
-				(`requests` `r` join `rounds` `ro`) 
+    (
+      (
+        (`requests` `r` join `rounds` `ro`) 
                 join `students` `st`
-			) 
+      ) 
             join `users` `u`
-		) 
-		join `classes` `c`
+    ) 
+    join `classes` `c`
     ) 
     where (
-			(`r`.`round_start` = `ro`.`start_date`) 
-			and (`st`.`user_id` = `r`.`student_id`) 
-			and (`st`.`user_id` = `u`.`identification_number`) 
-			and (`c`.`course_id` = `r`.`course_id`) 
-			and (`c`.`year` = `r`.`class_year`) 
-			and (`c`.`semester` = `r`.`class_semester`) 
-			and (`c`.`class_number` = `r`.`class_number`)
+      (`r`.`round_start` = `ro`.`start_date`) 
+      and (`st`.`user_id` = `r`.`student_id`) 
+      and (`st`.`user_id` = `u`.`identification_number`) 
+      and (`c`.`course_id` = `r`.`course_id`) 
+      and (`c`.`year` = `r`.`class_year`) 
+      and (`c`.`semester` = `r`.`class_semester`) 
+      and (`c`.`class_number` = `r`.`class_number`)
         );
         
 CREATE VIEW `professor_assistants` AS 
-	select `r`.`id` AS `id`,
-		`st`.`carne` AS `carne`,
+  select `r`.`id` AS `id`,
+    `st`.`carne` AS `carne`,
         concat(`u`.`name`,' ',`u`.`lastname1`,' ',`u`.`lastname2`) AS `nombre`,
         `r`.`class_year` AS `anno`,
         `r`.`id` AS `id_request`,
@@ -239,19 +248,19 @@ CREATE VIEW `professor_assistants` AS
         `cu`.`name` AS `course_name`,
         `st`.`user_id` AS `id_student` 
         from (
-			(
-				(
-					(
-						(`requests` `r` join `students` `st`) 
+      (
+        (
+          (
+            (`requests` `r` join `students` `st`) 
                         join `users` `u`
-					) 
+          ) 
                     join `courses` `cu`
-				) join `approved_requests` `ar`
-			) 
+        ) join `approved_requests` `ar`
+      ) 
             join `classes` `c`
-		) 
+    ) 
         where (
-			(`st`.`user_id` = `r`.`student_id`)
+      (`st`.`user_id` = `r`.`student_id`)
             and (`st`.`user_id` = `u`.`identification_number`) 
             and (`r`.`id` = `ar`.`request_id`) 
             and (`c`.`course_id` = `r`.`course_id`) 
@@ -259,7 +268,7 @@ CREATE VIEW `professor_assistants` AS
             and (`c`.`course_id` = `cu`.`code`) 
             and (`c`.`semester` = `r`.`class_semester`) 
             and (`c`.`class_number` = `r`.`class_number`)
-		);
+    );
 
 #---------------------------------------------------------------------------------------------------------------
 # Stored procedures
@@ -267,7 +276,7 @@ CREATE VIEW `professor_assistants` AS
 DELIMITER $$
 CREATE PROCEDURE `addClass`(id char(7), num tinyint, sem tinyint, year int, state tinyint, profId varchar(20))
 begin
-	insert into classes (course_id, class_number, semester, year, state, professor_id)
+  insert into classes (course_id, class_number, semester, year, state, professor_id)
     values (id, num, sem, year, state, profId);
 end$$
 DELIMITER ;
@@ -275,101 +284,101 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `addCourse`(codeC varchar(7), nameC varchar(255))
 BEGIN
-	insert into courses (code, name) values (codeC, nameC);
+  insert into courses (code, name) values (codeC, nameC);
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `approve_request`(IN id INT, IN h_type VARCHAR(3), IN cnt TINYINT)
 BEGIN
-	SET @s_date = (SELECT round_start FROM requests as r WHERE r.id = id);
-	SET @h_ammount = (SELECT hour_ammount from approved_requests where request_id = id);
-	SET @h_type = (SELECT hour_type from approved_requests where request_id = id);
+  SET @s_date = (SELECT round_start FROM requests as r WHERE r.id = id);
+  SET @h_ammount = (SELECT hour_ammount from approved_requests where request_id = id);
+  SET @h_type = (SELECT hour_type from approved_requests where request_id = id);
     IF(SELECT @h_type IS NOT NULL) THEN
-		IF(h_type = @h_type) THEN 
-			SET @h_ammount = cnt-IFNULL(@h_ammount,0);
-			IF(h_type = 'HEE')THEN
-				UPDATE rounds 
-				SET actual_student_hours = actual_student_hours + @h_ammount
-				WHERE start_date = @s_date;
-			ELSEIF(h_type = 'HED')THEN
-				UPDATE rounds 
-				SET actual_student_hours_d = actual_student_hours_d + @h_ammount
-				WHERE start_date = @s_date;
-			ELSE
-				UPDATE rounds 
-				SET actual_assistant_hours = actual_assistant_hours + @h_ammount
-				WHERE start_date = @s_date;
-			END IF;
+    IF(h_type = @h_type) THEN 
+      SET @h_ammount = cnt-IFNULL(@h_ammount,0);
+      IF(h_type = 'HEE')THEN
+        UPDATE rounds 
+        SET actual_student_hours = actual_student_hours + @h_ammount
+        WHERE start_date = @s_date;
+      ELSEIF(h_type = 'HED')THEN
+        UPDATE rounds 
+        SET actual_student_hours_d = actual_student_hours_d + @h_ammount
+        WHERE start_date = @s_date;
+      ELSE
+        UPDATE rounds 
+        SET actual_assistant_hours = actual_assistant_hours + @h_ammount
+        WHERE start_date = @s_date;
+      END IF;
             UPDATE approved_requests 
-			SET hour_ammount = hour_ammount + @h_ammount
-			WHERE request_id = id;
-		ELSE
-			IF(h_type = 'HEE')THEN
-				IF(@h_type = 'HED')THEN
-					UPDATE rounds 
-					SET actual_student_hours_d = actual_student_hours_d - @h_ammount,
-					actual_student_hours = actual_student_hours + cnt
-					WHERE start_date = @s_date;
-				ELSE
-					UPDATE rounds 
-					SET actual_assistant_hours = actual_assistant_hours - @h_ammount,
-					actual_student_hours = actual_student_hours + cnt
-					WHERE start_date = @s_date;
+      SET hour_ammount = hour_ammount + @h_ammount
+      WHERE request_id = id;
+    ELSE
+      IF(h_type = 'HEE')THEN
+        IF(@h_type = 'HED')THEN
+          UPDATE rounds 
+          SET actual_student_hours_d = actual_student_hours_d - @h_ammount,
+          actual_student_hours = actual_student_hours + cnt
+          WHERE start_date = @s_date;
+        ELSE
+          UPDATE rounds 
+          SET actual_assistant_hours = actual_assistant_hours - @h_ammount,
+          actual_student_hours = actual_student_hours + cnt
+          WHERE start_date = @s_date;
                 END IF;
-			ELSEIF(h_type = 'HED')THEN
-				IF(@h_type = 'HEE')THEN
-					UPDATE rounds 
-					SET actual_student_hours = actual_student_hours - @h_ammount,
-					actual_student_hours_d = actual_student_hours_d + cnt
-					WHERE start_date = @s_date;
-				ELSE
-					UPDATE rounds 
-					SET actual_assistant_hours = actual_assistant_hours - @h_ammount,
-					actual_student_hours_d = actual_student_hours_d + cnt
-					WHERE start_date = @s_date;
+      ELSEIF(h_type = 'HED')THEN
+        IF(@h_type = 'HEE')THEN
+          UPDATE rounds 
+          SET actual_student_hours = actual_student_hours - @h_ammount,
+          actual_student_hours_d = actual_student_hours_d + cnt
+          WHERE start_date = @s_date;
+        ELSE
+          UPDATE rounds 
+          SET actual_assistant_hours = actual_assistant_hours - @h_ammount,
+          actual_student_hours_d = actual_student_hours_d + cnt
+          WHERE start_date = @s_date;
                 END IF;
-			ELSE
-				IF(@h_type = 'HEE')THEN
-					UPDATE rounds 
-					SET actual_student_hours = actual_student_hours - @h_ammount,
-					actual_assistant_hours = actual_assistant_hours + cnt 
-					WHERE start_date = @s_date;
-				ELSE
-					UPDATE rounds 
-					SET actual_student_hours_d = actual_student_hours_d - @h_ammount,
-					actual_assistant_hours = actual_assistant_hours + cnt 
-					WHERE start_date = @s_date;
+      ELSE
+        IF(@h_type = 'HEE')THEN
+          UPDATE rounds 
+          SET actual_student_hours = actual_student_hours - @h_ammount,
+          actual_assistant_hours = actual_assistant_hours + cnt 
+          WHERE start_date = @s_date;
+        ELSE
+          UPDATE rounds 
+          SET actual_student_hours_d = actual_student_hours_d - @h_ammount,
+          actual_assistant_hours = actual_assistant_hours + cnt 
+          WHERE start_date = @s_date;
                 END IF;
-			END IF;
-			UPDATE approved_requests 
-			SET hour_type = h_type, hour_ammount = cnt
-			WHERE request_id = id;
-		END IF;
-	ELSE
-		IF(h_type = 'HEE')THEN
-			UPDATE rounds 
-			SET actual_student_hours = actual_student_hours + cnt
-			WHERE start_date = @s_date;
-		ELSEIF(h_type = 'HED')THEN
-			UPDATE rounds 
-			SET actual_student_hours_d = actual_student_hours_d + cnt
-			WHERE start_date = @s_date;
-		ELSE
-			UPDATE rounds 
-			SET actual_assistant_hours = actual_assistant_hours + cnt 
-			WHERE start_date = @s_date;
-		END IF;
+      END IF;
+      UPDATE approved_requests 
+      SET hour_type = h_type, hour_ammount = cnt
+      WHERE request_id = id;
+    END IF;
+  ELSE
+    IF(h_type = 'HEE')THEN
+      UPDATE rounds 
+      SET actual_student_hours = actual_student_hours + cnt
+      WHERE start_date = @s_date;
+    ELSEIF(h_type = 'HED')THEN
+      UPDATE rounds 
+      SET actual_student_hours_d = actual_student_hours_d + cnt
+      WHERE start_date = @s_date;
+    ELSE
+      UPDATE rounds 
+      SET actual_assistant_hours = actual_assistant_hours + cnt 
+      WHERE start_date = @s_date;
+    END IF;
         INSERT INTO approved_requests VALUES (id,h_type,cnt);
-    END IF;	
+    END IF;  
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `check_rounds_on_insert`(
-				IN round_n TINYINT, 
-				IN sem TINYINT, 
-				IN start_d DATETIME, 
+        IN round_n TINYINT, 
+        IN sem TINYINT, 
+        IN start_d DATETIME, 
                 IN end_d DATETIME, 
                 IN y YEAR(4),
                 IN tsh SMALLINT,
@@ -395,10 +404,10 @@ BEGIN
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
      IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds ),(SELECT SUBDATE(DATE(NOW()),1)))) THEN
-		SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
-	IF (end_d < start_d) THEN
+  IF (end_d < start_d) THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.end_date failed';
     END IF;
@@ -436,9 +445,9 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `check_rounds_on_update`(
-				IN round_n TINYINT, 
-				IN sem TINYINT, 
-				IN start_d DATETIME, 
+        IN round_n TINYINT, 
+        IN sem TINYINT, 
+        IN start_d DATETIME, 
                 IN end_d DATETIME, 
                 IN y YEAR(4),
                 IN old_start_d DATETIME,
@@ -461,11 +470,11 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.semester failed';
     END IF;
-	IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT DATE(SUBDATE(NOW(),10)))) AND start_d != old_start_d) THEN
-		SIGNAL SQLSTATE '45000'
-			SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
+  IF (start_d <  IFNULL((SELECT MAX(end_date) FROM rounds WHERE end_date < end_d ),(SELECT DATE(SUBDATE(NOW(),10)))) AND start_d != old_start_d) THEN
+    SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'check constraint on rounds.start_date failed';
     END IF;
-	IF (end_d < start_d) THEN
+  IF (end_d < start_d) THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.end_date failed';
     END IF;
@@ -473,7 +482,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.year failed';
     END IF;
-	IF (tsh < 0)THEN
+  IF (tsh < 0)THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on rounds.total_student_hours failed';
     END IF;
@@ -504,41 +513,41 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `decline_request`(IN id INT)
 BEGIN
-	SET @s_date = (SELECT round_start FROM requests as r WHERE r.id = id);
-	SET @h_ammount = (SELECT hour_ammount from approved_requests where request_id = id);
-	SET @h_type = (SELECT hour_type from approved_requests where request_id = id);
+  SET @s_date = (SELECT round_start FROM requests as r WHERE r.id = id);
+  SET @h_ammount = (SELECT hour_ammount from approved_requests where request_id = id);
+  SET @h_type = (SELECT hour_type from approved_requests where request_id = id);
     IF(SELECT @h_type IS NOT NULL) THEN
-		IF(@h_type = 'HEE')THEN
-			UPDATE rounds 
-			SET actual_student_hours = actual_student_hours - @h_ammount
-			WHERE start_date = @s_date;
-		ELSEIF(@h_type = 'HED')THEN
-			UPDATE rounds 
-			SET actual_student_hours_d = actual_student_hours_d - @h_ammount
-			WHERE start_date = @s_date;
-		ELSE
-			UPDATE rounds 
-			SET actual_assistant_hours = actual_assistant_hours - @h_ammount
-			WHERE start_date = @s_date;
-		END IF;
-		delete from approved_requests where request_id = id;
-    END IF;	
+    IF(@h_type = 'HEE')THEN
+      UPDATE rounds 
+      SET actual_student_hours = actual_student_hours - @h_ammount
+      WHERE start_date = @s_date;
+    ELSEIF(@h_type = 'HED')THEN
+      UPDATE rounds 
+      SET actual_student_hours_d = actual_student_hours_d - @h_ammount
+      WHERE start_date = @s_date;
+    ELSE
+      UPDATE rounds 
+      SET actual_assistant_hours = actual_assistant_hours - @h_ammount
+      WHERE start_date = @s_date;
+    END IF;
+    delete from approved_requests where request_id = id;
+    END IF;  
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `delete_class`(IN 
-	code 			CHAR(7),
-	class_number	TINYINT(4),
-    semester		TINYINT(4),
-    year			YEAR(4)
+  code       CHAR(7),
+  class_number  TINYINT(4),
+    semester    TINYINT(4),
+    year      YEAR(4)
 )
 BEGIN
   DELETE FROM classes 
-	WHERE   course_id       = code
-	AND 	class_number    = class_number
-	AND 	semester        = semester
-	AND 	year            = year;
+  WHERE   course_id       = code
+  AND   class_number    = class_number
+  AND   semester        = semester
+  AND   year            = year;
 END$$
 DELIMITER ;
 
@@ -554,39 +563,39 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `insert_round`(
-	IN start_d VARCHAR(10),
+  IN start_d VARCHAR(10),
     IN end_d VARCHAR(10),
     IN tsh SMALLINT,
     IN tdh SMALLINT,
     IN tah SMALLINT
 )
 BEGIN
-	
+  
     -- Calcula el año y el mes según la fecha inicial
-	SET @year = YEAR(start_d);
-	SET @month = MONTH(start_d);
+  SET @year = YEAR(start_d);
+  SET @month = MONTH(start_d);
     IF(@month = 12) THEN
-		SET @year = @year+1;
+    SET @year = @year+1;
     END IF;
     
      -- Calcula el semestre en base al mes de la ronda
     SET @semester = NULL;
     IF(@month=12 OR @month<7) THEN
-		SET @semester = 'I';
-	ELSEIF @month>=7 THEN
-		SET @semester = 'II';
+    SET @semester = 'I';
+  ELSEIF @month>=7 THEN
+    SET @semester = 'II';
     END IF;
     
     -- Recupera últimos datos en la tabla
     SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
-	SET @last_semester = (SELECT MAX(semester) FROM rounds WHERE start_date = @last_start_date);
+  SET @last_semester = (SELECT MAX(semester) FROM rounds WHERE start_date = @last_start_date);
     SET @last_year = (SELECT MAX(year) FROM rounds WHERE start_date = @last_start_date);
-	
+  
     -- Calcula el número de la ronda
     SET @round = IFNULL((SELECT MAX(round_number) FROM rounds WHERE start_date = @last_start_date ),0);
     IF @semester <> @last_semester OR @year <> @last_year THEN
-		SET @round = 0;
-	END IF;
+    SET @round = 0;
+  END IF;
     SET @round = @round+1;
     
     -- Inicia insertar ronda
@@ -599,10 +608,10 @@ DELIMITER $$
 CREATE PROCEDURE `requirement_association`(in requirementNumber int, in requestId int)
 BEGIN
 
-	INSERT INTO requestsrequirements(requirement_number,request_id)
+  INSERT INTO requestsrequirements(requirement_number,request_id)
     VALUES (requirementNumber,requestId);
     
-	END$$
+  END$$
 DELIMITER ;
 
 DELIMITER $$
@@ -616,7 +625,7 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `update_round`(
-	IN start_d VARCHAR(10),
+  IN start_d VARCHAR(10),
     IN end_d VARCHAR(10),
     IN old_start_d VARCHAR(10),
     IN tsh SMALLINT,
@@ -624,34 +633,34 @@ CREATE PROCEDURE `update_round`(
     IN tah SMALLINT
 )
 BEGIN
-	-- Calcula el año y el mes según la fecha inicial
-	SET @year = YEAR(start_d);
-	SET @month = MONTH(start_d);
-	IF(@month = 12) THEN
-		SET @year = @year+1;
+  -- Calcula el año y el mes según la fecha inicial
+  SET @year = YEAR(start_d);
+  SET @month = MONTH(start_d);
+  IF(@month = 12) THEN
+    SET @year = @year+1;
     END IF;
     
     -- Calcula el semestre en base al mes de la ronda
     SET @semester = NULL;
     IF(@month = 12 OR @month < 7) THEN
-		SET @semester = 'I';
-	ELSEIF @month >= 7 THEN
-		SET @semester = 'II';
+    SET @semester = 'I';
+  ELSEIF @month >= 7 THEN
+    SET @semester = 'II';
     END IF;
     
-	-- Recupera datos antiguos
-	SET @old_semester = (SELECT semester FROM rounds WHERE start_date = old_start_d);
+  -- Recupera datos antiguos
+  SET @old_semester = (SELECT semester FROM rounds WHERE start_date = old_start_d);
     SET @old_year = (SELECT year FROM rounds WHERE start_date = old_start_d);
     
     -- Calcula el número de la ronda
-	SET @round = (SELECT round_number FROM rounds WHERE start_date = old_start_d);
+  SET @round = (SELECT round_number FROM rounds WHERE start_date = old_start_d);
     IF @semester <> @old_semester OR @year <> @old_year THEN
-		SET @round = 1;
-	END IF;
+    SET @round = 1;
+  END IF;
     
     -- Inicia el update
     UPDATE rounds SET 
-		start_date = start_d, 
+    start_date = start_d, 
         round_number = @round, 
         semester = @semester, 
         year = @year, 
@@ -676,18 +685,18 @@ DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `requests_AFTER_UPDATE` AFTER UPDATE ON `requests` FOR EACH ROW
 BEGIN
-	IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
-		call decline_request(new.id);
-	END IF;
+  IF(new.id = old.id && (new.status <> 'a'&& new.status <> 'c') && old.status = 'a'||old.status = 'c') THEN
+    call decline_request(new.id);
+  END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER rounds_before_insert BEFORE INSERT ON rounds FOR EACH ROW 
 BEGIN
-	SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
+  SET @last_start_date = (SELECT MAX(start_date) FROM rounds);
     CALL check_rounds_on_insert(
-		NEW.round_number,
+    NEW.round_number,
         NEW.semester,
         NEW.start_date,
         NEW.end_date,
@@ -704,7 +713,7 @@ BEGIN
         (SELECT actual_student_hours FROM rounds WHERE start_date = @last_start_date),
         (SELECT actual_student_hours_d FROM rounds WHERE start_date = @last_start_date),
         (SELECT actual_assistant_hours FROM rounds WHERE start_date = @last_start_date)
-	);
+  );
 END $$
 DELIMITER ;
 
@@ -712,22 +721,22 @@ DELIMITER $$
 CREATE TRIGGER rounds_before_update BEFORE UPDATE ON rounds FOR EACH ROW
 BEGIN
     CALL check_rounds_on_update(
-		NEW.round_number,
+    NEW.round_number,
         NEW.semester,
         NEW.start_date,
         NEW.end_date,
         NEW.year,
         OLD.start_date,
-		NEW.total_student_hours,
+    NEW.total_student_hours,
         NEW.total_student_hours_d,
-		NEW.total_assistant_hours,
-		NEW.actual_student_hours,
+    NEW.total_assistant_hours,
+    NEW.actual_student_hours,
         NEW.actual_student_hours_d,
-		NEW.actual_assistant_hours,
-		OLD.actual_student_hours,
+    NEW.actual_assistant_hours,
+    OLD.actual_student_hours,
         OLD.actual_student_hours_d,
-		OLD.actual_assistant_hours
-	);
+    OLD.actual_assistant_hours
+  );
 END $$
 DELIMITER ;
 
@@ -742,18 +751,18 @@ DELIMITER $$
 CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
 BEGIN
     IF NEW.round_number = 1 THEN
-		update students set average = 0;
-	END IF;
+    update students set average = 0;
+  END IF;
 END $$
 DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER users_BEFORE_DELETE BEFORE DELETE ON users FOR EACH ROW
 BEGIN
-	IF OLD.role_id = 'Administrador' THEN 
-		SIGNAL SQLSTATE '45000'
+  IF OLD.role_id = 'Administrador' THEN 
+    SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'check constraint on user.role_id failed: usuarios con rol Administrador no se pueden borrar';
-	END IF;
+  END IF;
 END $$
 DELIMITER ;
 
@@ -761,15 +770,15 @@ DELIMITER $$
 CREATE TRIGGER add_user AFTER INSERT ON users
 FOR EACH ROW 
 BEGIN
-	IF NEW.role_id = 'Profesor' THEN
-		INSERT INTO professors 
+  IF NEW.role_id = 'Profesor' THEN
+    INSERT INTO professors 
         SET user_id = NEW.identification_number;
     ELSEIF NEW.role_id = 'Asistente' THEN
-		INSERT INTO administrative_assistants 
+    INSERT INTO administrative_assistants 
         SET user_id = NEW.identification_number;
     ELSEIF NEW.role_id = 'Administrador' THEN
-		INSERT INTO administrative_bosses 
+    INSERT INTO administrative_bosses 
         SET user_id = NEW.identification_number;
-	END IF;
+  END IF;
 END $$
 DELIMITER ;

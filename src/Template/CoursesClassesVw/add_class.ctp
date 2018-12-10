@@ -15,9 +15,9 @@
                 <?= $this->Form->select('Curso',$acr) ?>
             </div>
             <?php
-                echo $this->Form->control('Grupo',['label'=>['text'=>'Numero de grupo'],'type'=>'number','max' => 20, 'min' => 1]);
-                echo $this->Form->control('Semestre', ['label'=>['text'=>'Ciclo'],'type' => 'number','max' => 2, 'min' => 1]);
-                echo $this->Form->control('Año', ['label'=>['text'=>'Año'],'type' => 'number','max' => 9999, 'min' => 1900]);
+                echo $this->Form->control('Grupo',['label'=>['text'=>'Numero de grupo'],'type'=>'number','max' => 20, 'min' => 1,'required']);
+                echo $this->Form->control('Semestre', ['label'=>['text'=>'Ciclo'],'type' => 'number','max' => 2, 'min' => 1,'required', 'value' => $roundData['semester']=='I'?1:2]);
+                echo $this->Form->control('Año', ['label'=>['text'=>'Año'],'type' => 'number','max' => 9999, 'min' => 1900,'required','value' => $roundData['year']]);
                 //echo $this->Form->control('state');
                 echo $this->Form->control('Profesor', ['options' => $professors, 'empty' => true]);
             ?>

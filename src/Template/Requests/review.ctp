@@ -398,7 +398,7 @@
 								<?= $this->Form->control('hours',[
 									'id'=>'assistant',
 									'type'=>'number',
-									'min' => $student_max_hours['HED'] < 3 || $hasAsignedHours? 0:3,
+									'min' => $student_max_hours['HAE'] < 3 || $hasAsignedHours? 0:3,
 									'max' => $student_max_hours['HAE'],
 									'label' => false,
 									'disabled',		
