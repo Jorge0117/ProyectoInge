@@ -773,6 +773,7 @@ class RequestsController extends AppController
                 if ($status_new_val == 'n') {
                     $this->sendMail($request['id'], 1);
                 }
+                return $this->redirect(['action' => 'index']);
             }
             //--------------------------------------------------------------------------
             // Inicia Daniel Marín
