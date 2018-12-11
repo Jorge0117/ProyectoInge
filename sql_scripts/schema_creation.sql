@@ -748,12 +748,13 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER restart_average AFTER INSERT ON rounds FOR EACH ROW 
+CREATE TRIGGER restart AFTER INSERT ON rounds FOR EACH ROW 
 BEGIN
-    IF NEW.round_number = 1 THEN
+  IF NEW.round_number = 1 THEN
     update students set average = 0;
+    delete from requests where status <> 'a' AND status <> 'c';
   END IF;
-END $$
+END
 DELIMITER ;
 
 DELIMITER $$
