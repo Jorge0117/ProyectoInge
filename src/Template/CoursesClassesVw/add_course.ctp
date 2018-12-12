@@ -12,8 +12,8 @@
 
         <div class="form-section">
             <?php
-                echo $this->Form->control('Sigla', ['pattern' => "[A-Z]{2}[0-9]{4}"]);
-                echo $this->Form->control('Curso', ['requiered']);
+                echo $this->Form->control('Sigla', ['pattern' => "[A-Z]{2}\-[0-9]{4}",'placeholder'=> 'Sigla con el formato: CI-0000']);
+                echo $this->Form->control('Curso', ['required','placeholder'=>'Nombre del curso']);
                 
             ?>
         </div>

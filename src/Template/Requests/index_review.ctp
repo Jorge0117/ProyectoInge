@@ -6,6 +6,9 @@
  */
 ?>
 
+
+
+
 <div class="requests index large-9 medium-8 columns content text-grid">
 
     <div class='container'>
@@ -27,8 +30,8 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($query as $request): ?>
                 
+                <?php foreach ($requests as $request): ?>
                 <tr>  
                     <!-- Número de solicitud -->
                     <td><?= h($request[0]) ?></td>
@@ -79,14 +82,35 @@
 
                     <!-- Botón para procesar su respectiva fila -->
                     <td>
-                        <input type="buttom" class='btn btn-primary float-right btn-space btn-aceptar' style="width:80px" value="Agregar y editar" disabled>
+                        <input type="button" class='btn btn-primary float-right btn-space btn-aceptar' value="Aceptar y enviar" disabled>
                     </td>
                 </tr>
+
+                <?= $this->Form->create(false,['id'=>'hourData'] ); ?>
+                <?php 
+                    // Verifica si tiene horas asignadas
+                    $hah = "hasAsignedHours_".$request[0];
+                    $assigned = $$hah?1:0;
+
+                    echo $this->Form->control('assigned'.$request[0], ['type'=>'number', 'value' => $assigned, 'label' => false ,'style' => 'display:none' ] ); 
+
+                    $hourMax = "student_max_hours_".$request[0];
+                    // maximo de horas estudiante ecci
+                    echo $this->Form->control('heeMax'.$request[0], ['type'=>'number', 'value' => $$hourMax['HEE'], 'label' => false ,'style' => 'display:none' ] );
+
+                    // maximo de horas estudiante doc
+                    echo$this->Form->control('hedMax'.$request[0], ['type'=>'number', 'value' => $$hourMax['HED'], 'label' => false ,'style' => 'display:none' ] );
+
+                    // maximo de horas asistente ecci
+                    echo $this->Form->control('haeMax'.$request[0], ['type'=>'number', 'value' => $$hourMax['HAE'], 'label' => false ,'style' => 'display:none' ] );
+                ?> 
+                <?= $this->Form->end(); ?>
+
                 <?php endforeach; ?>
             </tbody>
         </table>
         
-        <!-- Forma oculta para procesar la solicitud de la fila deseada -->
+        <!-- Datos para controlar las horas de la solicitud -->
         <?= $this->Form->create(false,['id'=>'submitRequest'] ); ?>
         <?php 
             // Número de solicitud
@@ -111,9 +135,10 @@
             $this->Form->unlockField('sendHour');
         ?> 
         <?= $this->Form->end(); ?>
-
     <div> 
 </div>
+
+<?= $this->Html->script('Generic'); ?>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/> 
 <script type="text/javascript">
@@ -174,11 +199,14 @@
             }
         });
 
+        
+
         /**
          * Función encargada de establecer el mínimo y máximo de horas 
          * dependiendo del tipo de horas elegidas .
          * 
          * @author Nathan González
+         * @author Daniel Marín
          */
         $('#requesttable').on('change', '.checkbox', function (event) {   
             // Se toma la fila y la columna del elemento que cambio             
@@ -189,19 +217,35 @@
             // Se busca la tabla por su id
             var table = document.getElementById('requesttable');
 
+            student_max_hours = 'student_max_hours_'.concat(table.rows[row].cells[0].innerText);
+            hasAsignedHours = 'hasAsignedHours_'.concat(table.rows[row].cells[0].innerText);
             // Si se elige horas asistentes su min será 3 y su max 20, 
             // si se elije horas estudiantes su min será 3 y su max 12. 
             // Caso contrario se bloqueara la entrada de datos
+            
+            id = table.rows[row].cells[0].innerText;
+            field = table.rows[row].cells[8].firstElementChild;
+            console.log('haemax'.concat(id));
+
             if( this.value == 'HAE' ){
                 table.rows[row].cells[8].firstElementChild.disabled = false;
-                table.rows[row].cells[8].firstElementChild.value = 3;
-                table.rows[row].cells[8].firstElementChild.max = 20;
+                field.min =  byId('haemax'.concat(id)).value < 3 || byId('assigned'.concat(id)).value? 1:3 ;
+                field.max =  byId('haemax'.concat(id)).value;
+                table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
             }
             else{
                 if( this.value == 'HEE' || this.value == 'HED' ){
                     table.rows[row].cells[8].firstElementChild.disabled = false;
-                    table.rows[row].cells[8].firstElementChild.value = 3;
-                    table.rows[row].cells[8].firstElementChild.max = 12;
+                    if(this.value == 'HEE'){
+                        field.min =  byId('heemax'.concat(id)).value < 3 || byId('assigned'.concat(id)).value? 1:3;
+                        field.max =  byId('heemax'.concat(id)).value;
+                    }else if(this.value == 'HED'){
+                        field.min =  byId('hedmax'.concat(id)).value < 3 || byId('assigned'.concat(id)).value? 1:3;
+                        field.max =  byId('hedmax'.concat(id)).value;
+                    }
+                    
+                    //table.rows[row].cells[8].firstElementChild.max = 12;
+                    table.rows[row].cells[8].firstElementChild.value = table.rows[row].cells[8].firstElementChild.min;
                 }
                 else{
                     table.rows[row].cells[8].firstElementChild.disabled = true;

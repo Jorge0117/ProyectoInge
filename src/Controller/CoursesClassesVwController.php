@@ -330,7 +330,9 @@ class CoursesClassesVwController extends AppController
                         $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
                         if($id == null){
                             $canContinue = false;
-                            array_push($errorProf, $value);
+                            if(array_search($value,$errorProf)===FALSE){
+                                array_push($errorProf, $value);
+                            }
 
                         }else{
                             array_push($profIds, $id);
@@ -405,14 +407,11 @@ class CoursesClassesVwController extends AppController
             //Agrega el curso
             $courseTable->addCourse($parameters[1], $parameters[0]);
 
-            //Selecciona un smestre según la fecha actual
-            if(date("m") > 6){
-                $semester = 2;
-            }else{
-                $semester = 1;
-            }
+            //Selecciona un semestre según la ronda actual
+            $roundData = $this->viewVars['roundData'];
+            $semester = ($roundData['semester']=='I')?1:2;
             //Agrega el grupo
-            $classTable->addClass($parameters[1], $parameters[2], $semester, date("Y"), 1, $profId);
+            $classTable->addClass($parameters[1], $parameters[2], $semester, $roundData['year'], 1, $profId);
 
         }
     }
