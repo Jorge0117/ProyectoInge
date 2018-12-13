@@ -45,7 +45,7 @@ class CoursesClassesVwTable extends Table
     {
         $validator
             ->scalar('Sigla')
-            ->maxLength('Sigla', 7)
+            ->maxLength('Sigla', 6)
             ->requirePresence('Sigla', 'create')
             ->notEmpty('Sigla');
 
