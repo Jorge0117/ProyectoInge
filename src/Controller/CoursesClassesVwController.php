@@ -275,126 +275,141 @@ class CoursesClassesVwController extends AppController
 
     //Método encargado de leer el archivo de excel y mostrar la vista previa
     public function importExcelfile (){
-        $this->loadModel('CoursesClassesVw');
-        $coursesClassesVw = $this->CoursesClassesVw->newEntity();
-        $UserController = new UsersController;
-        //Quita el límite de la memoria, ya que los archivos la pueden gastar
-        ini_set('memory_limit', '-1');
+        try{
 
-        //Obtiene la carpeta y el nombre del archivo guardado en la base de datos
-        $fileDir = $this->getDir();
-        //Con los datos obtenidos indica el directorio del archivo
-        $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
+            $this->loadModel('CoursesClassesVw');
+            $coursesClassesVw = $this->CoursesClassesVw->newEntity();
+            $UserController = new UsersController;
+            //Quita el límite de la memoria, ya que los archivos la pueden gastar
+            ini_set('memory_limit', '-1');
 
-        //Identifica el tipo de archivo
-        $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
-        //Crea un nuevo reader para el tipo de archivo
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-        //Hace que el reader sólo lea archivos con datos
-        $reader->setReadDataOnly(true);
-        //Carga el archivo a un spreadsheet
-        $spreadsheet = $reader->load($inputFileName);
+            //Obtiene la carpeta y el nombre del archivo guardado en la base de datos
+            $fileDir = $this->getDir();
+            //Con los datos obtenidos indica el directorio del archivo
+            $inputFileName = WWW_ROOT. 'files'. DS. 'files'. DS. 'file'. DS. $fileDir[1]. DS. $fileDir[0];
 
-        $worksheet = $spreadsheet->getActiveSheet();
-        //Consigue la posición de la última fila
-        $highestRow = $worksheet->getHighestRow(null);
-        //Consigue la posición de la última columna
-        $highestColumn = $worksheet->getHighestDataColumn();
-        //Transforma la última fila a un index. Ejemplo C = 3
-        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+            //Identifica el tipo de archivo
+            $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($inputFileName);
+            //Crea un nuevo reader para el tipo de archivo
+            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+            //Hace que el reader sólo lea archivos con datos
+            $reader->setReadDataOnly(true);
+            //Carga el archivo a un spreadsheet
+            $spreadsheet = $reader->load($inputFileName);
 
-        //Contiene una matriz con las filas del archivo
-        $table = [];
-        //Contiene las filas del archivo
-        $rows = [];
+            $worksheet = $spreadsheet->getActiveSheet();
+            //Consigue la posición de la última fila
+            $highestRow = $worksheet->getHighestRow(null);
 
-        $profIds = [];
+            //Contiene una matriz con las filas del archivo
+            $table = [];
+            //Contiene las filas del archivo
+            $rows = [];
 
-        //Los profesores que deben ser agregados
-        $errorProf = [];
+            $profIds = [];
 
-        //Indica si se pueden agregar los cursos
-        $canContinue = true;
-        //Se llena la matriz
-        for ($row = 5; $row <= $highestRow; ++$row) {
-            for ($col = 1; $col <= 4; ++$col) {
-                $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
-                $rows[$col -1] = $value;
+            //Los profesores que deben ser agregados
+            $errorProf = [];
 
-                //Revisa si el profe existe
-                if($col == 4){
-                    if($value != null){
-                        //Divide el profesor en nombre y apellido
-                        $prof = preg_split('/\s+/', $value);
-                        //Consigue el id del profesor
-                        $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
-                        if($id == null){
-                            $canContinue = false;
-                            if(array_search($value,$errorProf)===FALSE){
-                                array_push($errorProf, $value);
-                            }
+            //Indica si se pueden agregar los cursos
+            $canContinue = true;
+            //Se llena la matriz
+            for ($row = 1; $row <= $highestRow; ++$row) {
+                for ($col = 1; $col <= 4; ++$col) {
+                    $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
 
-                        }else{
-                            array_push($profIds, $id);
-                        }
-                    }else{
-                        array_push($profIds, null);
+                    //Quita los guines de las siglas
+                    if($col == 2){
+                        $value = str_replace("-", "", $value);
                     }
-                    
+
+                    //Elimina todas las letras del campo grupo
+                    if($col == 3){
+                        $value = (int) filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+                    }
+
+                    $rows[$col -1] = $value;
+
+                    //Revisa si el profe existe
+                    if($col == 4){
+                        if($value != null){
+                            //Divide el profesor en nombre y apellido
+                            $prof = preg_split('/\s+/', $value);
+                            //Consigue el id del profesor
+                            $id = $UserController->getId($prof[count($prof)-1], $prof[0]);
+                            if($id == null){
+                                $canContinue = false;
+                                if(array_search($value,$errorProf)===FALSE){
+                                    array_push($errorProf, $value);
+                                }
+
+                            }else{
+                                array_push($profIds, $id);
+                            }
+                        }else{
+                            array_push($profIds, null);
+                        }
+                        
+                    }
+
+                }
+                $table[$row -1] = $rows;
+                unset($rows); //resetea el array rows
+            }
+
+            //En caso de que un profesor no exista
+            if(!$canContinue){
+                $message = "Los siguientes profesores no están en la base: \n";
+                for ($i = 0; $i < count($errorProf); $i++){
+                    $message = $message . $errorProf[$i] . ",\n";
                 }
 
-            }
-            $table[$row -5] = $rows;
-            unset($rows); //resetea el array rows
-        }
 
-        //En caso de que un profesor no exista
-        if(!$canContinue){
-            $message = "Los siguientes profesores no están en la base: \n";
-            for ($i = 0; $i < count($errorProf); $i++){
-                $message = $message . $errorProf[$i] . ",\n";
+                //Se borra el archivo
+                $this->deleteFiles();
+                $this->Flash->error($message);
+                return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
             }
 
+            //Se cambia el nombre de las llaves del array si no es post ya que es para la vista previa
+            if(!$this->request->is('post')){
+                $table = array_map(function($tag) {
+                    return array(
+                        'Curso' => $tag['0'],
+                        'Sigla' => $tag['1'],
+                        'Grupo' => $tag['2'],
+                        'Profesor' => $tag['3']
+                    );
+                }, $table);
+        
+            }
+            //Hace que table sea visible para el template
+            $this->set('table', $table);
 
-            //Se borra el archivo
+            //Cuando se da aceptar
+            if ($this->request->is('post')) {
+                //Borra todos los grupos
+                $classesModel = $this->loadmodel('Classes');
+                $classesModel->deleteAllClasses();
+
+                //Llama al método addFromFile con cada fila
+                for ($row = 0; $row < count($table); ++$row) {
+                    $this->addFromFile($table[$row], $profIds[$row]);
+                }
+
+                //Se borra el archivo
+                $this->deleteFiles();
+
+                $this->Flash->success(__('Se agregaron los cursos correctamente.'));
+                return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
+            }
+            $this->set(compact('coursesClassesVw'));
+
+        }catch(Exeption $e){
             $this->deleteFiles();
-            $this->Flash->error($message);
+            $this->Flash->error('Error leyendo el archivo. Por favor revisar que el formato es el correcto.');
             return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
         }
-
-        //Se cambia el nombre de las llaves del array si no es post ya que es para la vista previa
-        if(!$this->request->is('post')){
-            $table = array_map(function($tag) {
-                return array(
-                    'Curso' => $tag['0'],
-                    'Sigla' => $tag['1'],
-                    'Grupo' => $tag['2'],
-                    'Profesor' => $tag['3']
-                );
-            }, $table);
-    
-        }
-        //Hace que table sea visible para el template
-        $this->set('table', $table);
-
-        //Cuando se da aceptar
-        if ($this->request->is('post')) {
-            //Borra todos los grupos
-            $classesModel = $this->loadmodel('Classes');
-            $classesModel->deleteAllClasses();
-
-            //Llama al método addFromFile con cada fila
-            for ($row = 0; $row < count($table); ++$row) {
-                $this->addFromFile($table[$row], $profIds[$row]);
-            }
-
-            //Se borra el archivo
-            $this->deleteFiles();
-
-            $this->Flash->success(__('Se agregaron los cursos correctamente.'));
-            return $this->redirect(['controller' => 'CoursesClassesVw', 'action' => 'index']);
-        }
-        $this->set(compact('coursesClassesVw'));
     }
 
     //Este método se usa para agregar cada fila del archivo una vez se preciona aceptar
