@@ -850,7 +850,7 @@ class Debugger
 
             return;
         }
-        echo Text::insert($tpl['error'], compact('links', 'info') + $data, $insertOpts);
+        //echo Text::insert($tpl['error'], compact('links', 'info') + $data, $insertOpts);
     }
 
     /**
