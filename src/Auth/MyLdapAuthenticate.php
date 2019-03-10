@@ -121,7 +121,11 @@ class MyLdapAuthenticate extends BaseAuthenticate
                     // return $this->findUser($username);
                     ///////////////////////////////////
                 } else {
-                    //debug("Couldn't establish connection with LDAP server");
+                    /*
+                     * We should redirect the user to a 
+                     * page where the problem is briefly explined.
+                     */
+                    // debug("Couldn't establish connection with LDAP server");
 
                     ///////////////////////////////////
                     // debug("Ignorando temporalmente");
